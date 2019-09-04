@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,9 +13,6 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using AutoUpdaterDotNET;
 using Dfust.Hotkeys;
-using ICSharpCode.SharpZipLib.Core;
-using ICSharpCode.SharpZipLib.Zip;
-using Newtonsoft.Json;
 using SharpPresence;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
@@ -425,12 +421,14 @@ namespace WolvenKit
                     LoadUsmFile(fullpath);
                     break;
                 case ".ws":
-                    PolymorphExecute(fullpath, ".txt");
+                    ShellExecute(fullpath); //We need to use Shell Execute for Witcher Script files, PolymorphExecute erroneously tries to open them with Notepad. A user may expect it to open with NP++ or some other app.
                     break;
                 case ".dds":
                     LoadDDSFile(fullpath);
                     break;
                 default:
+                    //This fails unnecessarily in the event that we're tryign to open a file extension that isn't associated with anything in Windows and also is not an actually supported file type.
+                    //See note about Dragnilar's File Extension Hack below...
                     LoadDocument(fullpath);
                     break;
             }
@@ -795,6 +793,46 @@ namespace WolvenKit
             ModExplorer.Activate();
         }
 
+        //https://www.codeproject.com/Articles/13103/Calling-the-Open-With-dialog-box-from-your-applica
+        //Start Open File As Hack
+        [Serializable]
+        public struct ShellExecuteInfo
+        {
+            public int Size;
+            public uint Mask;
+            public IntPtr hwnd;
+            public string Verb;
+            public string File;
+            public string Parameters;
+            public string Directory;
+            public uint Show;
+            public IntPtr InstApp;
+            public IntPtr IDList;
+            public string Class;
+            public IntPtr hkeyClass;
+            public uint HotKey;
+            public IntPtr Icon;
+            public IntPtr Monitor;
+        }
+
+        [DllImport("shell32.dll", SetLastError = true)]
+        extern public static bool ShellExecuteEx(ref ShellExecuteInfo lpExecInfo);
+
+        static void OpenAs(string file)
+        {
+            ShellExecuteInfo sei = new ShellExecuteInfo();
+            sei.Size = Marshal.SizeOf(sei);
+            sei.Verb = "openas";
+            sei.File = file;
+            sei.Show = SW_NORMAL;
+            if (!ShellExecuteEx(ref sei))
+                throw new System.ComponentModel.Win32Exception();
+        }
+
+        public const uint SW_NORMAL = 1;
+
+        //End Open File As Hack
+
         public frmCR2WDocument LoadDocument(string filename, MemoryStream memoryStream = null, bool suppressErrors = false)
         {
             if (memoryStream == null && !File.Exists(filename))
@@ -822,8 +860,18 @@ namespace WolvenKit
             }
             catch (InvalidFileTypeException ex)
             {
-                if (!suppressErrors)
-                    MessageBox.Show(this, ex.Message, @"Error opening file.");
+                //Dragnilar's File Extension Handling Hack:
+                //This is a hack to get around the original author's design flaw with handling file extensions that are not yet associated with anything in Windows. 
+                //A dictionary of supported file types should probably be used instead of using a switch statement.
+                try
+                {
+                    OpenAs(filename);
+                }
+                catch (Exception)
+                {
+                    if (!suppressErrors)
+                        MessageBox.Show(this, ex.Message, @"Error opening file.");
+                }
 
                 OpenDocuments.Remove(doc);
                 doc.Dispose();
