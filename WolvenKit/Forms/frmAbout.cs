@@ -15,7 +15,7 @@ namespace WolvenKit
             labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyTrademark;
-            
+
             webBrowser1.DocumentText = $@"
 <html>
     <body bgcolor={ColorTranslator.ToHtml(SystemColors.Control)}>
@@ -48,11 +48,11 @@ namespace WolvenKit
             get
             {
                 var attributes = Assembly.GetExecutingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
+                    .GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    var titleAttribute = (AssemblyTitleAttribute) attributes[0];
-                    if (titleAttribute.Title != "")
+                    var titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    if (titleAttribute.Title != string.Empty)
                     {
                         return titleAttribute.Title;
                     }
@@ -71,12 +71,12 @@ namespace WolvenKit
             get
             {
                 var attributes =
-                    Assembly.GetExecutingAssembly().GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
+                    Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
-                return ((AssemblyDescriptionAttribute) attributes[0]).Description;
+                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
 
@@ -85,12 +85,12 @@ namespace WolvenKit
             get
             {
                 var attributes = Assembly.GetExecutingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyProductAttribute), false);
+                    .GetCustomAttributes(typeof(AssemblyProductAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
-                return ((AssemblyProductAttribute) attributes[0]).Product;
+                return ((AssemblyProductAttribute)attributes[0]).Product;
             }
         }
 
@@ -99,12 +99,12 @@ namespace WolvenKit
             get
             {
                 var attributes = Assembly.GetExecutingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
+                    .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
-                return ((AssemblyCopyrightAttribute) attributes[0]).Copyright;
+                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
 
@@ -113,12 +113,12 @@ namespace WolvenKit
             get
             {
                 var attributes = Assembly.GetExecutingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyTrademarkAttribute), false);
+                    .GetCustomAttributes(typeof(AssemblyTrademarkAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
-                return ((AssemblyTrademarkAttribute) attributes[0]).Trademark;
+                return ((AssemblyTrademarkAttribute)attributes[0]).Trademark;
             }
         }
 

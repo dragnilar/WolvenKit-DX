@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,7 +13,7 @@ namespace WolvenKit
         public frmModExplorer()
         {
             InitializeComponent();
-            UpdateModFileList(true,true);
+            UpdateModFileList(true, true);
             LastChange = DateTime.Now;
         }
 
@@ -28,7 +27,7 @@ namespace WolvenKit
         public event EventHandler<RequestFileArgs> RequestFileDelete;
         public event EventHandler<RequestFileArgs> RequestFileAdd;
         public event EventHandler<RequestFileArgs> RequestFileRename;
-        public List<string> FilteredFiles; 
+        public List<string> FilteredFiles;
         public bool FoldersShown = true;
 
         public static DateTime LastChange;
@@ -71,7 +70,7 @@ namespace WolvenKit
             return false;
         }
 
-        public void UpdateModFileList(bool showfolders,bool clear = false)
+        public void UpdateModFileList(bool showfolders, bool clear = false)
         {
             if (ActiveMod == null)
                 return;
@@ -91,10 +90,10 @@ namespace WolvenKit
                 if (!showfolders)
                 {
                     var newNode = current.Add(item, item);
-                    if (treeImages.Images.ContainsKey(Path.GetExtension(item).Replace(".", "")))
+                    if (treeImages.Images.ContainsKey(Path.GetExtension(item).Replace(".", string.Empty)))
                     {
-                        newNode.ImageKey = Path.GetExtension(item).Replace(".", "");
-                        newNode.ImageKey = Path.GetExtension(item).Replace(".", "");
+                        newNode.ImageKey = Path.GetExtension(item).Replace(".", string.Empty);
+                        newNode.ImageKey = Path.GetExtension(item).Replace(".", string.Empty);
                     }
                     else
                     {
@@ -113,10 +112,10 @@ namespace WolvenKit
                             var newNode = current.Add(parts[i], parts[i]);
                             if (i == parts.Length - 1)
                             {
-                                if (treeImages.Images.ContainsKey(Path.GetExtension(item).Replace(".", "")))
+                                if (treeImages.Images.ContainsKey(Path.GetExtension(item).Replace(".", string.Empty)))
                                 {
-                                    newNode.ImageKey = Path.GetExtension(item).Replace(".", "");
-                                    newNode.ImageKey = Path.GetExtension(item).Replace(".", "");
+                                    newNode.ImageKey = Path.GetExtension(item).Replace(".", string.Empty);
+                                    newNode.ImageKey = Path.GetExtension(item).Replace(".", string.Empty);
                                 }
                                 else
                                 {
@@ -145,20 +144,20 @@ namespace WolvenKit
 
         private void modFileList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            RequestFileOpen?.Invoke(this, new RequestFileArgs {File = e.Node.FullPath});
+            RequestFileOpen?.Invoke(this, new RequestFileArgs { File = e.Node.FullPath });
         }
 
         private void removeFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (modFileList.SelectedNode != null)
             {
-                RequestFileDelete?.Invoke(this, new RequestFileArgs {File = modFileList.SelectedNode.FullPath});
+                RequestFileDelete?.Invoke(this, new RequestFileArgs { File = modFileList.SelectedNode.FullPath });
             }
         }
 
         private void addFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RequestFileAdd?.Invoke(this,new RequestFileArgs {File = GetExplorerString(modFileList.SelectedNode?.FullPath ?? "")});
+            RequestFileAdd?.Invoke(this, new RequestFileArgs { File = GetExplorerString(modFileList.SelectedNode?.FullPath ?? string.Empty) });
         }
 
         private void modFileList_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -174,7 +173,7 @@ namespace WolvenKit
         {
             if (modFileList.SelectedNode != null)
             {
-                RequestFileRename?.Invoke(this, new RequestFileArgs {File = modFileList.SelectedNode.FullPath});
+                RequestFileRename?.Invoke(this, new RequestFileArgs { File = modFileList.SelectedNode.FullPath });
             }
         }
 
@@ -233,21 +232,21 @@ namespace WolvenKit
         private void showhideButton_Click(object sender, EventArgs e)
         {
             FoldersShown = !FoldersShown;
-            UpdateModFileList(FoldersShown,true);
+            UpdateModFileList(FoldersShown, true);
         }
 
         private void UpdatefilelistButtonClick(object sender, EventArgs e)
         {
             FoldersShown = true;
             FilteredFiles = ActiveMod.Files;
-            UpdateModFileList(true,true);
+            UpdateModFileList(true, true);
         }
 
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
-            if(ActiveMod == null)
+            if (ActiveMod == null)
                 return;
-            if (searchBox.Text == "")
+            if (searchBox.Text == string.Empty)
             {
                 FilteredFiles = ActiveMod.Files;
                 UpdateModFileList(true, true);
@@ -266,7 +265,7 @@ namespace WolvenKit
 
         private void frmModExplorer_Shown(object sender, EventArgs e)
         {
-            if(ActiveMod != null)
+            if (ActiveMod != null)
                 modexplorerSlave.Path = ActiveMod.FileDirectory;
         }
 
@@ -303,7 +302,7 @@ namespace WolvenKit
 
         private void copyRelativePathToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(modFileList.SelectedNode != null)
+            if (modFileList.SelectedNode != null)
                 Clipboard.SetText(GetArchivePath(modFileList.SelectedNode.FullPath));
         }
 
@@ -336,7 +335,7 @@ namespace WolvenKit
             if (s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length > 1)
             {
                 var r = string.Join(Path.DirectorySeparatorChar.ToString(), new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1)).ToArray());
-                return string.Join(Path.DirectorySeparatorChar.ToString(), new[] {"Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1)).ToArray());
+                return string.Join(Path.DirectorySeparatorChar.ToString(), new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1)).ToArray());
             }
             else
                 return s;

@@ -36,12 +36,12 @@ namespace WolvenKit.FlowTreeEditors
             var sceneElementsObj = Chunk.GetVariableByName("sceneElements");
             if (sceneElementsObj != null && sceneElementsObj is CArray)
             {
-                var sceneElements = (CArray) sceneElementsObj;
+                var sceneElements = (CArray)sceneElementsObj;
                 foreach (var element in sceneElements)
                 {
                     if (element != null && element is CPtr)
                     {
-                        var ptr = (CPtr) element;
+                        var ptr = (CPtr)element;
                         switch (ptr.PtrTargetType)
                         {
                             case "CStorySceneLine":
@@ -60,7 +60,7 @@ namespace WolvenKit.FlowTreeEditors
                                 var texts = TextRenderer.MeasureText(label.Text, label.Font, new Size(Width - 6, 100),
                                     TextFormatFlags.WordBreak);
                                 label.Height = texts.Height + 5;
-                                label.BackColor = (line%2) == 0 ? Color.LightBlue : Color.Transparent;
+                                label.BackColor = (line % 2) == 0 ? Color.LightBlue : Color.Transparent;
 
                                 label.Click += delegate { FireSelectEvent(ptr.PtrTarget); };
 
@@ -79,19 +79,19 @@ namespace WolvenKit.FlowTreeEditors
 
         private string GetDisplayString(CR2WChunk c)
         {
-            var str = "";
+            var str = string.Empty;
             if (c != null)
             {
                 var speaker = c.GetVariableByName("voicetag");
                 if (speaker != null && speaker is CName)
                 {
-                    str += ((CName) speaker).Value + ": ";
+                    str += ((CName)speaker).Value + ": ";
                 }
 
                 var line = c.GetVariableByName("dialogLine");
                 if (line != null && line is CLocalizedString)
                 {
-                    str += ((CLocalizedString) line).Text;
+                    str += ((CLocalizedString)line).Text;
                 }
             }
 
@@ -105,7 +105,7 @@ namespace WolvenKit.FlowTreeEditors
             var choiceObj = Chunk.GetVariableByName("choice");
             if (choiceObj != null && choiceObj is CPtr)
             {
-                var choicePtr = ((CPtr) choiceObj);
+                var choicePtr = ((CPtr)choiceObj);
                 if (choicePtr.PtrTarget != null)
                 {
                     list.Add(choicePtr);
@@ -116,7 +116,7 @@ namespace WolvenKit.FlowTreeEditors
             var nextLinkElementObj = Chunk.GetVariableByName("nextLinkElement");
             if (nextLinkElementObj != null && nextLinkElementObj is CPtr)
             {
-                var nextLinkElementPtr = ((CPtr) nextLinkElementObj);
+                var nextLinkElementPtr = ((CPtr)nextLinkElementObj);
                 if (nextLinkElementPtr.PtrTarget != null)
                 {
                     list.Add(nextLinkElementPtr);

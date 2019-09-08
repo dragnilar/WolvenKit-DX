@@ -91,12 +91,12 @@ namespace WolvenKit.FlowTreeEditors
 
         public void FireSelectEvent(CR2WChunk c)
         {
-            OnSelectChunk?.Invoke(this, new SelectChunkArgs {Chunk = c});
+            OnSelectChunk?.Invoke(this, new SelectChunkArgs { Chunk = c });
         }
 
         public virtual Point GetConnectionLocation(int i)
         {
-            return new Point(0, Height/2);
+            return new Point(0, Height / 2);
         }
     }
 }

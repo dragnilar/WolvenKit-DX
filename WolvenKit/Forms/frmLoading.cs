@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,7 +10,7 @@ namespace WolvenKit.Forms
     public partial class frmLoading : Form
     {
         public frmLoading()
-        {            
+        {
             InitializeComponent();
         }
 
@@ -43,7 +38,7 @@ namespace WolvenKit.Forms
                 {
                     this.Close();
                 }
-                    
+
             }
             else
             {
@@ -61,13 +56,13 @@ namespace WolvenKit.Forms
             if (e.PropertyName == "loadStatus")
                 Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).loadStatus);
             if (e.PropertyName == "Loaded")
-                Invoke(new boolDelegate(Finish), ((MainController) sender).Loaded);
+                Invoke(new boolDelegate(Finish), ((MainController)sender).Loaded);
 
         }
 
         private void Finish(bool b)
         {
-            if(b)
+            if (b)
                 this.Close();
             else
             {

@@ -34,7 +34,7 @@ namespace WolvenKit
 
                 foreach (var filePath in filesPaths)
                 {
-                    var thumbnailFilePath = Path.Combine(Path.GetDirectoryName(filePath) ?? "",
+                    var thumbnailFilePath = Path.Combine(Path.GetDirectoryName(filePath) ?? string.Empty,
                         Path.GetFileNameWithoutExtension(filePath) + ".png");
 
                     Savegames.Add(new SavegameModel
@@ -79,7 +79,7 @@ namespace WolvenKit
                     variablenode.Text = node.Index.ToString();
                     variablenode.SubItems.Add(node.Name);
                     variablenode.SubItems.Add(node.Type);
-                    variablenode.SubItems.Add(node.Value == "" ? "NONE" : node.Value);
+                    variablenode.SubItems.Add(node.Value == string.Empty ? "NONE" : node.Value);
                     variablenode.SubItems.Add(node.DebugString);
                     variablenode.SubItems.Add(node.Children.Count().ToString());
                     variablesList.Items.Add(variablenode);
@@ -103,16 +103,15 @@ namespace WolvenKit
                 : typed.Type;
 
             var value = typed == null || typed.Value == null
-                ? ""
-                : typed.Value.ToString();
+                ? string.Empty : typed.Value.ToString();
 
             return new VariableModel
             {
                 Index = i,
-                Name = v == null ? "" : v.Name,
+                Name = v == null ? string.Empty : v.Name,
                 Type = type,
                 Value = value,
-                DebugString = v == null ? "" : v.ToString(),
+                DebugString = v == null ? string.Empty : v.ToString(),
                 Children = children
             };
         }

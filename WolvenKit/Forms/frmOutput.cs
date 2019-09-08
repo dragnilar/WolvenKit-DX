@@ -22,12 +22,12 @@ namespace WolvenKit
             InitializeComponent();
         }
 
-        public void AddText(string text,Logtype type = Logtype.Normal)
+        public void AddText(string text, Logtype type = Logtype.Normal)
         {
             switch (type)
             {
                 case Logtype.Error:
-                    txOutput.AppendText(text,Color.DarkRed);
+                    txOutput.AppendText(text, Color.DarkRed);
                     break;
                 case Logtype.Important:
                     txOutput.AppendText(text, Color.DarkBlue);
@@ -63,7 +63,7 @@ namespace WolvenKit
                 sf.Filter = "Text file (.txt) | *.txt";
                 if (sf.ShowDialog() == DialogResult.OK)
                 {
-                    File.WriteAllLines(sf.FileName,txOutput.Lines);
+                    File.WriteAllLines(sf.FileName, txOutput.Lines);
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace WolvenKit
             box.SelectionLength = 0;
 
             box.SelectionColor = color;
-            box.AppendText("["+ DateTime.Now.ToString("G") + "]: " + text);
+            box.AppendText("[" + DateTime.Now.ToString("G") + "]: " + text);
             box.SelectionColor = box.ForeColor;
         }
     }

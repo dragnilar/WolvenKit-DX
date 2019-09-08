@@ -76,7 +76,7 @@ namespace WolvenKit
                 {
                     RenderViewer.MeshFile = file;
                 }
-                
+
 
                 if (embeddedFiles != null && !embeddedFiles.IsDisposed)
                 {
@@ -178,7 +178,7 @@ namespace WolvenKit
 
                     if (OnFileSaved != null)
                     {
-                        OnFileSaved(this, new FileSavedEventArgs {FileName = FileName, Stream = mem, File = File});
+                        OnFileSaved(this, new FileSavedEventArgs { FileName = FileName, Stream = mem, File = File });
                     }
                 }
             }
@@ -201,7 +201,7 @@ namespace WolvenKit
 
                             if (OnFileSaved != null)
                             {
-                                OnFileSaved(this, new FileSavedEventArgs {FileName = FileName, Stream = fs, File = File});
+                                OnFileSaved(this, new FileSavedEventArgs { FileName = FileName, Stream = fs, File = File });
                             }
                             fs.Close();
                         }

@@ -36,7 +36,7 @@ namespace WolvenKit
 
         private void UsmPlayer_CloseOnStart(object sender, EventArgs e)
         {
-            MessageBox.Show("You need to have VLC installed to use this feature. Please set the proper path in MainController\nCurrent path: " + MainController.Get().VLCLibDir,"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            MessageBox.Show("You need to have VLC installed to use this feature. Please set the proper path in MainController\nCurrent path: " + MainController.Get().VLCLibDir, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             this.Close();
         }
 
@@ -60,14 +60,14 @@ namespace WolvenKit
         private void VideoConverter_DoWork(object sender, DoWorkEventArgs e)
         {
             Demux(videofile);
- /*           foreach (var demuxedfile in Demuxedfiles)
-            {
-#if DEBUG
-                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\DUMP_FOLDER\\" + demuxedfile.Key,
-                    demuxedfile.Value);
-#endif
-            }
-*/
+            /*           foreach (var demuxedfile in Demuxedfiles)
+                       {
+           #if DEBUG
+                           File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\DUMP_FOLDER\\" + demuxedfile.Key,
+                               demuxedfile.Value);
+           #endif
+                       }
+           */
         }
 
         private void VideoConverter_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

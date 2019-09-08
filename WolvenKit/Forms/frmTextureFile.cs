@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Cache;
@@ -47,13 +42,13 @@ namespace WolvenKit
                     newSize = new Size(Width, (int)(ratio * Width));
                 else
                     newSize = new Size((int)(1 / ratio * Height), Height);
-                if(newSize.Height > 0 && newSize.Width > 0)
+                if (newSize.Height > 0 && newSize.Width > 0)
                     pictureBox1.Image = new Bitmap(origImg, newSize);
             }
 
             CenterPictureBox(pictureBox1, new Bitmap(pictureBox1.Image));
         }
-        
+
         private void CenterPictureBox(PictureBox picBox, Bitmap picImage)
         {
             picBox.Image = picImage;

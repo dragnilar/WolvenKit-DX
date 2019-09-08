@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using VanWassenhove.Util;
 using WolvenKit.Net;
@@ -40,7 +35,7 @@ namespace WolvenKit
 
         private void copySelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(logbox.SelectedText ?? "");
+            Clipboard.SetText(logbox.SelectedText ?? string.Empty);
         }
 
         private void copyAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -50,10 +45,10 @@ namespace WolvenKit
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var sf = new SaveFileDialog {Title = "Please select where to save the log."};
+            var sf = new SaveFileDialog { Title = "Please select where to save the log." };
             if (sf.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllLines(sf.FileName,logbox.Lines);
+                File.WriteAllLines(sf.FileName, logbox.Lines);
             }
         }
 
@@ -65,7 +60,7 @@ namespace WolvenKit
             }
             else
             {
-                Connect(DebugProtoclAdress, GameSocket);   
+                Connect(DebugProtoclAdress, GameSocket);
                 if (GameSocket.Connected)
                 {
                     statusLabel.Text = "Status: Connected";
@@ -116,7 +111,7 @@ namespace WolvenKit
             var config = MainController.Get().Configuration;
             var proc = new ProcessStartInfo(config.ExecutablePath)
             {
-                Arguments = args == "" ? "-net -debugscripts" : args,
+                Arguments = args == string.Empty ? "-net -debugscripts" : args,
                 UseShellExecute = false,
                 RedirectStandardOutput = true
             };
@@ -143,7 +138,7 @@ namespace WolvenKit
 
         private void GetOpcodeButton_Click(object sender, EventArgs e)
         {
-            Send(GameSocket, Commands.Opcode(FuncNameTextBox.Text, ClassnameTextBox.Text == "" ? null : ClassnameTextBox.Text));
+            Send(GameSocket, Commands.Opcode(FuncNameTextBox.Text, ClassnameTextBox.Text == string.Empty ? null : ClassnameTextBox.Text));
         }
 
         private void VarListButton_Click(object sender, EventArgs e)
@@ -166,23 +161,23 @@ namespace WolvenKit
             Send(GameSocket, Commands.Reload());
         }
 
-        public void UpdateVarDgv(object source,EventArgs args)
+        public void UpdateVarDgv(object source, EventArgs args)
         {
-            varDGV.Invoke((MethodInvoker) delegate
-            {
-                varDGV.DataSource = Variables;
-                varDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                if (varDGV.ColumnCount > 0)
-                {
-                    for (var i = 0; i < varDGV.Columns.Count; i++)
-                    {
-                        varDGV.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        varDGV.Columns[i].ReadOnly = true;
-                        varDGV.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
-                    }
-                    varDGV.Columns[varDGV.Columns.Count - 1].ReadOnly = false;
-                }
-            });
+            varDGV.Invoke((MethodInvoker)delegate
+           {
+               varDGV.DataSource = Variables;
+               varDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+               if (varDGV.ColumnCount > 0)
+               {
+                   for (var i = 0; i < varDGV.Columns.Count; i++)
+                   {
+                       varDGV.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                       varDGV.Columns[i].ReadOnly = true;
+                       varDGV.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
+                   }
+                   varDGV.Columns[varDGV.Columns.Count - 1].ReadOnly = false;
+               }
+           });
         }
 
         public void CheckResponse(Response.Data resdata)
@@ -193,7 +188,7 @@ namespace WolvenKit
 
             if (resdata.Params.First().Type == Net.Response.ParamType.Int32)
             {
-                if ((ulong)((Response.Int_32) (resdata.Params.First())).Value == 0xFFFFFFFFCC00CC00)
+                if ((ulong)((Response.Int_32)(resdata.Params.First())).Value == 0xFFFFFFFFCC00CC00)
                 {
                     varDGV.Invoke((MethodInvoker)delegate
                     {
@@ -216,13 +211,13 @@ namespace WolvenKit
                     });
                 }
             }
-            VarlistRecieved?.Invoke(this,null);
+            VarlistRecieved?.Invoke(this, null);
         }
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("To use this you need to send the game a varlist command (Utilities tab) with your desired criteria. After that's done this will be updated with the variables",
-                "Info",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void varDGV_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -246,7 +241,8 @@ namespace WolvenKit
         #region Network stuff
         private void DataRecieveWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            logbox.Invoke((MethodInvoker)delegate {
+            logbox.Invoke((MethodInvoker)delegate
+            {
                 AddOutput("Started recieving!");
             });
             var dataIn = new byte[8192 * 32];
@@ -259,10 +255,10 @@ namespace WolvenKit
                     {
                         Response = new Response.Data(dataIn);
                         CheckResponse(Response);
-                        logbox.Invoke((MethodInvoker)delegate 
+                        logbox.Invoke((MethodInvoker)delegate
                         {
                             AddOutput("\nRecieved packet of " + Response.Params.Count + " params [" + bytesRead + " bytes]:\n" +
-                                Response.Params.Aggregate("",(c,n) => c += (n.Type.ToString() + ": " + n.ToString()) + "\n"));
+                                Response.Params.Aggregate(string.Empty, (c, n) => c += (n.Type.ToString() + ": " + n.ToString()) + "\n"));
                         });
                     }
                     else
@@ -282,7 +278,8 @@ namespace WolvenKit
                 }
                 catch (Exception ex)
                 {
-                    logbox.Invoke((MethodInvoker)delegate {
+                    logbox.Invoke((MethodInvoker)delegate
+                    {
                         AddOutput("Error: " + ex.Message + "\n\n" + ex.StackTrace);
                     });
                 }
@@ -292,7 +289,7 @@ namespace WolvenKit
 
         public void Connect(EndPoint remoteEp, Socket client)
         {
-            client.BeginConnect(remoteEp,ConnectCallback, client);
+            client.BeginConnect(remoteEp, ConnectCallback, client);
             ConnectDone.WaitOne();
         }
 
@@ -302,7 +299,7 @@ namespace WolvenKit
             {
                 var client = (Socket)ar.AsyncState;
                 client.EndConnect(ar);
-                Commands.Init().ForEach(x=> Send(GameSocket,x));
+                Commands.Init().ForEach(x => Send(GameSocket, x));
             }
             catch (Exception e)
             {
@@ -325,7 +322,8 @@ namespace WolvenKit
             {
                 var client = (Socket)ar.AsyncState;
                 var bytesSent = client.EndSend(ar);
-                logbox.Invoke((MethodInvoker)delegate {
+                logbox.Invoke((MethodInvoker)delegate
+                {
                     AddOutput("Sent " + bytesSent + " bytes.");
                 });
             }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
@@ -25,8 +25,8 @@ namespace WolvenKit
             Root = new List<VariableListNode>();
 
 
-            treeView.CanExpandGetter = delegate(object x) { return ((VariableListNode) x).ChildCount > 0; };
-            treeView.ChildrenGetter = delegate(object x) { return ((VariableListNode) x).Children; };
+            treeView.CanExpandGetter = delegate (object x) { return ((VariableListNode)x).ChildCount > 0; };
+            treeView.ChildrenGetter = delegate (object x) { return ((VariableListNode)x).Children; };
             treeView.Roots = Root;
 
             for (var i = 0; i < 16; i++)
@@ -39,11 +39,11 @@ namespace WolvenKit
                     Width = 30,
                     Sortable = false,
                     Searchable = false,
-                    RendererDelegate = delegate(EventArgs e, Graphics g, Rectangle r, object rowObject)
+                    RendererDelegate = delegate (EventArgs e, Graphics g, Rectangle r, object rowObject)
                     {
-                        var evt = ((DrawListViewSubItemEventArgs) e);
+                        var evt = ((DrawListViewSubItemEventArgs)e);
                         var index = evt.ColumnIndex - 1;
-                        var obj = (HexListNode) rowObject;
+                        var obj = (HexListNode)rowObject;
 
 
                         if (obj.pos + index == bytestart)
@@ -69,7 +69,7 @@ namespace WolvenKit
                 Name = "colText",
                 Text = "Text",
                 AspectName = "Text",
-                HeaderFont = ((OLVColumn) listView.Columns[0]).HeaderFont,
+                HeaderFont = ((OLVColumn)listView.Columns[0]).HeaderFont,
                 Width = 200,
                 Sortable = false,
                 Searchable = false
@@ -107,7 +107,7 @@ namespace WolvenKit
 
         public int GetObjectIndex(object model)
         {
-            return HexRoot.IndexOf((HexListNode) model);
+            return HexRoot.IndexOf((HexListNode)model);
         }
 
         public void PrepareCache(int first, int last)
@@ -147,7 +147,7 @@ namespace WolvenKit
             readable = new byte[bytes.Length];
             for (var i = 0; i < bytes.Length; i++)
             {
-                readable[i] = bytes[i] > 31 && bytes[i] < 127 ? bytes[i] : (byte) '.';
+                readable[i] = bytes[i] > 31 && bytes[i] < 127 ? bytes[i] : (byte)'.';
             }
 
             for (var i = 0; i < bytes.Length; i += 16)
@@ -194,9 +194,9 @@ namespace WolvenKit
             try
             {
                 var obj = new CVector(File);
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CVector";
             }
@@ -209,9 +209,9 @@ namespace WolvenKit
             try
             {
                 var obj = new CUInt64(File);
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CUInt64";
             }
@@ -224,9 +224,9 @@ namespace WolvenKit
             try
             {
                 var obj = new CUInt32(File);
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CUInt32";
             }
@@ -240,9 +240,9 @@ namespace WolvenKit
             try
             {
                 var obj = new CUInt16(File);
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CUInt16";
             }
@@ -256,9 +256,9 @@ namespace WolvenKit
             {
                 var obj = new CUInt8(File);
 
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CUInt8";
             }
@@ -271,9 +271,9 @@ namespace WolvenKit
             try
             {
                 var obj = new CDynamicInt(File);
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CDynamicInt";
             }
@@ -286,9 +286,9 @@ namespace WolvenKit
             try
             {
                 var obj = new CFloat(File);
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CFloat";
             }
@@ -302,9 +302,9 @@ namespace WolvenKit
             {
                 var obj = new CName(File);
 
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CName";
 
@@ -320,9 +320,9 @@ namespace WolvenKit
             {
                 var obj = new CHandle(File);
 
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CHandle";
 
@@ -338,9 +338,9 @@ namespace WolvenKit
             {
                 var obj = new CSoft(File);
 
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "CSoft";
 
@@ -356,9 +356,9 @@ namespace WolvenKit
             {
                 var obj = File.ReadVariable(reader);
 
-                obj.Read(reader, (uint) (bytes.Length - bytestart));
+                obj.Read(reader, (uint)(bytes.Length - bytestart));
                 var v = CreatePropertyLayout(obj);
-                v.Endpos = (int) reader.BaseStream.Position;
+                v.Endpos = (int)reader.BaseStream.Position;
                 v.HexValue = bytes[bytestart].ToString("X2");
                 v.Method = "ReadVariable";
             }
@@ -378,7 +378,7 @@ namespace WolvenKit
             if (byteloc > 15 || byteloc < 0)
                 return;
 
-            bytestart = line*16 + byteloc;
+            bytestart = line * 16 + byteloc;
 
             lblPosition.Text = "ln: " + line + " col: " + byteloc + " pos: " + bytestart;
 
@@ -394,7 +394,7 @@ namespace WolvenKit
             treeView.Roots = null;
 
             var lastIndex = listView.SelectedIndex;
-            listView.SelectedIndex = bytestart/16;
+            listView.SelectedIndex = bytestart / 16;
             listView.EnsureVisible(listView.SelectedIndex);
             listView.Refresh();
 
@@ -554,7 +554,7 @@ namespace WolvenKit
             {
                 if (pos + i < bytes.Length)
                     return bytes[pos + i].ToString("X2");
-                return "";
+                return string.Empty;
             }
 
             public void SetHex(int i, string hex)
@@ -564,7 +564,7 @@ namespace WolvenKit
                     try
                     {
                         bytes[pos + i] = Convert.ToByte(hex, 16);
-                        readable[pos + i] = bytes[i] > 31 && bytes[i] < 127 ? bytes[i] : (byte) '.';
+                        readable[pos + i] = bytes[i] > 31 && bytes[i] < 127 ? bytes[i] : (byte)'.';
                     }
                     catch
                     {
@@ -583,7 +583,7 @@ namespace WolvenKit
                         return Variable.Name;
 
                     if (Parent == null)
-                        return "";
+                        return string.Empty;
 
                     return Parent.Children.IndexOf(this).ToString();
                 }

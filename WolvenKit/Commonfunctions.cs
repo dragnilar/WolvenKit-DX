@@ -1,17 +1,15 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-using ICSharpCode.SharpZipLib.Core;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace WolvenKit
 {
@@ -114,8 +112,8 @@ namespace WolvenKit
                     string temppath = Path.Combine(destDirName, subdir.Name);
 
                     // Copy the subdirectories.
-                    if(Directory.GetFiles(subdir.FullName,"*",SearchOption.AllDirectories).Any())
-                        ret.Add(new XElement("Directory",new XAttribute("Path",temppath), DirectoryCopy(subdir.FullName, temppath, copySubDirs)));
+                    if (Directory.GetFiles(subdir.FullName, "*", SearchOption.AllDirectories).Any())
+                        ret.Add(new XElement("Directory", new XAttribute("Path", temppath), DirectoryCopy(subdir.FullName, temppath, copySubDirs)));
                 }
             }
             return ret;
@@ -132,7 +130,7 @@ namespace WolvenKit
             FileInfo fi = new FileInfo(filename);
 
             string entryName = Path.GetFileName(filename);
-            if (nameOverride != "")
+            if (nameOverride != string.Empty)
                 entryName = nameOverride;
             entryName = ZipEntry.CleanName(entryName);
             ZipEntry newEntry = new ZipEntry(entryName) { DateTime = fi.LastWriteTime, Size = fi.Length };

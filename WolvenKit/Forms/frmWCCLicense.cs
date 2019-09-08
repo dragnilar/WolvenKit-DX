@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using RtfPipe;
+using RtfPipe.Support;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using RtfPipe;
-using RtfPipe.Support;
 using WolvenKit.Properties;
 
 namespace WolvenKit

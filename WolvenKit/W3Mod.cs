@@ -35,7 +35,7 @@ namespace WolvenKit.Mod
         {
             get
             {
-                var dir = Path.Combine(ProjectDirectory, "files","Mod");
+                var dir = Path.Combine(ProjectDirectory, "files", "Mod");
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
                 return dir;
@@ -49,7 +49,7 @@ namespace WolvenKit.Mod
         {
             get
             {
-                var dir = Path.Combine(ProjectDirectory, "files","DLC");
+                var dir = Path.Combine(ProjectDirectory, "files", "DLC");
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
                 return dir;
@@ -101,7 +101,7 @@ namespace WolvenKit.Mod
             }
         }
 
-        [Browsable(false)] 
+        [Browsable(false)]
         public List<string> LastOpenedFiles;
 
 

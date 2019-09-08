@@ -1,17 +1,12 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using ICSharpCode.SharpZipLib.Core;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace WolvenKit
 {
@@ -98,28 +93,28 @@ namespace WolvenKit
             }
 
             List<string> adition = new List<string>();
-            if (metanode?.Element("author")?.Element("twitter")?.Value != "")
+            if (metanode?.Element("author")?.Element("twitter")?.Value != string.Empty)
                 adition.Add(
                     $@"<a href={"\"" + metanode?.Element("author")?.Element("twitter")?.Value + "\""} target={
                             "\"_blank\""
                         }>Twitter</a>");
-            if (metanode?.Element("author")?.Element("web")?.Value != "")
+            if (metanode?.Element("author")?.Element("web")?.Value != string.Empty)
                 adition.Add(
                     $@"<a href={
                             "\"" + metanode?.Element("author")?.Element("web")?.Value + "\""
                         } target={"\"_blank\""}>Website</a>");
-            if (metanode?.Element("author")?.Element("facebook")?.Value != "")
+            if (metanode?.Element("author")?.Element("facebook")?.Value != string.Empty)
                 adition.Add(
                     $@"<a href={"\"" + metanode?.Element("author")?.Element("facebook")?.Value + "\""} target={
                             "\"_blank\""
                         }>Facebook</a>");
-            if (metanode?.Element("author")?.Element("youtube")?.Value != "")
+            if (metanode?.Element("author")?.Element("youtube")?.Value != string.Empty)
                 adition.Add(
                     $@"<a href={"\"" + metanode?.Element("author")?.Element("youtube")?.Value + "\""} target={
                             "\"_blank\""
                         }>YouTube</a>");
             var authorlink = metanode?.Element("author")?.Element("displayName")?.Value;
-            if (metanode?.Element("author")?.Element("actionLink")?.Value != "")
+            if (metanode?.Element("author")?.Element("actionLink")?.Value != string.Empty)
                 authorlink =
                     $@"<a href={"\"" + metanode?.Element("author")?.Element("actionLink")?.Value + "\""} target={
                             "\"_blank\""
@@ -155,7 +150,7 @@ namespace WolvenKit
             <td valign=""top"">
 
 
-                {adition.Aggregate("", (c, n) => c += "<br>" + n)}
+                {adition.Aggregate(string.Empty, (c, n) => c += "<br>" + n)}
             </td>
         </tr>
     </table>
@@ -185,7 +180,7 @@ namespace WolvenKit
                         Stream zipStream = zf.GetInputStream(zipEntry);
                         Directory.CreateDirectory(Path.GetDirectoryName(
                             Path.Combine(MainController.Get().Configuration.GameRootDir, entryFileName)));
-                        using (var f = new FileStream(Path.Combine(MainController.Get().Configuration.GameRootDir,entryFileName),FileMode.Create))
+                        using (var f = new FileStream(Path.Combine(MainController.Get().Configuration.GameRootDir, entryFileName), FileMode.Create))
                         {
                             StreamUtils.Copy(zipStream, f, buffer);
                         }

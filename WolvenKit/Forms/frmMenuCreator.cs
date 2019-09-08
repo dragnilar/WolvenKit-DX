@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -80,7 +79,7 @@ namespace WolvenKit
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to save the document!\n" + ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Failed to save the document!\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -90,18 +89,18 @@ namespace WolvenKit
             
             try
             {
-#endif 
-                var of = new OpenFileDialog
-                {
-                    Title = @"Select the xml file to load!",
-                    Filter = @"XML Files | *.xml"
-                };
-                if (of.ShowDialog() == DialogResult.OK)
-                {
-                    var loadedxml = XDocument.Load(of.FileName);
-                    MenuObject.Groups = loadedxml.Root?.Elements("Group").Select(DeserializeGroup).ToList();
-                    PaintMenuTree();
-                }
+#endif
+            var of = new OpenFileDialog
+            {
+                Title = @"Select the xml file to load!",
+                Filter = @"XML Files | *.xml"
+            };
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                var loadedxml = XDocument.Load(of.FileName);
+                MenuObject.Groups = loadedxml.Root?.Elements("Group").Select(DeserializeGroup).ToList();
+                PaintMenuTree();
+            }
 #if !DEBUG
             }
             catch (Exception ex)
@@ -112,7 +111,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 #endif
         }
-        
+
         private void menutree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             MenuEditor.SelectedObject = e.Node.Tag;
@@ -125,7 +124,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         private void MenuEditor_SelectedObjectsChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         public class WitcherMenuElementEditor : CollectionEditor
@@ -158,7 +157,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             var serialized = new XElement("Group",
                 new XAttribute("id", group.ID),
                 new XAttribute("displayName", group.DisplayName));
-            if(group.Variables != null)
+            if (group.Variables != null)
                 serialized.Add(new XElement("VisibleVars", group.Variables.Select(SerializeVariable)));
             if (group.Presets != null)
                 serialized.Add(SerializePresets(group.Presets));
@@ -180,7 +179,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (element.Attribute("displayType").Value.StartsWith("SLIDER"))
             {
                 ret.Variabletype = WitcherMenuVariableType.SLIDER;
-                var split =  element.Attribute("displayType").Value.Split(';');
+                var split = element.Attribute("displayType").Value.Split(';');
                 if (split.Length > 3)
                 {
                     ret.MinValue = split[1];
@@ -208,8 +207,8 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return new XElement("Var",
                         new XAttribute("id", var.ID),
                         new XAttribute("displayName", var.DisplayName),
-                        new XAttribute("displayType",var.Variabletype),
-                        new XAttribute("tags",string.Join(";", var.Tags)),
+                        new XAttribute("displayType", var.Variabletype),
+                        new XAttribute("tags", string.Join(";", var.Tags)),
                         SerializeOptions(var.Options));
                 case WitcherMenuVariableType.SLIDER:
                     return new XElement("Var",
@@ -226,7 +225,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         new XAttribute("tags", string.Join(";", var.Tags)));
                 default:
                     throw new Exception("Invalid variable type!");
-            }   
+            }
         }
 
         public static List<WitcherVariableOption> DeseralizeOptions(XElement element)
@@ -261,7 +260,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         public static List<WitcherMenuPreset> DeserializePresets(XElement element)
         {
-            if(element == null)
+            if (element == null)
                 return null;
             var ret = new List<WitcherMenuPreset>();
             foreach (var xElement in element.Elements("Preset"))
@@ -287,18 +286,18 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         public static XElement SerializePresets(List<WitcherMenuPreset> presets)
         {
-            return new XElement("PresetsArray",presets.Select(x=>
-                                new XElement("Preset",
-                                    new XAttribute("id",x.ID),
-                                    new XAttribute("displayName", x.DisplayName),
-                                    new XAttribute("tags", string.Join(";", x.Tags)),
-                                    x.Entries.Select(y=> new XElement("Entry",
-                                                            new XAttribute("varId",y.VarId),
-                                                            new XAttribute("value",y.Value))).ToArray())));
+            return new XElement("PresetsArray", presets.Select(x =>
+                                 new XElement("Preset",
+                                     new XAttribute("id", x.ID),
+                                     new XAttribute("displayName", x.DisplayName),
+                                     new XAttribute("tags", string.Join(";", x.Tags)),
+                                     x.Entries.Select(y => new XElement("Entry",
+                                                             new XAttribute("varId", y.VarId),
+                                                             new XAttribute("value", y.Value))).ToArray())));
         }
 
         [RefreshProperties(RefreshProperties.All)]
-        public class WitcherMenu 
+        public class WitcherMenu
         {
             [Category("Sections")]
             [Description("These are the groups/menus in your menu. (Inside this you can create submenus or variables)")]
@@ -309,7 +308,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 set { groups = value; }
             }
 
-            [Editor(typeof(WitcherMenuElementEditor),typeof(System.Drawing.Design.UITypeEditor))]
+            [Editor(typeof(WitcherMenuElementEditor), typeof(System.Drawing.Design.UITypeEditor))]
             private List<WitcheMenuGroup> groups = new List<WitcheMenuGroup>();
         }
 
@@ -377,7 +376,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return min; }
                 set { min = value; }
             }
-            private string min = "";
+            private string min = string.Empty;
             [Category("Slider")]
             [Description("The max value of the slider.")]
             public string MaxValue
@@ -385,7 +384,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return max; }
                 set { max = value; }
             }
-            private string max = "";
+            private string max = string.Empty;
             [Category("Slider")]
             [Description("The number of steps in the slider.")]
             public string Step
@@ -393,7 +392,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return step; }
                 set { step = value; }
             }
-            private string step = "";
+            private string step = string.Empty;
 
             private List<WitcherVariableOption> _entries = new List<WitcherVariableOption>();
 
@@ -452,7 +451,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return varId; }
                 set { varId = value; }
             }
-            private string varId = "";
+            private string varId = string.Empty;
 
             [Category("Sections")]
             [Description("The value of the entry.")]
@@ -461,7 +460,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return _Value; }
                 set { _Value = value; }
             }
-            private string _Value = "";
+            private string _Value = string.Empty;
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -474,7 +473,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return id; }
                 set { id = value; }
             }
-            private string id = "";
+            private string id = string.Empty;
             [Category("Main variables")]
             [Description("The displayed name for the element.")]
             public string DisplayName
@@ -482,7 +481,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
                 get { return displayname; }
                 set { displayname = value; }
             }
-            private string displayname = "";
+            private string displayname = string.Empty;
         }
 
         /// <summary>

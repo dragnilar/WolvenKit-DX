@@ -20,18 +20,18 @@ namespace WolvenKit.FlowTreeEditors
             var choiceLinesObj = Chunk.GetVariableByName("choiceLines");
             if (choiceLinesObj != null && choiceLinesObj is CArray)
             {
-                var choiceLines = ((CArray) choiceLinesObj);
+                var choiceLines = ((CArray)choiceLinesObj);
                 foreach (var choice in choiceLines)
                 {
                     if (choice != null && choice is CPtr)
                     {
-                        var choicePtr = (CPtr) choice;
+                        var choicePtr = (CPtr)choice;
                         if (choicePtr.PtrTarget != null)
                         {
                             var nextLinkElementObj = choicePtr.PtrTarget.GetVariableByName("nextLinkElement");
                             if (nextLinkElementObj != null && nextLinkElementObj is CPtr)
                             {
-                                var nextLinkElement = (CPtr) nextLinkElementObj;
+                                var nextLinkElement = (CPtr)nextLinkElementObj;
                                 if (nextLinkElement.PtrTarget != null)
                                 {
                                     list.Add(nextLinkElement);
@@ -54,12 +54,12 @@ namespace WolvenKit.FlowTreeEditors
             var sceneElementsObj = Chunk.GetVariableByName("choiceLines");
             if (sceneElementsObj != null && sceneElementsObj is CArray)
             {
-                var sceneElements = (CArray) sceneElementsObj;
+                var sceneElements = (CArray)sceneElementsObj;
                 foreach (var element in sceneElements)
                 {
                     if (element != null && element is CPtr)
                     {
-                        var ptr = (CPtr) element;
+                        var ptr = (CPtr)element;
                         switch (ptr.PtrTargetType)
                         {
                             case "CStorySceneChoiceLine":
@@ -92,7 +92,7 @@ namespace WolvenKit.FlowTreeEditors
 
         public override Point GetConnectionLocation(int i)
         {
-            return new Point(0, i*20 + 21 + 10);
+            return new Point(0, i * 20 + 21 + 10);
         }
     }
 }

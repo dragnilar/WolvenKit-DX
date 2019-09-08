@@ -1,22 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
+using WolvenKit.Common;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
-using WolvenKit.W3Strings;
-using WolvenKit.Common;
-using Newtonsoft.Json;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
 using WolvenKit.Mod;
+using WolvenKit.W3Strings;
 
 namespace WolvenKit
 {
@@ -29,8 +28,8 @@ namespace WolvenKit
 
         public const string ManagerCacheDir = "ManagerCache";
         public string VLCLibDir = "C:\\Program Files\\VideoLAN\\VLC";
-        public string InitialModProject = "";
-        public string InitialWKP = "";
+        public string InitialModProject = string.Empty;
+        public string InitialWKP = string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,7 +55,7 @@ namespace WolvenKit
         }
 
 
-        private KeyValuePair<string,frmOutput.Logtype> _logMessage = new KeyValuePair<string, frmOutput.Logtype>("",frmOutput.Logtype.Normal);
+        private KeyValuePair<string, frmOutput.Logtype> _logMessage = new KeyValuePair<string, frmOutput.Logtype>(string.Empty, frmOutput.Logtype.Normal);
         public KeyValuePair<string, frmOutput.Logtype> LogMessage
         {
             get => _logMessage;
@@ -68,7 +67,7 @@ namespace WolvenKit
         /// </summary>
         public bool ProjectUnsaved = false;
 
-        private MainController()  {  }
+        private MainController() { }
 
         #region Archive Managers
         private SoundManager soundManager;
@@ -96,7 +95,7 @@ namespace WolvenKit
         /// <param name="name">The name of the file.</param>
         /// <param name="archive">The manager to search for the file in.</param>
         /// <returns></returns>
-        public List<byte[]> ImportFile(string name,IWitcherArchive archive)
+        public List<byte[]> ImportFile(string name, IWitcherArchive archive)
         {
             List<byte[]> ret = new List<byte[]>();
             archive.FileList.ToList().Where(x => x.Name.Contains(name)).ToList().ForEach(x =>
@@ -180,7 +179,7 @@ namespace WolvenKit
                     {
                         if (File.Exists(Path.Combine(ManagerCacheDir, "string_cache.bin")) && new FileInfo(Path.Combine(ManagerCacheDir, "string_cache.bin")).Length > 0)
                         {
-                            using (var file = File.Open(Path.Combine(ManagerCacheDir, "string_cache.bin"),FileMode.Open))
+                            using (var file = File.Open(Path.Combine(ManagerCacheDir, "string_cache.bin"), FileMode.Open))
                             {
                                 w3StringManager = ProtoBuf.Serializer.Deserialize<W3StringManager>(file);
                             }
@@ -190,9 +189,9 @@ namespace WolvenKit
                             w3StringManager = new W3StringManager();
                             w3StringManager.Load(Configuration.TextLanguage, Path.GetDirectoryName(Configuration.ExecutablePath));
                             Directory.CreateDirectory(ManagerCacheDir);
-                            using (var file = File.Open(Path.Combine(ManagerCacheDir, "string_cache.bin"),FileMode.Create))
+                            using (var file = File.Open(Path.Combine(ManagerCacheDir, "string_cache.bin"), FileMode.Create))
                             {
-                                ProtoBuf.Serializer.Serialize(file,w3StringManager);
+                                ProtoBuf.Serializer.Serialize(file, w3StringManager);
                             }
                         }
                     }
@@ -400,7 +399,7 @@ namespace WolvenKit
 
             if (editvar is IByteSource)
             {
-                bytes = ((IByteSource) editvar).Bytes;
+                bytes = ((IByteSource)editvar).Bytes;
             }
 
             dlg.Filter = string.Join("|", ImportExportUtility.GetPossibleExtensions(bytes, editvar.Name));
@@ -427,7 +426,7 @@ namespace WolvenKit
 
             if (editvar is IByteSource)
             {
-                editor.Bytes = ((IByteSource) editvar).Bytes;
+                editor.Bytes = ((IByteSource)editvar).Bytes;
             }
 
             editor.Text = "Hex Viewer [" + editvar.FullName + "]";
@@ -440,7 +439,7 @@ namespace WolvenKit
 
             if (editvar is IByteSource)
             {
-                bytes = ((IByteSource) editvar).Bytes;
+                bytes = ((IByteSource)editvar).Bytes;
             }
 
             if (bytes != null)
@@ -462,9 +461,9 @@ namespace WolvenKit
         {
             if (args.Stream is MemoryStream)
             {
-                var doc = (frmCR2WDocument) sender;
-                var editvar = (CVariable) doc.SaveTarget;
-                editvar.SetValue(((MemoryStream) args.Stream).ToArray());
+                var doc = (frmCR2WDocument)sender;
+                var editvar = (CVariable)doc.SaveTarget;
+                editvar.SetValue(((MemoryStream)args.Stream).ToArray());
             }
         }
 

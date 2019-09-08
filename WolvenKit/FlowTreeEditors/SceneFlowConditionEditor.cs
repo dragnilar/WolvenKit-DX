@@ -18,12 +18,12 @@ namespace WolvenKit.FlowTreeEditors
             base.UpdateView();
             Height = height;
 
-            lblCondition.Text = "";
+            lblCondition.Text = string.Empty;
 
             var questConditionObj = Chunk.GetVariableByName("questCondition");
             if (questConditionObj != null && questConditionObj is CPtr)
             {
-                var questCondition = (CPtr) questConditionObj;
+                var questCondition = (CPtr)questConditionObj;
                 if (questCondition.PtrTarget != null)
                 {
                     lblCondition.Click += delegate { FireSelectEvent(questCondition.PtrTarget); };
@@ -31,7 +31,7 @@ namespace WolvenKit.FlowTreeEditors
                     var factIdObj = questCondition.PtrTarget.GetVariableByName("factId");
                     if (factIdObj != null && factIdObj is CString)
                     {
-                        lblCondition.Text = ((CString) factIdObj).val;
+                        lblCondition.Text = ((CString)factIdObj).val;
                     }
                     else
                     {
@@ -43,7 +43,7 @@ namespace WolvenKit.FlowTreeEditors
             var commentObj = Chunk.GetVariableByName("comment");
             if (commentObj != null && commentObj is CString)
             {
-                lblCondition.Text = ((CString) commentObj).val;
+                lblCondition.Text = ((CString)commentObj).val;
             }
         }
 
@@ -56,7 +56,7 @@ namespace WolvenKit.FlowTreeEditors
                 var trueLinkObj = Chunk.GetVariableByName("trueLink");
                 if (trueLinkObj != null && trueLinkObj is CPtr)
                 {
-                    var nextLinkElementPtr = ((CPtr) trueLinkObj);
+                    var nextLinkElementPtr = ((CPtr)trueLinkObj);
                     if (nextLinkElementPtr.PtrTarget != null)
                     {
                         list.Add(nextLinkElementPtr);
@@ -66,7 +66,7 @@ namespace WolvenKit.FlowTreeEditors
                 var falseLinkObj = Chunk.GetVariableByName("falseLink");
                 if (falseLinkObj != null && falseLinkObj is CPtr)
                 {
-                    var nextLinkElementPtr = ((CPtr) falseLinkObj);
+                    var nextLinkElementPtr = ((CPtr)falseLinkObj);
                     if (nextLinkElementPtr.PtrTarget != null)
                     {
                         list.Add(nextLinkElementPtr);
@@ -80,11 +80,11 @@ namespace WolvenKit.FlowTreeEditors
         public override Point GetConnectionLocation(int i)
         {
             if (i == 0)
-                return new Point(0, lblTrue.Top + lblTrue.Height/2);
+                return new Point(0, lblTrue.Top + lblTrue.Height / 2);
             if (i == 1)
-                return new Point(0, lblFalse.Top + lblFalse.Height/2);
+                return new Point(0, lblFalse.Top + lblFalse.Height / 2);
 
-            return new Point(0, i*20 + 21 + 10);
+            return new Point(0, i * 20 + 21 + 10);
         }
     }
 }

@@ -2,8 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using WolvenKit.CR2W;
 using WolvenKit.Cache;
+using WolvenKit.CR2W;
 
 namespace WolvenKit
 {
@@ -19,7 +19,8 @@ namespace WolvenKit
         public CR2WFile File
         {
             get { return _file; }
-            set {
+            set
+            {
                 _file = value;
                 ImagePreviewControl.Image = GetImage(value) ?? SystemIcons.Warning.ToBitmap();
             }

@@ -50,58 +50,41 @@ namespace WolvenKit
             public uint caps4;
         }
         #endregion
-        
-        #region CSwfTexture Struct
-        //The embedded image file inside the CSwfTexture var
-        //has some small header which is just 7 Uint32 vars
-        //After that is just the image contents.
 
-        struct CSwfTextureHeader
-        {
-            public uint Unknown1;   //No idea - Always seems to be 0. Normally where the byte length is stored in other vars.
-            public uint Unknown2;   //Could be image depth? - Will stay an unknown for now
-            public uint Width;      //Image Width
-            public uint Height;     //Image Height
-            public uint Unknown5;   //No idea
-            public uint PixelCount; //Total Pixels
-            public uint Unknown7;   //No idea
-        }
-        #endregion
-        
         /// <ExportAsDDS>
         /// This method converts a byte array from the CR2W to a dds format byte array
         /// This should only be used when exporting from a CSwfTexture var (swfTexture).
         /// </summary>
         /// <param name="bytes">Byte array to export from the CR2W file</param>
         /// <returns>The bytes to export</returns>
-        public static byte[] ExportAsDDS( byte[] bytes )
+        public static byte[] ExportAsDDS(byte[] bytes)
         {
             var mem = new MemoryStream(bytes);
             var reader = new BinaryReader(mem);
             var header = new DDSHeader();
 
             //Values from the CR2W file
-            var unk1            = reader.ReadUInt32();
-            var unk2            = reader.ReadUInt32();
-            header.width        = reader.ReadUInt32();
-            header.height       = reader.ReadUInt32();
-            var unk5            = reader.ReadUInt32();
-            header.sizeorpitch  = reader.ReadUInt32();
-            var unk7            = reader.ReadUInt32();
+            var unk1 = reader.ReadUInt32();
+            var unk2 = reader.ReadUInt32();
+            header.width = reader.ReadUInt32();
+            header.height = reader.ReadUInt32();
+            var unk5 = reader.ReadUInt32();
+            header.sizeorpitch = reader.ReadUInt32();
+            var unk7 = reader.ReadUInt32();
 
             //Hard Coded values
             //No idea how to get these values from the CR2W file
             //However they seem to be the same for all images from
             //uncooking the game.
             //No issues with the exported images when using these values.
-            header.size                 = Convert.ToUInt32(124);            //Always needs to be 124 - standard dds headers are 128 excluding this.
-            header.flags                = Convert.ToUInt32(659463);
-            header.depth                = Convert.ToUInt32(1);
-            header.mipmapcount          = Convert.ToUInt32(1);
-            header.pixelformat.size     = Convert.ToUInt32(32);
-            header.pixelformat.flags    = Convert.ToUInt32(4);
-            header.pixelformat.fourcc   = Convert.ToUInt32(894720068);
-            header.ddscaps.caps1        = Convert.ToUInt32(4096);
+            header.size = Convert.ToUInt32(124);            //Always needs to be 124 - standard dds headers are 128 excluding this.
+            header.flags = Convert.ToUInt32(659463);
+            header.depth = Convert.ToUInt32(1);
+            header.mipmapcount = Convert.ToUInt32(1);
+            header.pixelformat.size = Convert.ToUInt32(32);
+            header.pixelformat.flags = Convert.ToUInt32(4);
+            header.pixelformat.fourcc = Convert.ToUInt32(894720068);
+            header.ddscaps.caps1 = Convert.ToUInt32(4096);
 
             header.reserved = new uint[10];
 
@@ -123,7 +106,7 @@ namespace WolvenKit
         /// </summary>
         /// <param name="file">Binary reader of the dds file</param>
         /// <returns>A byte array of the converted image</returns>
-        public static byte[] ImportFromDDS( BinaryReader file )
+        public static byte[] ImportFromDDS(BinaryReader file)
         {
             var header = ReadDDSHeader(file);
 
@@ -206,15 +189,15 @@ namespace WolvenKit
         /// </summary>
         /// <param name="reader">The import file</param>
         /// <returns>A DDSHeader object</returns>
-        static DDSHeader ReadDDSHeader( BinaryReader reader )
+        static DDSHeader ReadDDSHeader(BinaryReader reader)
         {
             byte[] signature = reader.ReadBytes(4);
-            if (!(signature[0] == 'D' 
-               && signature[1] == 'D' 
+            if (!(signature[0] == 'D'
+               && signature[1] == 'D'
                && signature[2] == 'S'
                && signature[3] == ' '))
             {
-                throw new Exception( "Invalid File Type" );
+                throw new Exception("Invalid File Type");
             }
 
             var header = new DDSHeader();

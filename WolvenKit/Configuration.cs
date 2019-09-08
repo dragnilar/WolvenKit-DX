@@ -14,7 +14,7 @@ namespace WolvenKit
                 var path = Application.ExecutablePath;
                 var filename = Path.GetFileNameWithoutExtension(path);
                 var dir = Path.GetDirectoryName(path);
-                return Path.Combine(dir ?? "", filename + "_config.xml");
+                return Path.Combine(dir ?? string.Empty, filename + "_config.xml");
             }
         }
 
@@ -22,7 +22,7 @@ namespace WolvenKit
         ///     Configuration values
         /// </summary>
         public string ExecutablePath { get; set; }
-        
+
         public string TextLanguage { get; set; }
         public string VoiceLanguage { get; set; }
         public string WccLite { get; set; }
@@ -48,7 +48,7 @@ namespace WolvenKit
 
         public void Save()
         {
-            var ser = new XmlSerializer(typeof (Configuration));
+            var ser = new XmlSerializer(typeof(Configuration));
             var stream = new FileStream(ConfigurationPath, FileMode.Create, FileAccess.Write);
             ser.Serialize(stream, this);
             stream.Close();
@@ -58,9 +58,9 @@ namespace WolvenKit
         {
             if (File.Exists(ConfigurationPath) && new FileInfo(ConfigurationPath).Length != 0)
             {
-                var ser = new XmlSerializer(typeof (Configuration));
+                var ser = new XmlSerializer(typeof(Configuration));
                 var stream = new FileStream(ConfigurationPath, FileMode.Open, FileAccess.Read);
-                var config = (Configuration) ser.Deserialize(stream);
+                var config = (Configuration)ser.Deserialize(stream);
                 stream.Close();
                 return config;
             }

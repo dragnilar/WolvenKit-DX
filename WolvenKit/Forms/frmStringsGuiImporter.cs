@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 using System.IO;
+using System.Linq;
+
+using System.Windows.Forms;
 
 namespace WolvenKit
 {
@@ -108,7 +105,7 @@ namespace WolvenKit
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "W3Strings | *.w3strings";
-            var path = "";
+            var path = string.Empty;
             if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 return;
             else
@@ -123,7 +120,7 @@ namespace WolvenKit
 
             foreach (var str in file.block1)
             {
-                strings.Add(new List<string> {str.str_id.ToString(), "0", str.str });
+                strings.Add(new List<string> { str.str_id.ToString(), "0", str.str });
             }
 
             FillListView(strings);
@@ -171,7 +168,7 @@ namespace WolvenKit
         private void Search()
         {
             listViewStrings.Clear();
-            if (textBoxSearch.Text == "")
+            if (textBoxSearch.Text == string.Empty)
                 FillListView(strings);
             string[][] stringsArr = strings.Select(a => a.ToArray()).ToArray();
             var results = new List<List<string>>();

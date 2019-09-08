@@ -106,7 +106,7 @@ namespace WolvenKit
 
             for (var i = maxdepth; i >= 0; i--)
             {
-                var x = i*400;
+                var x = i * 400;
                 var y = 0;
 
                 if (EditorLayout.ContainsKey(i))
@@ -196,7 +196,7 @@ namespace WolvenKit
             var controlPartsObj = File.chunks[0].GetVariableByName("controlParts");
             if (controlPartsObj != null && controlPartsObj is CArray)
             {
-                var controlParts = (CArray) controlPartsObj;
+                var controlParts = (CArray)controlPartsObj;
                 rootNodes.AddRange(from part in controlParts.OfType<CPtr>() where part != null && part.PtrTargetType == "CStorySceneInput" select part.PtrTarget);
             }
         }
@@ -240,11 +240,11 @@ namespace WolvenKit
                             var c2 = ChunkEditors[conn.PtrTarget];
                             var sp = c.GetConnectionLocation(i);
                             e.Graphics.FillRectangle(brush, c.Location.X + c.Width,
-                                c.Location.Y + sp.Y - connectionPointSize/2, connectionPointSize, connectionPointSize);
+                                c.Location.Y + sp.Y - connectionPointSize / 2, connectionPointSize, connectionPointSize);
 
                             DrawConnectionBezier(e.Graphics, pen,
                                 c.Location.X + c.Width + connectionPointSize, c.Location.Y + sp.Y,
-                                c2.Location.X, c2.Location.Y + c2.Height/2
+                                c2.Location.X, c2.Location.Y + c2.Height / 2
                                 );
                         }
                         i++;
@@ -288,7 +288,7 @@ namespace WolvenKit
 
                     DrawConnectionBezier(e.Graphics, connectionTargetColor,
                         c.Location.X + c.Width + connectionPointSize, c.Location.Y + sp.Y,
-                        connectingTarget.Location.X, connectingTarget.Location.Y + connectingTarget.Height/2
+                        connectingTarget.Location.X, connectingTarget.Location.Y + connectingTarget.Height / 2
                         );
                 }
                 else
@@ -304,7 +304,7 @@ namespace WolvenKit
         private static void DrawConnectionBezier(Graphics g, Pen c, int x1, int y1, int x2, int y2)
         {
             var yoffset = 0;
-            var xoffset = Math.Max(Math.Min(Math.Abs(x1 - x2)/2, 200), 50);
+            var xoffset = Math.Max(Math.Min(Math.Abs(x1 - x2) / 2, 200), 50);
             g.DrawBezier(c,
                 x1, y1,
                 x1 + xoffset, y1 + yoffset,
@@ -315,7 +315,7 @@ namespace WolvenKit
         private void frmChunkFlowDiagram_Scroll(object sender, MouseEventArgs e)
         {
             float prevZoom = zoom;
-            if(e.Delta > 0)
+            if (e.Delta > 0)
                 zoom += 7;
             else
                 zoom -= 7;
@@ -396,7 +396,7 @@ namespace WolvenKit
 
             if (isMoving)
             {
-                foreach(Control c in Controls)
+                foreach (Control c in Controls)
                 {
                     c.Left -= prevMousePos.X - e.Location.X;
                     c.Top -= prevMousePos.Y - e.Location.Y;

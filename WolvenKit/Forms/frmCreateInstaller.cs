@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace WolvenKit.Forms
 {
@@ -18,7 +15,7 @@ namespace WolvenKit.Forms
     {
         private Color headercolor = Color.Red;
         private Color iconbg = Color.Black;
-        
+
 
         public frmCreateInstaller()
         {
@@ -67,7 +64,7 @@ namespace WolvenKit.Forms
         {
             if (MainController.Get().ActiveMod == null)
             {
-                MessageBox.Show("No project loaded!","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("No project loaded!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             var packeddir = Path.Combine(MainController.Get().ActiveMod.ProjectDirectory, @"packed\");
             var contentdir = Path.Combine(MainController.Get().ActiveMod.ProjectDirectory, @"packed\content\");
@@ -92,8 +89,8 @@ namespace WolvenKit.Forms
             var installdir = Path.Combine(MainController.Get().ActiveMod.ProjectDirectory, @"Installer/");
             if (!Directory.Exists(installdir))
                 Directory.CreateDirectory(installdir);
-            var asm = WKPackage.CreateModAssembly(modversionTB.Text,modnameTB.Text,new Tuple<string, string, string, string, string, string>(authorTB.Text,donateTF.Text,webTF.Text,facebookTF.Text,twitterTF.Text,youtubeTF.Text),descriptionRTB.Text,largedescRTB.Text,licenseTB.Text,new Tuple<Color, bool, Color>(headercolor,useblackCB.Checked,iconbg), new List<XElement>());
-            var pkg = new WKPackage(asm,iconpathTB.Text,Path.Combine(MainController.Get().ActiveMod.ProjectDirectory, @"packed"));
+            var asm = WKPackage.CreateModAssembly(modversionTB.Text, modnameTB.Text, new Tuple<string, string, string, string, string, string>(authorTB.Text, donateTF.Text, webTF.Text, facebookTF.Text, twitterTF.Text, youtubeTF.Text), descriptionRTB.Text, largedescRTB.Text, licenseTB.Text, new Tuple<Color, bool, Color>(headercolor, useblackCB.Checked, iconbg), new List<XElement>());
+            var pkg = new WKPackage(asm, iconpathTB.Text, Path.Combine(MainController.Get().ActiveMod.ProjectDirectory, @"packed"));
 
             pkg.Save(outpath);
             MainController.Get().LogMessage = new KeyValuePair<string, frmOutput.Logtype>("Installer created: " + outpath + "\n", frmOutput.Logtype.Success);
