@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using ProtoBuf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,15 +10,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using ProtoBuf;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
 using WolvenKit.Common;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
-using WolvenKit.Mod;
 using WolvenKit.Properties;
 using WolvenKit.W3Strings;
 
@@ -221,7 +220,7 @@ namespace WolvenKit
                                 serializer.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                                 serializer.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
                                 serializer.TypeNameHandling = TypeNameHandling.Auto;
-                                BundleManager = (BundleManager) serializer.Deserialize(file, typeof(BundleManager));
+                                BundleManager = (BundleManager)serializer.Deserialize(file, typeof(BundleManager));
                             }
                         }
                         else
@@ -274,7 +273,7 @@ namespace WolvenKit
                                 serializer.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                                 serializer.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
                                 serializer.TypeNameHandling = TypeNameHandling.Auto;
-                                TextureManager = (TextureManager) serializer.Deserialize(file, typeof(TextureManager));
+                                TextureManager = (TextureManager)serializer.Deserialize(file, typeof(TextureManager));
                             }
                         }
                         else
@@ -327,7 +326,7 @@ namespace WolvenKit
                                 serializer.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                                 serializer.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
                                 serializer.TypeNameHandling = TypeNameHandling.Auto;
-                                SoundManager = (SoundManager) serializer.Deserialize(file, typeof(SoundManager));
+                                SoundManager = (SoundManager)serializer.Deserialize(file, typeof(SoundManager));
                             }
                         }
                         else
@@ -392,7 +391,7 @@ namespace WolvenKit
 
         private void ImportBytes(CVariable editvar)
         {
-            var dlg = new OpenFileDialog {InitialDirectory = Get().Configuration.InitialExportDirectory};
+            var dlg = new OpenFileDialog { InitialDirectory = Get().Configuration.InitialExportDirectory };
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -414,7 +413,7 @@ namespace WolvenKit
             var dlg = new SaveFileDialog();
             byte[] bytes = null;
 
-            if (editvar is IByteSource) bytes = ((IByteSource) editvar).Bytes;
+            if (editvar is IByteSource) bytes = ((IByteSource)editvar).Bytes;
 
             dlg.Filter = string.Join("|", ImportExportUtility.GetPossibleExtensions(bytes, editvar.Name));
             dlg.InitialDirectory = Get().Configuration.InitialExportDirectory;
@@ -436,9 +435,9 @@ namespace WolvenKit
 
         private void OpenHexEditorFor(CVariable editvar)
         {
-            var editor = new frmHexEditorView {File = editvar.cr2w};
+            var editor = new frmHexEditorView { File = editvar.cr2w };
 
-            if (editvar is IByteSource) editor.Bytes = ((IByteSource) editvar).Bytes;
+            if (editvar is IByteSource) editor.Bytes = ((IByteSource)editvar).Bytes;
 
             editor.Text = "Hex Viewer [" + editvar.FullName + "]";
             editor.Show();
@@ -448,7 +447,7 @@ namespace WolvenKit
         {
             byte[] bytes = null;
 
-            if (editvar is IByteSource) bytes = ((IByteSource) editvar).Bytes;
+            if (editvar is IByteSource) bytes = ((IByteSource)editvar).Bytes;
 
             if (bytes != null)
             {
@@ -469,9 +468,9 @@ namespace WolvenKit
         {
             if (args.Stream is MemoryStream)
             {
-                var doc = (frmCR2WDocument) sender;
-                var editvar = (CVariable) doc.SaveTarget;
-                editvar.SetValue(((MemoryStream) args.Stream).ToArray());
+                var doc = (frmCR2WDocument)sender;
+                var editvar = (CVariable)doc.SaveTarget;
+                editvar.SetValue(((MemoryStream)args.Stream).ToArray());
             }
         }
 

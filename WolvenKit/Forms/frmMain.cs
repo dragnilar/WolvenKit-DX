@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoUpdaterDotNET;
+using Dfust.Hotkeys;
+using SharpPresence;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,9 +14,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using AutoUpdaterDotNET;
-using Dfust.Hotkeys;
-using SharpPresence;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
@@ -21,7 +21,6 @@ using WolvenKit.Common;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
-using WolvenKit.Mod;
 using WolvenKit.Properties;
 using WolvenKit.Render;
 using Enums = Dfust.Hotkeys.Enums;
@@ -156,10 +155,10 @@ namespace WolvenKit
         private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "ProjectStatus")
-                Invoke(new strDelegate(SetStatusLabelText), ((MainController) sender).ProjectStatus);
+                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).ProjectStatus);
             if (e.PropertyName == "LogMessage")
-                Invoke(new logDelegate(AddOutput), ((MainController) sender).LogMessage.Key + "\n",
-                    ((MainController) sender).LogMessage.Value);
+                Invoke(new logDelegate(AddOutput), ((MainController)sender).LogMessage.Key + "\n",
+                    ((MainController)sender).LogMessage.Value);
         }
 
         private void SetStatusLabelText(string text)
@@ -293,12 +292,12 @@ namespace WolvenKit
                     {
                         //Loop throught dirs and delete the old files in them.
                         foreach (var d in dirs)
-                        foreach (var f in d.Elements("file"))
-                            if (File.Exists(f.Value))
-                            {
-                                File.Delete(f.Value);
-                                Debug.WriteLine("File delete: " + f.Value);
-                            }
+                            foreach (var f in d.Elements("file"))
+                                if (File.Exists(f.Value))
+                                {
+                                    File.Delete(f.Value);
+                                    Debug.WriteLine("File delete: " + f.Value);
+                                }
 
                         //Delete the empty directories.
                         foreach (var d in dirs)
@@ -471,13 +470,13 @@ namespace WolvenKit
 
         private static void ShellExecute(string fullpath)
         {
-            var proc = new ProcessStartInfo(fullpath) {UseShellExecute = true};
+            var proc = new ProcessStartInfo(fullpath) { UseShellExecute = true };
             Process.Start(proc);
         }
 
         private static void PolymorphExecute(string fullpath, string extension)
         {
-            File.WriteAllBytes(Path.GetTempPath() + "asd." + extension, new byte[] {0x01});
+            File.WriteAllBytes(Path.GetTempPath() + "asd." + extension, new byte[] { 0x01 });
             var programname = new StringBuilder();
             NativeMethods.FindExecutable("asd." + extension, Path.GetTempPath(), programname);
             if (programname.ToString().ToUpper().Contains(".EXE"))
@@ -614,21 +613,21 @@ namespace WolvenKit
                         default:
                             return;
                         case DialogResult.Yes:
-                        {
-                            Commonfunctions.DirectoryMove(
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
-                                    "Mod", "Bundle"));
-                            break;
-                        }
+                            {
+                                Commonfunctions.DirectoryMove(
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
+                                        "Mod", "Bundle"));
+                                break;
+                            }
                         case DialogResult.No:
-                        {
-                            Commonfunctions.DirectoryMove(
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
-                                    "DLC", "Bundle"));
-                            break;
-                        }
+                            {
+                                Commonfunctions.DirectoryMove(
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
+                                        "DLC", "Bundle"));
+                                break;
+                            }
                     }
 
                     //Upgrade the project xml
@@ -650,7 +649,7 @@ namespace WolvenKit
                 //Loading the project
                 var ser = new XmlSerializer(typeof(W3Mod));
                 var modfile = new FileStream(file, FileMode.Open, FileAccess.Read);
-                ActiveMod = (W3Mod) ser.Deserialize(modfile);
+                ActiveMod = (W3Mod)ser.Deserialize(modfile);
                 ActiveMod.FileName = file;
                 modfile.Close();
                 ResetWindows();
@@ -881,36 +880,36 @@ namespace WolvenKit
             switch (Path.GetExtension(filename))
             {
                 case ".w2scene":
-                {
-                    doc.flowDiagram = new frmChunkFlowDiagram
                     {
-                        File = doc.File,
-                        DockAreas = DockAreas.Document
-                    };
-                    doc.flowDiagram.OnSelectChunk += doc.frmCR2WDocument_OnSelectChunk;
-                    doc.flowDiagram.Show(doc.FormPanel, DockState.Document);
-                    break;
-                }
+                        doc.flowDiagram = new frmChunkFlowDiagram
+                        {
+                            File = doc.File,
+                            DockAreas = DockAreas.Document
+                        };
+                        doc.flowDiagram.OnSelectChunk += doc.frmCR2WDocument_OnSelectChunk;
+                        doc.flowDiagram.Show(doc.FormPanel, DockState.Document);
+                        break;
+                    }
                 case ".journal":
-                {
-                    doc.JournalEditor = new frmJournalEditor
                     {
-                        File = doc.File,
-                        DockAreas = DockAreas.Document
-                    };
-                    doc.JournalEditor.Show(doc.FormPanel, DockState.Document);
-                    break;
-                }
+                        doc.JournalEditor = new frmJournalEditor
+                        {
+                            File = doc.File,
+                            DockAreas = DockAreas.Document
+                        };
+                        doc.JournalEditor.Show(doc.FormPanel, DockState.Document);
+                        break;
+                    }
                 case ".xbm":
-                {
-                    doc.ImageViewer = new frmImagePreview
                     {
-                        File = doc.File,
-                        DockAreas = DockAreas.Document
-                    };
-                    doc.ImageViewer.Show(doc.FormPanel, DockState.Document);
-                    break;
-                }
+                        doc.ImageViewer = new frmImagePreview
+                        {
+                            File = doc.File,
+                            DockAreas = DockAreas.Document
+                        };
+                        doc.ImageViewer.Show(doc.FormPanel, DockState.Document);
+                        break;
+                    }
                 /*case ".w2ent":
                     {
                         CHandle mesh = doc.File.chunks[2].GetVariableByName("mesh") as CHandle;
@@ -920,20 +919,20 @@ namespace WolvenKit
                         break;
                     }*/
                 case ".w2mesh":
-                {
-                    if (bool.Parse(renderW2meshToolStripMenuItem.Tag.ToString()))
                     {
-                        doc.RenderViewer = new frmRender
+                        if (bool.Parse(renderW2meshToolStripMenuItem.Tag.ToString()))
                         {
-                            LoadDocument = LoadDocumentAndGetFile,
-                            MeshFile = doc.File,
-                            DockAreas = DockAreas.Document
-                        };
-                        doc.RenderViewer.Show(doc.FormPanel, DockState.Document);
-                    }
+                            doc.RenderViewer = new frmRender
+                            {
+                                LoadDocument = LoadDocumentAndGetFile,
+                                MeshFile = doc.File,
+                                DockAreas = DockAreas.Document
+                            };
+                            doc.RenderViewer.Show(doc.FormPanel, DockState.Document);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             if (doc.File.block7.Count > 0)
@@ -991,7 +990,7 @@ namespace WolvenKit
         private async Task DumpFile(string folder, string outfolder)
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             try
             {
                 MainController.Get().ProjectStatus = "Dumping folder";
@@ -1031,7 +1030,7 @@ namespace WolvenKit
         private async Task ImportFile(string infile, string outfile)
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             try
             {
                 var importwdir = Path.Combine(Path.GetDirectoryName(MainController.Get().Configuration.WccLite),
@@ -1192,12 +1191,12 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void doc_Activated(object sender, EventArgs e)
         {
-            ActiveDocument = (frmCR2WDocument) sender;
+            ActiveDocument = (frmCR2WDocument)sender;
         }
 
         private void doc_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var doc = (frmCR2WDocument) sender;
+            var doc = (frmCR2WDocument)sender;
             OpenDocuments.Remove(doc);
 
             if (doc == ActiveDocument) ActiveDocument = null;
@@ -1304,7 +1303,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             if (!File.Exists(fullpath))
                 return;
 
-            var dlg = new frmRenameDialog {FileName = filename};
+            var dlg = new frmRenameDialog { FileName = filename };
             if (dlg.ShowDialog() == DialogResult.OK && dlg.FileName != filename)
             {
                 var newfullpath = Path.Combine(ActiveMod.FileDirectory, dlg.FileName);
@@ -1367,7 +1366,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void tbtOpen_Click(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog {Title = "Open CR2W File"};
+            var dlg = new OpenFileDialog { Title = "Open CR2W File" };
             dlg.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -1449,7 +1448,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             if (ActiveMod == null)
                 return;
             //With this cloned it won't get modified when we change it in dlg
-            var oldmod = (W3Mod) ActiveMod.Clone();
+            var oldmod = (W3Mod)ActiveMod.Clone();
             using (var dlg = new frmModSettings())
             {
                 dlg.Mod = ActiveMod;
@@ -1499,7 +1498,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void addFileToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog {Title = "Open CR2W File"};
+            var dlg = new OpenFileDialog { Title = "Open CR2W File" };
             dlg.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -1613,7 +1612,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
 
             File.WriteAllLines(newFullPath,
-                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
+                new[] { @"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/" });
         }
 
         private void ModscriptToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1636,7 +1635,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
 
             File.WriteAllLines(newFullPath,
-                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
+                new[] { @"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/" });
         }
 
         private void chunkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1900,7 +1899,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
         private async Task PackBundles()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =
@@ -2032,7 +2031,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
         private async Task CreateModMetaData()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =
@@ -2136,7 +2135,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
         private async Task CookMod()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var cookedModDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"cooked\Mods\mod" + ActiveMod.Name + @"\content\");
             var cookedDLCDir = Path.Combine(ActiveMod.ProjectDirectory,
@@ -2262,7 +2261,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
         private async Task GenerateCollisionCache()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =
@@ -2371,7 +2370,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
         private async Task PackTextures()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =

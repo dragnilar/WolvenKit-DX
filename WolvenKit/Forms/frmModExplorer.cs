@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using WolvenKit.Mod;
+using WolvenKit.Common;
 
 namespace WolvenKit
 {
@@ -134,19 +134,19 @@ namespace WolvenKit
 
         private void modFileList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            RequestFileOpen?.Invoke(this, new RequestFileArgs {File = e.Node.FullPath});
+            RequestFileOpen?.Invoke(this, new RequestFileArgs { File = e.Node.FullPath });
         }
 
         private void removeFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (modFileList.SelectedNode != null)
-                RequestFileDelete?.Invoke(this, new RequestFileArgs {File = modFileList.SelectedNode.FullPath});
+                RequestFileDelete?.Invoke(this, new RequestFileArgs { File = modFileList.SelectedNode.FullPath });
         }
 
         private void addFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RequestFileAdd?.Invoke(this,
-                new RequestFileArgs {File = GetExplorerString(modFileList.SelectedNode?.FullPath ?? string.Empty)});
+                new RequestFileArgs { File = GetExplorerString(modFileList.SelectedNode?.FullPath ?? string.Empty) });
         }
 
         private void modFileList_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -161,7 +161,7 @@ namespace WolvenKit
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (modFileList.SelectedNode != null)
-                RequestFileRename?.Invoke(this, new RequestFileArgs {File = modFileList.SelectedNode.FullPath});
+                RequestFileRename?.Invoke(this, new RequestFileArgs { File = modFileList.SelectedNode.FullPath });
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -201,7 +201,7 @@ namespace WolvenKit
             var ext = Path.GetExtension(path);
 
             yield return Path.Combine(dir, file + " - Copy" + ext);
-            for (var i = 2;; i++) yield return Path.Combine(dir, file + " - Copy " + i + ext);
+            for (var i = 2; ; i++) yield return Path.Combine(dir, file + " - Copy " + i + ext);
         }
 
         public static void SafeCopy(string src, string dest)
@@ -258,7 +258,7 @@ namespace WolvenKit
         private void modFileList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F2 && modFileList.SelectedNode != null)
-                RequestFileRename?.Invoke(this, new RequestFileArgs {File = modFileList.SelectedNode.FullPath});
+                RequestFileRename?.Invoke(this, new RequestFileArgs { File = modFileList.SelectedNode.FullPath });
         }
 
         private void showFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -297,7 +297,7 @@ namespace WolvenKit
                 if (!File.Exists(fullpath))
                     return;
                 var newfullpath =
-                    Path.Combine(new[] {ActiveMod.FileDirectory, filename.Split('\\')[0] == "DLC" ? "Mod" : "DLC"}
+                    Path.Combine(new[] { ActiveMod.FileDirectory, filename.Split('\\')[0] == "DLC" ? "Mod" : "DLC" }
                         .Concat(filename.Split('\\').Skip(1).ToArray()).ToArray());
 
                 if (File.Exists(newfullpath))
@@ -320,10 +320,10 @@ namespace WolvenKit
             if (s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length > 1)
             {
                 var r = string.Join(Path.DirectorySeparatorChar.ToString(),
-                    new[] {"Root"}.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
+                    new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
                         .ToArray());
                 return string.Join(Path.DirectorySeparatorChar.ToString(),
-                    new[] {"Root"}.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
+                    new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
                         .ToArray());
             }
 

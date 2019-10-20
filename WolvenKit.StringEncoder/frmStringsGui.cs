@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using WolvenKit.Common;
 using WolvenKit.W3Strings;
 
-namespace WolvenKit
+namespace WolvenKit.StringEncoder
 {
     internal enum EDisplayNameType
     {
@@ -23,7 +23,7 @@ namespace WolvenKit
     {
         private bool abortedSwitchingBackToAllLanguages;
 
-        private readonly W3Mod activeMod = MainController.Get().Window.ActiveMod;
+        private readonly W3Mod activeMod;
         private int counter;
 
         private string currentModID = string.Empty;
@@ -44,9 +44,11 @@ namespace WolvenKit
         private bool multipleIDs;
         private bool rowAddedAutomatically;
 
-        public frmStringsGui()
+        public frmStringsGui(W3Mod mod)
         {
             InitializeComponent();
+
+            activeMod = mod;
 
             comboBoxLanguagesMode.SelectedIndex = 0;
             CreateDataTable();
@@ -349,30 +351,30 @@ namespace WolvenKit
 
         private void ImportW3Strings()
         {
-            if (textBoxModID.Text == string.Empty)
-            {
-                AskForModID();
-                return;
-            }
+            //if (textBoxModID.Text == string.Empty)
+            //{
+            //    AskForModID();
+            //    return;
+            //}
 
-            var guiStrings = new List<string>();
+            //var guiStrings = new List<string>();
 
-            foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                if (row.Cells[3].Value != null)
-                    guiStrings.Add(row.Cells[3].Value.ToString());
+            //foreach (DataGridViewRow row in dataGridViewStrings.Rows)
+            //    if (row.Cells[3].Value != null)
+            //        guiStrings.Add(row.Cells[3].Value.ToString());
 
-            var importer = new frmStringsGuiImporter(guiStrings);
+            //var importer = new frmStringsGuiImporter(guiStrings);
 
-            importer.ShowDialog();
-            var stringsManager = MainController.Get().W3StringManager;
-            var strings = stringsManager.GetImportedStrings();
-            if (strings == null)
-                return;
+            //importer.ShowDialog();
+            //var stringsManager = MainController.Get().W3StringManager;
+            //var strings = stringsManager.GetImportedStrings();
+            //if (strings == null)
+            //    return;
 
-            foreach (var str in strings) dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
+            //foreach (var str in strings) dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
 
-            stringsManager.ClearImportedStrings();
-            UpdateModID();
+            //stringsManager.ClearImportedStrings();
+            //UpdateModID();
         }
 
         private void GenerateFromXML()
@@ -391,16 +393,17 @@ namespace WolvenKit
 
         public string ShowScriptPrefixDialog()
         {
-            var testDialog = new frmStringsGuiScriptsPrefixDialog();
-            var prefix = string.Empty;
-            if (testDialog.ShowDialog(this) == DialogResult.OK)
-                prefix = testDialog.prefix;
-            else
-                prefix = "Cancelled";
+            //var testDialog = new frmStringsGuiScriptsPrefixDialog();
+            //var prefix = string.Empty;
+            //if (testDialog.ShowDialog(this) == DialogResult.OK)
+            //    prefix = testDialog.prefix;
+            //else
+            //    prefix = "Cancelled";
 
-            testDialog.Dispose();
+            //testDialog.Dispose();
 
-            return prefix;
+            //return prefix;
+            return string.Empty;
         }
 
         private void ReadScripts()
