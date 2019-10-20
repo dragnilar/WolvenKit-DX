@@ -3,22 +3,20 @@ using System.IO;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
+using WolvenKit.Render;
 
 namespace WolvenKit
 {
     public partial class frmCR2WDocument : DockContent
     {
         public frmChunkList chunkList;
-        public frmChunkProperties propertyWindow;
         public frmEmbeddedFiles embeddedFiles;
-        public frmChunkFlowDiagram flowDiagram;
-        public frmJournalEditor JournalEditor;
-        public frmImagePreview ImageViewer;
-        public Render.frmRender RenderViewer;
         private CR2WFile file;
-
-
-        public DockPanel FormPanel => dockPanel;
+        public frmChunkFlowDiagram flowDiagram;
+        public frmImagePreview ImageViewer;
+        public frmJournalEditor JournalEditor;
+        public frmChunkProperties propertyWindow;
+        public frmRender RenderViewer;
 
         public frmCR2WDocument()
         {
@@ -26,74 +24,61 @@ namespace WolvenKit
 
             try
             {
-                dockPanel.LoadFromXml(
+                FormPanel.LoadFromXml(
                     Path.Combine(Path.GetDirectoryName(Configuration.ConfigurationPath), "cr2wdocument_layout.xml"),
                     DeserializeDockContent);
             }
-            catch { }
+            catch
+            {
+            }
 
             chunkList = new frmChunkList
             {
                 File = File,
                 DockAreas = DockAreas.Document
             };
-            chunkList.Show(dockPanel, DockState.Document);
+            chunkList.Show(FormPanel, DockState.Document);
             chunkList.OnSelectChunk += frmCR2WDocument_OnSelectChunk;
             propertyWindow = new frmChunkProperties();
-            propertyWindow.Show(dockPanel, DockState.DockBottom);
+            propertyWindow.Show(FormPanel, DockState.DockBottom);
 
             chunkList.Activate();
         }
 
+
+        public DockPanel FormPanel { get; private set; }
+
         public CR2WFile File
         {
-            get { return file; }
+            get => file;
             set
             {
                 file = value;
 
-                if (chunkList != null && !chunkList.IsDisposed)
-                {
-                    chunkList.File = file;
-                }
+                if (chunkList != null && !chunkList.IsDisposed) chunkList.File = file;
 
-                if (flowDiagram != null && !flowDiagram.IsDisposed)
-                {
-                    flowDiagram.File = file;
-                }
+                if (flowDiagram != null && !flowDiagram.IsDisposed) flowDiagram.File = file;
 
-                if (JournalEditor != null && !JournalEditor.IsDisposed)
-                {
-                    JournalEditor.File = file;
-                }
+                if (JournalEditor != null && !JournalEditor.IsDisposed) JournalEditor.File = file;
 
-                if (ImageViewer != null && !ImageViewer.IsDisposed)
-                {
-                    ImageViewer.File = file;
-                }
+                if (ImageViewer != null && !ImageViewer.IsDisposed) ImageViewer.File = file;
 
-                if (RenderViewer != null && !RenderViewer.IsDisposed)
-                {
-                    RenderViewer.MeshFile = file;
-                }
+                if (RenderViewer != null && !RenderViewer.IsDisposed) RenderViewer.MeshFile = file;
 
 
                 if (embeddedFiles != null && !embeddedFiles.IsDisposed)
                 {
                     embeddedFiles.File = file;
 
-                    if (file.block7.Count > 0)
-                    {
-                        embeddedFiles.Show(dockPanel, DockState.Document);
-                    }
+                    if (file.block7.Count > 0) embeddedFiles.Show(FormPanel, DockState.Document);
                 }
             }
         }
 
         public string FileName
         {
-            get { return File.FileName; }
-            set { File.FileName = value; }
+            get => File.FileName;
+            set => File.FileName = value;
         }
 
         public object SaveTarget { get; set; }
@@ -101,13 +86,10 @@ namespace WolvenKit
 
         public void frmCR2WDocument_FormClosed(object sender, FormClosedEventArgs e)
         {
-            dockPanel.SaveAsXml(Path.Combine(Path.GetDirectoryName(Configuration.ConfigurationPath),
+            FormPanel.SaveAsXml(Path.Combine(Path.GetDirectoryName(Configuration.ConfigurationPath),
                 "cr2wdocument_layout.xml"));
 
-            if (propertyWindow != null && !propertyWindow.IsDisposed)
-            {
-                propertyWindow.Close();
-            }
+            if (propertyWindow != null && !propertyWindow.IsDisposed) propertyWindow.Close();
         }
 
         public IDockContent DeserializeDockContent(string persistString)
@@ -120,7 +102,7 @@ namespace WolvenKit
             if (propertyWindow == null || propertyWindow.IsDisposed)
             {
                 propertyWindow = new frmChunkProperties();
-                propertyWindow.Show(dockPanel, DockState.DockBottom);
+                propertyWindow.Show(FormPanel, DockState.DockBottom);
             }
 
             propertyWindow.Chunk = e.Chunk;
@@ -159,13 +141,9 @@ namespace WolvenKit
         public void SaveFile()
         {
             if (SaveTarget == null)
-            {
                 saveToFileName();
-            }
             else
-            {
                 saveToMemoryStream();
-            }
         }
 
         private void saveToMemoryStream()
@@ -177,9 +155,7 @@ namespace WolvenKit
                     File.Write(writer);
 
                     if (OnFileSaved != null)
-                    {
-                        OnFileSaved(this, new FileSavedEventArgs { FileName = FileName, Stream = mem, File = File });
-                    }
+                        OnFileSaved(this, new FileSavedEventArgs {FileName = FileName, Stream = mem, File = File});
                 }
             }
         }
@@ -200,9 +176,8 @@ namespace WolvenKit
                             mem.WriteTo(fs);
 
                             if (OnFileSaved != null)
-                            {
-                                OnFileSaved(this, new FileSavedEventArgs { FileName = FileName, Stream = fs, File = File });
-                            }
+                                OnFileSaved(this,
+                                    new FileSavedEventArgs {FileName = FileName, Stream = fs, File = File});
                             fs.Close();
                         }
                     }
@@ -210,7 +185,7 @@ namespace WolvenKit
             }
             catch (Exception e)
             {
-                MainController.Get().QueueLog("Failed to save the file(s)! They are probably in use.\n" + e.ToString());
+                MainController.Get().QueueLog("Failed to save the file(s)! They are probably in use.\n" + e);
             }
         }
     }

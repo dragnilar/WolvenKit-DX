@@ -1,5 +1,5 @@
-﻿using BrightIdeasSoftware;
-using System.IO;
+﻿using System.IO;
+using BrightIdeasSoftware;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 
@@ -17,7 +17,7 @@ namespace WolvenKit
 
         public CR2WFile File
         {
-            get { return file; }
+            get => file;
             set
             {
                 file = value;
@@ -40,22 +40,22 @@ namespace WolvenKit
 
             if (e.ClickCount == 2)
             {
-                var mem = new MemoryStream(((CR2WHeaderBlock7)e.Model).unknowndata);
+                var mem = new MemoryStream(((CR2WHeaderBlock7) e.Model).unknowndata);
 
                 var doc = MainController.Get().LoadDocument("Embedded file", mem);
                 if (doc != null)
                 {
                     doc.OnFileSaved += OnFileSaved;
-                    doc.SaveTarget = (CR2WHeaderBlock7)e.Model;
+                    doc.SaveTarget = (CR2WHeaderBlock7) e.Model;
                 }
             }
         }
 
         private void OnFileSaved(object sender, FileSavedEventArgs e)
         {
-            var doc = (frmCR2WDocument)sender;
-            var editvar = (CR2WHeaderBlock7)doc.SaveTarget;
-            editvar.unknowndata = ((MemoryStream)e.Stream).ToArray();
+            var doc = (frmCR2WDocument) sender;
+            var editvar = (CR2WHeaderBlock7) doc.SaveTarget;
+            editvar.unknowndata = ((MemoryStream) e.Stream).ToArray();
         }
     }
 }

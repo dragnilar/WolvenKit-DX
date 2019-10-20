@@ -1,22 +1,21 @@
-﻿using ICSharpCode.SharpZipLib.Zip;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Xml.Linq;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace WolvenKit
 {
-    class WKPackage
+    internal class WKPackage
     {
-        private XDocument Assembly;
-        private string Icon;
+        private readonly XDocument Assembly;
+        private readonly string Icon;
 
         public string RootFolder;
 
         /// <summary>
-        /// Collects the info and the files from an already created WolveKit package.
+        ///     Collects the info and the files from an already created WolveKit package.
         /// </summary>
         /// <param name="Path"></param>
         public WKPackage(string Path)
@@ -25,7 +24,7 @@ namespace WolvenKit
         }
 
         /// <summary>
-        /// Creates a WolveKit package.
+        ///     Creates a WolveKit package.
         /// </summary>
         /// <param name="assmebly">The details of the mod. Generate this with CreateModAssembly();</param>
         /// <param name="icon">The icon of the mod.</param>
@@ -38,16 +37,16 @@ namespace WolvenKit
         }
 
         /// <summary>
-        /// Saves the package to the specified output path.
+        ///     Saves the package to the specified output path.
         /// </summary>
         /// <param name="OutputPath">The path to save the file to.</param>
         public void Save(string OutputPath)
         {
             if (Icon != null && Assembly != null)
             {
-                FileStream fsOut = File.Create(OutputPath);
-                ZipOutputStream zipStream = new ZipOutputStream(fsOut);
-                int folderOffset = RootFolder.Length + (RootFolder.EndsWith("\\") ? 0 : 1);
+                var fsOut = File.Create(OutputPath);
+                var zipStream = new ZipOutputStream(fsOut);
+                var folderOffset = RootFolder.Length + (RootFolder.EndsWith("\\") ? 0 : 1);
                 Commonfunctions.CompressFolder(RootFolder, zipStream, folderOffset);
                 Commonfunctions.CompressFile(Icon, zipStream, "Icon" + Path.GetExtension(Icon));
                 Commonfunctions.CompressStream(Commonfunctions.XDocToByteArray(Assembly), "Assembly.xml", zipStream);
@@ -61,7 +60,8 @@ namespace WolvenKit
         }
 
         /// <summary>
-        /// This creates the modassembly xml. Values which are optional are marked in their description as such. If a value is not given pass the method NULL for that value.
+        ///     This creates the modassembly xml. Values which are optional are marked in their description as such. If a value is
+        ///     not given pass the method NULL for that value.
         /// </summary>
         /// <param name="version">The Version of the mod. [REQUIRED]</param>
         /// <param name="name">The name of the mod. [REQUIRED]</param>
@@ -69,8 +69,12 @@ namespace WolvenKit
         /// <param name="description">The description of the mod. [OPTIONAL]</param>
         /// <param name="Largedescription">Aditional description of the mod. [OPTIONAL]</param>
         /// <param name="license">The License of the mod. [OPTIONAL]</param>
-        /// <param name="Colors">Header background color, If true the header text will be black otherwise white, Icon bacground color. [REQUIRED]</param>
-        /// /// <param name="Contents">The commands to run on the games files. eg.: adding new lines to xmls and such. [OPTIONAL]</param>
+        /// <param name="Colors">
+        ///     Header background color, If true the header text will be black otherwise white, Icon bacground
+        ///     color. [REQUIRED]
+        /// </param>
+        /// ///
+        /// <param name="Contents">The commands to run on the games files. eg.: adding new lines to xmls and such. [OPTIONAL]</param>
         /// <returns></returns>
         public static XDocument CreateModAssembly(
             string version,
@@ -80,13 +84,11 @@ namespace WolvenKit
             string Largedescription,
             string license,
             Tuple<Color, bool,
-            Color> Colors,
+                Color> Colors,
             List<XElement> Contents)
         {
             if (version == null || name == null || Author.Item1 == null || Colors == null)
-            {
                 throw new ArgumentException("Invalid parameters when trying to generate the assembly.xml!");
-            }
             var rootnode = new XElement("package", new XAttribute("version", version), new XAttribute("name", name));
             var authorelement = new XElement("author", new XElement("displayName", Author.Item1));
             var metadataelement = new XElement("metadata");
@@ -108,7 +110,10 @@ namespace WolvenKit
             if (license?.Length > 0)
                 metadataelement.Add(new XElement("license", license));
             rootnode.Add(metadataelement);
-            rootnode.Add(new XElement("colors", new XElement("headerBackground", ColorTranslator.ToHtml(Colors.Item1), new XAttribute("useBlackTextColor", Colors.Item2)), new XElement("iconBackground", ColorTranslator.ToHtml(Colors.Item3))));
+            rootnode.Add(new XElement("colors",
+                new XElement("headerBackground", ColorTranslator.ToHtml(Colors.Item1),
+                    new XAttribute("useBlackTextColor", Colors.Item2)),
+                new XElement("iconBackground", ColorTranslator.ToHtml(Colors.Item3))));
             rootnode.Add(new XElement("content", Contents));
             return new XDocument(new XDeclaration("1.0", "UTF-8", "True"), rootnode);
         }

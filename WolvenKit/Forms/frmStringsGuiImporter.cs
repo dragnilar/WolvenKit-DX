@@ -1,21 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-
 using System.Windows.Forms;
+using WolvenKit.W3Strings;
 
 namespace WolvenKit
 {
     public partial class frmStringsGuiImporter : Form
     {
-        W3Strings.W3StringManager stringsManager;
-        List<List<string>> strings = new List<List<string>>();
-        List<string> guiStrings;
+        private readonly List<string> guiStrings;
 
-        bool matchCaseSearch = false;
+        private bool matchCaseSearch;
+        private readonly List<List<string>> strings = new List<List<string>>();
+        private readonly W3StringManager stringsManager;
+
+        public frmStringsGuiImporter(List<string> guiStrings)
+        {
+            this.guiStrings = guiStrings;
+
+            InitializeComponent();
+
+            stringsManager = MainController.Get().W3StringManager;
+            comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
+        }
+
+        public frmStringsGuiImporter()
+        {
+            InitializeComponent();
+
+            stringsManager = MainController.Get().W3StringManager;
+            comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
+        }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
@@ -34,8 +51,8 @@ namespace WolvenKit
 
         private void ShowIDDialog()
         {
-            frmStringsGuiImporterIDDialog idDialog = new frmStringsGuiImporterIDDialog();
-            Dictionary<int, string> stringsWithIDs = new Dictionary<int, string>();
+            var idDialog = new frmStringsGuiImporterIDDialog();
+            var stringsWithIDs = new Dictionary<int, string>();
 
             foreach (ListViewItem item in listViewStrings.SelectedItems)
             {
@@ -67,24 +84,6 @@ namespace WolvenKit
                 Search();
         }
 
-        public frmStringsGuiImporter(List<string> guiStrings)
-        {
-            this.guiStrings = guiStrings;
-
-            InitializeComponent();
-
-            stringsManager = MainController.Get().W3StringManager;
-            comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
-        }
-
-        public frmStringsGuiImporter()
-        {
-            InitializeComponent();
-
-            stringsManager = MainController.Get().W3StringManager;
-            comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
-        }
-
         private void buttonLoadGameStr_Click(object sender, EventArgs e)
         {
             listViewStrings.Clear();
@@ -103,40 +102,35 @@ namespace WolvenKit
 
         private void LoadCustomStrings()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             ofd.Filter = "W3Strings | *.w3strings";
             var path = string.Empty;
-            if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            if (ofd.ShowDialog() != DialogResult.OK)
                 return;
-            else
-                path = ofd.FileName;
+            path = ofd.FileName;
 
-            var file = new W3Strings.W3StringFile();
+            var file = new W3StringFile();
 
             using (var br = new BinaryReader(File.OpenRead(path)))
             {
                 file.Read(br);
             }
 
-            foreach (var str in file.block1)
-            {
-                strings.Add(new List<string> { str.str_id.ToString(), "0", str.str });
-            }
+            foreach (var str in file.block1) strings.Add(new List<string> {str.str_id.ToString(), "0", str.str});
 
             FillListView(strings);
-            toolStripStatusLabelStringsCount.Text = "Strings Loaded: " + strings.Count.ToString();
+            toolStripStatusLabelStringsCount.Text = "Strings Loaded: " + strings.Count;
         }
 
         private void LoadGameStrings()
         {
-            stringsManager.Load(comboBoxLanguage.SelectedItem.ToString(), Path.GetDirectoryName(MainController.Get().Configuration.ExecutablePath));
+            stringsManager.Load(comboBoxLanguage.SelectedItem.ToString(),
+                Path.GetDirectoryName(MainController.Get().Configuration.ExecutablePath));
 
             foreach (var line in stringsManager.Lines)
-            {
-                strings.Add(new List<string> { line.Value[0].str_id.ToString(), "0", line.Value[0].str });
-            }
+                strings.Add(new List<string> {line.Value[0].str_id.ToString(), "0", line.Value[0].str});
             FillListView(strings);
-            toolStripStatusLabelStringsCount.Text = "Strings Loaded: " + strings.Count.ToString();
+            toolStripStatusLabelStringsCount.Text = "Strings Loaded: " + strings.Count;
 
             if (guiStrings.Count == 0)
                 return;
@@ -149,6 +143,7 @@ namespace WolvenKit
                     item.ForeColor = Color.Blue;
                     ++matchedStringsCounter;
                 }
+
                 if (matchedStringsCounter == guiStrings.Count)
                     return;
             }
@@ -158,10 +153,7 @@ namespace WolvenKit
         {
             var items = new List<ListViewItem>();
 
-            foreach (var str in strings)
-            {
-                items.Add(new ListViewItem(str[2]));
-            }
+            foreach (var str in strings) items.Add(new ListViewItem(str[2]));
             listViewStrings.Items.AddRange(items.ToArray());
         }
 
@@ -170,7 +162,7 @@ namespace WolvenKit
             listViewStrings.Clear();
             if (textBoxSearch.Text == string.Empty)
                 FillListView(strings);
-            string[][] stringsArr = strings.Select(a => a.ToArray()).ToArray();
+            var stringsArr = strings.Select(a => a.ToArray()).ToArray();
             var results = new List<List<string>>();
             if (matchCaseSearch)
                 foreach (var str in strings)
@@ -180,10 +172,9 @@ namespace WolvenKit
                 }
             else
                 foreach (var str in strings)
-                {
                     if (str[2].ToUpper().Contains(textBoxSearch.Text.ToUpper()))
                         results.Add(str);
-                }
+
             FillListView(results.ToList());
         }
 
@@ -203,8 +194,8 @@ namespace WolvenKit
                         stringsToImport.Add(str);
                 item.ForeColor = Color.Blue;
             }
+
             stringsManager.SaveImportedStrings(stringsToImport);
         }
     }
-
 }

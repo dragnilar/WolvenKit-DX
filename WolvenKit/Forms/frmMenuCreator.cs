@@ -11,10 +11,8 @@ namespace WolvenKit
 {
     public partial class frmMenuCreator : Form
     {
-        private WitcherMenu MenuObject;
-
         public const string BrokenXmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>";
-
+        private readonly WitcherMenu MenuObject;
 
 
         public frmMenuCreator()
@@ -27,38 +25,42 @@ namespace WolvenKit
         private void PaintMenuTree()
         {
             menutree.Nodes.Clear();
-            List<TreeNode> nodes = new List<TreeNode>();
+            var nodes = new List<TreeNode>();
             foreach (var g in MenuObject.Groups)
             {
-                TreeNode gnode = new TreeNode(g.DisplayName);
+                var gnode = new TreeNode(g.DisplayName);
                 gnode.Tag = g;
                 if (g.Presets != null && g.Presets.Count > 0)
                 {
-                    TreeNode gpresets = new TreeNode("Presets");
+                    var gpresets = new TreeNode("Presets");
                     gpresets.Tag = g.Presets;
                     foreach (var p in g.Presets)
                     {
-                        TreeNode pres = new TreeNode(p.DisplayName);
+                        var pres = new TreeNode(p.DisplayName);
                         pres.Tag = p;
                         gpresets.Nodes.Add(pres);
                     }
+
                     gnode.Nodes.Add(gpresets);
                 }
 
                 if (g.Variables != null && g.Variables.Count > 0)
                 {
-                    TreeNode gvars = new TreeNode("Variables");
+                    var gvars = new TreeNode("Variables");
                     gvars.Tag = g.Variables;
                     foreach (var p in g.Variables)
                     {
-                        TreeNode var = new TreeNode(p.DisplayName);
+                        var var = new TreeNode(p.DisplayName);
                         var.Tag = p;
                         gvars.Nodes.Add(var);
                     }
+
                     gnode.Nodes.Add(gvars);
                 }
+
                 nodes.Add(gnode);
             }
+
             menutree.Nodes.AddRange(nodes.ToArray());
         }
 
@@ -79,14 +81,14 @@ namespace WolvenKit
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to save the document!\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to save the document!\n" + ex.Message, "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
 #if !DEBUG
-            
             try
             {
 #endif
@@ -124,7 +126,11 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         private void MenuEditor_SelectedObjectsChanged(object sender, EventArgs e)
         {
+        }
 
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PaintMenuTree();
         }
 
         public class WitcherMenuElementEditor : CollectionEditor
@@ -136,11 +142,12 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             protected override string GetDisplayText(object value)
             {
-                return base.GetDisplayText(string.Format(((WitcherMenuElement)value).DisplayName));
+                return base.GetDisplayText(string.Format(((WitcherMenuElement) value).DisplayName));
             }
         }
 
         #region Classes & (De)Serialization
+
         public static WitcheMenuGroup DeserializeGroup(XElement element)
         {
             return new WitcheMenuGroup
@@ -194,8 +201,10 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                throw new Exception("Invalid variable type! Can't parse. Type: " + element.Attribute("displayType")?.Value);
+                throw new Exception("Invalid variable type! Can't parse. Type: " +
+                                    element.Attribute("displayType")?.Value);
             }
+
             return ret;
         }
 
@@ -238,24 +247,24 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ID = option.Attribute("id")?.Value,
                     DisplayName = option.Attribute("displayName")?.Value
                 };
-                foreach (var ent in option.Elements("Entry").Select(entry => new PresetEntry { VarId = entry.Attribute("varId")?.Value, Value = entry.Attribute("value")?.Value }))
-                {
+                foreach (var ent in option.Elements("Entry").Select(entry => new PresetEntry
+                    {VarId = entry.Attribute("varId")?.Value, Value = entry.Attribute("value")?.Value}))
                     wvo.Entries.Add(ent);
-                }
                 ret.Add(wvo);
             }
+
             return ret;
         }
 
         public static XElement SerializeOptions(List<WitcherVariableOption> presets)
         {
             return new XElement("OptionsArray", presets.Select(x =>
-                                 new XElement("Option",
-                                     new XAttribute("id", x.ID),
-                                     new XAttribute("displayName", x.DisplayName),
-                                     x.Entries.Select(y => new XElement("Entry",
-                                                             new XAttribute("varId", y.VarId),
-                                                             new XAttribute("value", y.Value))).ToArray())));
+                new XElement("Option",
+                    new XAttribute("id", x.ID),
+                    new XAttribute("displayName", x.DisplayName),
+                    x.Entries.Select(y => new XElement("Entry",
+                        new XAttribute("varId", y.VarId),
+                        new XAttribute("value", y.Value))).ToArray())));
         }
 
         public static List<WitcherMenuPreset> DeserializePresets(XElement element)
@@ -276,24 +285,23 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     VarId = entry.Attribute("varId")?.Value,
                     Value = entry.Attribute("value")?.Value
                 }))
-                {
                     preset.Entries.Add(pentry);
-                }
                 ret.Add(preset);
             }
+
             return ret;
         }
 
         public static XElement SerializePresets(List<WitcherMenuPreset> presets)
         {
             return new XElement("PresetsArray", presets.Select(x =>
-                                 new XElement("Preset",
-                                     new XAttribute("id", x.ID),
-                                     new XAttribute("displayName", x.DisplayName),
-                                     new XAttribute("tags", string.Join(";", x.Tags)),
-                                     x.Entries.Select(y => new XElement("Entry",
-                                                             new XAttribute("varId", y.VarId),
-                                                             new XAttribute("value", y.Value))).ToArray())));
+                new XElement("Preset",
+                    new XAttribute("id", x.ID),
+                    new XAttribute("displayName", x.DisplayName),
+                    new XAttribute("tags", string.Join(";", x.Tags)),
+                    x.Entries.Select(y => new XElement("Entry",
+                        new XAttribute("varId", y.VarId),
+                        new XAttribute("value", y.Value))).ToArray())));
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -302,38 +310,24 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             [Category("Sections")]
             [Description("These are the groups/menus in your menu. (Inside this you can create submenus or variables)")]
             [Editor(typeof(DescriptiveCollectionEditor), typeof(UITypeEditor))]
-            public List<WitcheMenuGroup> Groups
-            {
-                get { return groups; }
-                set { groups = value; }
-            }
-
-            [Editor(typeof(WitcherMenuElementEditor), typeof(System.Drawing.Design.UITypeEditor))]
-            private List<WitcheMenuGroup> groups = new List<WitcheMenuGroup>();
+            [field: Editor(typeof(WitcherMenuElementEditor), typeof(UITypeEditor))]
+            public List<WitcheMenuGroup> Groups { get; set; } = new List<WitcheMenuGroup>();
         }
 
         [RefreshProperties(RefreshProperties.All)]
         public class WitcheMenuGroup : WitcherMenuElement
         {
             private List<WitcheMenuGroup> subgroups = new List<WitcheMenuGroup>();
+
             [Category("Sections")]
             [Description("The variables of the group. These are the actual settings (sliders,toggles,options)")]
             [Editor(typeof(DescriptiveCollectionEditor), typeof(UITypeEditor))]
-            public List<WitcherMenuVariable> Variables
-            {
-                get { return variables; }
-                set { variables = value; }
-            }
-            private List<WitcherMenuVariable> variables = new List<WitcherMenuVariable>();
+            public List<WitcherMenuVariable> Variables { get; set; } = new List<WitcherMenuVariable>();
+
             [Category("Sections")]
             [Description("The presets of the group. (these can be used to create preset variable values)")]
             [Editor(typeof(DescriptiveCollectionEditor), typeof(UITypeEditor))]
-            public List<WitcherMenuPreset> Presets
-            {
-                get { return presets; }
-                set { presets = value; }
-            }
-            private List<WitcherMenuPreset> presets = new List<WitcherMenuPreset>();
+            public List<WitcherMenuPreset> Presets { get; set; } = new List<WitcherMenuPreset>();
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -342,61 +336,31 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             [Category("Main variables")]
             [Description("The tags of the element.")]
             [Editor(@"System.Windows.Forms.Design.StringCollectionEditor," +
-"System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
-typeof(System.Drawing.Design.UITypeEditor))]
-            public List<string> Tags
-            {
-                get { return tags; }
-                set { tags = value; }
-            }
+                    "System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+                typeof(UITypeEditor))]
+            public List<string> Tags { get; set; } = new List<string>();
 
             [Category("Type")]
-            [Description("The type of the variable.\nNote: Only the properties in the section this is set to are serialized.")]
-            public WitcherMenuVariableType Variabletype
-            {
-                get { return variableType; }
-                set { variableType = value; }
-            }
-
-            private List<string> tags = new List<string>();
+            [Description(
+                "The type of the variable.\nNote: Only the properties in the section this is set to are serialized.")]
+            public WitcherMenuVariableType Variabletype { get; set; } = WitcherMenuVariableType.TOGGLE;
 
             [Category("Options")]
             [Description("The different options this option variable has.")]
             [Editor(typeof(DescriptiveCollectionEditor), typeof(UITypeEditor))]
-            public List<WitcherVariableOption> Options
-            {
-                get { return _entries; }
-                set { _entries = value; }
-            }
+            public List<WitcherVariableOption> Options { get; set; } = new List<WitcherVariableOption>();
 
             [Category("Slider")]
             [Description("The minimum value of the slider.")]
-            public string MinValue
-            {
-                get { return min; }
-                set { min = value; }
-            }
-            private string min = string.Empty;
+            public string MinValue { get; set; } = string.Empty;
+
             [Category("Slider")]
             [Description("The max value of the slider.")]
-            public string MaxValue
-            {
-                get { return max; }
-                set { max = value; }
-            }
-            private string max = string.Empty;
+            public string MaxValue { get; set; } = string.Empty;
+
             [Category("Slider")]
             [Description("The number of steps in the slider.")]
-            public string Step
-            {
-                get { return step; }
-                set { step = value; }
-            }
-            private string step = string.Empty;
-
-            private List<WitcherVariableOption> _entries = new List<WitcherVariableOption>();
-
-            private WitcherMenuVariableType variableType = WitcherMenuVariableType.TOGGLE;
+            public string Step { get; set; } = string.Empty;
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -405,13 +369,7 @@ typeof(System.Drawing.Design.UITypeEditor))]
             [Category("Sections")]
             [Description("The entries inside this option.")]
             [Editor(typeof(DescriptiveCollectionEditor), typeof(UITypeEditor))]
-            public List<PresetEntry> Entries
-            {
-                get { return _entries; }
-                set { _entries = value; }
-            }
-
-            private List<PresetEntry> _entries = new List<PresetEntry>();
+            public List<PresetEntry> Entries { get; set; } = new List<PresetEntry>();
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -420,25 +378,14 @@ typeof(System.Drawing.Design.UITypeEditor))]
             [Category("Sections")]
             [Description("The tags of this presetarray.")]
             [Editor(@"System.Windows.Forms.Design.StringCollectionEditor," +
-            "System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
-           typeof(System.Drawing.Design.UITypeEditor))]
-            public List<string> Tags
-            {
-                get { return tags; }
-                set { tags = value; }
-            }
-            private List<string> tags = new List<string>();
+                    "System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+                typeof(UITypeEditor))]
+            public List<string> Tags { get; set; } = new List<string>();
 
             [Category("Sections")]
             [Description("These are the Entries this preset modifies when clicked.")]
             [Editor(typeof(DescriptiveCollectionEditor), typeof(UITypeEditor))]
-            public List<PresetEntry> Entries
-            {
-                get { return _entries; }
-                set { _entries = value; }
-            }
-
-            private List<PresetEntry> _entries = new List<PresetEntry>();
+            public List<PresetEntry> Entries { get; set; } = new List<PresetEntry>();
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -446,21 +393,11 @@ typeof(System.Drawing.Design.UITypeEditor))]
         {
             [Category("Sections")]
             [Description("The id of the entry.")]
-            public string VarId
-            {
-                get { return varId; }
-                set { varId = value; }
-            }
-            private string varId = string.Empty;
+            public string VarId { get; set; } = string.Empty;
 
             [Category("Sections")]
             [Description("The value of the entry.")]
-            public string Value
-            {
-                get { return _Value; }
-                set { _Value = value; }
-            }
-            private string _Value = string.Empty;
+            public string Value { get; set; } = string.Empty;
         }
 
         [RefreshProperties(RefreshProperties.All)]
@@ -468,24 +405,15 @@ typeof(System.Drawing.Design.UITypeEditor))]
         {
             [Category("Main variables")]
             [Description("The id of the element.")]
-            public string ID
-            {
-                get { return id; }
-                set { id = value; }
-            }
-            private string id = string.Empty;
+            public string ID { get; set; } = string.Empty;
+
             [Category("Main variables")]
             [Description("The displayed name for the element.")]
-            public string DisplayName
-            {
-                get { return displayname; }
-                set { displayname = value; }
-            }
-            private string displayname = string.Empty;
+            public string DisplayName { get; set; } = string.Empty;
         }
 
         /// <summary>
-        /// Naming must be exact.
+        ///     Naming must be exact.
         /// </summary>
         public enum WitcherMenuVariableType
         {
@@ -494,33 +422,27 @@ typeof(System.Drawing.Design.UITypeEditor))]
             TOGGLE
         }
 
-        class DescriptiveCollectionEditor : CollectionEditor
+        private class DescriptiveCollectionEditor : CollectionEditor
         {
-            public DescriptiveCollectionEditor(Type type) : base(type) { }
+            public DescriptiveCollectionEditor(Type type) : base(type)
+            {
+            }
+
             protected override CollectionForm CreateCollectionForm()
             {
-                CollectionForm form = base.CreateCollectionForm();
-                form.Shown += delegate
-                {
-                    ShowDescription(form);
-                };
+                var form = base.CreateCollectionForm();
+                form.Shown += delegate { ShowDescription(form); };
                 return form;
             }
-            static void ShowDescription(Control control)
+
+            private static void ShowDescription(Control control)
             {
-                PropertyGrid grid = control as PropertyGrid;
+                var grid = control as PropertyGrid;
                 if (grid != null) grid.HelpVisible = true;
-                foreach (Control child in control.Controls)
-                {
-                    ShowDescription(child);
-                }
+                foreach (Control child in control.Controls) ShowDescription(child);
             }
         }
-        #endregion
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PaintMenuTree();
-        }
+        #endregion
     }
 }

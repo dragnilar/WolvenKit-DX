@@ -50,7 +50,7 @@ namespace WolvenKit
             WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient7 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCR2WDocument));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.FormPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.SuspendLayout();
             // 
             // imageList1
@@ -62,18 +62,18 @@ namespace WolvenKit
             // 
             // dockPanel
             // 
-            this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dockPanel.DockBackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.dockPanel.DockBottomPortion = 150D;
-            this.dockPanel.DockLeftPortion = 200D;
-            this.dockPanel.DockRightPortion = 200D;
-            this.dockPanel.DockTopPortion = 150D;
-            this.dockPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
-            this.dockPanel.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.dockPanel.Location = new System.Drawing.Point(0, 0);
-            this.dockPanel.Name = "dockPanel";
-            this.dockPanel.RightToLeftLayout = true;
-            this.dockPanel.Size = new System.Drawing.Size(588, 395);
+            this.FormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FormPanel.DockBackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.FormPanel.DockBottomPortion = 150D;
+            this.FormPanel.DockLeftPortion = 200D;
+            this.FormPanel.DockRightPortion = 200D;
+            this.FormPanel.DockTopPortion = 150D;
+            this.FormPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
+            this.FormPanel.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+            this.FormPanel.Location = new System.Drawing.Point(0, 0);
+            this.FormPanel.Name = "FormPanel";
+            this.FormPanel.RightToLeftLayout = true;
+            this.FormPanel.Size = new System.Drawing.Size(588, 395);
             dockPanelGradient1.EndColor = System.Drawing.SystemColors.ControlLight;
             dockPanelGradient1.StartColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             autoHideStripSkin1.DockStripGradient = dockPanelGradient1;
@@ -119,7 +119,7 @@ namespace WolvenKit
             dockPaneStripToolWindowGradient1.InactiveTabGradient = tabGradient7;
             dockPaneStripSkin1.ToolWindowGradient = dockPaneStripToolWindowGradient1;
             dockPanelSkin1.DockPaneStripSkin = dockPaneStripSkin1;
-            this.dockPanel.TabIndex = 1;
+            this.FormPanel.TabIndex = 1;
             // 
             // frmCR2WDocument
             // 
@@ -127,7 +127,7 @@ namespace WolvenKit
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(588, 395);
-            this.Controls.Add(this.dockPanel);
+            this.Controls.Add(this.FormPanel);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -141,9 +141,5 @@ namespace WolvenKit
         #endregion
 
         private ImageList imageList1;
-        private DockPanel dockPanel;
-
-
-
     }
 }

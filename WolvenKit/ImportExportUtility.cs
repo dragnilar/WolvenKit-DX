@@ -1,8 +1,8 @@
-﻿using Ionic.Zlib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Ionic.Zlib;
 
 namespace WolvenKit
 {
@@ -23,7 +23,8 @@ namespace WolvenKit
             if (bytes == null)
                 return list;
 
-            if (bytes.StartsWith("CFX") || bytes.StartsWith("CWS") || bytes.StartsWith("FWS") || bytes.StartsWith("GFX"))
+            if (bytes.StartsWith("CFX") || bytes.StartsWith("CWS") || bytes.StartsWith("FWS") ||
+                bytes.StartsWith("GFX"))
             {
                 list.Add("Decompressed flash file|*.swf");
                 list.Add("Unknown file|*.*");
@@ -42,10 +43,7 @@ namespace WolvenKit
             switch (type)
             {
                 case ".swf":
-                    if (bytes.StartsWith("CFX") || bytes.StartsWith("CWS"))
-                    {
-                        return uncompressToFWS(bytes);
-                    }
+                    if (bytes.StartsWith("CFX") || bytes.StartsWith("CWS")) return uncompressToFWS(bytes);
                     break;
                 case ".dds":
                     return DDSUtility.ExportAsDDS(bytes);
@@ -63,12 +61,10 @@ namespace WolvenKit
             if (filetype.StartsWith("FWS") || filetype.StartsWith("GFX"))
             {
                 if (MessageBox.Show(
-                    "Imported file type detected as FWS or GFX, do you want to compress it? \n\n Import as is if not.",
-                    "Import",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
+                        "Imported file type detected as FWS or GFX, do you want to compress it? \n\n Import as is if not.",
+                        "Import",
+                        MessageBoxButtons.YesNo) == DialogResult.Yes)
                     return compressToCFX(reader);
-                }
             }
             else if (filetype.StartsWith("DDS"))
             {
@@ -77,7 +73,7 @@ namespace WolvenKit
             }
 
             reader.BaseStream.Seek(0, SeekOrigin.Begin);
-            return reader.ReadBytes((int)reader.BaseStream.Length);
+            return reader.ReadBytes((int) reader.BaseStream.Length);
         }
 
         private static byte[] uncompressToFWS(byte[] bytes)
@@ -90,9 +86,9 @@ namespace WolvenKit
 
             var memout = new MemoryStream();
             var writer = new BinaryWriter(memout);
-            writer.Write((byte)'F');
-            writer.Write((byte)'W');
-            writer.Write((byte)'S');
+            writer.Write((byte) 'F');
+            writer.Write((byte) 'W');
+            writer.Write((byte) 'S');
             writer.Write(version);
             writer.Write(size);
 
@@ -109,9 +105,9 @@ namespace WolvenKit
             var version = reader.ReadByte();
             var size = reader.ReadUInt32();
 
-            writer.Write((byte)'C');
-            writer.Write((byte)'F');
-            writer.Write((byte)'X');
+            writer.Write((byte) 'C');
+            writer.Write((byte) 'F');
+            writer.Write((byte) 'X');
             writer.Write(version);
             writer.Write(size);
 

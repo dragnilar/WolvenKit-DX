@@ -103,7 +103,8 @@ namespace WolvenKit
                 : typed.Type;
 
             var value = typed == null || typed.Value == null
-                ? string.Empty : typed.Value.ToString();
+                ? string.Empty
+                : typed.Value.ToString();
 
             return new VariableModel
             {

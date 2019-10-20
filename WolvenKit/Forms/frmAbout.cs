@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WolvenKit
 {
-    partial class frmAbout : Form
+    internal partial class frmAbout : Form
     {
         public frmAbout()
         {
@@ -51,20 +51,15 @@ namespace WolvenKit
                     .GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    var titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != string.Empty)
-                    {
-                        return titleAttribute.Title;
-                    }
+                    var titleAttribute = (AssemblyTitleAttribute) attributes[0];
+                    if (titleAttribute.Title != string.Empty) return titleAttribute.Title;
                 }
+
                 return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
-        public string AssemblyVersion
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
-        }
+        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
         {
@@ -72,11 +67,8 @@ namespace WolvenKit
             {
                 var attributes =
                     Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                if (attributes.Length == 0) return string.Empty;
+                return ((AssemblyDescriptionAttribute) attributes[0]).Description;
             }
         }
 
@@ -86,11 +78,8 @@ namespace WolvenKit
             {
                 var attributes = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyProductAttribute)attributes[0]).Product;
+                if (attributes.Length == 0) return string.Empty;
+                return ((AssemblyProductAttribute) attributes[0]).Product;
             }
         }
 
@@ -100,11 +89,8 @@ namespace WolvenKit
             {
                 var attributes = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+                if (attributes.Length == 0) return string.Empty;
+                return ((AssemblyCopyrightAttribute) attributes[0]).Copyright;
             }
         }
 
@@ -114,11 +100,8 @@ namespace WolvenKit
             {
                 var attributes = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyTrademarkAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyTrademarkAttribute)attributes[0]).Trademark;
+                if (attributes.Length == 0) return string.Empty;
+                return ((AssemblyTrademarkAttribute) attributes[0]).Trademark;
             }
         }
 

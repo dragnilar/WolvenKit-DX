@@ -20,8 +20,8 @@ namespace WolvenKit
 
         public string ChunkType
         {
-            get { return txType.Text; }
-            set { txType.Text = value; }
+            get => txType.Text;
+            set => txType.Text = value;
         }
     }
 }

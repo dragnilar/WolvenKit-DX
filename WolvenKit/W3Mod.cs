@@ -9,6 +9,8 @@ namespace WolvenKit.Mod
 {
     public class W3Mod : ICloneable
     {
+        [Browsable(false)] public List<string> LastOpenedFiles;
+
         [XmlIgnore]
         [ReadOnly(true)]
         [Browsable(false)]
@@ -63,11 +65,9 @@ namespace WolvenKit.Mod
         {
             get
             {
-                if (!Directory.Exists(FileDirectory))
-                {
-                    Directory.CreateDirectory(FileDirectory);
-                }
-                return Directory.EnumerateFiles(FileDirectory, "*", SearchOption.AllDirectories).Select(file => file.Substring(FileDirectory.Length + 1)).ToList();
+                if (!Directory.Exists(FileDirectory)) Directory.CreateDirectory(FileDirectory);
+                return Directory.EnumerateFiles(FileDirectory, "*", SearchOption.AllDirectories)
+                    .Select(file => file.Substring(FileDirectory.Length + 1)).ToList();
             }
         }
 
@@ -78,11 +78,9 @@ namespace WolvenKit.Mod
         {
             get
             {
-                if (!Directory.Exists(ModDirectory))
-                {
-                    Directory.CreateDirectory(ModDirectory);
-                }
-                return Directory.EnumerateFiles(ModDirectory, "*", SearchOption.AllDirectories).Select(file => file.Substring(ModDirectory.Length + 1)).ToList();
+                if (!Directory.Exists(ModDirectory)) Directory.CreateDirectory(ModDirectory);
+                return Directory.EnumerateFiles(ModDirectory, "*", SearchOption.AllDirectories)
+                    .Select(file => file.Substring(ModDirectory.Length + 1)).ToList();
             }
         }
 
@@ -93,16 +91,11 @@ namespace WolvenKit.Mod
         {
             get
             {
-                if (!Directory.Exists(DlcDirectory))
-                {
-                    Directory.CreateDirectory(DlcDirectory);
-                }
-                return Directory.EnumerateFiles(DlcDirectory, "*", SearchOption.AllDirectories).Select(file => file.Substring(DlcDirectory.Length + 1)).ToList();
+                if (!Directory.Exists(DlcDirectory)) Directory.CreateDirectory(DlcDirectory);
+                return Directory.EnumerateFiles(DlcDirectory, "*", SearchOption.AllDirectories)
+                    .Select(file => file.Substring(DlcDirectory.Length + 1)).ToList();
             }
         }
-
-        [Browsable(false)]
-        public List<string> LastOpenedFiles;
 
 
         [XmlIgnore]
@@ -113,6 +106,7 @@ namespace WolvenKit.Mod
         [Category("About")]
         [Description("The name of your mod.")]
         public string Name { get; set; }
+
         [Category("About")]
         [Description("The version of your mod. It's a string so 0.1-ALPHA and such is possible.")]
         public string version { get; set; }

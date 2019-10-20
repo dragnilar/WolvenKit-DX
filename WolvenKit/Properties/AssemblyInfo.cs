@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Wolven kit")]
-[assembly: AssemblyDescription("Wolven kit a tool to operate with the game \"The Witcher 3: Wild Hunt\" in various ways.")]
+[assembly:
+    AssemblyDescription("Wolven kit a tool to operate with the game \"The Witcher 3: Wild Hunt\" in various ways.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Community")]
 [assembly: AssemblyProduct("Wolven kit")]

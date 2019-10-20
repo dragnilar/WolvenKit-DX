@@ -20,12 +20,11 @@ namespace WolvenKit.FlowTreeEditors
             var choiceLinesObj = Chunk.GetVariableByName("outputs");
             if (choiceLinesObj != null && choiceLinesObj is CArray)
             {
-                var choiceLines = ((CArray)choiceLinesObj);
+                var choiceLines = (CArray) choiceLinesObj;
                 foreach (var choice in choiceLines)
-                {
                     if (choice != null && choice is CPtr)
                     {
-                        var choicePtr = (CPtr)choice;
+                        var choicePtr = (CPtr) choice;
                         //if (choicePtr.PtrTarget != null)
                         //{
                         //    var nextLinkElementObj = choicePtr.PtrTarget.GetVariableByName("nextLinkElement");
@@ -40,7 +39,6 @@ namespace WolvenKit.FlowTreeEditors
                         //}
                         list.Add(choicePtr);
                     }
-                }
             }
 
             return list;
@@ -57,12 +55,11 @@ namespace WolvenKit.FlowTreeEditors
             var sceneElementsObj = Chunk.GetVariableByName("outputs");
             if (sceneElementsObj != null && sceneElementsObj is CArray)
             {
-                var sceneElements = (CArray)sceneElementsObj;
+                var sceneElements = (CArray) sceneElementsObj;
                 foreach (var element in sceneElements)
-                {
                     if (element != null && element is CPtr)
                     {
-                        var ptr = (CPtr)element;
+                        var ptr = (CPtr) element;
                         switch (ptr.PtrTargetType)
                         {
                             default:
@@ -84,7 +81,6 @@ namespace WolvenKit.FlowTreeEditors
                                 break;
                         }
                     }
-                }
             }
 
             Height = y;

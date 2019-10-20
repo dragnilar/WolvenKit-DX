@@ -19,14 +19,14 @@ namespace WolvenKit
 
         public string VariableName
         {
-            get { return txName.Text; }
-            set { txName.Text = value; }
+            get => txName.Text;
+            set => txName.Text = value;
         }
 
         public string VariableType
         {
-            get { return txType.Text; }
-            set { txType.Text = value; }
+            get => txType.Text;
+            set => txType.Text = value;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using BrightIdeasSoftware;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 
@@ -19,7 +20,7 @@ namespace WolvenKit
 
         public CR2WFile File
         {
-            get { return file; }
+            get => file;
             set
             {
                 file = value;
@@ -32,16 +33,14 @@ namespace WolvenKit
         private void updateList(string keyword = "")
         {
             var limit = -1;
-            if (limitCB.Checked)
-            {
-                int.TryParse(limitTB.Text, out limit);
-            }
+            if (limitCB.Checked) int.TryParse(limitTB.Text, out limit);
             if (File == null)
                 return;
             if (!string.IsNullOrEmpty(keyword))
             {
                 if (limit != -1)
-                    listView.Objects = File.chunks.Where(x => x.Name.ToUpper().Contains(searchTB.Text.ToUpper())).Take(limit);
+                    listView.Objects = File.chunks.Where(x => x.Name.ToUpper().Contains(searchTB.Text.ToUpper()))
+                        .Take(limit);
                 else
                     listView.Objects = File.chunks.Where(x => x.Name.ToUpper().Contains(searchTB.Text.ToUpper()));
             }
@@ -53,10 +52,8 @@ namespace WolvenKit
 
         private void chunkListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (OnSelectChunk != null && (CR2WChunk)listView.SelectedObject != null)
-            {
-                OnSelectChunk(this, new SelectChunkArgs { Chunk = (CR2WChunk)listView.SelectedObject });
-            }
+            if (OnSelectChunk != null && (CR2WChunk) listView.SelectedObject != null)
+                OnSelectChunk(this, new SelectChunkArgs {Chunk = (CR2WChunk) listView.SelectedObject});
         }
 
         private void addChunkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,22 +61,18 @@ namespace WolvenKit
             var dlg = new frmAddChunk();
 
             if (dlg.ShowDialog() == DialogResult.OK)
-            {
                 try
                 {
                     var chunk = File.CreateChunk(dlg.ChunkType);
                     listView.AddObject(chunk);
 
                     if (OnSelectChunk != null && chunk != null)
-                    {
-                        OnSelectChunk(this, new SelectChunkArgs { Chunk = chunk });
-                    }
+                        OnSelectChunk(this, new SelectChunkArgs {Chunk = chunk});
                 }
                 catch (InvalidChunkTypeException ex)
                 {
                     MessageBox.Show(ex.Message, "Error adding chunk.");
                 }
-            }
         }
 
         private void deleteChunkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,13 +80,12 @@ namespace WolvenKit
             if (listView.SelectedObjects.Count == 0)
                 return;
 
-            if (MessageBox.Show("Are you sure you want to delete the selected chunk(s)? \n\n NOTE: Any pointers or handles to these chunks will NOT be deleted.", "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(
+                    "Are you sure you want to delete the selected chunk(s)? \n\n NOTE: Any pointers or handles to these chunks will NOT be deleted.",
+                    "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 var selected = listView.SelectedObjects;
-                foreach (var obj in selected)
-                {
-                    File.RemoveChunk((CR2WChunk)obj);
-                }
+                foreach (var obj in selected) File.RemoveChunk((CR2WChunk) obj);
 
                 listView.RemoveObjects(selected);
                 listView.UpdateObjects(File.chunks);
@@ -122,22 +114,18 @@ namespace WolvenKit
         {
             var copiedchunks = CopyController.ChunkList;
             if (copiedchunks != null && copiedchunks.Count > 0)
-            {
                 foreach (var chunk in copiedchunks)
-                {
                     try
                     {
                         var pastedchunk = CR2WCopyAction.CopyChunk(chunk, chunk.CR2WOwner);
                         listView.AddObject(pastedchunk);
-                        OnSelectChunk?.Invoke(this, new SelectChunkArgs { Chunk = pastedchunk });
+                        OnSelectChunk?.Invoke(this, new SelectChunkArgs {Chunk = pastedchunk});
                         MainController.Get().ProjectStatus = "Chunk copied";
                     }
                     catch (InvalidChunkTypeException ex)
                     {
                         MessageBox.Show(ex.Message, @"Error adding chunk.");
                     }
-                }
-            }
         }
 
         private void searchBTN_Click(object sender, EventArgs e)
@@ -157,11 +145,11 @@ namespace WolvenKit
 
         private void searchTB_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == (int)Keys.Enter)
+            if (e.KeyValue == (int) Keys.Enter)
                 updateList(searchTB.Text);
         }
 
-        private void listView_ItemsChanged(object sender, BrightIdeasSoftware.ItemsChangedEventArgs e)
+        private void listView_ItemsChanged(object sender, ItemsChangedEventArgs e)
         {
             MainController.Get().ProjectUnsaved = true;
         }

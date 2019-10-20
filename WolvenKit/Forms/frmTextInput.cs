@@ -5,13 +5,13 @@ namespace WolvenKit
 {
     public partial class Input : Form
     {
-        public string Resulttext => textBox1.Text;
-
         public Input(string question)
         {
             InitializeComponent();
             questionLabel.Text = question;
         }
+
+        public string Resulttext => textBox1.Text;
 
         private void okButton_Click(object sender, EventArgs e)
         {

@@ -20,7 +20,7 @@ namespace WolvenKit.FlowTreeEditors
 
         public CR2WChunk Chunk
         {
-            get { return chunk; }
+            get => chunk;
             set
             {
                 chunk = value;
@@ -28,12 +28,7 @@ namespace WolvenKit.FlowTreeEditors
             }
         }
 
-        private Size originalSize;
-        public Size OriginalSize
-        {
-            get { return originalSize; }
-            set { originalSize = value; }
-        }
+        public Size OriginalSize { get; set; }
 
         public virtual string GetCopyText()
         {
@@ -61,8 +56,8 @@ namespace WolvenKit.FlowTreeEditors
                 OnManualMove?.Invoke(this, new MoveEditorArgs
                 {
                     Relative =
-                        new Point((Location.X - mouseStart.X + e.X) - Location.X,
-                            (Location.Y - mouseStart.Y + e.Y) - Location.Y)
+                        new Point(Location.X - mouseStart.X + e.X - Location.X,
+                            Location.Y - mouseStart.Y + e.Y - Location.Y)
                 });
                 Location = new Point(Location.X - mouseStart.X + e.X, Location.Y - mouseStart.Y + e.Y);
             }
@@ -91,7 +86,7 @@ namespace WolvenKit.FlowTreeEditors
 
         public void FireSelectEvent(CR2WChunk c)
         {
-            OnSelectChunk?.Invoke(this, new SelectChunkArgs { Chunk = c });
+            OnSelectChunk?.Invoke(this, new SelectChunkArgs {Chunk = c});
         }
 
         public virtual Point GetConnectionLocation(int i)

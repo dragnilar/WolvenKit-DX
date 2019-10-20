@@ -1,19 +1,20 @@
-﻿using ICSharpCode.SharpZipLib.Core;
-using ICSharpCode.SharpZipLib.Zip;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace WolvenKit
 {
     public partial class frmInstallPackage : Form
     {
-        public string package;
         public string actionlink;
+        public string package;
 
         public frmInstallPackage(string PackageFile)
         {
@@ -25,20 +26,17 @@ namespace WolvenKit
             modnameLBL.BackColor = Color.Transparent;
             try
             {
-                FileStream fs = File.OpenRead(PackageFile);
+                var fs = File.OpenRead(PackageFile);
                 var zf = new ZipFile(fs);
                 foreach (ZipEntry zipEntry in zf)
                 {
-                    if (!zipEntry.IsFile)
-                    {
-                        continue;
-                    }
+                    if (!zipEntry.IsFile) continue;
 
-                    String entryFileName = zipEntry.Name;
+                    var entryFileName = zipEntry.Name;
                     if (entryFileName == "Assembly.xml")
                     {
-                        byte[] buffer = new byte[4096];
-                        Stream zipStream = zf.GetInputStream(zipEntry);
+                        var buffer = new byte[4096];
+                        var zipStream = zf.GetInputStream(zipEntry);
                         using (var ms = new MemoryStream())
                         {
                             StreamUtils.Copy(zipStream, ms, buffer);
@@ -48,8 +46,8 @@ namespace WolvenKit
 
                     if (Path.GetFileNameWithoutExtension(entryFileName) == "Icon")
                     {
-                        byte[] buffer = new byte[4096];
-                        Stream zipStream = zf.GetInputStream(zipEntry);
+                        var buffer = new byte[4096];
+                        var zipStream = zf.GetInputStream(zipEntry);
                         using (var ms = new MemoryStream())
                         {
                             StreamUtils.Copy(zipStream, ms, buffer);
@@ -62,16 +60,16 @@ namespace WolvenKit
             catch (Exception e)
             {
                 MessageBox.Show("Failed to load the package!\n" + e.Message);
-                this.Close();
+                Close();
             }
         }
 
         public void ParseAssemblyInfo(byte[] Contents)
         {
             var data = XDocument.Load(new MemoryStream(Contents));
-            this.Text = data.Root.Attribute("name").Value + " - Package Installer";
+            Text = data.Root.Attribute("name").Value + " - Package Installer";
             modnameLBL.Text = data.Root.Attribute("name")?.Value;
-            String v = (data.Root.Attribute("version")?.Value ?? "1.0");
+            var v = data.Root.Attribute("version")?.Value ?? "1.0";
 
             var metanode = data.Root.Element("metadata");
             authorLBL.Text = metanode?.Element("author")?.Element("displayName")?.Value;
@@ -84,7 +82,6 @@ namespace WolvenKit
             {
                 modnameLBL.ForeColor = Color.Black;
                 authorLBL.ForeColor = Color.Black;
-
             }
             else
             {
@@ -92,7 +89,7 @@ namespace WolvenKit
                 authorLBL.ForeColor = Color.White;
             }
 
-            List<string> adition = new List<string>();
+            var adition = new List<string>();
             if (metanode?.Element("author")?.Element("twitter")?.Value != string.Empty)
                 adition.Add(
                     $@"<a href={"\"" + metanode?.Element("author")?.Element("twitter")?.Value + "\""} target={
@@ -164,23 +161,22 @@ namespace WolvenKit
             //Actually install the mod
             try
             {
-                FileStream fs = File.OpenRead(package);
+                var fs = File.OpenRead(package);
                 var zf = new ZipFile(fs);
                 foreach (ZipEntry zipEntry in zf)
                 {
-                    if (!zipEntry.IsFile)
-                    {
-                        continue;
-                    }
+                    if (!zipEntry.IsFile) continue;
 
-                    String entryFileName = zipEntry.Name;
+                    var entryFileName = zipEntry.Name;
                     if (!entryFileName.StartsWith("Icon") && entryFileName != "Assembly.xml")
                     {
-                        byte[] buffer = new byte[4096];
-                        Stream zipStream = zf.GetInputStream(zipEntry);
+                        var buffer = new byte[4096];
+                        var zipStream = zf.GetInputStream(zipEntry);
                         Directory.CreateDirectory(Path.GetDirectoryName(
                             Path.Combine(MainController.Get().Configuration.GameRootDir, entryFileName)));
-                        using (var f = new FileStream(Path.Combine(MainController.Get().Configuration.GameRootDir, entryFileName), FileMode.Create))
+                        using (var f =
+                            new FileStream(Path.Combine(MainController.Get().Configuration.GameRootDir, entryFileName),
+                                FileMode.Create))
                         {
                             StreamUtils.Copy(zipStream, f, buffer);
                         }
@@ -190,16 +186,14 @@ namespace WolvenKit
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to load the package!\n" + ex.Message);
-                this.Close();
+                Close();
             }
 
-            if (MessageBox.Show($@"Installed sucesfully!
+            if (MessageBox.Show(@"Installed sucesfully!
 (Please always check your files after installing mods).
 Modding requires great deal of work please consider donating to the mod's author. (Click yes to do so)", "Info",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-            {
-                System.Diagnostics.Process.Start(actionlink);
-            }
+                Process.Start(actionlink);
         }
     }
 }

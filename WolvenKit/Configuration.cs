@@ -33,12 +33,11 @@ namespace WolvenKit
         public FormWindowState MainState { get; set; }
         public string InitialExportDirectory { get; set; }
 
-        [XmlIgnore]
-        public string GameDLCDir => Path.Combine(ExecutablePath, @"..\..\DLC\");
-        [XmlIgnore]
-        public string GameModDir => Path.Combine(ExecutablePath, @"..\..\Mods\");
-        [XmlIgnore]
-        public string GameRootDir => Path.Combine(ExecutablePath, @"..\..\..\");
+        [XmlIgnore] public string GameDLCDir => Path.Combine(ExecutablePath, @"..\..\DLC\");
+
+        [XmlIgnore] public string GameModDir => Path.Combine(ExecutablePath, @"..\..\Mods\");
+
+        [XmlIgnore] public string GameRootDir => Path.Combine(ExecutablePath, @"..\..\..\");
 
 
         ~Configuration()
@@ -60,7 +59,7 @@ namespace WolvenKit
             {
                 var ser = new XmlSerializer(typeof(Configuration));
                 var stream = new FileStream(ConfigurationPath, FileMode.Open, FileAccess.Read);
-                var config = (Configuration)ser.Deserialize(stream);
+                var config = (Configuration) ser.Deserialize(stream);
                 stream.Close();
                 return config;
             }

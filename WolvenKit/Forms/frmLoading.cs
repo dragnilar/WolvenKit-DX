@@ -1,7 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,11 +17,12 @@ namespace WolvenKit.Forms
 
         private void frmLoading_Load(object sender, EventArgs e)
         {
-            this.CenterToScreen();
+            CenterToScreen();
             MainController.Get().PropertyChanged += MainControllerUpdated;
             MainController.Get().InitForm(this);
-            this.VersionLbl.Text = "Version " + FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
-            this.copyrightLbl.Text = "https://github.com/Traderain/Wolven-kit";
+            VersionLbl.Text = "Version " +
+                              FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+            copyrightLbl.Text = "https://github.com/Traderain/Wolven-kit";
         }
 
         private void frmLoading_Shown(object sender, EventArgs e)
@@ -30,15 +32,9 @@ namespace WolvenKit.Forms
                 if (MessageBox.Show(
                         "The Game is running. Please note that running the program like this makes some stuff unusable. Wiould you like to run the program like this still?",
                         "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
-                {
                     Environment.Exit(0);
-
-                }
                 else
-                {
-                    this.Close();
-                }
-
+                    Close();
             }
             else
             {
@@ -47,29 +43,26 @@ namespace WolvenKit.Forms
             }
         }
 
-        private delegate void strDelegate(string t);
-
-        private delegate void boolDelegate(bool b);
-
-        private void MainControllerUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "loadStatus")
-                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).loadStatus);
+                Invoke(new strDelegate(SetStatusLabelText), ((MainController) sender).loadStatus);
             if (e.PropertyName == "Loaded")
-                Invoke(new boolDelegate(Finish), ((MainController)sender).Loaded);
-
+                Invoke(new boolDelegate(Finish), ((MainController) sender).Loaded);
         }
 
         private void Finish(bool b)
         {
             if (b)
-                this.Close();
+            {
+                Close();
+            }
             else
             {
                 LoadLbl.Text = "Failed to initialize!";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(3000);
-                this.Close();
+                Thread.Sleep(3000);
+                Close();
             }
         }
 
@@ -77,5 +70,9 @@ namespace WolvenKit.Forms
         {
             LoadLbl.Text = text;
         }
+
+        private delegate void strDelegate(string t);
+
+        private delegate void boolDelegate(bool b);
     }
 }

@@ -18,7 +18,7 @@ namespace WolvenKit
 
         public CR2WFile File
         {
-            get { return _file; }
+            get => _file;
             set
             {
                 _file = value;
@@ -41,11 +41,10 @@ namespace WolvenKit
             using (var sf = new SaveFileDialog())
             {
                 sf.Title = @"Choose a location to save.";
-                sf.Filter = @"Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf"; ;
-                if (sf.ShowDialog() == DialogResult.OK)
-                {
-                    ImagePreviewControl.Image.Save(sf.FileName);
-                }
+                sf.Filter =
+                    @"Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf";
+                ;
+                if (sf.ShowDialog() == DialogResult.OK) ImagePreviewControl.Image.Save(sf.FileName);
             }
         }
 
@@ -54,7 +53,9 @@ namespace WolvenKit
             using (var of = new OpenFileDialog())
             {
                 of.Title = @"Choose an image";
-                of.Filter = @"Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf"; ;
+                of.Filter =
+                    @"Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf";
+                ;
                 if (of.ShowDialog() == DialogResult.OK)
                 {
                     ImagePreviewControl.Image = Image.FromFile(of.FileName);

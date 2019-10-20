@@ -20,13 +20,14 @@ namespace WolvenKit
             InitializeComponent();
             if (Directory.Exists(MainController.Get().VLCLibDir))
             {
-                this.usmPlayer.VlcLibDirectory = new DirectoryInfo(MainController.Get().VLCLibDir);
+                usmPlayer.VlcLibDirectory = new DirectoryInfo(MainController.Get().VLCLibDir);
             }
             else
             {
-                this.usmPlayer.Enabled = false;
-                this.Shown += new EventHandler(UsmPlayer_CloseOnStart);
+                usmPlayer.Enabled = false;
+                Shown += UsmPlayer_CloseOnStart;
             }
+
             Demuxedfiles = new Dictionary<string, byte[]>();
             videofile = path;
             videoConverter.RunWorkerAsync();
@@ -34,16 +35,18 @@ namespace WolvenKit
             usmPlayer.EndReached += UsmPlayerOnEndReached;
         }
 
-        private void UsmPlayer_CloseOnStart(object sender, EventArgs e)
-        {
-            MessageBox.Show("You need to have VLC installed to use this feature. Please set the proper path in MainController\nCurrent path: " + MainController.Get().VLCLibDir, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            this.Close();
-        }
-
         public sealed override string Text
         {
             get => base.Text;
             set => base.Text = value;
+        }
+
+        private void UsmPlayer_CloseOnStart(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "You need to have VLC installed to use this feature. Please set the proper path in MainController\nCurrent path: " +
+                MainController.Get().VLCLibDir, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            Close();
         }
 
         public void Demux(string path)
@@ -78,9 +81,10 @@ namespace WolvenKit
             usmPlayer.Play(file);
         }
 
-        private void UsmPlayerOnEndReached(object sender, VlcMediaPlayerEndReachedEventArgs vlcMediaPlayerEndReachedEventArgs)
+        private void UsmPlayerOnEndReached(object sender,
+            VlcMediaPlayerEndReachedEventArgs vlcMediaPlayerEndReachedEventArgs)
         {
-            this.BeginInvoke(new MethodInvoker(Close));
+            BeginInvoke(new MethodInvoker(Close));
         }
     }
 }

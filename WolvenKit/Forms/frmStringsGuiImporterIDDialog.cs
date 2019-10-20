@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace WolvenKit
 {
     public partial class frmStringsGuiImporterIDDialog : Form
     {
-        Dictionary<int, string> strings;
+        private Dictionary<int, string> strings;
 
         public frmStringsGuiImporterIDDialog()
         {
@@ -21,10 +19,7 @@ namespace WolvenKit
 
         public void FillDataGridView()
         {
-            foreach (var str in strings)
-            {
-                dataGridView1.Rows.Add(str.Key, str.Value);
-            }
+            foreach (var str in strings) dataGridView1.Rows.Add(str.Key, str.Value);
         }
     }
 }

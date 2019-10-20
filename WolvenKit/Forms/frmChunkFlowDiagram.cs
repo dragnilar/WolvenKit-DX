@@ -14,6 +14,8 @@ namespace WolvenKit
 {
     public partial class frmChunkFlowDiagram : DockContent
     {
+        public static float zoom = 100;
+        public static bool zoomchanged = false;
         private readonly int connectionPointSize = 7;
 
         /// <summary>
@@ -39,14 +41,12 @@ namespace WolvenKit
         public ChunkEditor EditorUnderCursor;
         private CR2WFile file;
         private bool isConnecting;
-        private bool isSelecting;
         private bool isMoving;
-        private Point prevMousePos;
+        private bool isSelecting;
         private int maxdepth;
+        private Point prevMousePos;
         private Point selectionEnd;
         private Point selectionStart;
-        public static float zoom = 100;
-        public static bool zoomchanged = false;
 
         public frmChunkFlowDiagram()
         {
@@ -62,7 +62,7 @@ namespace WolvenKit
 
         public CR2WFile File
         {
-            get { return file; }
+            get => file;
             set
             {
                 file = value;
@@ -85,24 +85,17 @@ namespace WolvenKit
             var activeRoot = File.chunks[0];
 
             if (File != null && File.chunks.Count > 0)
-            {
                 switch (activeRoot.Type)
                 {
                     case "CStoryScene":
                         getStorySceneRootNodes(rootNodes);
                         break;
-                    default:
-                        break;
                 }
-            }
 
 
             EditorLayout = new Dictionary<int, List<ChunkEditor>>();
 
-            foreach (var c in rootNodes)
-            {
-                createEditor(0, c);
-            }
+            foreach (var c in rootNodes) createEditor(0, c);
 
             for (var i = maxdepth; i >= 0; i--)
             {
@@ -110,13 +103,11 @@ namespace WolvenKit
                 var y = 0;
 
                 if (EditorLayout.ContainsKey(i))
-                {
                     foreach (var ls in EditorLayout[i])
                     {
                         ls.Location = new Point(x, y);
                         y += ls.Height + 15;
                     }
-                }
             }
 
             var maxwidth = 0;
@@ -157,15 +148,9 @@ namespace WolvenKit
 
             var conns = editor.GetConnections();
             if (conns != null)
-            {
                 foreach (var conn in conns)
-                {
                     if (conn.PtrTarget != null)
-                    {
                         createEditor(depth + 1, conn.PtrTarget);
-                    }
-                }
-            }
         }
 
         private void editor_LocationChanged(object sender, EventArgs e)
@@ -176,12 +161,8 @@ namespace WolvenKit
         private void editor_OnMove(object sender, MoveEditorArgs e)
         {
             if (selectedEditors.Contains(sender))
-            {
                 foreach (var c in selectedEditors.Where(c => c != sender))
-                {
                     c.Location = new Point(c.Location.X + e.Relative.X, c.Location.Y + e.Relative.Y);
-                }
-            }
             //Invalidate();
             Refresh();
         }
@@ -196,8 +177,10 @@ namespace WolvenKit
             var controlPartsObj = File.chunks[0].GetVariableByName("controlParts");
             if (controlPartsObj != null && controlPartsObj is CArray)
             {
-                var controlParts = (CArray)controlPartsObj;
-                rootNodes.AddRange(from part in controlParts.OfType<CPtr>() where part != null && part.PtrTargetType == "CStorySceneInput" select part.PtrTarget);
+                var controlParts = (CArray) controlPartsObj;
+                rootNodes.AddRange(from part in controlParts.OfType<CPtr>()
+                    where part != null && part.PtrTargetType == "CStorySceneInput"
+                    select part.PtrTarget);
             }
         }
 
@@ -223,7 +206,7 @@ namespace WolvenKit
         {
             foreach (var c in ChunkEditors.Values)
             {
-                bool editorSelected = selectedEditors.Contains(c);
+                var editorSelected = selectedEditors.Contains(c);
 
                 var brush = editorSelected ? selectionItemHighlightBrush : Brushes.Black;
                 var pen = editorSelected ? selectionItemHighlight : Pens.Black;
@@ -232,7 +215,6 @@ namespace WolvenKit
                 var conns = c.GetConnections();
 
                 if (conns != null)
-                {
                     foreach (var conn in conns)
                     {
                         if (ChunkEditors.ContainsKey(conn.PtrTarget))
@@ -240,25 +222,24 @@ namespace WolvenKit
                             var c2 = ChunkEditors[conn.PtrTarget];
                             var sp = c.GetConnectionLocation(i);
                             e.Graphics.FillRectangle(brush, c.Location.X + c.Width,
-                                c.Location.Y + sp.Y - connectionPointSize / 2, connectionPointSize, connectionPointSize);
+                                c.Location.Y + sp.Y - connectionPointSize / 2, connectionPointSize,
+                                connectionPointSize);
 
                             DrawConnectionBezier(e.Graphics, pen,
                                 c.Location.X + c.Width + connectionPointSize, c.Location.Y + sp.Y,
                                 c2.Location.X, c2.Location.Y + c2.Height / 2
-                                );
+                            );
                         }
+
                         i++;
                     }
-                }
 
                 if (editorSelected)
-                {
                     e.Graphics.DrawRectangle(selectionItemHighlight,
                         c.Location.X - 1,
                         c.Location.Y - 1,
                         c.Width + 2,
                         c.Height + 2);
-                }
             }
 
             if (isSelecting)
@@ -289,14 +270,14 @@ namespace WolvenKit
                     DrawConnectionBezier(e.Graphics, connectionTargetColor,
                         c.Location.X + c.Width + connectionPointSize, c.Location.Y + sp.Y,
                         connectingTarget.Location.X, connectingTarget.Location.Y + connectingTarget.Height / 2
-                        );
+                    );
                 }
                 else
                 {
                     DrawConnectionBezier(e.Graphics, connectionTargetColor,
                         c.Location.X + c.Width + connectionPointSize, c.Location.Y + sp.Y,
                         selectionEnd.X, selectionEnd.Y
-                        );
+                    );
                 }
             }
         }
@@ -314,7 +295,7 @@ namespace WolvenKit
 
         private void frmChunkFlowDiagram_Scroll(object sender, MouseEventArgs e)
         {
-            float prevZoom = zoom;
+            var prevZoom = zoom;
             if (e.Delta > 0)
                 zoom += 7;
             else
@@ -323,9 +304,11 @@ namespace WolvenKit
                 zoom = 23;
             foreach (ChunkEditor c in Controls)
             {
-                c.Size = new Size((int)(c.OriginalSize.Width * zoom / 100), (int)(c.OriginalSize.Height * zoom / 100));
-                c.Left = (int)(c.Left * zoom / prevZoom);
+                c.Size = new Size((int) (c.OriginalSize.Width * zoom / 100),
+                    (int) (c.OriginalSize.Height * zoom / 100));
+                c.Left = (int) (c.Left * zoom / prevZoom);
             }
+
             Invalidate();
         }
 
@@ -338,18 +321,18 @@ namespace WolvenKit
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (Form.ModifierKeys != Keys.Control)
+                if (ModifierKeys != Keys.Control)
                 {
                     foreach (var c in ChunkEditors.Values)
                     {
                         var conns = c.GetConnections();
                         if (conns != null)
-                        {
                             for (var i = 0; i < conns.Count; i++)
                             {
                                 var sp = c.GetConnectionLocation(i);
 
-                                var rect = new Rectangle(c.Location.X + c.Width, c.Location.Y + sp.Y - connectionPointSize / 2,
+                                var rect = new Rectangle(c.Location.X + c.Width,
+                                    c.Location.Y + sp.Y - connectionPointSize / 2,
                                     connectionPointSize, connectionPointSize);
                                 if (rect.Contains(e.Location))
                                 {
@@ -360,7 +343,6 @@ namespace WolvenKit
                                     return;
                                 }
                             }
-                        }
                     }
 
                     selectionStart = e.Location;
@@ -404,6 +386,7 @@ namespace WolvenKit
 
                 Invalidate();
             }
+
             prevMousePos = e.Location;
         }
 
@@ -452,10 +435,7 @@ namespace WolvenKit
 
         private void DoConnect()
         {
-            if (connectingTarget != null)
-            {
-                connectingSource.PtrTarget = connectingTarget.Chunk;
-            }
+            if (connectingTarget != null) connectingSource.PtrTarget = connectingTarget.Chunk;
         }
 
         private void SelectChunks()
@@ -469,10 +449,10 @@ namespace WolvenKit
 
             var rect = new Rectangle(x, y, w, h);
 
-            foreach (var c in from c in ChunkEditors.Values let r = new Rectangle(c.Location, c.Size) where rect.IntersectsWith(r) select c)
-            {
-                selectedEditors.Add(c);
-            }
+            foreach (var c in from c in ChunkEditors.Values
+                let r = new Rectangle(c.Location, c.Size)
+                where rect.IntersectsWith(r)
+                select c) selectedEditors.Add(c);
         }
 
         protected override Point ScrollToControl(Control activeControl)
@@ -509,23 +489,14 @@ namespace WolvenKit
             if (selectedEditors.Count == 0)
             {
                 var editor = EditorUnderCursor;
-                if (editor != null)
-                {
-                    text.AppendLine(editor.GetCopyText());
-                }
+                if (editor != null) text.AppendLine(editor.GetCopyText());
             }
             else
             {
-                foreach (var editor in selectedEditors)
-                {
-                    text.AppendLine(editor.GetCopyText());
-                }
+                foreach (var editor in selectedEditors) text.AppendLine(editor.GetCopyText());
             }
 
-            if (text.Length > 0)
-            {
-                Clipboard.SetText(text.ToString());
-            }
+            if (text.Length > 0) Clipboard.SetText(text.ToString());
         }
     }
 }

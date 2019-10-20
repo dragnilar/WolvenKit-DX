@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using WolvenKit.Mod;
+using WolvenKit.W3Strings;
 
 namespace WolvenKit
 {
-    enum EDisplayNameType
+    internal enum EDisplayNameType
     {
         VAR,
         GROUP
@@ -19,28 +21,28 @@ namespace WolvenKit
 
     public partial class frmStringsGui : Form
     {
-        int counter = 0;
-        List<int> modIDs = new List<int> { 0 };
+        private bool abortedSwitchingBackToAllLanguages;
 
-        bool fileOpened = false;
-        bool multipleIDs = false;
-        bool rowAddedAutomatically = false;
-        bool abortedSwitchingBackToAllLanguages = false;
-        bool fileIsSaved = false;
+        private readonly W3Mod activeMod = MainController.Get().Window.ActiveMod;
+        private int counter;
 
-        string currentModID = string.Empty;
-        List<string> groups = new List<string>();
+        private string currentModID = string.Empty;
 
-        int idsLimit = 1000;
+        private DataTable dataTableGridViewSource;
+        private bool fileIsSaved;
 
-        IEnumerable<W3Strings.W3Language> languages = W3Strings.W3Language.languages;
-        string languageTabSelected = "ar";
+        private bool fileOpened;
+        private readonly List<string> groups = new List<string>();
 
-        List<LanguageStringsCollection> languagesStrings = new List<LanguageStringsCollection>();
+        private readonly int idsLimit = 1000;
 
-        DataTable dataTableGridViewSource;
+        private readonly IEnumerable<W3Language> languages = W3Language.languages;
 
-        Mod.W3Mod activeMod = MainController.Get().Window.ActiveMod;
+        private readonly List<LanguageStringsCollection> languagesStrings = new List<LanguageStringsCollection>();
+        private string languageTabSelected = "ar";
+        private readonly List<int> modIDs = new List<int> {0};
+        private bool multipleIDs;
+        private bool rowAddedAutomatically;
 
         public frmStringsGui()
         {
@@ -51,11 +53,12 @@ namespace WolvenKit
 
             if (activeMod != null)
             {
-                var csvDir = (activeMod.ProjectDirectory + "\\strings\\CSV");
+                var csvDir = activeMod.ProjectDirectory + "\\strings\\CSV";
                 if (!Directory.Exists(csvDir))
                     return;
 
-                string[] fileNames = Directory.GetFiles(csvDir, "*.csv*", SearchOption.AllDirectories).Select(x => Path.GetFullPath(x)).ToArray();
+                var fileNames = Directory.GetFiles(csvDir, "*.csv*", SearchOption.AllDirectories)
+                    .Select(x => Path.GetFullPath(x)).ToArray();
                 if (fileNames.Length == 0)
                     return;
 
@@ -65,28 +68,24 @@ namespace WolvenKit
                 rowAddedAutomatically = true;
 
                 {
-                    List<string[]> rows = ParseCSV(fileNames[0]);
+                    var rows = ParseCSV(fileNames[0]);
                     GetCSVIDs(rows);
                 }
 
                 foreach (var file in fileNames)
                 {
-                    List<string[]> rows = ParseCSV(file);
+                    var rows = ParseCSV(file);
 
                     var firstLine = File.ReadLines(file, Encoding.UTF8).First();
                     var language = Regex.Match(firstLine, "language=([a-zA-Z]+)]").Groups[1].Value;
 
                     var strings = new List<List<string>>();
 
-                    rows.ForEach(x =>
-                    {
-                        strings.Add(new List<string>() { x[0], x[1], x[2], x[3] });
-                    });
+                    rows.ForEach(x => { strings.Add(new List<string> {x[0], x[1], x[2], x[3]}); });
 
                     languagesStrings.Add(new LanguageStringsCollection(language, strings));
 
                     foreach (var lang in languagesStrings)
-                    {
                         if (lang.language == "ar")
                         {
                             dataTableGridViewSource.Clear();
@@ -95,7 +94,6 @@ namespace WolvenKit
                                 dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
                             break;
                         }
-                    }
                 }
 
                 fileOpened = true;
@@ -104,7 +102,6 @@ namespace WolvenKit
                 dataGridViewStrings.Visible = true;
                 rowAddedAutomatically = false;
             }
-
         }
 
         /*
@@ -167,7 +164,8 @@ namespace WolvenKit
 
         private void stringKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            stringKeyToolStripMenuItem.Checked = dataGridViewStrings.Columns[2].Visible = !stringKeyToolStripMenuItem.Checked;
+            stringKeyToolStripMenuItem.Checked =
+                dataGridViewStrings.Columns[2].Visible = !stringKeyToolStripMenuItem.Checked;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,7 +174,8 @@ namespace WolvenKit
                 return;
             if (!fileIsSaved)
             {
-                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                     return;
             }
@@ -221,10 +220,7 @@ namespace WolvenKit
 
         private void textBoxModID_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Enter)
-            {
-                splitContainerMain.Focus();
-            }
+            if (e.KeyData == Keys.Enter) splitContainerMain.Focus();
         }
 
         private void dataGridViewStrings_CellValidated(object sender, DataGridViewCellEventArgs e)
@@ -256,10 +252,8 @@ namespace WolvenKit
         private void comboBoxLanguagesMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (abortedSwitchingBackToAllLanguages)
-            {
                 abortedSwitchingBackToAllLanguages = false;
-                //return;
-            }
+            //return;
             if (comboBoxLanguagesMode.SelectedIndex == 1)
             {
                 tabControlLanguages.Controls.Clear();
@@ -267,10 +261,12 @@ namespace WolvenKit
                 var allLanguagesStrings = new List<List<string>>();
 
                 foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                {
                     if (row.Cells[0].Value != null)
-                        allLanguagesStrings.Add(new List<string>() { row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString() });
-                }
+                        allLanguagesStrings.Add(new List<string>
+                        {
+                            row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(),
+                            row.Cells[3].Value.ToString()
+                        });
 
                 languagesStrings.Add(new LanguageStringsCollection("all", allLanguagesStrings));
 
@@ -280,15 +276,15 @@ namespace WolvenKit
                     var languageStrings = new List<List<string>>();
 
                     foreach (var str in allLanguagesStrings)
-                        languageStrings.Add(new List<string>() { str[0], str[1], str[2], str[3] });
+                        languageStrings.Add(new List<string> {str[0], str[1], str[2], str[3]});
 
                     languagesStrings.Add(new LanguageStringsCollection(language.Handle, languageStrings));
 
-                    var newTabPage = new System.Windows.Forms.TabPage();
-                    newTabPage.Location = new System.Drawing.Point(4, 22);
+                    var newTabPage = new TabPage();
+                    newTabPage.Location = new Point(4, 22);
                     newTabPage.Name = "tabPage" + language.Handle;
-                    newTabPage.Padding = new System.Windows.Forms.Padding(3);
-                    newTabPage.Size = new System.Drawing.Size(998, 0);
+                    newTabPage.Padding = new Padding(3);
+                    newTabPage.Size = new Size(998, 0);
                     newTabPage.TabIndex = 0;
                     newTabPage.Text = language.Handle;
                     newTabPage.UseVisualStyleBackColor = true;
@@ -297,7 +293,8 @@ namespace WolvenKit
             }
             else if (dataTableGridViewSource != null)
             {
-                var result = MessageBox.Show("Are you sure? English strings will be used for all languages.", "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                var result = MessageBox.Show("Are you sure? English strings will be used for all languages.",
+                    "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                 {
                     comboBoxLanguagesMode.SelectedIndex = 1;
@@ -312,11 +309,11 @@ namespace WolvenKit
                     dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
                 languagesStrings.Clear();
 
-                var newTabPage = new System.Windows.Forms.TabPage();
-                newTabPage.Location = new System.Drawing.Point(4, 22);
+                var newTabPage = new TabPage();
+                newTabPage.Location = new Point(4, 22);
                 newTabPage.Name = "tabPageAllLanguages";
-                newTabPage.Padding = new System.Windows.Forms.Padding(3);
-                newTabPage.Size = new System.Drawing.Size(998, 0);
+                newTabPage.Padding = new Padding(3);
+                newTabPage.Size = new Size(998, 0);
                 newTabPage.TabIndex = 0;
                 newTabPage.Text = "All Languages";
                 newTabPage.UseVisualStyleBackColor = true;
@@ -334,17 +331,18 @@ namespace WolvenKit
             {
                 if (row.Cells[2].Value == null)
                     return;
-                string key = row.Cells[2].Value.ToString();
+                var key = row.Cells[2].Value.ToString();
                 if (key == string.Empty)
                     return;
-                char[] keyConverted = key.ToCharArray();
+                var keyConverted = key.ToCharArray();
                 uint hash = 0;
-                foreach (char c in keyConverted)
+                foreach (var c in keyConverted)
                 {
                     hash *= 31;
-                    hash += (uint)c;
+                    hash += c;
                 }
-                string hex_key = hash.ToString("X");
+
+                var hex_key = hash.ToString("X");
                 row.Cells[1].Value = hex_key;
             }
         }
@@ -371,10 +369,7 @@ namespace WolvenKit
             if (strings == null)
                 return;
 
-            foreach (var str in strings)
-            {
-                dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
-            }
+            foreach (var str in strings) dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
 
             stringsManager.ClearImportedStrings();
             UpdateModID();
@@ -396,7 +391,7 @@ namespace WolvenKit
 
         public string ShowScriptPrefixDialog()
         {
-            frmStringsGuiScriptsPrefixDialog testDialog = new frmStringsGuiScriptsPrefixDialog();
+            var testDialog = new frmStringsGuiScriptsPrefixDialog();
             var prefix = string.Empty;
             if (testDialog.ShowDialog(this) == DialogResult.OK)
                 prefix = testDialog.prefix;
@@ -416,39 +411,39 @@ namespace WolvenKit
                 return;
             }
 
-            string scriptsDir = string.Empty;
+            var scriptsDir = string.Empty;
 
             if (activeMod != null)
-                scriptsDir = (activeMod.FileDirectory + "\\scripts");
+                scriptsDir = activeMod.FileDirectory + "\\scripts";
 
             var prefix = ShowScriptPrefixDialog();
 
-            if (prefix == "Cancelled")
-                return;
-            else if (prefix == string.Empty)
+            if (prefix == "Cancelled") return;
+
+            if (prefix == string.Empty)
             {
                 MessageBox.Show("Empty prefix.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
 
-            string contents = string.Empty;
+            var contents = string.Empty;
             if (!Directory.Exists(scriptsDir))
             {
-                FolderBrowserDialog fbw = new FolderBrowserDialog()
+                var fbw = new FolderBrowserDialog
                 {
-                    Description = "Please select the scripts directory!",
-
+                    Description = "Please select the scripts directory!"
                 };
                 if (fbw.ShowDialog() == DialogResult.OK) scriptsDir = fbw.SelectedPath;
             }
 
-            string[] filenames = Directory.GetFiles(scriptsDir, "*.ws*", SearchOption.AllDirectories).Select(x => Path.GetFullPath(x)).ToArray();
+            var filenames = Directory.GetFiles(scriptsDir, "*.ws*", SearchOption.AllDirectories)
+                .Select(x => Path.GetFullPath(x)).ToArray();
             foreach (var file in filenames)
-                contents += (File.ReadAllText(file));
+                contents += File.ReadAllText(file);
 
-            Regex regex = new Regex("\"(" + prefix + ".+)\"");
-            MatchCollection matches = regex.Matches(contents);
+            var regex = new Regex("\"(" + prefix + ".+)\"");
+            var matches = regex.Matches(contents);
 
             if (matches.Count == 0)
             {
@@ -456,16 +451,18 @@ namespace WolvenKit
                 return;
             }
 
-            List<string> strings = new List<string>();
+            var strings = new List<string>();
             var convertToLower = false;
 
-            int counter = 0;
+            var counter = 0;
             foreach (Match match in matches)
             {
                 if (match.Groups[1].Value.ToLower() != match.Groups[1].Value && !convertToLower)
                 {
-                    var result = MessageBox.Show("Found uppercase string keys. String keys called in scripts must be all lowercase. " +
-                        "Do you want to read them as lowercase? You will need to change the string keys in the scripts, or pass them to StrLower() function.", "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                    var result = MessageBox.Show(
+                        "Found uppercase string keys. String keys called in scripts must be all lowercase. " +
+                        "Do you want to read them as lowercase? You will need to change the string keys in the scripts, or pass them to StrLower() function.",
+                        "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                     if (result == DialogResult.OK)
                         convertToLower = true;
                 }
@@ -475,20 +472,19 @@ namespace WolvenKit
 
             if (convertToLower)
                 foreach (Match match in matches)
-                    strings.Add((counter + 2110000000 + modIDs[0] * 1000).ToString() + "||" + match.Groups[1].Value + "|" + match.Groups[1].Value.ToLower());
+                    strings.Add(counter + 2110000000 + modIDs[0] * 1000 + "||" + match.Groups[1].Value + "|" +
+                                match.Groups[1].Value.ToLower());
             else
                 foreach (Match match in matches)
-                    strings.Add((counter + 2110000000 + modIDs[0] * 1000).ToString() + "||" + match.Groups[1].Value + "|" + match.Groups[1].Value);
+                    strings.Add(counter + 2110000000 + modIDs[0] * 1000 + "||" + match.Groups[1].Value + "|" +
+                                match.Groups[1].Value);
 
-            List<string[]> rows = strings.Select(x => x.Split('|')).ToList();
+            var rows = strings.Select(x => x.Split('|')).ToList();
 
             rowAddedAutomatically = true;
 
             currentModID = textBoxModID.Text;
-            rows.ForEach(x =>
-            {
-                dataTableGridViewSource.Rows.Add(x);
-            });
+            rows.ForEach(x => { dataTableGridViewSource.Rows.Add(x); });
 
             rowAddedAutomatically = false;
 
@@ -501,7 +497,7 @@ namespace WolvenKit
         {
             rowAddedAutomatically = true;
             //TODO check tags for custom display names, add prefixes to keys
-            string path = GetXMLPath();
+            var path = GetXMLPath();
 
             // to prevent ID being 0 when Leave event for text box wasn't triggered
             FillModIDIfValid();
@@ -509,64 +505,69 @@ namespace WolvenKit
             if (path != string.Empty)
             {
                 //Fix encoding
-                File.WriteAllLines(path, new string[] { "<?xml version=\"1.0\" encoding=\"utf-8\"?>" }.ToList().Concat(File.ReadAllLines(path).Skip(1).ToArray()));
+                File.WriteAllLines(path,
+                    new[] {"<?xml version=\"1.0\" encoding=\"utf-8\"?>"}.ToList()
+                        .Concat(File.ReadAllLines(path).Skip(1).ToArray()));
 
                 //dataTableGridViewSource = (DataTable)dataGridViewStrings.DataSource;
-                XDocument doc = XDocument.Load(path);
+                var doc = XDocument.Load(path);
 
                 // vars displayNames
                 foreach (var vars in doc.Descendants("UserConfig").Descendants("Group").Descendants("VisibleVars"))
+                foreach (var var in vars.Descendants("Var"))
                 {
-                    foreach (var var in vars.Descendants("Var"))
-                    {
-                        String name = var.Attribute("displayName").Value;
-                        if (counter > idsLimit)
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty, DisplayNameToKey(name), name);
-                        else
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty, DisplayNameToKey(name), name);
+                    var name = var.Attribute("displayName").Value;
+                    if (counter > idsLimit)
+                        dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty,
+                            DisplayNameToKey(name), name);
+                    else
+                        dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty,
+                            DisplayNameToKey(name), name);
 
-                        ++counter;
-                    }
+                    ++counter;
                 }
-                // optionsArray vars displayNames
-                foreach (var vars in doc.Descendants("UserConfig").Descendants("Group").Descendants("VisibleVars").Descendants("OptionsArray"))
-                {
-                    foreach (var var in vars.Descendants("Option"))
-                    {
-                        String name = var.Attribute("displayName").Value;
-                        if (counter > idsLimit)
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty, DisplayNameToKey(name), name);
-                        else
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty, DisplayNameToKey(name), name);
 
-                        ++counter;
-                    }
+                // optionsArray vars displayNames
+                foreach (var vars in doc.Descendants("UserConfig").Descendants("Group").Descendants("VisibleVars")
+                    .Descendants("OptionsArray"))
+                foreach (var var in vars.Descendants("Option"))
+                {
+                    var name = var.Attribute("displayName").Value;
+                    if (counter > idsLimit)
+                        dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty,
+                            DisplayNameToKey(name), name);
+                    else
+                        dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty,
+                            DisplayNameToKey(name), name);
+
+                    ++counter;
                 }
 
                 // groups displayNames
                 foreach (var vars in doc.Descendants("UserConfig"))
+                foreach (var var in vars.Descendants("Group"))
                 {
-                    foreach (var var in vars.Descendants("Group"))
+                    var name = var.Attribute("displayName").Value;
+
+                    var groupNames = DisplayNameToKeyGroup(name);
+
+                    foreach (var groupName in groupNames)
                     {
-                        String name = var.Attribute("displayName").Value;
+                        var splitGroupName = groupName.Split('_').ToList();
+                        splitGroupName.RemoveAt(0);
+                        var localisationName = string.Join(string.Empty, splitGroupName);
 
-                        List<string> groupNames = DisplayNameToKeyGroup(name);
-
-                        foreach (var groupName in groupNames)
-                        {
-                            List<string> splitGroupName = groupName.Split('_').ToList();
-                            splitGroupName.RemoveAt(0);
-                            string localisationName = String.Join(string.Empty, splitGroupName);
-
-                            if (counter > idsLimit)
-                                dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty, groupName, localisationName);
-                            else
-                                dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty, groupName, localisationName);
-                            ++counter;
-                        }
+                        if (counter > idsLimit)
+                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty,
+                                groupName, localisationName);
+                        else
+                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty,
+                                groupName, localisationName);
+                        ++counter;
                     }
                 }
             }
+
             rowAddedAutomatically = false;
 
             HashStringKeys();
@@ -575,23 +576,20 @@ namespace WolvenKit
 
         private string GetXMLPath()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             ofd.Filter = "XML | *.xml";
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            if (ofd.ShowDialog() == DialogResult.OK)
                 return ofd.FileName;
-            }
-            else
-                return string.Empty;
+            return string.Empty;
         }
 
         private List<string> DisplayNameToKeyGroup(string name)
         {
-            char[] nameConverted = name.ToCharArray(0, name.Length);
-            List<string> stringKeys = new List<string>();
-            string stringKey = string.Empty;
+            var nameConverted = name.ToCharArray(0, name.Length);
+            var stringKeys = new List<string>();
+            var stringKey = string.Empty;
 
-            for (int i = 0; i < nameConverted.Length; ++i)
+            for (var i = 0; i < nameConverted.Length; ++i)
             {
                 if (nameConverted[i] == ' ')
                     nameConverted[i] = '_';
@@ -599,7 +597,7 @@ namespace WolvenKit
                 stringKey += nameConverted[i];
             }
 
-            string[] stringKeySplitted = stringKey.Split('.');
+            var stringKeySplitted = stringKey.Split('.');
 
             if (groups.Count() == 0)
             {
@@ -607,62 +605,61 @@ namespace WolvenKit
                 stringKeys.Add("panel_" + stringKeySplitted[stringKeySplitted.Length - 1]);
             }
 
-            for (int i = 0; i < stringKeySplitted.Length; ++i)
-            {
-                for (int j = 0; j < groups.Count(); ++j)
-                    if (!groups.Contains(stringKeySplitted[i]))
-                    {
-                        groups.Add(stringKeySplitted[i]);
-                        stringKeys.Add("panel_" + stringKeySplitted[i]);
-                    }
-            }
+            for (var i = 0; i < stringKeySplitted.Length; ++i)
+            for (var j = 0; j < groups.Count(); ++j)
+                if (!groups.Contains(stringKeySplitted[i]))
+                {
+                    groups.Add(stringKeySplitted[i]);
+                    stringKeys.Add("panel_" + stringKeySplitted[i]);
+                }
 
             return stringKeys;
         }
 
         private string DisplayNameToKey(string name)
         {
-            char[] nameConverted = name.ToCharArray(0, name.Length);
-            string stringKey = string.Empty;
+            var nameConverted = name.ToCharArray(0, name.Length);
+            var stringKey = string.Empty;
 
             stringKey += "option_";
 
-            for (int i = 0; i < nameConverted.Length; ++i)
+            for (var i = 0; i < nameConverted.Length; ++i)
                 if (nameConverted[i] == ' ')
                 {
                     nameConverted[i] = '_';
                     stringKey += nameConverted[i];
                 }
                 else
+                {
                     stringKey += nameConverted[i];
+                }
 
             return stringKey;
         }
 
         private bool IsIDValid(string id)
         {
-            char[] digits = new char[10] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', };
-            char[] convertedId = id.ToCharArray();
-            int validCharCount = 0;
-            int idLength = id.Length;
-            for (int i = 0; i < idLength; ++i)
-            {
-                for (int j = 0; j < 10; ++j)
-                    if (convertedId[i] == digits[j])
-                    {
-                        ++validCharCount;
-                        break;
-                    }
-                    else if (convertedId[i] == ';')
-                    {
-                        multipleIDs = true;
-                        ++validCharCount;
-                        break;
-                    }
-            }
+            var digits = new char[10] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+            var convertedId = id.ToCharArray();
+            var validCharCount = 0;
+            var idLength = id.Length;
+            for (var i = 0; i < idLength; ++i)
+            for (var j = 0; j < 10; ++j)
+                if (convertedId[i] == digits[j])
+                {
+                    ++validCharCount;
+                    break;
+                }
+                else if (convertedId[i] == ';')
+                {
+                    multipleIDs = true;
+                    ++validCharCount;
+                    break;
+                }
+
             if (!multipleIDs && idLength > 4)
                 return false;
-            else if (validCharCount == idLength && validCharCount != 0)
+            if (validCharCount == idLength && validCharCount != 0)
                 return true;
 
             return false;
@@ -670,14 +667,15 @@ namespace WolvenKit
 
         private bool AreAllIDsValid(string[] splittedIDs)
         {
-            foreach (string modID in splittedIDs)
+            foreach (var modID in splittedIDs)
             {
-                int count = splittedIDs.Count(f => f == modID);
+                var count = splittedIDs.Count(f => f == modID);
                 if (modID.Length > 4)
                     return false;
-                else if (count > 1)
+                if (count > 1)
                     return false;
             }
+
             return true;
         }
 
@@ -697,34 +695,33 @@ namespace WolvenKit
 
                 return false;
             }
+
+            if (!multipleIDs)
+            {
+                modIDs.Add(Convert.ToInt32(textBoxModID.Text));
+                dataGridViewStrings.Visible = true;
+                UpdateModID();
+            }
             else
             {
-                if (!multipleIDs)
+                splittedIDs = textBoxModID.Text.Split(';');
+
+                if (!AreAllIDsValid(splittedIDs))
                 {
-                    modIDs.Add(Convert.ToInt32(textBoxModID.Text));
-                    dataGridViewStrings.Visible = true;
-                    UpdateModID();
+                    MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                    if (currentModID != string.Empty)
+                        textBoxModID.Text = currentModID;
+                    else
+                        textBoxModID.Text = string.Empty;
+
+                    return false;
                 }
-                else
-                {
-                    splittedIDs = textBoxModID.Text.Split(';');
 
-                    if (!AreAllIDsValid(splittedIDs))
-                    {
-                        MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                if (!dataGridViewStrings.Visible) dataGridViewStrings.Visible = true;
 
-                        if (currentModID != string.Empty)
-                            textBoxModID.Text = currentModID;
-                        else
-                            textBoxModID.Text = string.Empty;
-
-                        return false;
-                    }
-                    else if (!dataGridViewStrings.Visible)
-                        dataGridViewStrings.Visible = true;
-                    foreach (var id in splittedIDs)
-                        modIDs.Add(Convert.ToInt32(id));
-                }
+                foreach (var id in splittedIDs)
+                    modIDs.Add(Convert.ToInt32(id));
             }
 
             return true;
@@ -737,22 +734,24 @@ namespace WolvenKit
             if (dataTableGridViewSource == null)
                 return;
 
-            int counter = 0;
-            int newModID = modIDs[0] * 1000 + 2110000000;
+            var counter = 0;
+            var newModID = modIDs[0] * 1000 + 2110000000;
             foreach (DataRow row in dataTableGridViewSource.Rows)
             {
-                int newModIDRow = newModID + counter;
+                var newModIDRow = newModID + counter;
                 row[0] = newModIDRow.ToString();
                 var test = row.ItemArray[0];
                 ++counter;
                 if (counter / idsLimit >= modIDs.Count)
                 {
                     MessageBox.Show("Number of strings exceeds " + counter + ", number of IDs: " + modIDs.Count
-                        + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                    + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.",
+                        "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     dataTableGridViewSource.Clear();
                     break;
                 }
             }
+
             rowAddedAutomatically = false;
         }
 
@@ -764,12 +763,15 @@ namespace WolvenKit
             var outputPath = string.Empty;
             if (activeMod != null)
             {
-                outputPath = (activeMod.ProjectDirectory + "\\strings\\CSV");
+                outputPath = activeMod.ProjectDirectory + "\\strings\\CSV";
                 if (!Directory.Exists(outputPath))
                     Directory.CreateDirectory(activeMod.ProjectDirectory + "\\strings\\CSV");
             }
             else
+            {
                 outputPath = GetPath();
+            }
+
             if (outputPath == string.Empty)
                 return;
             var sb = new StringBuilder();
@@ -778,7 +780,8 @@ namespace WolvenKit
             {
                 if (dataGridViewStrings.Rows.Count >= 3)
                     dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 2].Cells[0].Value =
-                        Convert.ToInt32(dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 3].Cells[0].Value) + 1;
+                        Convert.ToInt32(dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 3].Cells[0].Value) +
+                        1;
                 else
                     dataGridViewStrings.Rows[0].Cells[0].Value = modIDs[0] * 1000 + 2110000000;
 
@@ -792,23 +795,22 @@ namespace WolvenKit
                     sb.AppendLine(string.Join("|", cells.Select(cell => cell.Value).ToArray()));
                 }
 
-                int languagesCount = languages.Count();
+                var languagesCount = languages.Count();
 
                 foreach (var language in languages)
-                {
-                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputPath + "\\" + language.Handle + ".csv"))
+                    using (var file = new StreamWriter(outputPath + "\\" + language.Handle + ".csv"))
                     {
                         file.WriteLine(";meta[language=" + language.Handle + "]", Encoding.UTF8);
                         file.WriteLine("; id | key(hex) | key(str) | text", Encoding.UTF8);
 
-                        string csv = sb.ToString();
+                        var csv = sb.ToString();
 
                         // leaving space for the hex key empty
                         if (!fileOpened)
                         {
-                            List<string> splittedCsv = csv.Split('\n').ToList();
-                            int splittedCsvLength = splittedCsv.Count();
-                            for (int j = 0; j < splittedCsvLength; ++j)
+                            var splittedCsv = csv.Split('\n').ToList();
+                            var splittedCsvLength = splittedCsv.Count();
+                            for (var j = 0; j < splittedCsvLength; ++j)
                                 if (splittedCsv[j] == "\r" || splittedCsv[j] == string.Empty)
                                 {
                                     // remove empty rows
@@ -817,12 +819,11 @@ namespace WolvenKit
                                     --j;
                                 }
 
-                            csv = String.Join("\n", splittedCsv);
+                            csv = string.Join("\n", splittedCsv);
                         }
 
                         file.WriteLine(csv, Encoding.UTF8);
                     }
-                }
             }
             else
             {
@@ -831,19 +832,19 @@ namespace WolvenKit
                     foreach (var line in language.strings)
                         sb.AppendLine(string.Join("|", line.ToArray()));
 
-                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputPath + "\\" + language.language + ".csv"))
+                    using (var file = new StreamWriter(outputPath + "\\" + language.language + ".csv"))
                     {
                         file.WriteLine(";meta[language=" + language.language + "]", Encoding.UTF8);
                         file.WriteLine("; id | key(hex) | key(str) | text", Encoding.UTF8);
 
-                        string csv = sb.ToString();
+                        var csv = sb.ToString();
 
                         // leaving space for the hex key empty
                         if (!fileOpened)
                         {
-                            List<string> splittedCsv = csv.Split('\n').ToList();
-                            int splittedCsvLength = splittedCsv.Count();
-                            for (int j = 0; j < splittedCsvLength; ++j)
+                            var splittedCsv = csv.Split('\n').ToList();
+                            var splittedCsvLength = splittedCsv.Count();
+                            for (var j = 0; j < splittedCsvLength; ++j)
                                 if (splittedCsv[j] == "\r" || splittedCsv[j] == string.Empty)
                                 {
                                     // remove empty rows
@@ -852,11 +853,12 @@ namespace WolvenKit
                                     --j;
                                 }
 
-                            csv = String.Join("\n", splittedCsv);
+                            csv = string.Join("\n", splittedCsv);
                         }
 
                         file.WriteLine(csv, Encoding.UTF8);
                     }
+
                     sb.Clear();
                 }
             }
@@ -867,13 +869,10 @@ namespace WolvenKit
 
         private string GetPath()
         {
-            FolderBrowserDialog fbw = new FolderBrowserDialog();
-            if (fbw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+            var fbw = new FolderBrowserDialog();
+            if (fbw.ShowDialog() == DialogResult.OK)
                 return fbw.SelectedPath + "//";
-            }
-            else
-                return string.Empty;
+            return string.Empty;
         }
 
         private void CreateDataTable()
@@ -897,7 +896,6 @@ namespace WolvenKit
                 foreach (DataGridViewColumn column in dataGridViewStrings.Columns)
                     column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
         }
 
         private void GetCSVIDs(List<string[]> rows)
@@ -908,7 +906,7 @@ namespace WolvenKit
             // get multiple ids
             foreach (var row in rows)
             {
-                int currentRowID = Convert.ToInt32((Convert.ToInt32(row[0]) - 2110000000) / 1000);
+                var currentRowID = Convert.ToInt32((Convert.ToInt32(row[0]) - 2110000000) / 1000);
                 foreach (var addedID in modIDs.ToList()) // to prevent modified collection exception
                     if (currentRowID != addedID)
                         if (!multipleIDs)
@@ -927,20 +925,23 @@ namespace WolvenKit
                 textBoxModID.Text = textBoxModID.Text.Remove(textBoxModID.Text.Length - 1);
             }
             else
+            {
                 textBoxModID.Text = Convert.ToString(modIDs[0]);
+            }
         }
 
         private List<string[]> ParseCSV(string path)
         {
-            List<string[]> rows = File.ReadAllLines(path, Encoding.UTF8).Select(x => x.Split('|')).ToList();
+            var rows = File.ReadAllLines(path, Encoding.UTF8).Select(x => x.Split('|')).ToList();
 
-            for (int i = 0; i < rows.Count(); ++i)
+            for (var i = 0; i < rows.Count(); ++i)
                 if (rows[i].Length == 1)
                 {
                     rows.RemoveAt(i);
                     --i;
                 }
-                else if (rows[i][0][0] == ';') // need to be separated in two statements so this won't compare an empty row
+                else if (rows[i][0][0] == ';'
+                ) // need to be separated in two statements so this won't compare an empty row
                 {
                     rows.RemoveAt(i);
                     --i;
@@ -953,13 +954,13 @@ namespace WolvenKit
         {
             rowAddedAutomatically = true;
             string filePath;
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             ofd.Filter = "CSV | *.csv;";
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 filePath = ofd.FileName;
 
-                List<string[]> rows = ParseCSV(filePath);
+                var rows = ParseCSV(filePath);
                 GetCSVIDs(rows);
 
                 if (comboBoxLanguagesMode.SelectedIndex == 1)
@@ -968,13 +969,9 @@ namespace WolvenKit
                     var language = Regex.Match(firstLine, "language=([a-zAZ]+)]").Groups[1].Value;
                     var strings = new List<List<string>>();
 
-                    rows.ForEach(row =>
-                    {
-                        strings.Add(new List<string>() { row[0], row[1], row[2], row[3] });
-                    });
+                    rows.ForEach(row => { strings.Add(new List<string> {row[0], row[1], row[2], row[3]}); });
 
                     foreach (var lang in languagesStrings)
-                    {
                         if (lang.language == language)
                         {
                             lang.strings = strings;
@@ -984,19 +981,17 @@ namespace WolvenKit
                                     dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
                             break;
                         }
-                    }
                 }
                 else
                 {
                     currentModID = textBoxModID.Text;
-                    rows.ForEach(row =>
-                    {
-                        dataTableGridViewSource.Rows.Add(row);
-                    });
+                    rows.ForEach(row => { dataTableGridViewSource.Rows.Add(row); });
                 }
             }
             else
+            {
                 return;
+            }
 
             fileOpened = true;
             HashStringKeys();
@@ -1010,15 +1005,17 @@ namespace WolvenKit
             dataGridViewStrings.EndEdit();
             HashStringKeys();
 
-            string stringsDir = string.Empty;
+            var stringsDir = string.Empty;
             if (activeMod != null)
             {
-                stringsDir = (activeMod.ProjectDirectory + "\\strings");
+                stringsDir = activeMod.ProjectDirectory + "\\strings";
                 if (!Directory.Exists(stringsDir))
                     Directory.CreateDirectory(activeMod.ProjectDirectory + "\\strings");
             }
             else
+            {
                 stringsDir = GetPath();
+            }
 
             if (stringsDir == string.Empty)
                 return;
@@ -1038,11 +1035,13 @@ namespace WolvenKit
                             continue;
                         str.Add(cell.Value.ToString());
                     }
+
                     strings.Add(str);
                 }
+
                 foreach (var lang in languages)
                 {
-                    var w3tringFile = new W3Strings.W3StringFile();
+                    var w3tringFile = new W3StringFile();
                     w3tringFile.Create(strings, lang.Handle);
                     using (var bw = new BinaryWriter(File.OpenWrite(stringsDir + "\\" + lang.Handle + ".w3strings")))
                     {
@@ -1051,34 +1050,35 @@ namespace WolvenKit
                 }
             }
             else
+            {
                 foreach (var lang in languagesStrings)
                 {
-                    if (lang.language == "all")
-                        continue;
-                    else if (lang.language == languageTabSelected)
+                    if (lang.language == "all") continue;
+
+                    if (lang.language == languageTabSelected)
                     {
                         lang.strings.Clear();
 
                         foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                        {
                             if (row.Cells[0].Value != null)
-                            {
-                                lang.strings.Add(new List<string>() { row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString() });
-                            }
-                        }
+                                lang.strings.Add(new List<string>
+                                {
+                                    row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(),
+                                    row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString()
+                                });
                     }
-                    var w3tringFile = new W3Strings.W3StringFile();
+
+                    var w3tringFile = new W3StringFile();
                     var stringsBlock1Strings = new List<List<string>>();
                     foreach (var str in lang.strings)
-                    {
-                        stringsBlock1Strings.Add(new List<string>() { str[0], str[2], str[3] });
-                    }
+                        stringsBlock1Strings.Add(new List<string> {str[0], str[2], str[3]});
                     w3tringFile.Create(stringsBlock1Strings, lang.language);
                     using (var bw = new BinaryWriter(File.OpenWrite(stringsDir + "\\" + lang.language + ".w3strings")))
                     {
                         w3tringFile.Write(bw);
                     }
                 }
+            }
 
             WriteHash("encoded");
 
@@ -1090,12 +1090,13 @@ namespace WolvenKit
         {
             const ulong fnv64Offset = 0xcbf29ce484222325;
             const ulong fnv64Prime = 0x100000001b3;
-            ulong hash = fnv64Offset;
+            var hash = fnv64Offset;
             foreach (var b in bytes)
             {
                 hash = hash ^ b;
-                hash = (hash * fnv64Prime) % 0xFFFFFFFFFFFFFFFF;
+                hash = hash * fnv64Prime % 0xFFFFFFFFFFFFFFFF;
             }
+
             return hash;
         }
 
@@ -1114,15 +1115,15 @@ namespace WolvenKit
 
                 if (comboBoxLanguagesMode.SelectedIndex == 1)
                     foreach (var lang in languagesStrings)
-                        foreach (var str in lang.strings)
-                            foreach (var column in str)
-                                toHash += column;
+                    foreach (var str in lang.strings)
+                    foreach (var column in str)
+                        toHash += column;
 
                 else
                     foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                        foreach (DataGridViewCell cell in row.Cells)
-                            if (cell.Value != null)
-                                toHash += cell.Value.ToString();
+                    foreach (DataGridViewCell cell in row.Cells)
+                        if (cell.Value != null)
+                            toHash += cell.Value.ToString();
             }
 
             if (type == "csv")
@@ -1131,7 +1132,8 @@ namespace WolvenKit
                 if (!Directory.Exists(csvDir))
                     return;
 
-                string[] fileNames = Directory.GetFiles(csvDir, "*.csv*", SearchOption.AllDirectories).Select(x => Path.GetFullPath(x)).ToArray();
+                var fileNames = Directory.GetFiles(csvDir, "*.csv*", SearchOption.AllDirectories)
+                    .Select(x => Path.GetFullPath(x)).ToArray();
                 if (fileNames.Length == 0)
                     return;
 
@@ -1225,17 +1227,16 @@ namespace WolvenKit
                     language.strings.Clear();
 
                     foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                    {
                         if (row.Cells[0].Value != null)
-                        {
-                            language.strings.Add(new List<string>() { row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString() });
-                        }
-                    }
+                            language.strings.Add(new List<string>
+                            {
+                                row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(),
+                                row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString()
+                            });
                     break;
                 }
 
             foreach (var language in languagesStrings)
-            {
                 if (language.language == e.TabPage.Text)
                 {
                     dataTableGridViewSource.Clear();
@@ -1244,7 +1245,6 @@ namespace WolvenKit
                         dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
                     break;
                 }
-            }
 
             if (e.TabPage != null)
                 languageTabSelected = e.TabPage.Text;
@@ -1254,7 +1254,7 @@ namespace WolvenKit
         }
     }
 
-    class LanguageStringsCollection
+    internal class LanguageStringsCollection
     {
         public string language;
         public List<List<string>> strings;

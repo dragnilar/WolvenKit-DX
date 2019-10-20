@@ -42,6 +42,7 @@ namespace WolvenKit
                     txOutput.AppendText("[" + DateTime.Now.ToString("G") + "]: " + text);
                     break;
             }
+
             txOutput.ScrollToCaret();
         }
 
@@ -50,25 +51,22 @@ namespace WolvenKit
             txOutput.Clear();
         }
 
-        private void copyToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(txOutput.Text);
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var sf = new SaveFileDialog())
             {
                 sf.Title = "Choose a location to save the log to.";
                 sf.Filter = "Text file (.txt) | *.txt";
-                if (sf.ShowDialog() == DialogResult.OK)
-                {
-                    File.WriteAllLines(sf.FileName, txOutput.Lines);
-                }
+                if (sf.ShowDialog() == DialogResult.OK) File.WriteAllLines(sf.FileName, txOutput.Lines);
             }
         }
 
-        private void clearToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Clear();
         }

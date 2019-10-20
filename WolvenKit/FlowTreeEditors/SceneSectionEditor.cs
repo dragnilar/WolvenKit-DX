@@ -21,12 +21,8 @@ namespace WolvenKit.FlowTreeEditors
             base.UpdateView();
 
             if (lines != null)
-            {
                 foreach (var l in lines)
-                {
                     Controls.Remove(l);
-                }
-            }
 
             lines = new List<Label>();
 
@@ -36,12 +32,11 @@ namespace WolvenKit.FlowTreeEditors
             var sceneElementsObj = Chunk.GetVariableByName("sceneElements");
             if (sceneElementsObj != null && sceneElementsObj is CArray)
             {
-                var sceneElements = (CArray)sceneElementsObj;
+                var sceneElements = (CArray) sceneElementsObj;
                 foreach (var element in sceneElements)
-                {
                     if (element != null && element is CPtr)
                     {
-                        var ptr = (CPtr)element;
+                        var ptr = (CPtr) element;
                         switch (ptr.PtrTargetType)
                         {
                             case "CStorySceneLine":
@@ -60,18 +55,15 @@ namespace WolvenKit.FlowTreeEditors
                                 var texts = TextRenderer.MeasureText(label.Text, label.Font, new Size(Width - 6, 100),
                                     TextFormatFlags.WordBreak);
                                 label.Height = texts.Height + 5;
-                                label.BackColor = (line % 2) == 0 ? Color.LightBlue : Color.Transparent;
+                                label.BackColor = line % 2 == 0 ? Color.LightBlue : Color.Transparent;
 
                                 label.Click += delegate { FireSelectEvent(ptr.PtrTarget); };
 
                                 y += label.Height;
 
                                 break;
-                            default:
-                                break;
                         }
                     }
-                }
             }
 
             Height = y;
@@ -83,16 +75,10 @@ namespace WolvenKit.FlowTreeEditors
             if (c != null)
             {
                 var speaker = c.GetVariableByName("voicetag");
-                if (speaker != null && speaker is CName)
-                {
-                    str += ((CName)speaker).Value + ": ";
-                }
+                if (speaker != null && speaker is CName) str += ((CName) speaker).Value + ": ";
 
                 var line = c.GetVariableByName("dialogLine");
-                if (line != null && line is CLocalizedString)
-                {
-                    str += ((CLocalizedString)line).Text;
-                }
+                if (line != null && line is CLocalizedString) str += ((CLocalizedString) line).Text;
             }
 
             return str;
@@ -105,22 +91,16 @@ namespace WolvenKit.FlowTreeEditors
             var choiceObj = Chunk.GetVariableByName("choice");
             if (choiceObj != null && choiceObj is CPtr)
             {
-                var choicePtr = ((CPtr)choiceObj);
-                if (choicePtr.PtrTarget != null)
-                {
-                    list.Add(choicePtr);
-                }
+                var choicePtr = (CPtr) choiceObj;
+                if (choicePtr.PtrTarget != null) list.Add(choicePtr);
             }
 
 
             var nextLinkElementObj = Chunk.GetVariableByName("nextLinkElement");
             if (nextLinkElementObj != null && nextLinkElementObj is CPtr)
             {
-                var nextLinkElementPtr = ((CPtr)nextLinkElementObj);
-                if (nextLinkElementPtr.PtrTarget != null)
-                {
-                    list.Add(nextLinkElementPtr);
-                }
+                var nextLinkElementPtr = (CPtr) nextLinkElementObj;
+                if (nextLinkElementPtr.PtrTarget != null) list.Add(nextLinkElementPtr);
             }
 
             return list;
@@ -129,10 +109,7 @@ namespace WolvenKit.FlowTreeEditors
         public override string GetCopyText()
         {
             var text = new StringBuilder();
-            foreach (var line in lines)
-            {
-                text.AppendLine(line.Text);
-            }
+            foreach (var line in lines) text.AppendLine(line.Text);
 
             return text.ToString();
         }
