@@ -9,5 +9,5 @@ Examples of changes include:
 - Changed a couple instances of the Folder Selection Dialog that Tradearin was using so that it is using the Vista Folder Browser dialog instead of the old XP style dialog.
 - "Fixed" a few spots where Wolven-kit throws errors when it should be doing shell executes (I.E. image, witcher script files).
 - Upgraded to target .NET 4.8, I did not see any reason to leave it on 4.6.x. 
-
+- Added Fody.Costura to minimize the amount of files that get dumped in the bin folders. 
 
