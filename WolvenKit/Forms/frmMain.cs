@@ -63,6 +63,7 @@ namespace WolvenKit
             hotkeys.RegisterHotkey(Keys.F1, HKHelp, "Help");
             hotkeys.RegisterHotkey(Keys.Control | Keys.C, HKCopy, "Copy");
             hotkeys.RegisterHotkey(Keys.Control | Keys.V, HKPaste, "Paste");
+            hotkeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.B, HKPackProject, "PackProject");
             MainController.Get().InitForm(this);
         }
 
@@ -215,6 +216,11 @@ namespace WolvenKit
                     AddOutput("Copied propertie(s) pasted!\n");
                 }
             }
+        }
+
+        private void HKPackProject(HotKeyEventArgs e)
+        {
+            PackProject();
         }
 
 
