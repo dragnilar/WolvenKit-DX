@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DevExpress.Data;
+using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,19 +23,9 @@ namespace WolvenKit.StringEncoder
         GROUP
     }
 
-    public partial class frmStringsGui : Form
+    public partial class frmStringsGui : XtraForm
     {
-        private bool abortedSwitchingBackToAllLanguages;
-
         private readonly W3Mod activeMod;
-        private int counter;
-
-        private string currentModID = string.Empty;
-
-        private DataTable dataTableGridViewSource;
-        private bool fileIsSaved;
-
-        private bool fileOpened;
         private readonly List<string> groups = new List<string>();
 
         private readonly int idsLimit = 1000;
@@ -39,19 +33,32 @@ namespace WolvenKit.StringEncoder
         private readonly IEnumerable<W3Language> languages = W3Language.languages;
 
         private readonly List<LanguageStringsCollection> languagesStrings = new List<LanguageStringsCollection>();
-        private string languageTabSelected = "ar";
         private readonly List<int> modIDs = new List<int> { 0 };
+        private bool abortedSwitchingBackToAllLanguages;
+        private int counter;
+
+        private string currentModID = string.Empty;
+        private bool fileIsSaved;
+
+        private bool fileOpened;
+        private string languageTabSelected = "ar";
         private bool multipleIDs;
         private bool rowAddedAutomatically;
+
+        private List<W3EncodedString> W3EncodedStrings;
+
+        private object AllLanguagesVal;
+        private object SeperateLanguagesVal;
 
         public frmStringsGui(W3Mod mod)
         {
             InitializeComponent();
 
             activeMod = mod;
-
-            comboBoxLanguagesMode.SelectedIndex = 0;
-            CreateDataTable();
+            AllLanguagesVal = repoItemComboBoxLanguage.Items[0];
+            SeperateLanguagesVal = repoItemComboBoxLanguage.Items[1];
+            barEditItemLanguage.EditValue = AllLanguagesVal;
+            CreateDataSource();
 
             if (activeMod != null)
             {
@@ -64,7 +71,7 @@ namespace WolvenKit.StringEncoder
                 if (fileNames.Length == 0)
                     return;
 
-                comboBoxLanguagesMode.SelectedIndex = 1;
+                barEditItemLanguage.EditValue = AllLanguagesVal;
                 languagesStrings.Clear();
 
                 rowAddedAutomatically = true;
@@ -87,21 +94,20 @@ namespace WolvenKit.StringEncoder
 
                     languagesStrings.Add(new LanguageStringsCollection(language, strings));
 
-                    foreach (var lang in languagesStrings)
-                        if (lang.language == "ar")
-                        {
-                            dataTableGridViewSource.Clear();
-
-                            foreach (var str in lang.strings)
-                                dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
-                            break;
-                        }
+                    foreach (var lang in languagesStrings.Where(lang => lang.language == "ar"))
+                    {
+                        W3EncodedStrings.Clear();
+                        foreach (var str in lang.strings)
+                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1],
+                                str[2], str[3]));
+                        break;
+                    }
                 }
 
                 fileOpened = true;
                 HashStringKeys();
                 UpdateModID();
-                dataGridViewStrings.Visible = true;
+                gridControlStringsEncoder.Visible = true;
                 rowAddedAutomatically = false;
             }
         }
@@ -114,65 +120,9 @@ namespace WolvenKit.StringEncoder
             toolStrip Buttons
         */
 
-        private void toolStripButtonSave_Click(object sender, EventArgs e)
+        private void barButtonItemNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (dataGridViewStrings.Rows.Count != 1)
-                SaveCSV();
-            else
-                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        }
-
-        private void toolStripButtonOpen_Click(object sender, EventArgs e)
-        {
-            OpenCSV();
-        }
-
-        private void toolStripButtonGenerateXML_Click(object sender, EventArgs e)
-        {
-            GenerateFromXML();
-        }
-
-        private void toolStripButtonGenerateScripts_Click(object sender, EventArgs e)
-        {
-            ReadScripts();
-        }
-
-        private void toolStripButtonEncode_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewStrings.Rows.Count != 1)
-                Encode();
-            else
-                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        }
-
-        private void toolStripButtonImport_Click(object sender, EventArgs e)
-        {
-            ImportW3Strings();
-        }
-
-        /*
-            toolStrip Menus
-        */
-
-        private void idToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            idToolStripMenuItem.Checked = dataGridViewStrings.Columns[0].Visible = !idToolStripMenuItem.Checked;
-        }
-
-        private void hexKeyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            hexKeyToolStripMenuItem.Checked = dataGridViewStrings.Columns[1].Visible = !hexKeyToolStripMenuItem.Checked;
-        }
-
-        private void stringKeyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stringKeyToolStripMenuItem.Checked =
-                dataGridViewStrings.Columns[2].Visible = !stringKeyToolStripMenuItem.Checked;
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewStrings.Visible == false)
+            if (gridControlStringsEncoder.Visible == false)
                 return;
             if (!fileIsSaved)
             {
@@ -182,93 +132,74 @@ namespace WolvenKit.StringEncoder
                     return;
             }
 
-            dataTableGridViewSource.Clear();
-            CreateDataTable();
+            W3EncodedStrings.Clear();
+            CreateDataSource();
             modIDs.Clear();
-            textBoxModID.Text = string.Empty;
-            dataGridViewStrings.Visible = false;
+            barEditItemModId.EditValue = string.Empty;
+            gridControlStringsEncoder.Visible = false;
             languagesStrings.Clear();
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void barButtonItemOpen_ItemClick(object sender, ItemClickEventArgs e)
         {
             OpenCSV();
         }
 
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        private void barButtonItemImport_ItemClick(object sender, ItemClickEventArgs e)
         {
             ImportW3Strings();
         }
 
-        private void fromXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        private void barButtonItemFromXml_ItemClick(object sender, ItemClickEventArgs e)
         {
             GenerateFromXML();
         }
 
-        private void fromScriptsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void barButtonItemFromScripts_ItemClick(object sender, ItemClickEventArgs e)
         {
             ReadScripts();
         }
 
-        /*
-            Other
-        */
-
-        private void textBoxModID_Leave(object sender, EventArgs e)
+        private void barButtonItemSave_ItemClick(object sender, ItemClickEventArgs e)
         {
-            FillModIDIfValid();
-            currentModID = textBoxModID.Text;
+            if (gridViewStringsEncoder.RowCount != 1)
+                SaveCSV();
+            else
+                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-        private void textBoxModID_KeyDown(object sender, KeyEventArgs e)
+        private void barButtonItemEncode_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (gridViewStringsEncoder.RowCount != 1)
+                Encode();
+            else
+                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
+        private void repoItemTextEditModIDs_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter) splitContainerMain.Focus();
         }
 
-        private void dataGridViewStrings_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            if (rowAddedAutomatically)
-                return;
 
-            if (textBoxModID.Text == string.Empty)
-            {
-                AskForModID();
-                return;
-            }
-
-            if (dataGridViewStrings.Rows.Count >= 3)
-                dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 2].Cells[0].Value =
-                    Convert.ToInt32(dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 3].Cells[0].Value) + 1;
-            else
-                dataGridViewStrings.Rows[0].Cells[0].Value = modIDs[0] * 1000 + 2110000000;
-
-            HashStringKeys();
-            fileIsSaved = false;
-        }
-
-        private void dataGridViewStrings_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            UpdateModID();
-        }
-
-        private void comboBoxLanguagesMode_SelectedIndexChanged(object sender, EventArgs e)
+        private void repoItemComboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (abortedSwitchingBackToAllLanguages)
                 abortedSwitchingBackToAllLanguages = false;
             //return;
-            if (comboBoxLanguagesMode.SelectedIndex == 1)
+            if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
             {
                 tabControlLanguages.Controls.Clear();
 
                 var allLanguagesStrings = new List<List<string>>();
 
-                foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                    if (row.Cells[0].Value != null)
-                        allLanguagesStrings.Add(new List<string>
-                        {
-                            row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(),
-                            row.Cells[3].Value.ToString()
-                        });
+                foreach (var w3EncodedString in W3EncodedStrings)
+                {
+                    allLanguagesStrings.Add(new List<string>
+                    {
+                        w3EncodedString.Id.ToString(), w3EncodedString.HexKey, w3EncodedString.StringKey, w3EncodedString.Localization
+                    });
+                }
 
                 languagesStrings.Add(new LanguageStringsCollection("all", allLanguagesStrings));
 
@@ -293,34 +224,43 @@ namespace WolvenKit.StringEncoder
                     tabControlLanguages.Controls.Add(newTabPage);
                 }
             }
-            else if (dataTableGridViewSource != null)
+            else if (W3EncodedStrings != null)
             {
                 var result = MessageBox.Show("Are you sure? English strings will be used for all languages.",
                     "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                 {
-                    comboBoxLanguagesMode.SelectedIndex = 1;
+                    barEditItemLanguage.EditValue = AllLanguagesVal;
                     abortedSwitchingBackToAllLanguages = true;
                     return;
                 }
 
                 tabControlLanguages.Controls.Clear();
 
-                dataTableGridViewSource.Rows.Clear();
+                W3EncodedStrings.Clear();
                 foreach (var str in languagesStrings[7].strings)
-                    dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
+                    W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1], str[2],
+                        str[3]));
                 languagesStrings.Clear();
 
-                var newTabPage = new TabPage();
-                newTabPage.Location = new Point(4, 22);
-                newTabPage.Name = "tabPageAllLanguages";
-                newTabPage.Padding = new Padding(3);
-                newTabPage.Size = new Size(998, 0);
-                newTabPage.TabIndex = 0;
-                newTabPage.Text = "All Languages";
-                newTabPage.UseVisualStyleBackColor = true;
+                var newTabPage = new TabPage
+                {
+                    Location = new Point(4, 22),
+                    Name = "tabPageAllLanguages",
+                    Padding = new Padding(3),
+                    Size = new Size(998, 0),
+                    TabIndex = 0,
+                    Text = "All Languages",
+                    UseVisualStyleBackColor = true
+                };
                 tabControlLanguages.Controls.Add(newTabPage);
             }
+        }
+
+        private void repoItemTextEditModIDs_Leave(object sender, EventArgs e)
+        {
+            FillModIDIfValid();
+            currentModID = barEditItemModId.EditValue.ToString();
         }
 
         /*
@@ -329,29 +269,29 @@ namespace WolvenKit.StringEncoder
 
         private void HashStringKeys()
         {
-            foreach (DataGridViewRow row in dataGridViewStrings.Rows)
+            foreach (var w3EncodedString in W3EncodedStrings)
             {
-                if (row.Cells[2].Value == null)
-                    return;
-                var key = row.Cells[2].Value.ToString();
-                if (key == string.Empty)
-                    return;
-                var keyConverted = key.ToCharArray();
+                if (w3EncodedString == null) continue;
+                var key = w3EncodedString.StringKey;
+                if (key == string.Empty) continue;
+
+                var convertedKey = key.ToCharArray();
                 uint hash = 0;
-                foreach (var c in keyConverted)
+                foreach (var c in convertedKey)
                 {
                     hash *= 31;
                     hash += c;
                 }
 
-                var hex_key = hash.ToString("X");
-                row.Cells[1].Value = hex_key;
+                w3EncodedString.HexKey = hash.ToString("X");
             }
         }
 
         private void ImportW3Strings()
         {
-            //if (textBoxModID.Text == string.Empty)
+            XtraMessageBox.Show("This is not supported in the stand alone version of the String Encoder at present.",
+                "Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //if (barEditItemModId.EditValue == string.Empty)
             //{
             //    AskForModID();
             //    return;
@@ -379,7 +319,7 @@ namespace WolvenKit.StringEncoder
 
         private void GenerateFromXML()
         {
-            if (textBoxModID.Text != string.Empty && FillModIDIfValid())
+            if (barEditItemModId.EditValue.ToString() != string.Empty && FillModIDIfValid())
                 ReadXML();
             else
                 AskForModID();
@@ -388,11 +328,13 @@ namespace WolvenKit.StringEncoder
         private void AskForModID()
         {
             MessageBox.Show("Enter mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            textBoxModID.Text = string.Empty;
+            barEditItemModId.EditValue = string.Empty;
         }
 
         public string ShowScriptPrefixDialog()
         {
+            XtraMessageBox.Show("This is not implemented in the stand alone version of the string encoder.",
+                "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             //var testDialog = new frmStringsGuiScriptsPrefixDialog();
             //var prefix = string.Empty;
             //if (testDialog.ShowDialog(this) == DialogResult.OK)
@@ -408,7 +350,7 @@ namespace WolvenKit.StringEncoder
 
         private void ReadScripts()
         {
-            if (textBoxModID.Text == string.Empty)
+            if (barEditItemModId.EditValue.ToString() == string.Empty)
             {
                 AskForModID();
                 return;
@@ -486,14 +428,17 @@ namespace WolvenKit.StringEncoder
 
             rowAddedAutomatically = true;
 
-            currentModID = textBoxModID.Text;
-            rows.ForEach(x => { dataTableGridViewSource.Rows.Add(x); });
+            currentModID = barEditItemModId.EditValue.ToString();
+            rows.ForEach(x =>
+            {
+                W3EncodedStrings.Add(W3EncodedString.ConvertStringArrayToW3EncodedString(x));
 
-            rowAddedAutomatically = false;
+                rowAddedAutomatically = false;
 
-            dataGridViewStrings.Visible = true;
-            UpdateModID();
-            HashStringKeys();
+                gridControlStringsEncoder.Visible = true;
+                UpdateModID();
+                HashStringKeys();
+            });
         }
 
         private void ReadXML()
@@ -512,7 +457,6 @@ namespace WolvenKit.StringEncoder
                     new[] { "<?xml version=\"1.0\" encoding=\"utf-8\"?>" }.ToList()
                         .Concat(File.ReadAllLines(path).Skip(1).ToArray()));
 
-                //dataTableGridViewSource = (DataTable)dataGridViewStrings.DataSource;
                 var doc = XDocument.Load(path);
 
                 // vars displayNames
@@ -521,11 +465,13 @@ namespace WolvenKit.StringEncoder
                     {
                         var name = var.Attribute("displayName").Value;
                         if (counter > idsLimit)
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty,
-                                DisplayNameToKey(name), name);
+                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[1] * 1000,
+                                string.Empty,
+                                DisplayNameToKey(name), name));
                         else
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty,
-                                DisplayNameToKey(name), name);
+                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[0] * 1000
+                                , string.Empty,
+                                DisplayNameToKey(name), name));
 
                         ++counter;
                     }
@@ -537,12 +483,13 @@ namespace WolvenKit.StringEncoder
                     {
                         var name = var.Attribute("displayName").Value;
                         if (counter > idsLimit)
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty,
-                                DisplayNameToKey(name), name);
+                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[1] * 1000
+                                , string.Empty,
+                                DisplayNameToKey(name), name));
                         else
-                            dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty,
-                                DisplayNameToKey(name), name);
-
+                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[0] * 1000
+                                , string.Empty,
+                                DisplayNameToKey(name), name));
                         ++counter;
                     }
 
@@ -561,11 +508,16 @@ namespace WolvenKit.StringEncoder
                             var localisationName = string.Join(string.Empty, splitGroupName);
 
                             if (counter > idsLimit)
-                                dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[1] * 1000, string.Empty,
-                                    groupName, localisationName);
+                                W3EncodedStrings.Add(W3EncodedString.GenerateW3String(
+                                    counter + 2110000000 + modIDs[0] * 1000
+                                    , string.Empty,
+                                    groupName, localisationName));
                             else
-                                dataTableGridViewSource.Rows.Add(counter + 2110000000 + modIDs[0] * 1000, string.Empty,
-                                    groupName, localisationName);
+                                W3EncodedStrings.Add(W3EncodedString.GenerateW3String(
+                                    counter + 2110000000 + modIDs[0] * 1000
+                                    , string.Empty,
+                                    groupName, localisationName));
+
                             ++counter;
                         }
                     }
@@ -687,41 +639,41 @@ namespace WolvenKit.StringEncoder
             modIDs.Clear();
             string[] splittedIDs;
 
-            if (!IsIDValid(textBoxModID.Text))
+            if (!IsIDValid(barEditItemModId.EditValue.ToString()))
             {
                 MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                 if (currentModID != string.Empty)
-                    textBoxModID.Text = currentModID;
+                    barEditItemModId.EditValue = currentModID;
                 else
-                    textBoxModID.Text = string.Empty;
+                    barEditItemModId.EditValue = string.Empty;
 
                 return false;
             }
 
             if (!multipleIDs)
             {
-                modIDs.Add(Convert.ToInt32(textBoxModID.Text));
-                dataGridViewStrings.Visible = true;
+                modIDs.Add(Convert.ToInt32(barEditItemModId.EditValue));
+                gridControlStringsEncoder.Visible = true;
                 UpdateModID();
             }
             else
             {
-                splittedIDs = textBoxModID.Text.Split(';');
+                splittedIDs = barEditItemModId.EditValue.ToString().Split(';');
 
                 if (!AreAllIDsValid(splittedIDs))
                 {
                     MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                     if (currentModID != string.Empty)
-                        textBoxModID.Text = currentModID;
+                        barEditItemModId.EditValue = currentModID;
                     else
-                        textBoxModID.Text = string.Empty;
+                        barEditItemModId.EditValue = string.Empty;
 
                     return false;
                 }
 
-                if (!dataGridViewStrings.Visible) dataGridViewStrings.Visible = true;
+                if (!gridControlStringsEncoder.Visible) gridControlStringsEncoder.Visible = true;
 
                 foreach (var id in splittedIDs)
                     modIDs.Add(Convert.ToInt32(id));
@@ -734,23 +686,22 @@ namespace WolvenKit.StringEncoder
         {
             rowAddedAutomatically = true;
             //TODO - fix for empty dataGridView
-            if (dataTableGridViewSource == null)
+            if (W3EncodedStrings == null)
                 return;
 
             var counter = 0;
             var newModID = modIDs[0] * 1000 + 2110000000;
-            foreach (DataRow row in dataTableGridViewSource.Rows)
+            foreach (var row in W3EncodedStrings)
             {
-                var newModIDRow = newModID + counter;
-                row[0] = newModIDRow.ToString();
-                var test = row.ItemArray[0];
+                var newModIdRow = newModID + counter;
+                row.Id = newModIdRow;
                 ++counter;
                 if (counter / idsLimit >= modIDs.Count)
                 {
                     MessageBox.Show("Number of strings exceeds " + counter + ", number of IDs: " + modIDs.Count
                                     + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.",
                         "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    dataTableGridViewSource.Clear();
+                    W3EncodedStrings.Clear();
                     break;
                 }
             }
@@ -760,7 +711,7 @@ namespace WolvenKit.StringEncoder
 
         private void SaveCSV()
         {
-            dataGridViewStrings.EndEdit();
+            gridControlStringsEncoder.EndUpdate();
             HashStringKeys();
 
             var outputPath = string.Empty;
@@ -779,24 +730,21 @@ namespace WolvenKit.StringEncoder
                 return;
             var sb = new StringBuilder();
 
-            if (comboBoxLanguagesMode.SelectedIndex == 0)
+            if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
             {
-                if (dataGridViewStrings.Rows.Count >= 3)
-                    dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 2].Cells[0].Value =
-                        Convert.ToInt32(dataGridViewStrings.Rows[dataGridViewStrings.Rows.Count - 3].Cells[0].Value) +
-                        1;
+                if (W3EncodedStrings.Count >= 3)
+                    W3EncodedStrings[W3EncodedStrings.Count - 2].Id =
+                        W3EncodedStrings[W3EncodedStrings.Count - 3].Id + 1;
                 else
-                    dataGridViewStrings.Rows[0].Cells[0].Value = modIDs[0] * 1000 + 2110000000;
+                    W3EncodedStrings.First().Id = modIDs[0] * 1000 + 2110000000;
 
-                foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                {
-                    if (row.Cells[0].Value == DBNull.Value)
-                        continue;
-                    var cells = row.Cells.Cast<DataGridViewCell>();
+                foreach (var encodedString in W3EncodedStrings)
+                    //Dragnilar - TODO - This may no longer be an issue... or Id needs to be nullable.
+                    //if (encodedString.Id == DBNull.)
+                    //    continue;
 
-
-                    sb.AppendLine(string.Join("|", cells.Select(cell => cell.Value).ToArray()));
-                }
+                    sb.AppendLine(string.Join("|", encodedString.Id.ToString(), encodedString.HexKey,
+                        encodedString.StringKey, encodedString.Localization));
 
                 var languagesCount = languages.Count();
 
@@ -811,18 +759,18 @@ namespace WolvenKit.StringEncoder
                         // leaving space for the hex key empty
                         if (!fileOpened)
                         {
-                            var splittedCsv = csv.Split('\n').ToList();
-                            var splittedCsvLength = splittedCsv.Count();
-                            for (var j = 0; j < splittedCsvLength; ++j)
-                                if (splittedCsv[j] == "\r" || splittedCsv[j] == string.Empty)
+                            var splitCsv = csv.Split('\n').ToList();
+                            var splitCsvLength = splitCsv.Count();
+                            for (var j = 0; j < splitCsvLength; ++j)
+                                if (splitCsv[j] == "\r" || splitCsv[j] == string.Empty)
                                 {
                                     // remove empty rows
-                                    splittedCsv.RemoveAt(j);
-                                    --splittedCsvLength;
+                                    splitCsv.RemoveAt(j);
+                                    --splitCsvLength;
                                     --j;
                                 }
 
-                            csv = string.Join("\n", splittedCsv);
+                            csv = string.Join("\n", splitCsv);
                         }
 
                         file.WriteLine(csv, Encoding.UTF8);
@@ -878,26 +826,12 @@ namespace WolvenKit.StringEncoder
             return string.Empty;
         }
 
-        private void CreateDataTable()
+        private void CreateDataSource()
         {
-            if (dataTableGridViewSource == null)
+            if (W3EncodedStrings == null || !W3EncodedStrings.Any())
             {
-                dataTableGridViewSource = new DataTable();
-
-                dataGridViewStrings.Columns.Clear();
-
-                dataTableGridViewSource.Columns.Add("Id");
-                dataTableGridViewSource.Columns.Add("Hex Key");
-                dataTableGridViewSource.Columns.Add("String Key");
-                dataTableGridViewSource.Columns.Add("Localisation");
-
-                dataGridViewStrings.DataSource = dataTableGridViewSource;
-
-                dataGridViewStrings.Columns[0].ReadOnly = true;
-                dataGridViewStrings.Columns[1].ReadOnly = true;
-
-                foreach (DataGridViewColumn column in dataGridViewStrings.Columns)
-                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                W3EncodedStrings = new List<W3EncodedString>();
+                gridControlStringsEncoder.DataSource = W3EncodedStrings;
             }
         }
 
@@ -919,17 +853,19 @@ namespace WolvenKit.StringEncoder
                         }
             }
 
-            textBoxModID.Text = string.Empty;
+            barEditItemModId.EditValue = string.Empty;
             if (multipleIDs)
             {
                 foreach (var id in modIDs)
-                    textBoxModID.Text += Convert.ToString(id) + ";";
+                    barEditItemModId.EditValue += Convert.ToString(id) + ";";
                 // delete last ;
-                textBoxModID.Text = textBoxModID.Text.Remove(textBoxModID.Text.Length - 1);
+                var stringToRemove = barEditItemModId.EditValue.ToString();
+                barEditItemModId.EditValue =
+                    stringToRemove.Remove(stringToRemove.Length - 1);
             }
             else
             {
-                textBoxModID.Text = Convert.ToString(modIDs[0]);
+                barEditItemModId.EditValue = Convert.ToString(modIDs[0]);
             }
         }
 
@@ -966,7 +902,7 @@ namespace WolvenKit.StringEncoder
                 var rows = ParseCSV(filePath);
                 GetCSVIDs(rows);
 
-                if (comboBoxLanguagesMode.SelectedIndex == 1)
+                if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
                 {
                     var firstLine = File.ReadLines(filePath, Encoding.UTF8).First();
                     var language = Regex.Match(firstLine, "language=([a-zAZ]+)]").Groups[1].Value;
@@ -981,14 +917,18 @@ namespace WolvenKit.StringEncoder
 
                             if (lang.language == "ar" && languageTabSelected == "ar")
                                 foreach (var str in lang.strings)
-                                    dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
+                                    W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]),
+                                        str[1], str[2], str[3]));
                             break;
                         }
                 }
                 else
                 {
-                    currentModID = textBoxModID.Text;
-                    rows.ForEach(row => { dataTableGridViewSource.Rows.Add(row); });
+                    currentModID = barEditItemModId.EditValue.ToString();
+                    rows.ForEach(row =>
+                    {
+                        W3EncodedStrings.Add(W3EncodedString.ConvertStringArrayToW3EncodedString(row));
+                    });
                 }
             }
             else
@@ -999,13 +939,13 @@ namespace WolvenKit.StringEncoder
             fileOpened = true;
             HashStringKeys();
             UpdateModID();
-            dataGridViewStrings.Visible = true;
+            gridControlStringsEncoder.Visible = true;
             rowAddedAutomatically = false;
         }
 
         private void Encode()
         {
-            dataGridViewStrings.EndEdit();
+            gridControlStringsEncoder.EndUpdate();
             HashStringKeys();
 
             var stringsDir = string.Empty;
@@ -1022,23 +962,18 @@ namespace WolvenKit.StringEncoder
 
             if (stringsDir == string.Empty)
                 return;
-            if (comboBoxLanguagesMode.SelectedIndex == 0)
+            if (barEditItemLanguage.EditValue == AllLanguagesVal)
             {
                 var strings = new List<List<string>>();
-                foreach (DataGridViewRow row in dataGridViewStrings.Rows)
+                foreach (var encodedString in W3EncodedStrings)
                 {
-                    if (row.Cells[0].Value == DBNull.Value || row.Cells[0].Value == null)
-                        continue;
-
-                    var str = new List<string>();
-                    var cells = row.Cells.Cast<DataGridViewCell>();
-                    foreach (var cell in cells)
+                    var str = new List<string>
                     {
-                        if (cell == cells.ElementAt(1))
-                            continue;
-                        str.Add(cell.Value.ToString());
-                    }
-
+                        encodedString.Id.ToString(),
+                        encodedString.HexKey,
+                        encodedString.StringKey,
+                        encodedString.Localization
+                    };
                     strings.Add(str);
                 }
 
@@ -1061,14 +996,12 @@ namespace WolvenKit.StringEncoder
                     if (lang.language == languageTabSelected)
                     {
                         lang.strings.Clear();
-
-                        foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                            if (row.Cells[0].Value != null)
-                                lang.strings.Add(new List<string>
-                                {
-                                    row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(),
-                                    row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString()
-                                });
+                        foreach (var w3EncodedString in W3EncodedStrings)
+                            lang.strings.Add(new List<string>
+                            {
+                                w3EncodedString.Id.ToString(), w3EncodedString.HexKey,
+                                w3EncodedString.StringKey, w3EncodedString.Localization
+                            });
                     }
 
                     var w3tringFile = new W3StringFile();
@@ -1116,17 +1049,17 @@ namespace WolvenKit.StringEncoder
 
                 outputPath = stringsDir;
 
-                if (comboBoxLanguagesMode.SelectedIndex == 1)
-                    foreach (var lang in languagesStrings)
-                        foreach (var str in lang.strings)
-                            foreach (var column in str)
-                                toHash += column;
-
+                if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
+                    toHash = (from lang in languagesStrings from str in lang.strings from column in str select column)
+                        .Aggregate(toHash, (current, column) => current + column);
                 else
-                    foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                        foreach (DataGridViewCell cell in row.Cells)
-                            if (cell.Value != null)
-                                toHash += cell.Value.ToString();
+                    foreach (var w3EncodedString in W3EncodedStrings)
+                    {
+                        toHash = w3EncodedString.Id.ToString();
+                        toHash += w3EncodedString.HexKey;
+                        toHash += w3EncodedString.StringKey;
+                        toHash += w3EncodedString.Localization;
+                    }
             }
 
             if (type == "csv")
@@ -1222,38 +1155,89 @@ namespace WolvenKit.StringEncoder
             if (e.TabPage == null)
                 return;
 
-            dataGridViewStrings.EndEdit();
+            gridControlStringsEncoder.EndUpdate();
 
-            foreach (var language in languagesStrings)
-                if (language.language == languageTabSelected)
+            foreach (var language in languagesStrings.Where(language => language.language == languageTabSelected))
+            {
+                language.strings.Clear();
+
+
+                foreach (var w3EncodedString in W3EncodedStrings)
                 {
-                    language.strings.Clear();
-
-                    foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-                        if (row.Cells[0].Value != null)
-                            language.strings.Add(new List<string>
-                            {
-                                row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString(),
-                                row.Cells[2].Value.ToString(), row.Cells[3].Value.ToString()
-                            });
-                    break;
+                    language.strings.Add(new List<string>
+                    {
+                        w3EncodedString.Id.ToString(), w3EncodedString.HexKey, w3EncodedString.StringKey, w3EncodedString.Localization
+                    });
                 }
+            }
 
-            foreach (var language in languagesStrings)
-                if (language.language == e.TabPage.Text)
-                {
-                    dataTableGridViewSource.Clear();
+            foreach (var language in languagesStrings.Where(language => language.language == e.TabPage.Text))
+            {
+                W3EncodedStrings.Clear();
 
-                    foreach (var str in language.strings)
-                        dataTableGridViewSource.Rows.Add(str[0], str[1], str[2], str[3]);
-                    break;
-                }
+                foreach (var str in language.strings)
+                    W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1], str[2],
+                        str[3]));
+                break;
+            }
 
             if (e.TabPage != null)
                 languageTabSelected = e.TabPage.Text;
 
             HashStringKeys();
             UpdateModID();
+        }
+
+        private void gridViewStringsEncoder_RowDeleted(object sender, RowDeletedEventArgs e)
+        {
+            UpdateModID();
+        }
+
+        private void gridViewStringsEncoder_ValidateRow(object sender, ValidateRowEventArgs e)
+        {
+            if (rowAddedAutomatically)
+                return;
+
+            if ((string)barEditItemModId.EditValue == string.Empty)
+            {
+                AskForModID();
+                return;
+            }
+            HashStringKeys();
+            fileIsSaved = false;
+        }
+
+        private void gridViewStringsEncoder_ShownEditor(object sender, EventArgs e)
+        {
+            if (sender is GridView view && view.IsNewItemRow(view.FocusedRowHandle))
+            {
+                rowAddedAutomatically = false;
+                int id = 0;
+                if (W3EncodedStrings.Count >= 3)
+                    id = W3EncodedStrings[W3EncodedStrings.Count - 3].Id + 1;
+                else
+                    id = W3EncodedStrings[0].Id * 1000 + 2110000000;
+
+                W3EncodedStrings.Add(new W3EncodedString(id, string.Empty, string.Empty, string.Empty));
+                view.RefreshData();
+                var handle = view.LocateByValue(nameof(W3EncodedString.Id), id);
+                view.SelectRow(handle);
+                view.MakeRowVisible(handle);
+            }
+        }
+
+        private void gridViewStringsEncoder_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (XtraMessageBox.Show("Do you want to delete this string?", "Delete Encoded String?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                var view = sender as GridView;
+                view?.DeleteRow(view.FocusedRowHandle);
+            }
         }
     }
 

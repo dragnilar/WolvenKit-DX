@@ -28,426 +28,477 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStringsGui));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateStringsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.idToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hexKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stringKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonImport = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonGenerateXML = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonGenerateScripts = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonEncode = new System.Windows.Forms.ToolStripButton();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainerTabs = new System.Windows.Forms.SplitContainer();
             this.tabControlLanguages = new System.Windows.Forms.TabControl();
             this.tabPageAllLanguages = new System.Windows.Forms.TabPage();
-            this.comboBoxLanguagesMode = new System.Windows.Forms.ComboBox();
-            this.dataGridViewStrings = new System.Windows.Forms.DataGridView();
+            this.gridControlStringsEncoder = new DevExpress.XtraGrid.GridControl();
+            this.gridViewStringsEncoder = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumnId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnHexKey = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnStringKey = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnLocalization = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnHexKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnStringKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnLocalisation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBoxModID = new System.Windows.Forms.TextBox();
-            this.labelModID = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.barManagerStringEncoder = new DevExpress.XtraBars.BarManager(this.components);
+            this.barToolStrip = new DevExpress.XtraBars.Bar();
+            this.fileMenuItem = new DevExpress.XtraBars.BarSubItem();
+            this.barButtonItemNew = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemOpen = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemImport = new DevExpress.XtraBars.BarButtonItem();
+            this.genStringsMenuItem = new DevExpress.XtraBars.BarSubItem();
+            this.barButtonItemFromXml = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemFromScripts = new DevExpress.XtraBars.BarButtonItem();
+            this.barMenuStrip = new DevExpress.XtraBars.Bar();
+            this.barButtonItemSave = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemEncode = new DevExpress.XtraBars.BarButtonItem();
+            this.barEditItemModId = new DevExpress.XtraBars.BarEditItem();
+            this.repoItemTextEditModIDs = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.barEditItemLanguage = new DevExpress.XtraBars.BarEditItem();
+            this.repoItemComboBoxLanguage = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.bar2 = new DevExpress.XtraBars.Bar();
+            this.bar3 = new DevExpress.XtraBars.Bar();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTabs)).BeginInit();
             this.splitContainerTabs.Panel1.SuspendLayout();
-            this.splitContainerTabs.Panel2.SuspendLayout();
             this.splitContainerTabs.SuspendLayout();
             this.tabControlLanguages.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManagerStringEncoder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repoItemTextEditModIDs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).BeginInit();
             this.SuspendLayout();
-            //
-            // menuStrip1
-            //
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.generateStringsToolStripMenuItem,
-            this.viewToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            //
-            // fileToolStripMenuItem
-            //
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.importToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            //
-            // newToolStripMenuItem
-            //
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
-            //
-            // openToolStripMenuItem
-            //
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            //
-            // importToolStripMenuItem
-            //
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            //
-            // generateStringsToolStripMenuItem
-            //
-            this.generateStringsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromXMLToolStripMenuItem,
-            this.fromScriptsToolStripMenuItem});
-            this.generateStringsToolStripMenuItem.Name = "generateStringsToolStripMenuItem";
-            this.generateStringsToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
-            this.generateStringsToolStripMenuItem.Text = "Generate Strings";
-            //
-            // fromXMLToolStripMenuItem
-            //
-            this.fromXMLToolStripMenuItem.Name = "fromXMLToolStripMenuItem";
-            this.fromXMLToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.fromXMLToolStripMenuItem.Text = "From XML";
-            this.fromXMLToolStripMenuItem.Click += new System.EventHandler(this.fromXMLToolStripMenuItem_Click);
-            //
-            // fromScriptsToolStripMenuItem
-            //
-            this.fromScriptsToolStripMenuItem.Name = "fromScriptsToolStripMenuItem";
-            this.fromScriptsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.fromScriptsToolStripMenuItem.Text = "From Scripts";
-            this.fromScriptsToolStripMenuItem.Click += new System.EventHandler(this.fromScriptsToolStripMenuItem_Click);
-            //
-            // viewToolStripMenuItem
-            //
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.idToolStripMenuItem,
-            this.hexKeyToolStripMenuItem,
-            this.stringKeyToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            //
-            // idToolStripMenuItem
-            //
-            this.idToolStripMenuItem.Checked = true;
-            this.idToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.idToolStripMenuItem.Name = "idToolStripMenuItem";
-            this.idToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.idToolStripMenuItem.Text = "ID";
-            this.idToolStripMenuItem.Click += new System.EventHandler(this.idToolStripMenuItem_Click);
-            //
-            // hexKeyToolStripMenuItem
-            //
-            this.hexKeyToolStripMenuItem.Checked = true;
-            this.hexKeyToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hexKeyToolStripMenuItem.Name = "hexKeyToolStripMenuItem";
-            this.hexKeyToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.hexKeyToolStripMenuItem.Text = "Hex Key";
-            this.hexKeyToolStripMenuItem.Click += new System.EventHandler(this.hexKeyToolStripMenuItem_Click);
-            //
-            // stringKeyToolStripMenuItem
-            //
-            this.stringKeyToolStripMenuItem.Checked = true;
-            this.stringKeyToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.stringKeyToolStripMenuItem.Name = "stringKeyToolStripMenuItem";
-            this.stringKeyToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.stringKeyToolStripMenuItem.Text = "String Key";
-            this.stringKeyToolStripMenuItem.Click += new System.EventHandler(this.stringKeyToolStripMenuItem_Click);
-            //
-            // toolStrip1
-            //
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonSave,
-            this.toolStripButtonOpen,
-            this.toolStripButtonImport,
-            this.toolStripButtonGenerateXML,
-            this.toolStripButtonGenerateScripts,
-            this.toolStripButtonEncode});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1184, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
-            //
-            // toolStripButtonSave
-            //
-            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(51, 22);
-            this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.ToolTipText = "Save to CSV file.";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
-            //
-            // toolStripButtonOpen
-            //
-            this.toolStripButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpen.Image")));
-            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
-            this.toolStripButtonOpen.Size = new System.Drawing.Size(56, 22);
-            this.toolStripButtonOpen.Text = "Open";
-            this.toolStripButtonOpen.ToolTipText = "Open CSV file.";
-            this.toolStripButtonOpen.Click += new System.EventHandler(this.toolStripButtonOpen_Click);
-            //
-            // toolStripButtonImport
-            //
-            this.toolStripButtonImport.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonImport.Image")));
-            this.toolStripButtonImport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonImport.Name = "toolStripButtonImport";
-            this.toolStripButtonImport.Size = new System.Drawing.Size(63, 22);
-            this.toolStripButtonImport.Text = "Import";
-            this.toolStripButtonImport.ToolTipText = "Import existing w3string file.";
-            this.toolStripButtonImport.Click += new System.EventHandler(this.toolStripButtonImport_Click);
-            //
-            // toolStripButtonGenerateXML
-            //
-            this.toolStripButtonGenerateXML.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonGenerateXML.Image")));
-            this.toolStripButtonGenerateXML.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonGenerateXML.Name = "toolStripButtonGenerateXML";
-            this.toolStripButtonGenerateXML.Size = new System.Drawing.Size(132, 22);
-            this.toolStripButtonGenerateXML.Text = "Generate From XML";
-            this.toolStripButtonGenerateXML.ToolTipText = "Generate strings from menu XML.";
-            this.toolStripButtonGenerateXML.Click += new System.EventHandler(this.toolStripButtonGenerateXML_Click);
-            //
-            // toolStripButtonGenerateScripts
-            //
-            this.toolStripButtonGenerateScripts.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonGenerateScripts.Image")));
-            this.toolStripButtonGenerateScripts.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonGenerateScripts.Name = "toolStripButtonGenerateScripts";
-            this.toolStripButtonGenerateScripts.Size = new System.Drawing.Size(143, 22);
-            this.toolStripButtonGenerateScripts.Text = "Generate From Scripts";
-            this.toolStripButtonGenerateScripts.ToolTipText = "Generate strings from scripts (strings with specified prefix in scripts).";
-            this.toolStripButtonGenerateScripts.Click += new System.EventHandler(this.toolStripButtonGenerateScripts_Click);
-            //
-            // toolStripButtonEncode
-            //
-            this.toolStripButtonEncode.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonEncode.Image")));
-            this.toolStripButtonEncode.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonEncode.Name = "toolStripButtonEncode";
-            this.toolStripButtonEncode.Size = new System.Drawing.Size(66, 22);
-            this.toolStripButtonEncode.Text = "Encode";
-            this.toolStripButtonEncode.ToolTipText = "Encode w3string files.";
-            this.toolStripButtonEncode.Click += new System.EventHandler(this.toolStripButtonEncode_Click);
-            //
+            // 
             // splitContainerMain
-            //
+            // 
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerMain.IsSplitterFixed = true;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 49);
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 52);
             this.splitContainerMain.Name = "splitContainerMain";
             this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            //
+            // 
             // splitContainerMain.Panel1
-            //
+            // 
             this.splitContainerMain.Panel1.Controls.Add(this.splitContainerTabs);
-            //
+            // 
             // splitContainerMain.Panel2
-            //
-            this.splitContainerMain.Panel2.Controls.Add(this.dataGridViewStrings);
-            this.splitContainerMain.Size = new System.Drawing.Size(1184, 488);
-            this.splitContainerMain.SplitterDistance = 25;
+            // 
+            this.splitContainerMain.Panel2.Controls.Add(this.gridControlStringsEncoder);
+            this.splitContainerMain.Size = new System.Drawing.Size(1184, 485);
+            this.splitContainerMain.SplitterDistance = 27;
             this.splitContainerMain.TabIndex = 2;
-            //
+            // 
             // splitContainerTabs
-            //
+            // 
             this.splitContainerTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerTabs.Location = new System.Drawing.Point(0, 0);
             this.splitContainerTabs.Name = "splitContainerTabs";
-            //
+            // 
             // splitContainerTabs.Panel1
-            //
+            // 
             this.splitContainerTabs.Panel1.Controls.Add(this.tabControlLanguages);
-            //
-            // splitContainerTabs.Panel2
-            //
-            this.splitContainerTabs.Panel2.Controls.Add(this.comboBoxLanguagesMode);
-            this.splitContainerTabs.Size = new System.Drawing.Size(1184, 25);
+            this.splitContainerTabs.Size = new System.Drawing.Size(1184, 27);
             this.splitContainerTabs.SplitterDistance = 1006;
             this.splitContainerTabs.TabIndex = 0;
-            //
+            // 
             // tabControlLanguages
-            //
+            // 
             this.tabControlLanguages.Controls.Add(this.tabPageAllLanguages);
             this.tabControlLanguages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlLanguages.Location = new System.Drawing.Point(0, 0);
             this.tabControlLanguages.Name = "tabControlLanguages";
             this.tabControlLanguages.SelectedIndex = 0;
-            this.tabControlLanguages.Size = new System.Drawing.Size(1006, 25);
+            this.tabControlLanguages.Size = new System.Drawing.Size(1006, 27);
             this.tabControlLanguages.TabIndex = 0;
             this.tabControlLanguages.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlLanguages_Selected);
-            //
+            // 
             // tabPageAllLanguages
-            //
+            // 
             this.tabPageAllLanguages.Location = new System.Drawing.Point(4, 22);
             this.tabPageAllLanguages.Name = "tabPageAllLanguages";
             this.tabPageAllLanguages.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAllLanguages.Size = new System.Drawing.Size(998, 0);
+            this.tabPageAllLanguages.Size = new System.Drawing.Size(998, 1);
             this.tabPageAllLanguages.TabIndex = 0;
             this.tabPageAllLanguages.Text = "All Languages";
             this.tabPageAllLanguages.UseVisualStyleBackColor = true;
-            //
-            // comboBoxLanguagesMode
-            //
-            this.comboBoxLanguagesMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxLanguagesMode.FormattingEnabled = true;
-            this.comboBoxLanguagesMode.Items.AddRange(new object[] {
-            "All Languages",
-            "Separate Languages"});
-            this.comboBoxLanguagesMode.Location = new System.Drawing.Point(15, 0);
-            this.comboBoxLanguagesMode.Name = "comboBoxLanguagesMode";
-            this.comboBoxLanguagesMode.Size = new System.Drawing.Size(156, 21);
-            this.comboBoxLanguagesMode.TabIndex = 0;
-            this.comboBoxLanguagesMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguagesMode_SelectedIndexChanged);
-            //
-            // dataGridViewStrings
-            //
-            this.dataGridViewStrings.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewStrings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStrings.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnID,
-            this.ColumnHexKey,
-            this.ColumnStringKey,
-            this.ColumnLocalisation});
-            this.dataGridViewStrings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewStrings.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewStrings.Name = "dataGridViewStrings";
-            this.dataGridViewStrings.Size = new System.Drawing.Size(1184, 459);
-            this.dataGridViewStrings.TabIndex = 0;
-            this.dataGridViewStrings.Visible = false;
-            this.dataGridViewStrings.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStrings_CellValidated);
-            this.dataGridViewStrings.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewStrings_UserDeletedRow);
-            //
+            // 
+            // gridControlStringsEncoder
+            // 
+            this.gridControlStringsEncoder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlStringsEncoder.Location = new System.Drawing.Point(0, 0);
+            this.gridControlStringsEncoder.MainView = this.gridViewStringsEncoder;
+            this.gridControlStringsEncoder.Name = "gridControlStringsEncoder";
+            this.gridControlStringsEncoder.Size = new System.Drawing.Size(1184, 454);
+            this.gridControlStringsEncoder.TabIndex = 0;
+            this.gridControlStringsEncoder.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewStringsEncoder});
+            this.gridControlStringsEncoder.Visible = false;
+            // 
+            // gridViewStringsEncoder
+            // 
+            this.gridViewStringsEncoder.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumnId,
+            this.gridColumnHexKey,
+            this.gridColumnStringKey,
+            this.gridColumnLocalization});
+            this.gridViewStringsEncoder.GridControl = this.gridControlStringsEncoder;
+            this.gridViewStringsEncoder.Name = "gridViewStringsEncoder";
+            this.gridViewStringsEncoder.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
+            this.gridViewStringsEncoder.ShownEditor += new System.EventHandler(this.gridViewStringsEncoder_ShownEditor);
+            this.gridViewStringsEncoder.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewStringsEncoder_RowDeleted);
+            this.gridViewStringsEncoder.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.gridViewStringsEncoder_ValidateRow);
+            this.gridViewStringsEncoder.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridViewStringsEncoder_KeyDown);
+            // 
+            // gridColumnId
+            // 
+            this.gridColumnId.Caption = "Id";
+            this.gridColumnId.FieldName = "Id";
+            this.gridColumnId.Name = "gridColumnId";
+            this.gridColumnId.OptionsColumn.ReadOnly = true;
+            this.gridColumnId.Visible = true;
+            this.gridColumnId.VisibleIndex = 0;
+            // 
+            // gridColumnHexKey
+            // 
+            this.gridColumnHexKey.Caption = "Hex Key";
+            this.gridColumnHexKey.FieldName = "HexKey";
+            this.gridColumnHexKey.Name = "gridColumnHexKey";
+            this.gridColumnHexKey.OptionsColumn.ReadOnly = true;
+            this.gridColumnHexKey.Visible = true;
+            this.gridColumnHexKey.VisibleIndex = 1;
+            // 
+            // gridColumnStringKey
+            // 
+            this.gridColumnStringKey.Caption = "String Key";
+            this.gridColumnStringKey.FieldName = "StringKey";
+            this.gridColumnStringKey.Name = "gridColumnStringKey";
+            this.gridColumnStringKey.Visible = true;
+            this.gridColumnStringKey.VisibleIndex = 2;
+            // 
+            // gridColumnLocalization
+            // 
+            this.gridColumnLocalization.Caption = "Localization";
+            this.gridColumnLocalization.FieldName = "Localization";
+            this.gridColumnLocalization.Name = "gridColumnLocalization";
+            this.gridColumnLocalization.Visible = true;
+            this.gridColumnLocalization.VisibleIndex = 3;
+            // 
             // ColumnID
-            //
+            // 
             this.ColumnID.HeaderText = "ID";
             this.ColumnID.Name = "ColumnID";
-            //
+            // 
             // ColumnHexKey
-            //
+            // 
             this.ColumnHexKey.HeaderText = "Hex key";
             this.ColumnHexKey.Name = "ColumnHexKey";
             this.ColumnHexKey.Visible = false;
-            //
+            // 
             // ColumnStringKey
-            //
+            // 
             this.ColumnStringKey.HeaderText = "String Key";
             this.ColumnStringKey.Name = "ColumnStringKey";
-            //
+            // 
             // ColumnLocalisation
-            //
+            // 
             this.ColumnLocalisation.HeaderText = "Localisation";
             this.ColumnLocalisation.Name = "ColumnLocalisation";
-            //
-            // textBoxModID
-            //
-            this.textBoxModID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxModID.Location = new System.Drawing.Point(1025, 25);
-            this.textBoxModID.MaxLength = 0;
-            this.textBoxModID.Name = "textBoxModID";
-            this.textBoxModID.Size = new System.Drawing.Size(100, 20);
-            this.textBoxModID.TabIndex = 3;
-            this.textBoxModID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxModID_KeyDown);
-            this.textBoxModID.Leave += new System.EventHandler(this.textBoxModID_Leave);
-            //
-            // labelModID
-            //
-            this.labelModID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelModID.AutoSize = true;
-            this.labelModID.Location = new System.Drawing.Point(832, 25);
-            this.labelModID.Name = "labelModID";
-            this.labelModID.Size = new System.Drawing.Size(187, 13);
-            this.labelModID.TabIndex = 4;
-            this.labelModID.Text = "Mod ID (separate multiple IDs with \";\")";
-            //
+            // 
+            // barManagerStringEncoder
+            // 
+            this.barManagerStringEncoder.AllowCustomization = false;
+            this.barManagerStringEncoder.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.barToolStrip,
+            this.barMenuStrip});
+            this.barManagerStringEncoder.DockControls.Add(this.barDockControlTop);
+            this.barManagerStringEncoder.DockControls.Add(this.barDockControlBottom);
+            this.barManagerStringEncoder.DockControls.Add(this.barDockControlLeft);
+            this.barManagerStringEncoder.DockControls.Add(this.barDockControlRight);
+            this.barManagerStringEncoder.Form = this;
+            this.barManagerStringEncoder.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.fileMenuItem,
+            this.genStringsMenuItem,
+            this.barButtonItemOpen,
+            this.barButtonItemImport,
+            this.barButtonItemNew,
+            this.barButtonItemFromXml,
+            this.barButtonItemFromScripts,
+            this.barButtonItemSave,
+            this.barButtonItemEncode,
+            this.barEditItemModId,
+            this.barEditItemLanguage});
+            this.barManagerStringEncoder.MaxItemId = 12;
+            this.barManagerStringEncoder.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repoItemTextEditModIDs,
+            this.repoItemComboBoxLanguage});
+            // 
+            // barToolStrip
+            // 
+            this.barToolStrip.BarName = "Tool Strip";
+            this.barToolStrip.DockCol = 0;
+            this.barToolStrip.DockRow = 0;
+            this.barToolStrip.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.barToolStrip.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.fileMenuItem),
+            new DevExpress.XtraBars.LinkPersistInfo(this.genStringsMenuItem, true)});
+            this.barToolStrip.Text = "Tool Strip";
+            // 
+            // fileMenuItem
+            // 
+            this.fileMenuItem.Caption = "File";
+            this.fileMenuItem.Id = 0;
+            this.fileMenuItem.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemNew),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemOpen),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemImport)});
+            this.fileMenuItem.Name = "fileMenuItem";
+            // 
+            // barButtonItemNew
+            // 
+            this.barButtonItemNew.Caption = "New";
+            this.barButtonItemNew.Id = 5;
+            this.barButtonItemNew.Name = "barButtonItemNew";
+            this.barButtonItemNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemNew_ItemClick);
+            // 
+            // barButtonItemOpen
+            // 
+            this.barButtonItemOpen.Caption = "Open";
+            this.barButtonItemOpen.Id = 3;
+            this.barButtonItemOpen.Name = "barButtonItemOpen";
+            this.barButtonItemOpen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemOpen_ItemClick);
+            // 
+            // barButtonItemImport
+            // 
+            this.barButtonItemImport.Caption = "Import";
+            this.barButtonItemImport.Id = 4;
+            this.barButtonItemImport.Name = "barButtonItemImport";
+            this.barButtonItemImport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemImport_ItemClick);
+            // 
+            // genStringsMenuItem
+            // 
+            this.genStringsMenuItem.Caption = "Generate Strings";
+            this.genStringsMenuItem.Id = 1;
+            this.genStringsMenuItem.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemFromXml),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemFromScripts)});
+            this.genStringsMenuItem.Name = "genStringsMenuItem";
+            // 
+            // barButtonItemFromXml
+            // 
+            this.barButtonItemFromXml.Caption = "From XML";
+            this.barButtonItemFromXml.Id = 6;
+            this.barButtonItemFromXml.Name = "barButtonItemFromXml";
+            this.barButtonItemFromXml.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemFromXml_ItemClick);
+            // 
+            // barButtonItemFromScripts
+            // 
+            this.barButtonItemFromScripts.Caption = "From Scripts";
+            this.barButtonItemFromScripts.Id = 7;
+            this.barButtonItemFromScripts.Name = "barButtonItemFromScripts";
+            this.barButtonItemFromScripts.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemFromScripts_ItemClick);
+            // 
+            // barMenuStrip
+            // 
+            this.barMenuStrip.BarName = "Button Menu";
+            this.barMenuStrip.DockCol = 0;
+            this.barMenuStrip.DockRow = 1;
+            this.barMenuStrip.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.barMenuStrip.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemSave),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemEncode),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barEditItemModId),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barEditItemLanguage)});
+            this.barMenuStrip.Text = "Button Menu";
+            // 
+            // barButtonItemSave
+            // 
+            this.barButtonItemSave.Caption = "Save";
+            this.barButtonItemSave.Id = 8;
+            this.barButtonItemSave.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemSave.ImageOptions.SvgImage")));
+            this.barButtonItemSave.Name = "barButtonItemSave";
+            this.barButtonItemSave.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.barButtonItemSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSave_ItemClick);
+            // 
+            // barButtonItemEncode
+            // 
+            this.barButtonItemEncode.Caption = "Encode";
+            this.barButtonItemEncode.Id = 9;
+            this.barButtonItemEncode.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemEncode.ImageOptions.SvgImage")));
+            this.barButtonItemEncode.Name = "barButtonItemEncode";
+            this.barButtonItemEncode.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.barButtonItemEncode.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemEncode_ItemClick);
+            // 
+            // barEditItemModId
+            // 
+            this.barEditItemModId.Caption = "Mod ID (seperate multiple IDs with \";\")";
+            this.barEditItemModId.Edit = this.repoItemTextEditModIDs;
+            this.barEditItemModId.Id = 10;
+            this.barEditItemModId.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barEditItemModId.ImageOptions.SvgImage")));
+            this.barEditItemModId.Name = "barEditItemModId";
+            this.barEditItemModId.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            // 
+            // repoItemTextEditModIDs
+            // 
+            this.repoItemTextEditModIDs.AutoHeight = false;
+            this.repoItemTextEditModIDs.Name = "repoItemTextEditModIDs";
+            this.repoItemTextEditModIDs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.repoItemTextEditModIDs_KeyDown);
+            this.repoItemTextEditModIDs.Leave += new System.EventHandler(this.repoItemTextEditModIDs_Leave);
+            // 
+            // barEditItemLanguage
+            // 
+            this.barEditItemLanguage.Caption = "Language:";
+            this.barEditItemLanguage.Edit = this.repoItemComboBoxLanguage;
+            this.barEditItemLanguage.Id = 11;
+            this.barEditItemLanguage.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barEditItemLanguage.ImageOptions.SvgImage")));
+            this.barEditItemLanguage.Name = "barEditItemLanguage";
+            this.barEditItemLanguage.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            // 
+            // repoItemComboBoxLanguage
+            // 
+            this.repoItemComboBoxLanguage.AutoHeight = false;
+            this.repoItemComboBoxLanguage.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repoItemComboBoxLanguage.Items.AddRange(new object[] {
+            "All Languages",
+            "Separate Languages"});
+            this.repoItemComboBoxLanguage.Name = "repoItemComboBoxLanguage";
+            this.repoItemComboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.repoItemComboBoxLanguage_SelectedIndexChanged);
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Manager = this.barManagerStringEncoder;
+            this.barDockControlTop.Size = new System.Drawing.Size(1184, 52);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 537);
+            this.barDockControlBottom.Manager = this.barManagerStringEncoder;
+            this.barDockControlBottom.Size = new System.Drawing.Size(1184, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 52);
+            this.barDockControlLeft.Manager = this.barManagerStringEncoder;
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 485);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(1184, 52);
+            this.barDockControlRight.Manager = this.barManagerStringEncoder;
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 485);
+            // 
+            // bar2
+            // 
+            this.bar2.BarName = "Main menu";
+            this.bar2.DockCol = 0;
+            this.bar2.DockRow = 0;
+            this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.bar2.OptionsBar.MultiLine = true;
+            this.bar2.OptionsBar.UseWholeRow = true;
+            this.bar2.Text = "Main menu";
+            // 
+            // bar3
+            // 
+            this.bar3.BarName = "Status bar";
+            this.bar3.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom;
+            this.bar3.DockCol = 0;
+            this.bar3.DockRow = 0;
+            this.bar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
+            this.bar3.OptionsBar.AllowQuickCustomization = false;
+            this.bar3.OptionsBar.DrawDragBorder = false;
+            this.bar3.OptionsBar.UseWholeRow = true;
+            this.bar3.Text = "Status bar";
+            // 
             // frmStringsGui
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 537);
-            this.Controls.Add(this.labelModID);
-            this.Controls.Add(this.textBoxModID);
             this.Controls.Add(this.splitContainerMain);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1200, 39);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmStringsGui.IconOptions.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1184, 39);
             this.Name = "frmStringsGui";
             this.Text = "Automated Strings GUI";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
             this.splitContainerTabs.Panel1.ResumeLayout(false);
-            this.splitContainerTabs.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTabs)).EndInit();
             this.splitContainerTabs.ResumeLayout(false);
             this.tabControlLanguages.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManagerStringEncoder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repoItemTextEditModIDs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem generateStringsToolStripMenuItem;
-		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripButton toolStripButtonSave;
-		private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
-		private System.Windows.Forms.ToolStripButton toolStripButtonGenerateXML;
-		private System.Windows.Forms.ToolStripButton toolStripButtonGenerateScripts;
 		private System.Windows.Forms.SplitContainer splitContainerMain;
-		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
 		private System.Windows.Forms.SplitContainer splitContainerTabs;
 		private System.Windows.Forms.TabControl tabControlLanguages;
 		private System.Windows.Forms.TabPage tabPageAllLanguages;
-		private System.Windows.Forms.ComboBox comboBoxLanguagesMode;
-		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem fromXMLToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem fromScriptsToolStripMenuItem;
-		private System.Windows.Forms.DataGridView dataGridViewStrings;
-        private System.Windows.Forms.TextBox textBoxModID;
-        private System.Windows.Forms.Label labelModID;
-        private System.Windows.Forms.ToolStripButton toolStripButtonEncode;
+		private DevExpress.XtraGrid.GridControl gridControlStringsEncoder;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnHexKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStringKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLocalisation;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButtonImport;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem idToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hexKeyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stringKeyToolStripMenuItem;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewStringsEncoder;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnId;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnHexKey;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnStringKey;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnLocalization;
+        private DevExpress.XtraBars.BarManager barManagerStringEncoder;
+        private DevExpress.XtraBars.Bar barToolStrip;
+        private DevExpress.XtraBars.Bar bar2;
+        private DevExpress.XtraBars.Bar bar3;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarSubItem fileMenuItem;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemNew;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemOpen;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemImport;
+        private DevExpress.XtraBars.BarSubItem genStringsMenuItem;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemFromXml;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemFromScripts;
+        private DevExpress.XtraBars.Bar barMenuStrip;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemSave;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemEncode;
+        private DevExpress.XtraBars.BarEditItem barEditItemModId;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repoItemTextEditModIDs;
+        private DevExpress.XtraBars.BarEditItem barEditItemLanguage;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repoItemComboBoxLanguage;
     }
 }
