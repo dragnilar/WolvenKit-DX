@@ -30,6 +30,10 @@ namespace WolvenKit.StringEncoder
                 w3Mod.FileName = dlg.FileName;
                 modfile.Close();
             }
+            else
+            {
+                Environment.Exit(0);
+            }
 
 
             Application.Run(new frmStringsGui(w3Mod));
