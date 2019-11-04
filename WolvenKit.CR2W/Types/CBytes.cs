@@ -16,7 +16,8 @@ namespace WolvenKit.CR2W.Types
 
         public override void Read(BinaryReader file, uint size)
         {
-            Bytes = file.ReadBytes((int) size);
+            //Dragnilar - TODO This throws an exception if the size is too large... -_-
+            Bytes = file.ReadBytes((int)size);
         }
 
         public override void Write(BinaryWriter file)
@@ -28,7 +29,7 @@ namespace WolvenKit.CR2W.Types
         {
             if (val is byte[])
             {
-                Bytes = (byte[]) val;
+                Bytes = (byte[])val;
             }
 
             return this;
@@ -41,7 +42,7 @@ namespace WolvenKit.CR2W.Types
 
         public override CVariable Copy(CR2WCopyAction context)
         {
-            var var = (CBytes) base.Copy(context);
+            var var = (CBytes)base.Copy(context);
             var newbytes = new byte[Bytes.Length];
             Bytes.CopyTo(newbytes, 0);
             var.Bytes = newbytes;
@@ -78,7 +79,7 @@ namespace WolvenKit.CR2W.Types
         {
             if (var is CBytes)
             {
-                var b = (CBytes) var;
+                var b = (CBytes)var;
 
                 Bytes = new byte[b.Bytes.Length];
                 Buffer.BlockCopy(b.Bytes, 0, Bytes, 0, b.Bytes.Length);
