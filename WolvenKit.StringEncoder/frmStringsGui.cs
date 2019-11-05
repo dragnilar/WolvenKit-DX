@@ -5,6 +5,7 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace WolvenKit.StringEncoder
         private bool multipleIDs;
         private bool rowAddedAutomatically;
 
-        private List<W3EncodedString> W3EncodedStrings;
+        private BindingList<W3EncodedString> W3EncodedStrings;
 
         private object AllLanguagesVal;
         private object SeperateLanguagesVal;
@@ -53,11 +54,12 @@ namespace WolvenKit.StringEncoder
         public frmStringsGui(W3Mod mod)
         {
             InitializeComponent();
-
             activeMod = mod;
             AllLanguagesVal = repoItemComboBoxLanguage.Items[0];
             SeperateLanguagesVal = repoItemComboBoxLanguage.Items[1];
             barEditItemLanguage.EditValue = AllLanguagesVal;
+            barButtonItemSave.Enabled = false;
+
             CreateDataSource();
 
             if (activeMod != null)
@@ -110,6 +112,11 @@ namespace WolvenKit.StringEncoder
                 gridControlStringsEncoder.Visible = true;
                 rowAddedAutomatically = false;
             }
+        }
+
+        private void W3EncodedStringsOnListChanged(object sender, ListChangedEventArgs e)
+        {
+            barButtonItemSave.Enabled = true;
         }
 
         /*
@@ -730,7 +737,7 @@ namespace WolvenKit.StringEncoder
                 return;
             var sb = new StringBuilder();
 
-            if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
+            if (barEditItemLanguage.EditValue == AllLanguagesVal)
             {
                 if (W3EncodedStrings.Count >= 3)
                     W3EncodedStrings[W3EncodedStrings.Count - 2].Id =
@@ -739,10 +746,6 @@ namespace WolvenKit.StringEncoder
                     W3EncodedStrings.First().Id = modIDs[0] * 1000 + 2110000000;
 
                 foreach (var encodedString in W3EncodedStrings)
-                    //Dragnilar - TODO - This may no longer be an issue... or Id needs to be nullable.
-                    //if (encodedString.Id == DBNull.)
-                    //    continue;
-
                     sb.AppendLine(string.Join("|", encodedString.Id.ToString(), encodedString.HexKey,
                         encodedString.StringKey, encodedString.Localization));
 
@@ -816,6 +819,7 @@ namespace WolvenKit.StringEncoder
 
             WriteHash("csv");
             fileIsSaved = true;
+            barButtonItemSave.Enabled = false;
         }
 
         private string GetPath()
@@ -828,10 +832,16 @@ namespace WolvenKit.StringEncoder
 
         private void CreateDataSource()
         {
-            if (W3EncodedStrings == null || !W3EncodedStrings.Any())
+            if (W3EncodedStrings == null)
             {
-                W3EncodedStrings = new List<W3EncodedString>();
+                W3EncodedStrings = new BindingList<W3EncodedString>
+                {
+                    AllowNew = true,
+                    AllowEdit = true,
+                    AllowRemove = true
+                };
                 gridControlStringsEncoder.DataSource = W3EncodedStrings;
+                W3EncodedStrings.ListChanged += W3EncodedStringsOnListChanged;
             }
         }
 
@@ -1209,21 +1219,7 @@ namespace WolvenKit.StringEncoder
 
         private void gridViewStringsEncoder_ShownEditor(object sender, EventArgs e)
         {
-            if (sender is GridView view && view.IsNewItemRow(view.FocusedRowHandle))
-            {
-                rowAddedAutomatically = false;
-                int id = 0;
-                if (W3EncodedStrings.Count >= 3)
-                    id = W3EncodedStrings[W3EncodedStrings.Count - 3].Id + 1;
-                else
-                    id = W3EncodedStrings[0].Id * 1000 + 2110000000;
 
-                W3EncodedStrings.Add(new W3EncodedString(id, string.Empty, string.Empty, string.Empty));
-                view.RefreshData();
-                var handle = view.LocateByValue(nameof(W3EncodedString.Id), id);
-                view.SelectRow(handle);
-                view.MakeRowVisible(handle);
-            }
         }
 
         private void gridViewStringsEncoder_KeyDown(object sender, KeyEventArgs e)
@@ -1238,6 +1234,20 @@ namespace WolvenKit.StringEncoder
                 var view = sender as GridView;
                 view?.DeleteRow(view.FocusedRowHandle);
             }
+        }
+
+        private void gridViewStringsEncoder_InitNewRow(object sender, InitNewRowEventArgs e)
+        {
+            if (sender == null) return;
+            rowAddedAutomatically = false;
+            if (!(sender is GridView view)) return;
+            var id = 0;
+            if (W3EncodedStrings.Count >= 3)
+                id = W3EncodedStrings[W3EncodedStrings.Count - 3].Id + 1;
+            else
+                id = W3EncodedStrings[0].Id * 1000 + 2110000000;
+            view.SetRowCellValue(e.RowHandle, gridColumnId, id);
+            //W3EncodedStrings.Add(new W3EncodedString(id, string.Empty, string.Empty, string.Empty));
         }
     }
 

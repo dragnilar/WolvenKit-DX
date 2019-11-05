@@ -156,7 +156,7 @@
             this.gridViewStringsEncoder.GridControl = this.gridControlStringsEncoder;
             this.gridViewStringsEncoder.Name = "gridViewStringsEncoder";
             this.gridViewStringsEncoder.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
-            this.gridViewStringsEncoder.ShownEditor += new System.EventHandler(this.gridViewStringsEncoder_ShownEditor);
+            this.gridViewStringsEncoder.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridViewStringsEncoder_InitNewRow);
             this.gridViewStringsEncoder.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewStringsEncoder_RowDeleted);
             this.gridViewStringsEncoder.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.gridViewStringsEncoder_ValidateRow);
             this.gridViewStringsEncoder.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridViewStringsEncoder_KeyDown);
