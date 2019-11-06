@@ -50,8 +50,9 @@ namespace WolvenKit.StringEncoder
 
         private object AllLanguagesVal;
         private object SeperateLanguagesVal;
+        private bool BringToFront;
 
-        public frmStringsGui(W3Mod mod)
+        public frmStringsGui(W3Mod mod, bool bringToFront = false)
         {
             InitializeComponent();
             activeMod = mod;
@@ -111,6 +112,19 @@ namespace WolvenKit.StringEncoder
                 UpdateModID();
                 gridControlStringsEncoder.Visible = true;
                 rowAddedAutomatically = false;
+                BringToFront = bringToFront;
+                this.Shown += OnShown;
+            }
+        }
+
+        private void OnShown(object sender, EventArgs e)
+        {
+            if (BringToFront)
+            {
+                TopMost = true;
+                Activate();
+                BringToFront();
+                TopMost = false;
             }
         }
 
