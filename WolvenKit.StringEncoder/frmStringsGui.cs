@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using DevExpress.Utils.Extensions;
 using WolvenKit.Common;
 using WolvenKit.W3Strings;
 
@@ -750,20 +751,21 @@ namespace WolvenKit.StringEncoder
             if (outputPath == string.Empty)
                 return;
             var sb = new StringBuilder();
-
+            var firstStringId = modIDs[0] * 1000 + 2110000000;
             if (barEditItemLanguage.EditValue == AllLanguagesVal)
             {
-                if (W3EncodedStrings.Count >= 3)
-                    W3EncodedStrings[W3EncodedStrings.Count - 2].Id =
-                        W3EncodedStrings[W3EncodedStrings.Count - 3].Id + 1;
-                else
-                    W3EncodedStrings.First().Id = modIDs[0] * 1000 + 2110000000;
+                if (W3EncodedStrings.Any(x=>x.Id < firstStringId))
+                    if (W3EncodedStrings.Count >= 1)
+                    {
+                        W3EncodedStrings.OrderByDescending(x => x.Id).First().Id =
+                           W3EncodedStrings.OrderByDescending(x => x.Id).ElementAt(1).Id + 1;
+                    }
+                    else
+                     W3EncodedStrings.First().Id = modIDs[0] * firstStringId;
 
                 foreach (var encodedString in W3EncodedStrings)
                     sb.AppendLine(string.Join("|", encodedString.Id.ToString(), encodedString.HexKey,
                         encodedString.StringKey, encodedString.Localization));
-
-                var languagesCount = languages.Count();
 
                 foreach (var language in languages)
                     using (var file = new StreamWriter(outputPath + "\\" + language.Handle + ".csv"))
@@ -788,8 +790,9 @@ namespace WolvenKit.StringEncoder
                                 }
 
                             csv = string.Join("\n", splitCsv);
-                        }
 
+                        }
+                        csv += "\n";
                         file.WriteLine(csv, Encoding.UTF8);
                     }
             }
@@ -822,8 +825,9 @@ namespace WolvenKit.StringEncoder
                                 }
 
                             csv = string.Join("\n", splittedCsv);
-                        }
 
+                        }
+                        csv += "\n";
                         file.WriteLine(csv, Encoding.UTF8);
                     }
 
@@ -991,10 +995,10 @@ namespace WolvenKit.StringEncoder
                 var strings = new List<List<string>>();
                 foreach (var encodedString in W3EncodedStrings)
                 {
+                    //Do not add the hex key
                     var str = new List<string>
                     {
                         encodedString.Id.ToString(),
-                        encodedString.HexKey,
                         encodedString.StringKey,
                         encodedString.Localization
                     };
@@ -1031,7 +1035,7 @@ namespace WolvenKit.StringEncoder
                     var w3tringFile = new W3StringFile();
                     var stringsBlock1Strings = new List<List<string>>();
                     foreach (var str in lang.strings)
-                        stringsBlock1Strings.Add(new List<string> { str[0], str[2], str[3] });
+                        stringsBlock1Strings.Add(new List<string> { str[0], str[2], str[3] }); //Do not add the hex key
                     w3tringFile.Create(stringsBlock1Strings, lang.language);
                     using (var bw = new BinaryWriter(File.OpenWrite(stringsDir + "\\" + lang.language + ".w3strings")))
                     {
@@ -1074,12 +1078,12 @@ namespace WolvenKit.StringEncoder
                 outputPath = stringsDir;
 
                 if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
-                    toHash = (from lang in languagesStrings from str in lang.strings from column in str select column)
+                    toHash += (from lang in languagesStrings from str in lang.strings from column in str select column)
                         .Aggregate(toHash, (current, column) => current + column);
                 else
                     foreach (var w3EncodedString in W3EncodedStrings)
                     {
-                        toHash = w3EncodedString.Id.ToString();
+                        toHash += w3EncodedString.Id.ToString();
                         toHash += w3EncodedString.HexKey;
                         toHash += w3EncodedString.StringKey;
                         toHash += w3EncodedString.Localization;
@@ -1231,11 +1235,6 @@ namespace WolvenKit.StringEncoder
             fileIsSaved = false;
         }
 
-        private void gridViewStringsEncoder_ShownEditor(object sender, EventArgs e)
-        {
-
-        }
-
         private void gridViewStringsEncoder_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -1255,13 +1254,12 @@ namespace WolvenKit.StringEncoder
             if (sender == null) return;
             rowAddedAutomatically = false;
             if (!(sender is GridView view)) return;
-            var id = 0;
-            if (W3EncodedStrings.Count >= 3)
-                id = W3EncodedStrings[W3EncodedStrings.Count - 3].Id + 1;
+            int id;
+            if (W3EncodedStrings.Count >= 1)
+                id = W3EncodedStrings.Max(x=>x.Id) + 1;
             else
-                id = W3EncodedStrings[0].Id * 1000 + 2110000000;
+                id = modIDs[0] * 1000 + 2110000000;
             view.SetRowCellValue(e.RowHandle, gridColumnId, id);
-            //W3EncodedStrings.Add(new W3EncodedString(id, string.Empty, string.Empty, string.Empty));
         }
     }
 

@@ -155,6 +155,7 @@
             this.gridColumnLocalization});
             this.gridViewStringsEncoder.GridControl = this.gridControlStringsEncoder;
             this.gridViewStringsEncoder.Name = "gridViewStringsEncoder";
+            this.gridViewStringsEncoder.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDownFocused;
             this.gridViewStringsEncoder.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gridViewStringsEncoder.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridViewStringsEncoder_InitNewRow);
             this.gridViewStringsEncoder.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewStringsEncoder_RowDeleted);
@@ -169,6 +170,7 @@
             this.gridColumnId.OptionsColumn.ReadOnly = true;
             this.gridColumnId.Visible = true;
             this.gridColumnId.VisibleIndex = 0;
+            this.gridColumnId.Width = 107;
             // 
             // gridColumnHexKey
             // 
@@ -178,6 +180,7 @@
             this.gridColumnHexKey.OptionsColumn.ReadOnly = true;
             this.gridColumnHexKey.Visible = true;
             this.gridColumnHexKey.VisibleIndex = 1;
+            this.gridColumnHexKey.Width = 113;
             // 
             // gridColumnStringKey
             // 
@@ -186,6 +189,7 @@
             this.gridColumnStringKey.Name = "gridColumnStringKey";
             this.gridColumnStringKey.Visible = true;
             this.gridColumnStringKey.VisibleIndex = 2;
+            this.gridColumnStringKey.Width = 119;
             // 
             // gridColumnLocalization
             // 
@@ -194,6 +198,7 @@
             this.gridColumnLocalization.Name = "gridColumnLocalization";
             this.gridColumnLocalization.Visible = true;
             this.gridColumnLocalization.VisibleIndex = 3;
+            this.gridColumnLocalization.Width = 818;
             // 
             // ColumnID
             // 
