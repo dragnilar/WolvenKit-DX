@@ -32,21 +32,8 @@ namespace WolvenKit
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.newmodButton = new System.Windows.Forms.ToolStripButton();
-            this.openmodButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openfileButton = new System.Windows.Forms.ToolStripButton();
-            this.saveButton = new System.Windows.Forms.ToolStripButton();
-            this.saveallButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btPack = new System.Windows.Forms.ToolStripButton();
-            this.rungameToolStrip = new System.Windows.Forms.ToolStripDropDownButton();
-            this.launchGameForDebuggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.launchWithCostumParametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.packProjectAndLaunchGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,147 +95,27 @@ namespace WolvenKit
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.richpresenceworker = new System.ComponentModel.BackgroundWorker();
-            this.toolStrip1.SuspendLayout();
+            this.ribbonControlMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barButtonItemNewMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemOpenMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemRecent = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemSave = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemSaveAll = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemAddFileFromBundle = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemBuildMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemLaunch = new DevExpress.XtraBars.BarButtonItem();
+            this.popupMenuLaunch = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barButtonItemDebug = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemCustomParams = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemBuildAndLaunch = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupBuild = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.menuStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).BeginInit();
             this.SuspendLayout();
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newmodButton,
-            this.openmodButton,
-            this.toolStripSeparator1,
-            this.openfileButton,
-            this.saveButton,
-            this.saveallButton,
-            this.toolStripButton7,
-            this.toolStripSeparator2,
-            this.btPack,
-            this.rungameToolStrip});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(824, 27);
-            this.toolStrip1.TabIndex = 6;
-            this.toolStrip1.Text = "topTS";
-            // 
-            // newmodButton
-            // 
-            this.newmodButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newmodButton.Image = global::WolvenKit.Properties.Resources.NewSolutionFolder_6289;
-            this.newmodButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newmodButton.Name = "newmodButton";
-            this.newmodButton.Size = new System.Drawing.Size(24, 24);
-            this.newmodButton.Text = "New mod";
-            this.newmodButton.Click += new System.EventHandler(this.newModToolStripMenuItem_Click);
-            // 
-            // openmodButton
-            // 
-            this.openmodButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openmodButton.Image = global::WolvenKit.Properties.Resources.Open_6529;
-            this.openmodButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openmodButton.Name = "openmodButton";
-            this.openmodButton.Size = new System.Drawing.Size(24, 24);
-            this.openmodButton.Text = "Open mod";
-            this.openmodButton.Click += new System.EventHandler(this.openModToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
-            // 
-            // openfileButton
-            // 
-            this.openfileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openfileButton.Image = global::WolvenKit.Properties.Resources.Open_6529;
-            this.openfileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openfileButton.Name = "openfileButton";
-            this.openfileButton.Size = new System.Drawing.Size(24, 24);
-            this.openfileButton.Text = "Open file";
-            this.openfileButton.Click += new System.EventHandler(this.tbtOpen_Click);
-            // 
-            // saveButton
-            // 
-            this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveButton.Image = global::WolvenKit.Properties.Resources.Save_6530;
-            this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(24, 24);
-            this.saveButton.Text = "Save";
-            this.saveButton.Click += new System.EventHandler(this.tbtSave_Click);
-            // 
-            // saveallButton
-            // 
-            this.saveallButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveallButton.Image = global::WolvenKit.Properties.Resources.Saveall_6518;
-            this.saveallButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveallButton.Name = "saveallButton";
-            this.saveallButton.Size = new System.Drawing.Size(24, 24);
-            this.saveallButton.Text = "toolStripButton5";
-            this.saveallButton.ToolTipText = "Save all";
-            this.saveallButton.Click += new System.EventHandler(this.tbtSaveAll_Click);
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = global::WolvenKit.Properties.Resources.AddNodefromFile_354;
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton7.Text = "toolStripButton7";
-            this.toolStripButton7.ToolTipText = "Add file from bundle";
-            this.toolStripButton7.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
-            // 
-            // btPack
-            // 
-            this.btPack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btPack.Image = global::WolvenKit.Properties.Resources.FileGroup_10135_16x;
-            this.btPack.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btPack.Name = "btPack";
-            this.btPack.Size = new System.Drawing.Size(24, 24);
-            this.btPack.Text = "btPack";
-            this.btPack.ToolTipText = "Pack and install mod";
-            this.btPack.Click += new System.EventHandler(this.btPack_Click);
-            // 
-            // rungameToolStrip
-            // 
-            this.rungameToolStrip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rungameToolStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.launchGameForDebuggingToolStripMenuItem,
-            this.launchWithCostumParametersToolStripMenuItem,
-            this.packProjectAndLaunchGameToolStripMenuItem});
-            this.rungameToolStrip.Image = global::WolvenKit.Properties.Resources.witcher3_101;
-            this.rungameToolStrip.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rungameToolStrip.Name = "rungameToolStrip";
-            this.rungameToolStrip.Size = new System.Drawing.Size(33, 24);
-            this.rungameToolStrip.Text = "Launch game";
-            // 
-            // launchGameForDebuggingToolStripMenuItem
-            // 
-            this.launchGameForDebuggingToolStripMenuItem.Name = "launchGameForDebuggingToolStripMenuItem";
-            this.launchGameForDebuggingToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.launchGameForDebuggingToolStripMenuItem.Text = "Launch game for debugging";
-            this.launchGameForDebuggingToolStripMenuItem.Click += new System.EventHandler(this.LaunchGameForDebuggingToolStripMenuItem_Click);
-            // 
-            // launchWithCostumParametersToolStripMenuItem
-            // 
-            this.launchWithCostumParametersToolStripMenuItem.Name = "launchWithCostumParametersToolStripMenuItem";
-            this.launchWithCostumParametersToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.launchWithCostumParametersToolStripMenuItem.Text = "Launch with costum parameters";
-            this.launchWithCostumParametersToolStripMenuItem.Click += new System.EventHandler(this.launchWithCostumParametersToolStripMenuItem_Click);
-            // 
-            // packProjectAndLaunchGameToolStripMenuItem
-            // 
-            this.packProjectAndLaunchGameToolStripMenuItem.Name = "packProjectAndLaunchGameToolStripMenuItem";
-            this.packProjectAndLaunchGameToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.packProjectAndLaunchGameToolStripMenuItem.Text = "Pack project and launch game";
-            this.packProjectAndLaunchGameToolStripMenuItem.Click += new System.EventHandler(this.packProjectAndLaunchGameToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
@@ -264,7 +131,7 @@ namespace WolvenKit
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(824, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1280, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "topMS";
             // 
@@ -726,12 +593,14 @@ namespace WolvenKit
             // 
             // dockPanel
             // 
-            this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dockPanel.Location = new System.Drawing.Point(0, 51);
+            this.dockPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dockPanel.Location = new System.Drawing.Point(0, 185);
             this.dockPanel.Margin = new System.Windows.Forms.Padding(2);
             this.dockPanel.Name = "dockPanel";
             this.dockPanel.ShowDocumentIcon = true;
-            this.dockPanel.Size = new System.Drawing.Size(824, 342);
+            this.dockPanel.Size = new System.Drawing.Size(1280, 558);
             this.dockPanel.TabIndex = 9;
             this.dockPanel.ActiveDocumentChanged += new System.EventHandler(this.dockPanel_ActiveDocumentChanged);
             // 
@@ -743,9 +612,9 @@ namespace WolvenKit
             this.statusLBL,
             this.toolStripSeparator9,
             this.toolStripProgressBar1});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 393);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 745);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(824, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1280, 25);
             this.toolStrip2.TabIndex = 12;
             this.toolStrip2.Text = "bottomTS";
             // 
@@ -773,40 +642,192 @@ namespace WolvenKit
             this.richpresenceworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.richpresenceworker_ProgressChanged);
             this.richpresenceworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.richpresenceworker_RunWorkerCompleted);
             // 
+            // ribbonControlMain
+            // 
+            this.ribbonControlMain.ExpandCollapseItem.Id = 0;
+            this.ribbonControlMain.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.ribbonControlMain.ExpandCollapseItem,
+            this.barButtonItemNewMod,
+            this.barButtonItemOpenMod,
+            this.barButtonItemRecent,
+            this.barButtonItemSave,
+            this.barButtonItemSaveAll,
+            this.barButtonItemAddFileFromBundle,
+            this.barButtonItemBuildMod,
+            this.barButtonItemLaunch,
+            this.barButtonItemDebug,
+            this.barButtonItemCustomParams,
+            this.barButtonItemBuildAndLaunch,
+            this.ribbonControlMain.SearchEditItem});
+            this.ribbonControlMain.Location = new System.Drawing.Point(0, 24);
+            this.ribbonControlMain.MaxItemId = 12;
+            this.ribbonControlMain.Name = "ribbonControlMain";
+            this.ribbonControlMain.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.ribbonPageHome});
+            this.ribbonControlMain.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControlMain.ShowMoreCommandsButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControlMain.ShowQatLocationSelector = false;
+            this.ribbonControlMain.ShowToolbarCustomizeItem = false;
+            this.ribbonControlMain.Size = new System.Drawing.Size(1280, 158);
+            this.ribbonControlMain.Toolbar.ShowCustomizeItem = false;
+            // 
+            // barButtonItemNewMod
+            // 
+            this.barButtonItemNewMod.Caption = "Create New Mod";
+            this.barButtonItemNewMod.Id = 1;
+            this.barButtonItemNewMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemNewMod.ImageOptions.SvgImage")));
+            this.barButtonItemNewMod.Name = "barButtonItemNewMod";
+            this.barButtonItemNewMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemNewMod_ItemClick);
+            // 
+            // barButtonItemOpenMod
+            // 
+            this.barButtonItemOpenMod.Caption = "Open Mod";
+            this.barButtonItemOpenMod.Id = 2;
+            this.barButtonItemOpenMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemOpenMod.ImageOptions.SvgImage")));
+            this.barButtonItemOpenMod.Name = "barButtonItemOpenMod";
+            this.barButtonItemOpenMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemOpenMod_ItemClick);
+            // 
+            // barButtonItemRecent
+            // 
+            this.barButtonItemRecent.Caption = "Recent Files";
+            this.barButtonItemRecent.Id = 3;
+            this.barButtonItemRecent.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemRecent.ImageOptions.SvgImage")));
+            this.barButtonItemRecent.Name = "barButtonItemRecent";
+            this.barButtonItemRecent.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemRecent_ItemClick);
+            // 
+            // barButtonItemSave
+            // 
+            this.barButtonItemSave.Caption = "Save";
+            this.barButtonItemSave.Id = 4;
+            this.barButtonItemSave.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemSave.ImageOptions.SvgImage")));
+            this.barButtonItemSave.Name = "barButtonItemSave";
+            this.barButtonItemSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSave_ItemClick);
+            // 
+            // barButtonItemSaveAll
+            // 
+            this.barButtonItemSaveAll.Caption = "Save All";
+            this.barButtonItemSaveAll.Id = 5;
+            this.barButtonItemSaveAll.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemSaveAll.ImageOptions.SvgImage")));
+            this.barButtonItemSaveAll.Name = "barButtonItemSaveAll";
+            this.barButtonItemSaveAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSaveAll_ItemClick);
+            // 
+            // barButtonItemAddFileFromBundle
+            // 
+            this.barButtonItemAddFileFromBundle.Caption = "Add File From Bundle";
+            this.barButtonItemAddFileFromBundle.Id = 6;
+            this.barButtonItemAddFileFromBundle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemAddFileFromBundle.ImageOptions.SvgImage")));
+            this.barButtonItemAddFileFromBundle.Name = "barButtonItemAddFileFromBundle";
+            this.barButtonItemAddFileFromBundle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAddFileFromBundle_ItemClick);
+            // 
+            // barButtonItemBuildMod
+            // 
+            this.barButtonItemBuildMod.Caption = "Build Mod";
+            this.barButtonItemBuildMod.Id = 7;
+            this.barButtonItemBuildMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemBuildMod.ImageOptions.SvgImage")));
+            this.barButtonItemBuildMod.Name = "barButtonItemBuildMod";
+            this.barButtonItemBuildMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemBuildMod_ItemClick);
+            // 
+            // barButtonItemLaunch
+            // 
+            this.barButtonItemLaunch.ActAsDropDown = true;
+            this.barButtonItemLaunch.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+            this.barButtonItemLaunch.Caption = "Launch Game";
+            this.barButtonItemLaunch.DropDownControl = this.popupMenuLaunch;
+            this.barButtonItemLaunch.Id = 8;
+            this.barButtonItemLaunch.ImageOptions.Image = global::WolvenKit.Properties.Resources.witcher3_101;
+            this.barButtonItemLaunch.Name = "barButtonItemLaunch";
+            // 
+            // popupMenuLaunch
+            // 
+            this.popupMenuLaunch.ItemLinks.Add(this.barButtonItemDebug);
+            this.popupMenuLaunch.ItemLinks.Add(this.barButtonItemCustomParams);
+            this.popupMenuLaunch.ItemLinks.Add(this.barButtonItemBuildAndLaunch);
+            this.popupMenuLaunch.Name = "popupMenuLaunch";
+            this.popupMenuLaunch.Ribbon = this.ribbonControlMain;
+            // 
+            // barButtonItemDebug
+            // 
+            this.barButtonItemDebug.Caption = "Launch Game For Debugging";
+            this.barButtonItemDebug.Id = 9;
+            this.barButtonItemDebug.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemDebug.ImageOptions.SvgImage")));
+            this.barButtonItemDebug.Name = "barButtonItemDebug";
+            this.barButtonItemDebug.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemDebug_ItemClick);
+            // 
+            // barButtonItemCustomParams
+            // 
+            this.barButtonItemCustomParams.Caption = "Launch with Custom Parameters";
+            this.barButtonItemCustomParams.Id = 10;
+            this.barButtonItemCustomParams.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemCustomParams.ImageOptions.SvgImage")));
+            this.barButtonItemCustomParams.Name = "barButtonItemCustomParams";
+            this.barButtonItemCustomParams.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemCustomParams_ItemClick);
+            // 
+            // barButtonItemBuildAndLaunch
+            // 
+            this.barButtonItemBuildAndLaunch.Caption = "Build And Launch Game";
+            this.barButtonItemBuildAndLaunch.Id = 11;
+            this.barButtonItemBuildAndLaunch.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemBuildAndLaunch.ImageOptions.SvgImage")));
+            this.barButtonItemBuildAndLaunch.Name = "barButtonItemBuildAndLaunch";
+            this.barButtonItemBuildAndLaunch.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemBuildAndLaunch_ItemClick);
+            // 
+            // ribbonPageHome
+            // 
+            this.ribbonPageHome.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroupFile,
+            this.ribbonPageGroupBuild});
+            this.ribbonPageHome.Name = "ribbonPageHome";
+            this.ribbonPageHome.Text = "Home";
+            // 
+            // ribbonPageGroupFile
+            // 
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemNewMod);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemOpenMod);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemRecent);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemSave);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemSaveAll);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemAddFileFromBundle);
+            this.ribbonPageGroupFile.Name = "ribbonPageGroupFile";
+            this.ribbonPageGroupFile.Text = "File";
+            // 
+            // ribbonPageGroupBuild
+            // 
+            this.ribbonPageGroupBuild.ItemLinks.Add(this.barButtonItemBuildMod);
+            this.ribbonPageGroupBuild.ItemLinks.Add(this.barButtonItemLaunch);
+            this.ribbonPageGroupBuild.Name = "ribbonPageGroupBuild";
+            this.ribbonPageGroupBuild.Text = "Build";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 418);
+            this.ClientSize = new System.Drawing.Size(1280, 770);
+            this.Controls.Add(this.ribbonControlMain);
             this.Controls.Add(this.dockPanel);
             this.Controls.Add(this.toolStrip2);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmMain.IconOptions.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(584, 391);
             this.Name = "frmMain";
             this.Text = "Wolven kit";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.MdiChildActivate += new System.EventHandler(this.frmMain_MdiChildActivate);
             this.Shown += new System.EventHandler(this.frmMain_Shown);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private ToolStrip toolStrip1;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem newModToolStripMenuItem;
@@ -821,15 +842,6 @@ namespace WolvenKit
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem aboutRedkit2ToolStripMenuItem;
         private ToolStripMenuItem joinOurDiscordToolStripMenuItem;
-        private ToolStripButton newmodButton;
-        private ToolStripButton openmodButton;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton openfileButton;
-        private ToolStripButton saveButton;
-        private ToolStripButton saveallButton;
-        private ToolStripButton toolStripButton7;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton btPack;
         private DockPanel dockPanel;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem exitToolStripMenuItem;
@@ -846,9 +858,6 @@ namespace WolvenKit
         private ToolStripMenuItem saveToolStripMenuItem;
         private ToolStripMenuItem saveAllToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator7;
-        private ToolStripDropDownButton rungameToolStrip;
-        private ToolStripMenuItem launchWithCostumParametersToolStripMenuItem;
-        private ToolStripMenuItem launchGameForDebuggingToolStripMenuItem;
         private ToolStripMenuItem addFileFromBundleToolStripMenuItem;
         private ToolStripMenuItem addFileFromOtherModToolStripMenuItem;
         private ToolStripMenuItem addFileToolStripMenuItem;
@@ -863,7 +872,6 @@ namespace WolvenKit
         private ToolStripLabel statusLBL;
         private ToolStripSeparator toolStripSeparator9;
         private ToolStripProgressBar toolStripProgressBar1;
-        private ToolStripMenuItem packProjectAndLaunchGameToolStripMenuItem;
         private ToolStripMenuItem modToolStripMenuItem1;
         private ToolStripMenuItem ModscriptToolStripMenuItem;
         private ToolStripMenuItem ModchunkToolStripMenuItem;
@@ -881,5 +889,21 @@ namespace WolvenKit
         private ToolStripMenuItem modwwise;
         private ToolStripMenuItem dlcwwise;
         private BackgroundWorker richpresenceworker;
+        private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControlMain;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageHome;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupFile;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemNewMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemOpenMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemRecent;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemSave;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemSaveAll;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemAddFileFromBundle;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupBuild;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemBuildMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemLaunch;
+        private DevExpress.XtraBars.PopupMenu popupMenuLaunch;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemDebug;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemCustomParams;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemBuildAndLaunch;
     }
 }
