@@ -40,6 +40,7 @@
             this.gridColumnHexKey = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnStringKey = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnLocalization = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repoItemLocalizationMemoEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnHexKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnStringKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,6 +77,7 @@
             this.tabControlLanguages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repoItemLocalizationMemoEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManagerStringEncoder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemTextEditModIDs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).BeginInit();
@@ -140,6 +142,8 @@
             this.gridControlStringsEncoder.Location = new System.Drawing.Point(0, 0);
             this.gridControlStringsEncoder.MainView = this.gridViewStringsEncoder;
             this.gridControlStringsEncoder.Name = "gridControlStringsEncoder";
+            this.gridControlStringsEncoder.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repoItemLocalizationMemoEdit});
             this.gridControlStringsEncoder.Size = new System.Drawing.Size(1184, 454);
             this.gridControlStringsEncoder.TabIndex = 0;
             this.gridControlStringsEncoder.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -155,8 +159,15 @@
             this.gridColumnLocalization});
             this.gridViewStringsEncoder.GridControl = this.gridControlStringsEncoder;
             this.gridViewStringsEncoder.Name = "gridViewStringsEncoder";
+            this.gridViewStringsEncoder.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplace;
             this.gridViewStringsEncoder.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDownFocused;
+            this.gridViewStringsEncoder.OptionsEditForm.EditFormColumnCount = 2;
+            this.gridViewStringsEncoder.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
+            this.gridViewStringsEncoder.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.True;
+            this.gridViewStringsEncoder.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.True;
+            this.gridViewStringsEncoder.OptionsEditForm.ShowUpdateCancelPanel = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewStringsEncoder.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
+            this.gridViewStringsEncoder.OptionsView.ShowFooter = true;
             this.gridViewStringsEncoder.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridViewStringsEncoder_InitNewRow);
             this.gridViewStringsEncoder.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewStringsEncoder_RowDeleted);
             this.gridViewStringsEncoder.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.gridViewStringsEncoder_ValidateRow);
@@ -168,6 +179,7 @@
             this.gridColumnId.FieldName = "Id";
             this.gridColumnId.Name = "gridColumnId";
             this.gridColumnId.OptionsColumn.ReadOnly = true;
+            this.gridColumnId.OptionsEditForm.Visible = DevExpress.Utils.DefaultBoolean.False;
             this.gridColumnId.Visible = true;
             this.gridColumnId.VisibleIndex = 0;
             this.gridColumnId.Width = 107;
@@ -178,6 +190,7 @@
             this.gridColumnHexKey.FieldName = "HexKey";
             this.gridColumnHexKey.Name = "gridColumnHexKey";
             this.gridColumnHexKey.OptionsColumn.ReadOnly = true;
+            this.gridColumnHexKey.OptionsEditForm.Visible = DevExpress.Utils.DefaultBoolean.False;
             this.gridColumnHexKey.Visible = true;
             this.gridColumnHexKey.VisibleIndex = 1;
             this.gridColumnHexKey.Width = 113;
@@ -194,11 +207,16 @@
             // gridColumnLocalization
             // 
             this.gridColumnLocalization.Caption = "Localization";
+            this.gridColumnLocalization.ColumnEdit = this.repoItemLocalizationMemoEdit;
             this.gridColumnLocalization.FieldName = "Localization";
             this.gridColumnLocalization.Name = "gridColumnLocalization";
             this.gridColumnLocalization.Visible = true;
             this.gridColumnLocalization.VisibleIndex = 3;
             this.gridColumnLocalization.Width = 818;
+            // 
+            // repoItemLocalizationMemoEdit
+            // 
+            this.repoItemLocalizationMemoEdit.Name = "repoItemLocalizationMemoEdit";
             // 
             // ColumnID
             // 
@@ -258,6 +276,8 @@
             this.barToolStrip.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.fileMenuItem),
             new DevExpress.XtraBars.LinkPersistInfo(this.genStringsMenuItem, true)});
+            this.barToolStrip.OptionsBar.AllowQuickCustomization = false;
+            this.barToolStrip.OptionsBar.DrawDragBorder = false;
             this.barToolStrip.Text = "Tool Strip";
             // 
             // fileMenuItem
@@ -325,6 +345,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemEncode),
             new DevExpress.XtraBars.LinkPersistInfo(this.barEditItemModId),
             new DevExpress.XtraBars.LinkPersistInfo(this.barEditItemLanguage)});
+            this.barMenuStrip.OptionsBar.AllowQuickCustomization = false;
+            this.barMenuStrip.OptionsBar.DrawDragBorder = false;
             this.barMenuStrip.Text = "Button Menu";
             // 
             // barButtonItemSave
@@ -460,6 +482,7 @@
             this.tabControlLanguages.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repoItemLocalizationMemoEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManagerStringEncoder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemTextEditModIDs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).EndInit();
@@ -505,5 +528,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repoItemTextEditModIDs;
         private DevExpress.XtraBars.BarEditItem barEditItemLanguage;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repoItemComboBoxLanguage;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repoItemLocalizationMemoEdit;
     }
 }
