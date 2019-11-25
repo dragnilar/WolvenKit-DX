@@ -10,6 +10,7 @@ namespace WolvenKit
         public frmPackSettings()
         {
             InitializeComponent();
+            Shown +=  OnShown;
             if (MainController.Get().Window.ActiveMod.Files.Any(x => x.EndsWith(".xbm")))
                 texturecachecCHB.Checked = true;
             if (MainController.Get().Window.ActiveMod.Files.Any(x => x.EndsWith(".ws")))
@@ -20,6 +21,11 @@ namespace WolvenKit
                     .GetFiles(MainController.Get().Window.ActiveMod.ProjectDirectory + "\\strings")
                     .Any(x => x.EndsWith(".w3strings")))
                 stringsCHB.Checked = true;
+        }
+
+        private void OnShown(object sender, EventArgs e)
+        {
+            button1.Focus();
         }
 
         public bool PackBundles => bundlesCHB.Checked;
