@@ -1,6 +1,6 @@
 # Wolven-kit
 
-This is a fork of Traderain's Wolven-kit that contains several tweaks/modifications that which are to my own liking. This is not intended to be merged back with the main branch. I will try to merge in changes from Traderain when possible, but at some point this fork will most likely branch off in a completely different direction. I intend to create a release for this once I feel it is as at a state where it is different enough from Traderain's version to merit releasing it. 
+This is a fork of Traderain's Wolven-kit that contains several tweaks/modifications that which are to my own liking. This is not intended to be merged back with the main branch. I will try to merge in changes from Traderain when possible, but at some point this fork will most likely branch off in a completely different direction. I intend to create a release for this once I feel it is at a state where it is different enough from Traderain's version to merit releasing it. 
 
 Examples of changes include:
 
