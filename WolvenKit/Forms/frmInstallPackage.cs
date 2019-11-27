@@ -191,7 +191,7 @@ namespace WolvenKit
 
             if (MessageBox.Show(@"Installed sucesfully!
 (Please always check your files after installing mods).
-Modding requires great deal of work please consider donating to the mod's author. (Click yes to do so)", "Info",
+Modding requires a great deal of work. Please consider donating to the mod's author. (Click yes to do so)", "Info",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 Process.Start(actionlink);
         }
