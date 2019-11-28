@@ -43,18 +43,9 @@ namespace WolvenKit
 
             #region Load recent files into toolstrip
 
-            recentFilesToolStripMenuItem.DropDownItems.Clear();
             if (File.Exists("recent_files.xml"))
             {
                 var doc = XDocument.Load("recent_files.xml");
-                recentFilesToolStripMenuItem.Enabled = doc.Descendants("recentfile").Any();
-                foreach (var f in doc.Descendants("recentfile"))
-                    recentFilesToolStripMenuItem.DropDownItems.Add(new ToolStripMenuItem(f.Value, null,
-                        RecentFile_click));
-            }
-            else
-            {
-                recentFilesToolStripMenuItem.Enabled = false;
             }
 
             #endregion
@@ -117,6 +108,54 @@ namespace WolvenKit
                         Directory.CreateDirectory(Path.GetDirectoryName(newfilepath));
                         File.Copy(f, newfilepath, true);
                     }
+            }
+        }
+
+        private void barButtonItemFBXCollisons_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MessageBox.Show(@"For this to work make sure your model has either of both of these layers:
+_tri - trimesh
+_col - for simple stuff like boxes and spheres", "Information about importing models", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            using (var of = new OpenFileDialog())
+            {
+                of.Title = "Please select your fbx file with _col or _tri layers";
+                of.Filter = "FBX files | *.fbx";
+                if (of.ShowDialog() == DialogResult.OK)
+                    using (var sf = new SaveFileDialog())
+                    {
+                        sf.Filter = "Witcher 3 mesh file | *.w2mesh";
+                        sf.Title = "Please specify a location to save the imported file";
+                        sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
+                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
+                    }
+            }
+        }
+
+        private void barButtonItemNvidiaClothFile_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var of = new OpenFileDialog())
+            {
+                of.Title = "Please select your cloth file for importing";
+                of.Filter = "APB files | *.apb";
+                if (of.ShowDialog() == DialogResult.OK)
+                    using (var sf = new SaveFileDialog())
+                    {
+                        sf.Filter = "Witcher 3 cloth file | *.redcloth";
+                        sf.Title = "Please specify a location to save the imported file";
+                        sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
+                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
+                    }
+            }
+        }
+
+        private void barButtonItemExport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var sf = new SaveFileDialog())
+            {
+                sf.Title = "Please select a location to save the json dump of the cr2w file";
+                sf.Filter = "JSON Files | *.json";
+                if (sf.ShowDialog() == DialogResult.OK) throw new NotImplementedException("TODO");
             }
         }
 
@@ -279,6 +318,16 @@ namespace WolvenKit
                     MessageBoxIcon.Warning);
             else
                 Packer = PackAndInstallMod();
+        }
+
+        public void QuickPack()
+        {
+            if (Packer != null && (Packer.Status == TaskStatus.Running || Packer.Status == TaskStatus.WaitingToRun ||
+                                   Packer.Status == TaskStatus.WaitingForActivation))
+                MessageBox.Show("Packing task already running. Please wait!", "WolvenKit", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            else
+                Packer = QuickBuild();
         }
 
         /// <summary>
@@ -517,10 +566,6 @@ namespace WolvenKit
             Output.Focus();
         }
 
-        private void newModToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            createNewMod();
-        }
 
         private void createNewMod()
         {
@@ -1122,36 +1167,6 @@ namespace WolvenKit
             if (sender is frmCR2WDocument) doc_Activated(sender, e);
         }
 
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var sf = new SaveFileDialog())
-            {
-                sf.Title = "Please select a location to save the json dump of the cr2w file";
-                sf.Filter = "JSON Files | *.json";
-                if (sf.ShowDialog() == DialogResult.OK) throw new NotImplementedException("TODO");
-            }
-        }
-
-        private void fbxWithCollisionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(@"For this to work make sure your model has either of both of these layers:
-_tri - trimesh
-_col - for simple stuff like boxes and spheres", "Information about importing models", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-            using (var of = new OpenFileDialog())
-            {
-                of.Title = "Please select your fbx file with _col or _tri layers";
-                of.Filter = "FBX files | *.fbx";
-                if (of.ShowDialog() == DialogResult.OK)
-                    using (var sf = new SaveFileDialog())
-                    {
-                        sf.Filter = "Witcher 3 mesh file | *.w2mesh";
-                        sf.Title = "Please specify a location to save the imported file";
-                        sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
-                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
-                    }
-            }
-        }
 
         private void dumpFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1301,6 +1316,11 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         private void barButtonItemBuildMod_ItemClick(object sender, ItemClickEventArgs e)
         {
             PackProject();
+        }
+
+        private void barButtonItemQuickBuild_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            QuickPack();
         }
 
         private void barButtonItemDebug_ItemClick(object sender, ItemClickEventArgs e)
@@ -1465,21 +1485,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         }
 
 
-        private void tbtNewMod_Click(object sender, EventArgs e)
-        {
-            createNewMod();
-        }
-
-        private void tbtOpenMod_Click(object sender, EventArgs e)
-        {
-            openMod();
-        }
-
-        private void addFileFromBundleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddModFile(false);
-        }
-
         private void modSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ActiveMod == null)
@@ -1603,7 +1608,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 openMod(MainController.Get().ActiveMod?.FileName);
         }
 
-        private void AddFileFromOtherModToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void barButtonItemAddModFile_ItemClick(object sender, ItemClickEventArgs e)
         {
             AddModFile(true);
         }
@@ -1728,20 +1733,16 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
             openMod(sender.ToString());
         }
 
-        private void packProjectAndLaunchGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var pack = PackAndInstallMod();
-            while (!pack.IsCompleted)
-                Application.DoEvents();
-            var getparams = new Input("Please give the commands to launch the game with!");
-            if (getparams.ShowDialog() == DialogResult.OK) executeGame(getparams.Resulttext);
-        }
-
         #endregion
 
         #region Mod Pack
 
-        public async Task PackAndInstallMod(bool install = true)
+        public async Task QuickBuild(bool install = true)
+        {
+            var packer = PackAndInstallMod(true, false);
+        }
+
+        public async Task PackAndInstallMod(bool install = true, bool showForm = true)
         {
             if (ActiveMod == null)
                 return;
@@ -1753,7 +1754,8 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
             }
 
             var packsettings = new frmPackSettings();
-            if (packsettings.ShowDialog() == DialogResult.OK)
+            //TODO - This is a hack to skip the form, this needs to be refactored so it doesn't depend on the actual form
+            if (showForm && packsettings.ShowDialog() == DialogResult.OK || !showForm)
             {
                 barButtonItemBuildMod.Enabled = false;
                 ShowOutput();
