@@ -10,7 +10,7 @@ using WolvenKit.Scaleform;
 
 namespace WolvenKit
 {
-    public partial class frmUsmPlayer : DockContent
+    public partial class frmUsmPlayer : Form
     {
         public static Dictionary<string, byte[]> Demuxedfiles;
         public string videofile;

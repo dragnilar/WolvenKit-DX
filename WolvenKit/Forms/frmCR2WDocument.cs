@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 using WolvenKit.Render;
 
 namespace WolvenKit
 {
-    public partial class frmCR2WDocument : DockContent
+    public partial class frmCR2WDocument : XtraUserControl
     {
         public frmChunkList chunkList;
         public frmEmbeddedFiles embeddedFiles;

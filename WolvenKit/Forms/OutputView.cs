@@ -2,11 +2,12 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace WolvenKit
 {
-    public partial class frmOutput : DockContent
+    public partial class OutputView : XtraUserControl
     {
         public enum Logtype
         {
@@ -17,7 +18,7 @@ namespace WolvenKit
             Wcc
         }
 
-        public frmOutput()
+        public OutputView()
         {
             InitializeComponent();
         }

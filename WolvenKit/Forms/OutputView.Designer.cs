@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WolvenKit
 {
-    partial class frmOutput
+    partial class OutputView
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOutput));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputView));
             this.txOutput = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,8 +89,7 @@ namespace WolvenKit
             this.ClientSize = new System.Drawing.Size(930, 259);
             this.Controls.Add(this.txOutput);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmOutput";
+            this.Name = "OutputView";
             this.Text = "Output";
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

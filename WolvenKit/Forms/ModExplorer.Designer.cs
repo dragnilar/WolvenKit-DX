@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WolvenKit
 {
-    partial class frmModExplorer
+    partial class ModExplorer
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModExplorer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModExplorer));
             this.modFileList = new System.Windows.Forms.TreeView();
             this.treeImages = new System.Windows.Forms.ImageList(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -43,6 +43,7 @@ namespace WolvenKit
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyRelativePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.markAsModDlcFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showFileInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchstrip = new System.Windows.Forms.ToolStrip();
@@ -53,10 +54,11 @@ namespace WolvenKit
             this.ExpandBTN = new System.Windows.Forms.ToolStripButton();
             this.CollapseBTN = new System.Windows.Forms.ToolStripButton();
             this.modexplorerSlave = new System.IO.FileSystemWatcher();
-            this.markAsModDlcFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.virtualServerModeSource1 = new DevExpress.Data.VirtualServerModeSource(this.components);
             this.contextMenu.SuspendLayout();
             this.searchstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.modexplorerSlave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.virtualServerModeSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // modFileList
@@ -66,7 +68,7 @@ namespace WolvenKit
             this.modFileList.ImageIndex = 0;
             this.modFileList.ImageList = this.treeImages;
             this.modFileList.Location = new System.Drawing.Point(0, 27);
-            this.modFileList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.modFileList.Margin = new System.Windows.Forms.Padding(2);
             this.modFileList.Name = "modFileList";
             this.modFileList.SelectedImageIndex = 0;
             this.modFileList.Size = new System.Drawing.Size(363, 418);
@@ -107,7 +109,7 @@ namespace WolvenKit
             this.toolStripSeparator1,
             this.showFileInExplorerToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(197, 240);
+            this.contextMenu.Size = new System.Drawing.Size(197, 218);
             this.contextMenu.Opened += new System.EventHandler(this.contextMenu_Opened);
             // 
             // addFileToolStripMenuItem
@@ -152,6 +154,13 @@ namespace WolvenKit
             this.copyRelativePathToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
             this.copyRelativePathToolStripMenuItem.Text = "Copy relative path";
             this.copyRelativePathToolStripMenuItem.Click += new System.EventHandler(this.copyRelativePathToolStripMenuItem_Click);
+            // 
+            // markAsModDlcFileToolStripMenuItem
+            // 
+            this.markAsModDlcFileToolStripMenuItem.Name = "markAsModDlcFileToolStripMenuItem";
+            this.markAsModDlcFileToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
+            this.markAsModDlcFileToolStripMenuItem.Text = "Mark as [Mod/Dlc] file";
+            this.markAsModDlcFileToolStripMenuItem.Click += new System.EventHandler(this.markAsModDlcFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -244,35 +253,23 @@ namespace WolvenKit
             this.modexplorerSlave.Deleted += new System.IO.FileSystemEventHandler(this.FileChanges_Detected);
             this.modexplorerSlave.Renamed += new System.IO.RenamedEventHandler(this.FileChanges_Detected);
             // 
-            // markAsModDlcFileToolStripMenuItem
+            // ModExplorer
             // 
-            this.markAsModDlcFileToolStripMenuItem.Name = "markAsModDlcFileToolStripMenuItem";
-            this.markAsModDlcFileToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.markAsModDlcFileToolStripMenuItem.Text = "Mark as [Mod/Dlc] file";
-            this.markAsModDlcFileToolStripMenuItem.Click += new System.EventHandler(this.markAsModDlcFileToolStripMenuItem_Click);
-            // 
-            // frmModExplorer
-            // 
+            this.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 445);
             this.Controls.Add(this.modFileList);
             this.Controls.Add(this.searchstrip);
-            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "frmModExplorer";
-            this.Text = "Mod Explorer";
-            this.Shown += new System.EventHandler(this.frmModExplorer_Shown);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "ModExplorer";
+            this.Size = new System.Drawing.Size(363, 445);
+            this.Load += new System.EventHandler(this.frmModExplorer_Shown);
             this.contextMenu.ResumeLayout(false);
             this.searchstrip.ResumeLayout(false);
             this.searchstrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.modexplorerSlave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.virtualServerModeSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,5 +297,6 @@ namespace WolvenKit
         private ToolStripButton CollapseBTN;
         private ToolStripMenuItem copyRelativePathToolStripMenuItem;
         private ToolStripMenuItem markAsModDlcFileToolStripMenuItem;
+        private DevExpress.Data.VirtualServerModeSource virtualServerModeSource1;
     }
 }

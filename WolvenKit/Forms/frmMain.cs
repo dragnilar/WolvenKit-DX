@@ -248,9 +248,10 @@ namespace WolvenKit
                     if (oldmod.Name != dlg.Mod.Name)
                         try
                         {
-                            MainController.Get()?.Window?.ModExplorer?.StopMonitoringDirectory();
+                            modExplorerControl.StopMonitoringDirectory();
                             //Close all docs so they won't cause problems
-                            OpenDocuments.ForEach(x => x.Close());
+                            //OpenDocuments.ForEach(x => x.Close());
+                            ClearAndHideMainDockPanel();
                             //Move the files directory
                             Directory.Move(oldmod.ProjectDirectory,
                                 Path.Combine(Path.GetDirectoryName(oldmod.ProjectDirectory), dlg.Mod.Name));
@@ -411,15 +412,14 @@ namespace WolvenKit
 
         private delegate void strDelegate(string t);
 
-        private delegate void logDelegate(string t, frmOutput.Logtype type);
+        private delegate void logDelegate(string t, OutputView.Logtype type);
 
         #region Forms
 
         private frmCR2WDocument _activedocument;
         public List<frmCR2WDocument> OpenDocuments = new List<frmCR2WDocument>();
-        public frmModExplorer ModExplorer { get; set; }
         public frmStringsGui stringsGui;
-        public frmOutput Output { get; set; }
+        public OutputView OutputView { get; set; }
 
         public frmCR2WDocument ActiveDocument
         {
@@ -541,18 +541,18 @@ namespace WolvenKit
 
         private void ClearOutput()
         {
-            if (Output != null && !Output.IsDisposed) Output.Clear();
+            if (OutputView != null && !OutputView.IsDisposed) OutputView.Clear();
             MainController.Get().ProjectStatus = "Output cleared";
         }
 
-        private void AddOutput(string text, frmOutput.Logtype type = frmOutput.Logtype.Normal)
+        private void AddOutput(string text, OutputView.Logtype type = OutputView.Logtype.Normal)
         {
-            if (Output != null && !Output.IsDisposed)
+            if (OutputView != null && !OutputView.IsDisposed)
             {
                 if (string.IsNullOrWhiteSpace(text))
                     return;
 
-                Output.AddText(text, type);
+                OutputView.AddText(text, type);
             }
         }
 
@@ -623,7 +623,7 @@ namespace WolvenKit
                 {
                     AddOutput(
                         "Failed to install the mod! The packed directory doesn't exist! You forgot to tick any of the packing options?",
-                        frmOutput.Logtype.Important);
+                        OutputView.Logtype.Important);
                     return;
                 }
 
@@ -632,12 +632,12 @@ namespace WolvenKit
                 installlog.Root.Add(fileroot);
                 //Save the log.
                 installlog.Save(ActiveMod.ProjectDirectory + "\\install_log.xml");
-                AddOutput(ActiveMod.Name + " installed!" + "\n", frmOutput.Logtype.Success);
+                AddOutput(ActiveMod.Name + " installed!" + "\n", OutputView.Logtype.Success);
             }
             catch (Exception ex)
             {
                 //If we screwed up something. Log it.
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
         }
 
@@ -707,12 +707,13 @@ namespace WolvenKit
         private void removeFromMod(string filename)
         {
             // Close open documents
-            foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
-            {
-                t.Close();
-                break;
-            }
-
+            //TODO - Re-implement multiple dockuments...
+            //foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
+            //{
+            //    t.Close();
+            //    break;
+            //}
+            ClearAndHideMainDockPanel();
 
             // Delete from file structure
             var fullpath = Path.Combine(ActiveMod.FileDirectory, filename);
@@ -729,43 +730,9 @@ namespace WolvenKit
                 }
 
             // Delete from mod explorer
-            ModExplorer?.DeleteNode(filename);
+            modExplorerControl.DeleteNode(filename);
 
             SaveMod();
-        }
-
-        private void ModExplorer_RequestFileOpen(object sender, RequestFileArgs e)
-        {
-            var fullpath = Path.Combine(ActiveMod.FileDirectory, e.File);
-
-            var ext = Path.GetExtension(fullpath);
-
-            switch (ext)
-            {
-                case ".csv":
-                case ".xml":
-                case ".txt":
-                    ShellExecute(fullpath);
-                    break;
-                case ".subs":
-                    PolymorphExecute(fullpath, ".txt");
-                    break;
-                case ".usm":
-                    LoadUsmFile(fullpath);
-                    break;
-                case ".ws":
-                    ShellExecute(
-                        fullpath); //We need to use Shell Execute for Witcher Script files, PolymorphExecute erroneously tries to open them with Notepad. A user may expect it to open with NP++ or some other app.
-                    break;
-                case ".dds":
-                    LoadDDSFile(fullpath);
-                    break;
-                default:
-                    //This fails unnecessarily in the event that we're trying to open a file extension that isn't associated with anything in Windows and also is not an actually supported file type.
-                    //See note about Dragnilar's File Extension Hack below...
-                    LoadDocument(fullpath);
-                    break;
-            }
         }
 
         private static void ShellExecute(string fullpath)
@@ -789,27 +756,29 @@ namespace WolvenKit
         {
             if (!File.Exists(path) || Path.GetExtension(path) != ".usm")
                 return;
+            //TODO - The USM player is for now a form, it will need to be converted to a user control if we want to show it in the dock panel...
             var usmplayer = new frmUsmPlayer(path);
-            usmplayer.Show(dockPanel, DockState.Document);
+            usmplayer.Show();
         }
 
         public void LoadDDSFile(string path)
         {
             var dockedImage = new frmTextureFile();
-            dockedImage.Show(dockPanel, DockState.Document);
+            dockedImage.Dock = DockStyle.Fill;
+            ClearAndHideMainDockPanel();
+            tabbedViewMain.AddDocument(dockedImage);
             dockedImage.Text = Path.GetFileName(path);
             dockedImage.LoadImage(path);
         }
 
         private void ShowOutput()
         {
-            if (Output == null || Output.IsDisposed)
-            {
-                Output = new frmOutput();
-                Output.Show(dockPanel, DockState.DockBottom);
-            }
+            dockPanelOutput.Show();
+        }
 
-            Output.Focus();
+        private void ClearAndHideMainDockPanel()
+        {
+            tabbedViewMain.Documents.Clear();
         }
 
 
@@ -1030,7 +999,7 @@ namespace WolvenKit
                     }
                     catch (Exception ex)
                     {
-                        AddOutput(ex.ToString(), frmOutput.Logtype.Error);
+                        AddOutput(ex.ToString(), OutputView.Logtype.Error);
                     }
 
                     return skip;
@@ -1083,7 +1052,7 @@ namespace WolvenKit
         /// <param name="clear">if true files or completely redrawn</param>
         private void UpdateModFileList(bool clear = false)
         {
-            ModExplorer.UpdateModFileList(true, clear);
+            modExplorerControl.UpdateModFileList(true, clear);
         }
 
         /// <summary>
@@ -1091,15 +1060,15 @@ namespace WolvenKit
         /// </summary>
         private void ResetWindows()
         {
-            if (ActiveMod != null)
-                foreach (var t in OpenDocuments)
-                {
-                    t.Close();
-                    break;
-                }
+            //if (ActiveMod != null)
+            //    //foreach (var t in OpenDocuments)
+            //    //{
+            //    //    t.Close();
+            //    //    break;
+            //    //}
 
-            ModExplorer?.Close();
-            ModExplorer = null;
+            ClearAndHideMainDockPanel();
+            dockPanelModExplorer.Close();
             ShowModExplorer();
             ShowOutput();
             ClearOutput();
@@ -1107,17 +1076,7 @@ namespace WolvenKit
 
         private void ShowModExplorer()
         {
-            if (ModExplorer == null || ModExplorer.IsDisposed)
-            {
-                ModExplorer = new frmModExplorer();
-                ModExplorer.Show(dockPanel, DockState.DockLeft);
-                ModExplorer.RequestFileOpen += ModExplorer_RequestFileOpen;
-                ModExplorer.RequestFileDelete += ModExplorer_RequestFileDelete;
-                ModExplorer.RequestFileAdd += ModExplorer_RequestAddFile;
-                ModExplorer.RequestFileRename += ModExplorer_RequestFileRename;
-            }
-
-            ModExplorer.Activate();
+            dockPanelModExplorer.Show();
         }
 
         public frmCR2WDocument LoadDocument(string filename, MemoryStream memoryStream = null,
@@ -1126,12 +1085,12 @@ namespace WolvenKit
             if (memoryStream == null && !File.Exists(filename))
                 return null;
 
-            foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
-            {
-                t.Activate();
-                return null;
-            }
-
+            //foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
+            //{
+            //    t.Activate();
+            //    return null;
+            //}
+            ClearAndHideMainDockPanel();
             var doc = new frmCR2WDocument();
             OpenDocuments.Add(doc);
 
@@ -1241,9 +1200,11 @@ namespace WolvenKit
                 doc.embeddedFiles.Show(doc.FormPanel, DockState.Document);
             }
 
-            doc.Activated += doc_Activated;
-            doc.Show(dockPanel, DockState.Document);
-            doc.FormClosed += doc_FormClosed;
+            //doc.Activated += doc_Activated;
+            ClearAndHideMainDockPanel();
+            tabbedViewMain.AddDocument(doc);
+            doc.Dock = DockStyle.Fill;
+            //doc.FormClosed += doc_FormClosed;
 
             var output = new StringBuilder();
 
@@ -1277,9 +1238,10 @@ namespace WolvenKit
         {
             foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
                 return t.File;
-            var activedoc = OpenDocuments.FirstOrDefault(d => d.IsActivated);
+            //TODO - Need to reimplement this if necessary.
+            //var activedoc = tabbedViewMain.Documents.FirstOrDefault(d => d.IsActive);
             var doc = LoadDocument(filename);
-            activedoc.Activate();
+            //activedoc.Activate();
             return doc != null ? doc.File : null;
         }
 
@@ -1295,7 +1257,7 @@ namespace WolvenKit
                 proc.RedirectStandardOutput = true;
                 proc.WindowStyle = ProcessWindowStyle.Hidden;
                 proc.CreateNoWindow = true;
-                AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                 using (var process = Process.Start(proc))
                 {
@@ -1305,7 +1267,7 @@ namespace WolvenKit
                         {
                             var result = await reader.ReadLineAsync();
 
-                            AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                            AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                             Application.DoEvents();
 
@@ -1317,7 +1279,7 @@ namespace WolvenKit
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             MainController.Get().ProjectStatus = "File dumped succesfully!";
@@ -1343,10 +1305,10 @@ namespace WolvenKit
                 proc.WindowStyle = ProcessWindowStyle.Hidden;
                 proc.CreateNoWindow = true;
                 if (string.IsNullOrWhiteSpace(outfile))
-                    AddOutput("The output directory is blank/empty, stopping import.", frmOutput.Logtype.Error);
+                    AddOutput("The output directory is blank/empty, stopping import.", OutputView.Logtype.Error);
                 Directory.CreateDirectory(Path.GetDirectoryName(outfile));
 
-                AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                 using (var process = Process.Start(proc))
                 {
@@ -1356,7 +1318,7 @@ namespace WolvenKit
                         {
                             var result = await reader.ReadLineAsync();
 
-                            AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                            AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                             Application.DoEvents();
 
@@ -1368,7 +1330,7 @@ namespace WolvenKit
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             MainController.Get().ProjectStatus = "File imported succesfully!";
@@ -1415,12 +1377,6 @@ namespace WolvenKit
             if (sender is frmCR2WDocument) doc_Activated(sender, e);
         }
 
-
-        private void dockPanel_ActiveDocumentChanged(object sender, EventArgs e)
-        {
-            if (dockPanel.ActiveDocument is frmCR2WDocument) doc_Activated(dockPanel.ActiveDocument, e);
-        }
-
         private void doc_Activated(object sender, EventArgs e)
         {
             ActiveDocument = (frmCR2WDocument) sender;
@@ -1454,9 +1410,8 @@ namespace WolvenKit
             WindowState = FormWindowState.Normal;
             config.MainSize = Size;
             config.MainLocation = Location;
-
-            dockPanel.SaveAsXml(Path.Combine(Path.GetDirectoryName(Configuration.ConfigurationPath),
-                "main_layout.xml"));
+            
+            //TODO - Add back in serializing the layout
         }
 
         private void frmMain_Shown(object sender, EventArgs e)
@@ -1468,9 +1423,8 @@ namespace WolvenKit
             WindowState = config.MainState;
             try
             {
-                dockPanel.LoadFromXml(
-                    Path.Combine(Path.GetDirectoryName(Configuration.ConfigurationPath), "main_layout.xml"),
-                    DeserializeDockContent);
+
+                //TODO - Add back in deserializing the layout
             }
             catch
             {
@@ -1558,7 +1512,7 @@ namespace WolvenKit
         private void Assetbrowser_FileAdd(object sender,
             Tuple<List<IWitcherArchive>, List<WitcherListViewItem>, bool> Details)
         {
-            ModExplorer.PauseMonitoring();
+            modExplorerControl.PauseMonitoring();
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {
                 XtraMessageBox.Show(@"Please close The Witcher 3 before tinkering with the files!", string.Empty,
@@ -1571,10 +1525,44 @@ namespace WolvenKit
             foreach (var item in Details.Item2) skipping = AddToMod(item, skipping, Details.Item1, Details.Item3);
             SaveMod();
             MainController.Get().ProjectStatus = "Ready";
-            ModExplorer.FoldersShown = true;
-            ModExplorer.FilteredFiles = ActiveMod.Files;
-            ModExplorer.UpdateModFileList(true, true);
-            ModExplorer.ResumeMonitoring();
+            modExplorerControl.FoldersShown = true;
+            modExplorerControl.FilteredFiles = ActiveMod.Files;
+            modExplorerControl.UpdateModFileList(true, true);
+            modExplorerControl.ResumeMonitoring();
+        }
+
+        private void ModExplorer_RequestFileOpen(object sender, RequestFileArgs e)
+        {
+            var fullpath = Path.Combine(ActiveMod.FileDirectory, e.File);
+
+            var ext = Path.GetExtension(fullpath);
+
+            switch (ext)
+            {
+                case ".csv":
+                case ".xml":
+                case ".txt":
+                    ShellExecute(fullpath);
+                    break;
+                case ".subs":
+                    PolymorphExecute(fullpath, ".txt");
+                    break;
+                case ".usm":
+                    LoadUsmFile(fullpath);
+                    break;
+                case ".ws":
+                    ShellExecute(
+                        fullpath); //We need to use Shell Execute for Witcher Script files, PolymorphExecute erroneously tries to open them with Notepad. A user may expect it to open with NP++ or some other app.
+                    break;
+                case ".dds":
+                    LoadDDSFile(fullpath);
+                    break;
+                default:
+                    //This fails unnecessarily in the event that we're trying to open a file extension that isn't associated with anything in Windows and also is not an actually supported file type.
+                    //See note about Dragnilar's File Extension Hack below...
+                    LoadDocument(fullpath);
+                    break;
+            }
         }
 
         private void ModExplorer_RequestFileRename(object sender, RequestFileArgs e)
@@ -1605,10 +1593,10 @@ namespace WolvenKit
                 File.Move(fullpath, newfullpath);
 
                 // Rename file in mod explorer
-                if (ModExplorer != null)
+                if (modExplorerControl != null)
                 {
-                    ModExplorer.DeleteNode(filename);
-                    ModExplorer.UpdateModFileList(true, true);
+                    modExplorerControl.DeleteNode(filename);
+                    modExplorerControl.UpdateModFileList(true, true);
                 }
             }
 
@@ -1769,11 +1757,11 @@ namespace WolvenKit
                                     file.Name.ToLower().EndsWith("wem") || file.Name.ToLower().EndsWith("bnk"))
                                 .ToList().Select(x => x.FullName).ToList(),
                             Path.Combine(modpackDir, @"soundspc.cache"));
-                        AddOutput("Mod soundcache generated!\n", frmOutput.Logtype.Important);
+                        AddOutput("Mod soundcache generated!\n", OutputView.Logtype.Important);
                     }
                     else
                     {
-                        AddOutput("Mod soundcache wasn't generated!\n", frmOutput.Logtype.Important);
+                        AddOutput("Mod soundcache wasn't generated!\n", OutputView.Logtype.Important);
                     }
 
                     if (new DirectoryInfo(Path.Combine(ActiveMod.DlcDirectory,
@@ -1789,11 +1777,11 @@ namespace WolvenKit
                                     file.Name.ToLower().EndsWith("wem") || file.Name.ToLower().EndsWith("bnk"))
                                 .ToList().Select(x => x.FullName).ToList(),
                             Path.Combine(DlcpackDir, @"soundspc.cache"));
-                        AddOutput("DLC soundcache generated!\n", frmOutput.Logtype.Important);
+                        AddOutput("DLC soundcache generated!\n", OutputView.Logtype.Important);
                     }
                     else
                     {
-                        AddOutput("DLC soundcache wasn't generated!\n", frmOutput.Logtype.Important);
+                        AddOutput("DLC soundcache wasn't generated!\n", OutputView.Logtype.Important);
                     }
                 }
 
@@ -1914,7 +1902,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -1924,7 +1912,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -1938,11 +1926,11 @@ namespace WolvenKit
             catch (DirectoryNotFoundException)
             {
                 AddOutput("Mod Bundle directory not found. Bundles will not be packed for mod. \n",
-                    frmOutput.Logtype.Important);
+                    OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -1962,7 +1950,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -1972,7 +1960,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -1986,11 +1974,11 @@ namespace WolvenKit
             catch (DirectoryNotFoundException)
             {
                 AddOutput("DLC Bundle directory not found. Bundles will not packed for DLC. \n",
-                    frmOutput.Logtype.Important);
+                    OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2020,7 +2008,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2030,7 +2018,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2043,11 +2031,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("Mod wasn't bundled. Metadata won't be generated. \n", frmOutput.Logtype.Important);
+                AddOutput("Mod wasn't bundled. Metadata won't be generated. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2067,7 +2055,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2077,7 +2065,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2090,11 +2078,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("DLC wasn't bundled. Metadata won't be generated. \n", frmOutput.Logtype.Important);
+                AddOutput("DLC wasn't bundled. Metadata won't be generated. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2135,7 +2123,7 @@ namespace WolvenKit
                         foreach (var dir in di.GetDirectories()) dir.Delete(true);
                     }
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2145,7 +2133,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2158,11 +2146,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("Mod TextureCache folder not found. Mod won't be cooked. \n", frmOutput.Logtype.Important);
+                AddOutput("Mod TextureCache folder not found. Mod won't be cooked. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2193,7 +2181,7 @@ namespace WolvenKit
                         foreach (var dir in di.GetDirectories()) dir.Delete(true);
                     }
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2203,7 +2191,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2216,11 +2204,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("DLC TextureCache folder not found. DLC won't be cooked. \n", frmOutput.Logtype.Important);
+                AddOutput("DLC TextureCache folder not found. DLC won't be cooked. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2254,7 +2242,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2264,7 +2252,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2278,11 +2266,11 @@ namespace WolvenKit
             catch (DirectoryNotFoundException)
             {
                 AddOutput("Collision cache was not generated because mod was not cooked. \n",
-                    frmOutput.Logtype.Important);
+                    OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2302,7 +2290,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2312,7 +2300,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2325,11 +2313,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("DLC wasn't cooked. Couldn't generate collision cache. \n", frmOutput.Logtype.Important);
+                AddOutput("DLC wasn't cooked. Couldn't generate collision cache. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2363,7 +2351,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2373,7 +2361,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2386,11 +2374,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("Mod wasn't cooked. Textures won't be cached. \n", frmOutput.Logtype.Important);
+                AddOutput("Mod wasn't cooked. Textures won't be cached. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion
@@ -2410,7 +2398,7 @@ namespace WolvenKit
                     proc.WindowStyle = ProcessWindowStyle.Hidden;
                     proc.CreateNoWindow = true;
 
-                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
+                    AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", OutputView.Logtype.Important);
 
                     using (var process = Process.Start(proc))
                     {
@@ -2420,7 +2408,7 @@ namespace WolvenKit
                             {
                                 var result = await reader.ReadLineAsync();
 
-                                AddOutput(result + "\n", frmOutput.Logtype.Wcc);
+                                AddOutput(result + "\n", OutputView.Logtype.Wcc);
 
                                 Application.DoEvents();
 
@@ -2433,11 +2421,11 @@ namespace WolvenKit
             }
             catch (DirectoryNotFoundException)
             {
-                AddOutput("DLC wasn't cooked. Textures won't be cached. \n", frmOutput.Logtype.Important);
+                AddOutput("DLC wasn't cooked. Textures won't be cached. \n", OutputView.Logtype.Important);
             }
             catch (Exception ex)
             {
-                AddOutput(ex + "\n", frmOutput.Logtype.Error);
+                AddOutput(ex + "\n", OutputView.Logtype.Error);
             }
 
             #endregion

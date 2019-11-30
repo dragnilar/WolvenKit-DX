@@ -7,7 +7,7 @@ using WolvenKit.Cache;
 
 namespace WolvenKit
 {
-    public partial class frmTextureFile : DockContent
+    public partial class frmTextureFile : UserControl
     {
         private Image origImg;
 

@@ -31,8 +31,8 @@ namespace WolvenKit
         private string _loadstatus = "Loading...";
 
 
-        private KeyValuePair<string, frmOutput.Logtype> _logMessage =
-            new KeyValuePair<string, frmOutput.Logtype>(string.Empty, frmOutput.Logtype.Normal);
+        private KeyValuePair<string, OutputView.Logtype> _logMessage =
+            new KeyValuePair<string, OutputView.Logtype>(string.Empty, OutputView.Logtype.Normal);
 
         private string _projectstatus = "Idle";
         public string InitialModProject = string.Empty;
@@ -71,7 +71,7 @@ namespace WolvenKit
             set => SetField(ref _loaded, value, "Loaded");
         }
 
-        public KeyValuePair<string, frmOutput.Logtype> LogMessage
+        public KeyValuePair<string, OutputView.Logtype> LogMessage
         {
             get => _logMessage;
             set => SetField(ref _logMessage, value, "LogMessage");
@@ -135,9 +135,9 @@ namespace WolvenKit
         /// </summary>
         /// <param name="msg">The message to log.</param>
         /// <param name="type">The type of the log. Not needed.</param>
-        public void QueueLog(string msg, frmOutput.Logtype type = frmOutput.Logtype.Normal)
+        public void QueueLog(string msg, OutputView.Logtype type = OutputView.Logtype.Normal)
         {
-            LogMessage = new KeyValuePair<string, frmOutput.Logtype>(msg, type);
+            LogMessage = new KeyValuePair<string, OutputView.Logtype>(msg, type);
         }
 
         public static MainController Get()

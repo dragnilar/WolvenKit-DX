@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Common;
 
 namespace WolvenKit
 {
-    public partial class frmModExplorer : DockContent
+    public partial class ModExplorer : XtraUserControl
     {
         public static DateTime LastChange;
         public static TimeSpan mindiff = TimeSpan.FromMilliseconds(500);
         public List<string> FilteredFiles;
         public bool FoldersShown = true;
 
-        public frmModExplorer()
+        public ModExplorer()
         {
             InitializeComponent();
             UpdateModFileList(true, true);

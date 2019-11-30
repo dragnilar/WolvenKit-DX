@@ -192,7 +192,7 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.25410, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.2-alpha2\lib\net20\ObjectListView.dll</HintPath>
@@ -203,14 +203,16 @@
     <Reference Include="OpenGL.Net.WinForms, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenGL.Net.WinForms.0.8.4\lib\net461\OpenGL.Net.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="PropertyGridEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyGridEx.1.0.0\lib\net20\PropertyGridEx.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.4\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="RtfPipe, Version=1.0.7232.28557, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RtfPipe.1.0.7232.28557\lib\net45\RtfPipe.dll</HintPath>
+    <Reference Include="RtfPipe, Version=1.0.7246.39337, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RtfPipe.1.0.7246.39337\lib\net45\RtfPipe.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -221,11 +223,14 @@
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -249,6 +254,7 @@
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
@@ -264,6 +270,7 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Printing" />
     <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
       <Private>True</Private>
@@ -300,6 +307,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -331,9 +339,7 @@
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <HintPath>..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
-      <HintPath>..\packages\DockPanelSuite.ThemeVS2015.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
-    </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
       <HintPath>..\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
     </Reference>
@@ -438,7 +444,7 @@
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmTextureFile.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frmTextureFile.Designer.cs">
       <DependentUpon>frmTextureFile.cs</DependentUpon>
@@ -530,7 +536,7 @@
       <DependentUpon>frmChunkProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmCR2WDocument.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frmCR2WDocument.Designer.cs">
       <DependentUpon>frmCR2WDocument.cs</DependentUpon>
@@ -559,11 +565,11 @@
     <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmModExplorer.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Forms\ModExplorer.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmModExplorer.Designer.cs">
-      <DependentUpon>frmModExplorer.cs</DependentUpon>
+    <Compile Include="Forms\ModExplorer.Designer.cs">
+      <DependentUpon>ModExplorer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmModSettings.cs">
       <SubType>Form</SubType>
@@ -571,11 +577,11 @@
     <Compile Include="Forms\frmModSettings.Designer.cs">
       <DependentUpon>frmModSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmOutput.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Forms\OutputView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmOutput.Designer.cs">
-      <DependentUpon>frmOutput.cs</DependentUpon>
+    <Compile Include="Forms\OutputView.Designer.cs">
+      <DependentUpon>OutputView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmRenameDialog.cs">
       <SubType>Form</SubType>
@@ -664,14 +670,14 @@
     <EmbeddedResource Include="Forms\frmMenuCreator.resx">
       <DependentUpon>frmMenuCreator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmModExplorer.resx">
-      <DependentUpon>frmModExplorer.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ModExplorer.resx">
+      <DependentUpon>ModExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmModSettings.resx">
       <DependentUpon>frmModSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmOutput.resx">
-      <DependentUpon>frmOutput.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\OutputView.resx">
+      <DependentUpon>OutputView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPackSettings.resx">
       <DependentUpon>frmPackSettings.cs</DependentUpon>

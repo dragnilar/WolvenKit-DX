@@ -89,13 +89,13 @@ namespace WolvenKit.Forms
 
             pkg.Save(outpath);
             MainController.Get().LogMessage =
-                new KeyValuePair<string, frmOutput.Logtype>("Installer created: " + outpath + "\n",
-                    frmOutput.Logtype.Success);
+                new KeyValuePair<string, OutputView.Logtype>("Installer created: " + outpath + "\n",
+                    OutputView.Logtype.Success);
             if (!File.Exists(outpath))
             {
                 MainController.Get().LogMessage =
-                    new KeyValuePair<string, frmOutput.Logtype>("Couldn't create installer. Something went wrong.",
-                        frmOutput.Logtype.Error);
+                    new KeyValuePair<string, OutputView.Logtype>("Couldn't create installer. Something went wrong.",
+                        OutputView.Logtype.Error);
                 return;
             }
 

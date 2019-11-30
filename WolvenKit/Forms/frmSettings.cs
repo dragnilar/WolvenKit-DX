@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IniParserLTK;
 using Microsoft.Win32;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace WolvenKit
 {
@@ -36,7 +37,7 @@ namespace WolvenKit
 
         private void btnBrowseExe_Click(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog();
+            var dlg = new System.Windows.Forms.OpenFileDialog();
             dlg.Title = "Select Witcher 3 Executable.";
             dlg.FileName = txExecutablePath.Text;
             dlg.Filter = "witcher3.exe|witcher3.exe";

@@ -34,7 +34,6 @@ namespace WolvenKit
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.richpresenceworker = new System.ComponentModel.BackgroundWorker();
             this.ribbonControlMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItemNewMod = new DevExpress.XtraBars.BarButtonItem();
@@ -98,24 +97,27 @@ namespace WolvenKit
             this.ribbonPageGroupSettings = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupHelp = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBarMainWindow = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            this.dockManagerMainWindow = new DevExpress.XtraBars.Docking.DockManager(this.components);
+            this.dockPanelOutput = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.outputViewControl = new WolvenKit.OutputView();
+            this.dockPanelModExplorer = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.modExplorerControl = new WolvenKit.ModExplorer();
+            this.documentManagerMain = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedViewMain = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuNewFile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dockManagerMainWindow)).BeginInit();
+            this.dockPanelOutput.SuspendLayout();
+            this.dockPanel1_Container.SuspendLayout();
+            this.dockPanelModExplorer.SuspendLayout();
+            this.dockPanel2_Container.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.documentManagerMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedViewMain)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dockPanel
-            // 
-            this.dockPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dockPanel.Location = new System.Drawing.Point(0, 163);
-            this.dockPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.dockPanel.Name = "dockPanel";
-            this.dockPanel.ShowDocumentIcon = true;
-            this.dockPanel.Size = new System.Drawing.Size(1280, 582);
-            this.dockPanel.TabIndex = 9;
-            this.dockPanel.ActiveDocumentChanged += new System.EventHandler(this.dockPanel_ActiveDocumentChanged);
             // 
             // richpresenceworker
             // 
@@ -693,14 +695,107 @@ namespace WolvenKit
             this.ribbonStatusBarMainWindow.Ribbon = this.ribbonControlMain;
             this.ribbonStatusBarMainWindow.Size = new System.Drawing.Size(1280, 26);
             // 
+            // dockManagerMainWindow
+            // 
+            this.dockManagerMainWindow.Form = this;
+            this.dockManagerMainWindow.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
+            this.dockPanelOutput,
+            this.dockPanelModExplorer});
+            this.dockManagerMainWindow.Style = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Light;
+            this.dockManagerMainWindow.TopZIndexControls.AddRange(new string[] {
+            "DevExpress.XtraBars.BarDockControl",
+            "DevExpress.XtraBars.StandaloneBarDockControl",
+            "System.Windows.Forms.StatusBar",
+            "System.Windows.Forms.MenuStrip",
+            "System.Windows.Forms.StatusStrip",
+            "DevExpress.XtraBars.Ribbon.RibbonStatusBar",
+            "DevExpress.XtraBars.Ribbon.RibbonControl",
+            "DevExpress.XtraBars.Navigation.OfficeNavigationBar",
+            "DevExpress.XtraBars.Navigation.TileNavPane",
+            "DevExpress.XtraBars.TabFormControl",
+            "DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl",
+            "DevExpress.XtraBars.ToolbarForm.ToolbarFormControl"});
+            // 
+            // dockPanelOutput
+            // 
+            this.dockPanelOutput.Controls.Add(this.dockPanel1_Container);
+            this.dockPanelOutput.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
+            this.dockPanelOutput.ID = new System.Guid("155d2b35-13d2-45ff-bf75-acff0d69da23");
+            this.dockPanelOutput.Location = new System.Drawing.Point(0, 618);
+            this.dockPanelOutput.Name = "dockPanelOutput";
+            this.dockPanelOutput.OriginalSize = new System.Drawing.Size(200, 126);
+            this.dockPanelOutput.Size = new System.Drawing.Size(1280, 126);
+            this.dockPanelOutput.Text = "Output";
+            // 
+            // dockPanel1_Container
+            // 
+            this.dockPanel1_Container.Controls.Add(this.outputViewControl);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(0, 28);
+            this.dockPanel1_Container.Name = "dockPanel1_Container";
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1280, 98);
+            this.dockPanel1_Container.TabIndex = 0;
+            // 
+            // outputViewControl
+            // 
+            this.outputViewControl.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.outputViewControl.Appearance.Options.UseFont = true;
+            this.outputViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputViewControl.Location = new System.Drawing.Point(0, 0);
+            this.outputViewControl.Name = "outputViewControl";
+            this.outputViewControl.Size = new System.Drawing.Size(1280, 98);
+            this.outputViewControl.TabIndex = 0;
+            // 
+            // dockPanelModExplorer
+            // 
+            this.dockPanelModExplorer.Controls.Add(this.dockPanel2_Container);
+            this.dockPanelModExplorer.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
+            this.dockPanelModExplorer.ID = new System.Guid("50856fd6-7347-48d1-a37e-9d341c9f5a58");
+            this.dockPanelModExplorer.Location = new System.Drawing.Point(0, 158);
+            this.dockPanelModExplorer.Name = "dockPanelModExplorer";
+            this.dockPanelModExplorer.OriginalSize = new System.Drawing.Size(290, 200);
+            this.dockPanelModExplorer.Size = new System.Drawing.Size(290, 460);
+            this.dockPanelModExplorer.Text = "Mod Explorer";
+            // 
+            // dockPanel2_Container
+            // 
+            this.dockPanel2_Container.Controls.Add(this.modExplorerControl);
+            this.dockPanel2_Container.Location = new System.Drawing.Point(0, 27);
+            this.dockPanel2_Container.Name = "dockPanel2_Container";
+            this.dockPanel2_Container.Size = new System.Drawing.Size(289, 433);
+            this.dockPanel2_Container.TabIndex = 0;
+            // 
+            // modExplorerControl
+            // 
+            this.modExplorerControl.ActiveMod = null;
+            this.modExplorerControl.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modExplorerControl.Appearance.Options.UseFont = true;
+            this.modExplorerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modExplorerControl.Location = new System.Drawing.Point(0, 0);
+            this.modExplorerControl.Margin = new System.Windows.Forms.Padding(2);
+            this.modExplorerControl.Name = "modExplorerControl";
+            this.modExplorerControl.Size = new System.Drawing.Size(289, 433);
+            this.modExplorerControl.TabIndex = 0;
+            this.modExplorerControl.RequestFileOpen += new System.EventHandler<WolvenKit.RequestFileArgs>(this.ModExplorer_RequestFileOpen);
+            this.modExplorerControl.RequestFileDelete += new System.EventHandler<WolvenKit.RequestFileArgs>(this.ModExplorer_RequestFileDelete);
+            this.modExplorerControl.RequestFileAdd += new System.EventHandler<WolvenKit.RequestFileArgs>(this.ModExplorer_RequestAddFile);
+            this.modExplorerControl.RequestFileRename += new System.EventHandler<WolvenKit.RequestFileArgs>(this.ModExplorer_RequestFileRename);
+            // 
+            // documentManagerMain
+            // 
+            this.documentManagerMain.ContainerControl = this;
+            this.documentManagerMain.View = this.tabbedViewMain;
+            this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
+            this.tabbedViewMain});
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 770);
+            this.Controls.Add(this.dockPanelModExplorer);
+            this.Controls.Add(this.dockPanelOutput);
             this.Controls.Add(this.ribbonStatusBarMainWindow);
             this.Controls.Add(this.ribbonControlMain);
-            this.Controls.Add(this.dockPanel);
             this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmMain.IconOptions.Icon")));
             this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(584, 391);
@@ -716,13 +811,19 @@ namespace WolvenKit
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuNewFile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dockManagerMainWindow)).EndInit();
+            this.dockPanelOutput.ResumeLayout(false);
+            this.dockPanel1_Container.ResumeLayout(false);
+            this.dockPanelModExplorer.ResumeLayout(false);
+            this.dockPanel2_Container.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.documentManagerMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedViewMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private DockPanel dockPanel;
         private BackgroundWorker richpresenceworker;
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControlMain;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageHome;
@@ -786,5 +887,14 @@ namespace WolvenKit
         private DevExpress.XtraBars.BarStaticItem barStaticItemStatus;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBarMainWindow;
         private DevExpress.XtraBars.BarStaticItem barStaticItemBuildDate;
+        private DevExpress.XtraBars.Docking.DockManager dockManagerMainWindow;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelModExplorer;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel2_Container;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelOutput;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
+        private OutputView outputViewControl;
+        private ModExplorer modExplorerControl;
+        private DevExpress.XtraBars.Docking2010.DocumentManager documentManagerMain;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedViewMain;
     }
 }
