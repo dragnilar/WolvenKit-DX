@@ -23,7 +23,6 @@ using WolvenKit.Common;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
-using WolvenKit.Properties;
 using WolvenKit.Render;
 using Enums = Dfust.Hotkeys.Enums;
 
@@ -32,8 +31,9 @@ namespace WolvenKit
     public partial class frmMain : XtraForm
     {
         public static Task Packer;
-        private readonly string BaseTitle = "Wolven kit";
         private readonly HotkeyCollection _hotKeys;
+        private readonly string BaseTitle = "Wolven kit";
+        private bool _renderW2Mesh;
 
         public frmMain()
         {
@@ -61,7 +61,6 @@ namespace WolvenKit
         }
 
         public string Version => FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
-
 
 
         private void barButtonItemFBXCollisons_ItemClick(object sender, ItemClickEventArgs e)
@@ -202,6 +201,143 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void barButtonItemChunkFileDLC_ItemClick(object sender, ItemClickEventArgs e)
         {
+        }
+
+        private void barButtonItemCreatePackInstaller_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            CreateInstaller();
+        }
+
+        private void barButtonItemReload_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (File.Exists(MainController.Get().ActiveMod?.FileName))
+                openMod(MainController.Get().ActiveMod?.FileName);
+        }
+
+        private void barButtonItemProjectSettings_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (ActiveMod == null)
+                return;
+            //With this cloned it won't get modified when we change it in dlg
+            var oldmod = (W3Mod) ActiveMod.Clone();
+            using (var dlg = new frmModSettings())
+            {
+                dlg.Mod = ActiveMod;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    if (oldmod.Name != dlg.Mod.Name)
+                        try
+                        {
+                            MainController.Get()?.Window?.ModExplorer?.StopMonitoringDirectory();
+                            //Close all docs so they won't cause problems
+                            OpenDocuments.ForEach(x => x.Close());
+                            //Move the files directory
+                            Directory.Move(oldmod.ProjectDirectory,
+                                Path.Combine(Path.GetDirectoryName(oldmod.ProjectDirectory), dlg.Mod.Name));
+                            //Delete the old directory
+                            if (Directory.Exists(oldmod.ProjectDirectory))
+                                Commonfunctions.DeleteFilesAndFoldersRecursively(oldmod.ProjectDirectory);
+                            //Delete the old mod project file
+                            if (File.Exists(oldmod.FileName))
+                                File.Delete(oldmod.FileName);
+                        }
+                        catch (IOException)
+                        {
+                            MessageBox.Show("Sorry but there already exist a folder/mod with that name.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                    //Save the new settings and update the title
+                    UpdateTitle();
+                    SaveMod();
+                    if (File.Exists(MainController.Get().ActiveMod?.FileName))
+                        openMod(MainController.Get().ActiveMod?.FileName);
+                    Commonfunctions.SendNotification("Succesfully updated mod settings!");
+                }
+            }
+        }
+
+        private void barButtonItemPackageInstaller_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var of = new OpenFileDialog())
+            {
+                of.Filter = "WolvenKit Package | *.wkp";
+                if (of.ShowDialog() == DialogResult.OK)
+                    using (var pi = new frmInstallPackage(of.FileName))
+                    {
+                        pi.ShowDialog();
+                    }
+                else
+                    Commonfunctions.SendNotification("Invalid file!");
+            }
+        }
+
+        private void barButtonItemSaveExplorer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var sef = new frmSaveEditor())
+            {
+                sef.ShowDialog();
+            }
+        }
+
+        private void barButtonItemStringsEncoder_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (stringsGui == null)
+            {
+                stringsGui = new frmStringsGui();
+                stringsGui.ShowDialog();
+            }
+            else
+            {
+                stringsGui.ShowDialog();
+            }
+        }
+
+        private void barButtonItemGameDebugger_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var gdb = new frmDebug();
+            gdb.Show();
+        }
+
+        private void barButtonItemMenuCreator_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var fmc = new frmMenuCreator())
+            {
+                fmc.ShowDialog();
+            }
+        }
+
+        private void barButtonItemDumpGameAssets_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MessageBox.Show(
+                @"This will generate a file which will show what wcc_lite sees from a file. Please keep in mind this doesn't always work",
+                "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var of = new FolderBrowserDialog())
+            {
+                of.Description = "Select the folder to dump";
+                if (of.ShowDialog() == DialogResult.OK)
+                    using (var sf = new FolderBrowserDialog())
+                    {
+                        sf.Description = "Please specify a location to save the dumped file";
+                        if (sf.ShowDialog() == DialogResult.OK)
+                            DumpFile(of.SelectedPath.EndsWith("\\") ? of.SelectedPath : of.SelectedPath + "\\",
+                                sf.SelectedPath.EndsWith("\\") ? sf.SelectedPath : sf.SelectedPath + "\\");
+                    }
+            }
+        }
+
+
+        private void barButtonItemOptions_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var settings = new frmSettings();
+            settings.ShowDialog();
+        }
+
+        private void barCheckItemRenderW2Mesh_CheckedChanged(object sender, ItemClickEventArgs e)
+        {
+            _renderW2Mesh = barCheckItemRenderW2Mesh.Checked;
         }
 
         private delegate void strDelegate(string t);
@@ -1011,7 +1147,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                     }*/
                 case ".w2mesh":
                 {
-                    if (bool.Parse(renderW2meshToolStripMenuItem.Tag.ToString()))
+                    if (_renderW2Mesh)
                     {
                         doc.RenderViewer = new frmRender
                         {
@@ -1138,9 +1274,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 proc.WindowStyle = ProcessWindowStyle.Hidden;
                 proc.CreateNoWindow = true;
                 if (string.IsNullOrWhiteSpace(outfile))
-                {
                     AddOutput("The output directory is blank/empty, stopping import.", frmOutput.Logtype.Error);
-                }
                 Directory.CreateDirectory(Path.GetDirectoryName(outfile));
 
                 AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
@@ -1210,26 +1344,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         private void frmMain_MdiChildActivate(object sender, EventArgs e)
         {
             if (sender is frmCR2WDocument) doc_Activated(sender, e);
-        }
-
-
-        private void dumpFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-                @"This will generate a file which will show what wcc_lite sees from a file. Please keep in mind this doesn't always work",
-                "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            using (var of = new FolderBrowserDialog())
-            {
-                of.Description = "Select the folder to dump";
-                if (of.ShowDialog() == DialogResult.OK)
-                    using (var sf = new FolderBrowserDialog())
-                    {
-                        sf.Description = "Please specify a location to save the dumped file";
-                        if (sf.ShowDialog() == DialogResult.OK)
-                            DumpFile(of.SelectedPath.EndsWith("\\") ? of.SelectedPath : of.SelectedPath + "\\",
-                                sf.SelectedPath.EndsWith("\\") ? sf.SelectedPath : sf.SelectedPath + "\\");
-                    }
-            }
         }
 
 
@@ -1455,17 +1569,11 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 removeFromMod(filename);
         }
 
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var settings = new frmSettings();
-            settings.ShowDialog();
-        }
 
         private void modExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowModExplorer();
         }
-
 
 
         private void saveActiveFile()
@@ -1510,51 +1618,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         }
 
 
-        private void modSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (ActiveMod == null)
-                return;
-            //With this cloned it won't get modified when we change it in dlg
-            var oldmod = (W3Mod) ActiveMod.Clone();
-            using (var dlg = new frmModSettings())
-            {
-                dlg.Mod = ActiveMod;
-
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    if (oldmod.Name != dlg.Mod.Name)
-                        try
-                        {
-                            MainController.Get()?.Window?.ModExplorer?.StopMonitoringDirectory();
-                            //Close all docs so they won't cause problems
-                            OpenDocuments.ForEach(x => x.Close());
-                            //Move the files directory
-                            Directory.Move(oldmod.ProjectDirectory,
-                                Path.Combine(Path.GetDirectoryName(oldmod.ProjectDirectory), dlg.Mod.Name));
-                            //Delete the old directory
-                            if (Directory.Exists(oldmod.ProjectDirectory))
-                                Commonfunctions.DeleteFilesAndFoldersRecursively(oldmod.ProjectDirectory);
-                            //Delete the old mod project file
-                            if (File.Exists(oldmod.FileName))
-                                File.Delete(oldmod.FileName);
-                        }
-                        catch (IOException)
-                        {
-                            MessageBox.Show("Sorry but there already exist a folder/mod with that name.", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                    //Save the new settings and update the title
-                    UpdateTitle();
-                    SaveMod();
-                    if (File.Exists(MainController.Get().ActiveMod?.FileName))
-                        openMod(MainController.Get().ActiveMod?.FileName);
-                    Commonfunctions.SendNotification("Succesfully updated mod settings!");
-                }
-            }
-        }
-
         private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var cf = new frmAbout())
@@ -1563,42 +1626,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
         }
 
-
-        private void packageInstallerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var of = new OpenFileDialog())
-            {
-                of.Filter = "WolvenKit Package | *.wkp";
-                if (of.ShowDialog() == DialogResult.OK)
-                    using (var pi = new frmInstallPackage(of.FileName))
-                    {
-                        pi.ShowDialog();
-                    }
-                else
-                    Commonfunctions.SendNotification("Invalid file!");
-            }
-        }
-
-        private void saveExplorerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var sef = new frmSaveEditor())
-            {
-                sef.ShowDialog();
-            }
-        }
-
-        private void StringsGUIToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (stringsGui == null)
-            {
-                stringsGui = new frmStringsGui();
-                stringsGui.ShowDialog();
-            }
-            else
-            {
-                stringsGui.ShowDialog();
-            }
-        }
 
         private void joinOurDiscordToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
@@ -1617,21 +1644,12 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             Process.Start("https://witcherscript.readthedocs.io");
         }
 
-        private void ReloadProjectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (File.Exists(MainController.Get().ActiveMod?.FileName))
-                openMod(MainController.Get().ActiveMod?.FileName);
-        }
 
         private void barButtonItemAddModFile_ItemClick(object sender, ItemClickEventArgs e)
         {
             AddModFile(true);
         }
 
-        private void createPackedInstallerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CreateInstaller();
-        }
 
         private void witcherIIIModdingToolLicenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1639,33 +1657,15 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             wcclicense.Show();
         }
 
-        private void menuCreatorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var fmc = new frmMenuCreator())
-            {
-                fmc.ShowDialog();
-            }
-        }
-        private void renderW2meshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (bool.Parse(renderW2meshToolStripMenuItem.Tag.ToString()))
-            {
-                renderW2meshToolStripMenuItem.Tag = false;
-                renderW2meshToolStripMenuItem.Image = Resources.ui_check_box_uncheck;
-            }
-            else
-            {
-                renderW2meshToolStripMenuItem.Tag = true;
-                renderW2meshToolStripMenuItem.Image = Resources.ui_check_box;
-            }
-        }
 
         private void RecordStepsToReproduceBugToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(@"This will launch an app that will help you record the steps needed to reproduce the bug/problem.
+            if (MessageBox.Show(
+                    @"This will launch an app that will help you record the steps needed to reproduce the bug/problem.
 After its done it saves a zip file.
 Please send that to hambalko.bence@gmail.com with a short description about the problem.
-Would you like to open the problem steps recorder?", "Bug reporting", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+Would you like to open the problem steps recorder?", "Bug reporting", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
                 Process.Start("psr.exe");
         }
 
@@ -1677,13 +1677,6 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
             Process.Start(
                 $"mailto:{"hambalko.bence@gmail.com"}?Subject={"WolvenKit bug report"}&Body={"Short description of bug:"}");
         }
-
-        private void GameDebuggerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var gdb = new frmDebug();
-            gdb.Show();
-        }
-
 
         #endregion
 
