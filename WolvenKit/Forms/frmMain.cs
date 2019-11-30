@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using AutoUpdaterDotNET;
+using DevExpress.LookAndFeel;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using Dfust.Hotkeys;
@@ -48,6 +49,24 @@ namespace WolvenKit
             _hotKeys.RegisterHotkey(Keys.Control | Keys.V, HKPaste, "Paste");
             _hotKeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.B, HKPackProject, "PackProject");
             MainController.Get().InitForm(this);
+            SetPalette();
+            UserLookAndFeel.Default.StyleChanged += DefaultOnStyleChanged;
+        }
+
+        private void SetPalette()
+        {
+            var palette = Configuration.Load().Palette;
+            if (string.IsNullOrWhiteSpace(palette)) return;
+            var actualPalette = SkinSvgPalette.Bezier.PaletteSet.FirstOrDefault(x => x.Key == palette);
+            UserLookAndFeel.Default.SetSkinStyle(actualPalette.Value);
+        }
+
+        private void DefaultOnStyleChanged(object sender, EventArgs e)
+        {
+            var activePalette = UserLookAndFeel.Default.ActiveSvgPaletteName;
+            var config = Configuration.Load();
+            config.Palette = activePalette;
+            config.Save();
         }
 
         public W3Mod ActiveMod
@@ -65,22 +84,22 @@ namespace WolvenKit
 
         private void barButtonItemFBXCollisons_ItemClick(object sender, ItemClickEventArgs e)
         {
-            MessageBox.Show(@"For this to work make sure your model has either of both of these layers:
-_tri - trimesh
-_col - for simple stuff like boxes and spheres", "Information about importing models", MessageBoxButtons.OK,
+            XtraMessageBox.Show(@"For this to work make sure your model has either of both of these layers:
+            \n_tri - trimesh\n_col - for simple stuff like boxes and spheres", "Information about importing models",
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             using (var of = new OpenFileDialog())
             {
                 of.Title = "Please select your fbx file with _col or _tri layers";
                 of.Filter = "FBX files | *.fbx";
-                if (of.ShowDialog() == DialogResult.OK)
-                    using (var sf = new SaveFileDialog())
-                    {
-                        sf.Filter = "Witcher 3 mesh file | *.w2mesh";
-                        sf.Title = "Please specify a location to save the imported file";
-                        sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
-                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
-                    }
+                if (of.ShowDialog() != DialogResult.OK) return;
+                using (var sf = new SaveFileDialog())
+                {
+                    sf.Filter = "Witcher 3 mesh file | *.w2mesh";
+                    sf.Title = "Please specify a location to save the imported file";
+                    sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
+                    if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
+                }
             }
         }
 
@@ -244,7 +263,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                         }
                         catch (IOException)
                         {
-                            MessageBox.Show("Sorry but there already exist a folder/mod with that name.", "Error",
+                            XtraMessageBox.Show("Sorry but there already exist a folder/mod with that name.", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
@@ -311,7 +330,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void barButtonItemDumpGameAssets_ItemClick(object sender, ItemClickEventArgs e)
         {
-            MessageBox.Show(
+            XtraMessageBox.Show(
                 @"This will generate a file which will show what wcc_lite sees from a file. Please keep in mind this doesn't always work",
                 "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             using (var of = new FolderBrowserDialog())
@@ -338,6 +357,56 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         private void barCheckItemRenderW2Mesh_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             _renderW2Mesh = barCheckItemRenderW2Mesh.Checked;
+        }
+
+        private void barButtonItemViewModExplorer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ShowModExplorer();
+        }
+
+        private void barButtonItemViewOutput_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ShowOutput();
+        }
+
+
+        private void barButtonItemWitcherScript_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Process.Start("https://witcherscript.readthedocs.io");
+        }
+
+        private void barButtonItemModToolLic_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var wcclicense = new frmWCCLicense();
+            wcclicense.Show();
+        }
+
+        private void ReportABug_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var result = XtraMessageBox.Show(
+                "If you say yes you will be taken to the Github page for Wolvenkit DX in your default browser.\n Before opening up an issue with the bug you have found,\nplease verify" +
+                "that the bug has not already been reported.\nWhen you report a bug, please provide as many details as possible. Reproduction steps are greatly appreciated!",
+                "Continue to Github?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+                Process.Start("https://github.com/dragnilar/Wolven-kit");
+        }
+
+
+        private void barButtonItemAboutWolvenkit_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var cf = new frmAbout())
+            {
+                cf.ShowDialog();
+            }
+        }
+
+        private void barButtonItemDonate_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            XtraMessageBox.Show(
+                "This will take you to Traderain's pay pal page.\n Traderain is the developer for the original Wolvenkit and he is not affiliated with Wolvenkit DX\n" +
+                "If you enjoy using Wolvenkit DX, please consider contributing to his team for their hard work.",
+                "Note About Donations", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Process.Start("https://www.paypal.me/traderain");
         }
 
         private delegate void strDelegate(string t);
@@ -383,7 +452,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void SetStatusLabelText(string text)
         {
-            statusLBL.Text = text;
+            barStaticItemStatus.Caption = text;
         }
 
         private void HKSave(HotKeyEventArgs e)
@@ -445,7 +514,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void UpdateTitle()
         {
-            buildDateToolStripMenuItem.Text = Assembly.GetExecutingAssembly().GetLinkerTime().ToString("yyyy MMMM dd");
+            barStaticItemBuildDate.Caption = $"Build Date: {Assembly.GetExecutingAssembly().GetLinkerTime().ToString("yyyy MMMM dd")}";
             Text = BaseTitle + " v" + Version;
             if (ActiveMod != null) Text += " [" + ActiveMod.Name + "] ";
 
@@ -491,7 +560,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         {
             if (Packer != null && (Packer.Status == TaskStatus.Running || Packer.Status == TaskStatus.WaitingToRun ||
                                    Packer.Status == TaskStatus.WaitingForActivation))
-                MessageBox.Show("Packing task already running. Please wait!", "WolvenKit", MessageBoxButtons.OK,
+                XtraMessageBox.Show("Packing task already running. Please wait!", "WolvenKit", MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             else
                 Packer = PackAndInstallMod();
@@ -501,7 +570,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         {
             if (Packer != null && (Packer.Status == TaskStatus.Running || Packer.Status == TaskStatus.WaitingToRun ||
                                    Packer.Status == TaskStatus.WaitingForActivation))
-                MessageBox.Show("Packing task already running. Please wait!", "WolvenKit", MessageBoxButtons.OK,
+                XtraMessageBox.Show("Packing task already running. Please wait!", "WolvenKit", MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             else
                 Packer = QuickBuild();
@@ -584,7 +653,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 return;
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {
-                MessageBox.Show(@"Game is already running!", string.Empty, MessageBoxButtons.OK,
+                XtraMessageBox.Show(@"Game is already running!", string.Empty, MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 return;
             }
@@ -757,7 +826,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             {
                 if (dlg.FileName.Contains(' '))
                 {
-                    MessageBox.Show(
+                    XtraMessageBox.Show(
                         @"The mod path should not contain spaces because wcc_lite.exe will have trouble with that.",
                         "Invalid path");
                     continue;
@@ -774,7 +843,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to create mod directory: \n" + moddir + "\n\n" + ex.Message);
+                    XtraMessageBox.Show("Failed to create mod directory: \n" + moddir + "\n\n" + ex.Message);
                     return;
                 }
 
@@ -833,7 +902,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 {
                     //This is an old "Sarcen's W3Edit"-project. We need to upgrade it.
                     //Put the files into their respective folder.
-                    switch (MessageBox.Show(
+                    switch (XtraMessageBox.Show(
                         "The project you are opening has been made with an older version of Wolven Kit or Sarcen's Witcher 3 Edit.\nIt needs to be upgraded for use with Wolvenkit.\nTo load as a mod please press yes. To load as a DLC project please press no.\n You can manually do the upgrade if you check the project structure: https://github.com/Traderain/Wolven-kit/wiki/Project-structure press cancel if you desire to do so. This may not always work but I tried my best.",
                         "Out of date project", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
@@ -898,7 +967,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to upgrade the project!\n" + ex, "Error", MessageBoxButtons.OK,
+                XtraMessageBox.Show("Failed to upgrade the project!\n" + ex, "Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
 
@@ -1087,7 +1156,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 catch (Exception)
                 {
                     if (!suppressErrors)
-                        MessageBox.Show(this, ex.Message, @"Error opening file.");
+                        XtraMessageBox.Show(this, ex.Message, @"Error opening file.");
                 }
 
                 OpenDocuments.Remove(doc);
@@ -1097,7 +1166,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             catch (MissingTypeException ex)
             {
                 if (!suppressErrors)
-                    MessageBox.Show(this, ex.Message, @"Error opening file.");
+                    XtraMessageBox.Show(this, ex.Message, @"Error opening file.");
 
                 OpenDocuments.Remove(doc);
                 doc.Dispose();
@@ -1142,7 +1211,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                         CHandle mesh = doc.File.chunks[2].GetVariableByName("mesh") as CHandle;
                         var docW2Mesh = LoadDocument(Path.GetDirectoryName(filename) + @"\model\" + Path.GetFileName(mesh.Handle));
                         if (docW2Mesh == null)
-                            MessageBox.Show(".w2mesh file not found in model folder!" + "\n" + "Have you extracted it properly?");
+                            XtraMessageBox.Show(".w2mesh file not found in model folder!" + "\n" + "Have you extracted it properly?");
                         break;
                     }*/
                 case ".w2mesh":
@@ -1369,7 +1438,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         {
             richpresenceworker.CancelAsync();
             if (MainController.Get().ProjectUnsaved)
-                if (MessageBox.Show("There are unsaved changes in your project. Would you like to save them?",
+                if (XtraMessageBox.Show("There are unsaved changes in your project. Would you like to save them?",
                         "WolvenKit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     saveAllFiles();
 
@@ -1486,21 +1555,13 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             if (getparams.ShowDialog() == DialogResult.OK) executeGame(getparams.Resulttext);
         }
 
-        private void donateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-                "Thank you! Every last bit helps and everything donated is distributed between the core developers evenly.",
-                "Thank you", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Process.Start("https://www.paypal.me/traderain");
-        }
-
         private void Assetbrowser_FileAdd(object sender,
             Tuple<List<IWitcherArchive>, List<WitcherListViewItem>, bool> Details)
         {
             ModExplorer.PauseMonitoring();
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {
-                MessageBox.Show(@"Please close The Witcher 3 before tinkering with the files!", string.Empty,
+                XtraMessageBox.Show(@"Please close The Witcher 3 before tinkering with the files!", string.Empty,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -1563,16 +1624,10 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         {
             var filename = e.File;
 
-            if (MessageBox.Show(
+            if (XtraMessageBox.Show(
                     "Are you sure you want to permanently delete this?", "Confirmation", MessageBoxButtons.OKCancel
                 ) == DialogResult.OK)
                 removeFromMod(filename);
-        }
-
-
-        private void modExplorerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowModExplorer();
         }
 
 
@@ -1618,65 +1673,11 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         }
 
 
-        private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var cf = new frmAbout())
-            {
-                cf.ShowDialog();
-            }
-        }
-
-
-        private void joinOurDiscordToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(@"Are you sure you would like to join the modding discord?", @"Confirmation",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
-                Process.Start("https://discord.gg/KnPMmBz");
-        }
-
-        private void OutputToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowOutput();
-        }
-
-        private void WitcherScriptToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://witcherscript.readthedocs.io");
-        }
-
-
         private void barButtonItemAddModFile_ItemClick(object sender, ItemClickEventArgs e)
         {
             AddModFile(true);
         }
 
-
-        private void witcherIIIModdingToolLicenseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var wcclicense = new frmWCCLicense();
-            wcclicense.Show();
-        }
-
-
-        private void RecordStepsToReproduceBugToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(
-                    @"This will launch an app that will help you record the steps needed to reproduce the bug/problem.
-After its done it saves a zip file.
-Please send that to hambalko.bence@gmail.com with a short description about the problem.
-Would you like to open the problem steps recorder?", "Bug reporting", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes)
-                Process.Start("psr.exe");
-        }
-
-        private void ReportABugToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("When reporting a bug please create a reproducion file at Help->Record steps to reproduce.",
-                "Bug reporting",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Process.Start(
-                $"mailto:{"hambalko.bence@gmail.com"}?Subject={"WolvenKit bug report"}&Body={"Short description of bug:"}");
-        }
 
         #endregion
 
@@ -1693,7 +1694,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
                 return;
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {
-                MessageBox.Show("Please close The Witcher 3 before tinkering with the files!", string.Empty,
+                XtraMessageBox.Show("Please close The Witcher 3 before tinkering with the files!", string.Empty,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -1725,7 +1726,7 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
                     if (stringsGui.AreHashesDifferent())
                     {
                         var result =
-                            MessageBox.Show(
+                            XtraMessageBox.Show(
                                 "There are not encoded CSV files in your mod, do you want to open Strings Encoder GUI?",
                                 string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
