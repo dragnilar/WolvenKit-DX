@@ -33,30 +33,20 @@ namespace WolvenKit
     {
         public static Task Packer;
         private readonly string BaseTitle = "Wolven kit";
-        private readonly HotkeyCollection hotkeys;
+        private readonly HotkeyCollection _hotKeys;
 
         public frmMain()
         {
             InitializeComponent();
             UpdateTitle();
             MainController.Get().PropertyChanged += MainControllerUpdated;
-
-            #region Load recent files into toolstrip
-
-            if (File.Exists("recent_files.xml"))
-            {
-                var doc = XDocument.Load("recent_files.xml");
-            }
-
-            #endregion
-
-            hotkeys = new HotkeyCollection(Enums.Scope.Application);
-            hotkeys.RegisterHotkey(Keys.Control | Keys.S, HKSave, "Save");
-            hotkeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.S, HKSaveAll, "SaveAll");
-            hotkeys.RegisterHotkey(Keys.F1, HKHelp, "Help");
-            hotkeys.RegisterHotkey(Keys.Control | Keys.C, HKCopy, "Copy");
-            hotkeys.RegisterHotkey(Keys.Control | Keys.V, HKPaste, "Paste");
-            hotkeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.B, HKPackProject, "PackProject");
+            _hotKeys = new HotkeyCollection(Enums.Scope.Application);
+            _hotKeys.RegisterHotkey(Keys.Control | Keys.S, HKSave, "Save");
+            _hotKeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.S, HKSaveAll, "SaveAll");
+            _hotKeys.RegisterHotkey(Keys.F1, HKHelp, "Help");
+            _hotKeys.RegisterHotkey(Keys.Control | Keys.C, HKCopy, "Copy");
+            _hotKeys.RegisterHotkey(Keys.Control | Keys.V, HKPaste, "Paste");
+            _hotKeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.B, HKPackProject, "PackProject");
             MainController.Get().InitForm(this);
         }
 
@@ -73,43 +63,6 @@ namespace WolvenKit
         public string Version => FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
 
 
-        private void ModWwiseNew_Click(object sender, EventArgs e)
-        {
-            using (var of = new OpenFileDialog())
-            {
-                of.Multiselect = true;
-                of.Filter = "Wwise files | *.wem;*.bnk";
-                of.Title = "Please select the wwise bank and sound files for importing them into your mod";
-                if (of.ShowDialog() == DialogResult.OK)
-                    foreach (var f in of.FileNames)
-                    {
-                        var newfilepath = Path.Combine(ActiveMod.ModDirectory, new SoundManager().TypeName,
-                            Path.GetFileName(f));
-                        //Create the directory because it will crash if it doesn't exist.
-                        Directory.CreateDirectory(Path.GetDirectoryName(newfilepath));
-                        File.Copy(f, newfilepath, true);
-                    }
-            }
-        }
-
-        private void DLCWwise_Click(object sender, EventArgs e)
-        {
-            using (var of = new OpenFileDialog())
-            {
-                of.Multiselect = true;
-                of.Filter = "Wwise files | *.wem;*.bnk";
-                of.Title = "Please select the wwise bank and sound files for importing them into your DLC";
-                if (of.ShowDialog() == DialogResult.OK)
-                    foreach (var f in of.FileNames)
-                    {
-                        var newfilepath = Path.Combine(ActiveMod.DlcDirectory, new SoundManager().TypeName, "dlc",
-                            ActiveMod.Name, Path.GetFileName(f));
-                        //Create the directory because it will crash if it doesn't exist.
-                        Directory.CreateDirectory(Path.GetDirectoryName(newfilepath));
-                        File.Copy(f, newfilepath, true);
-                    }
-            }
-        }
 
         private void barButtonItemFBXCollisons_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -159,6 +112,98 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
         }
 
+        private void barButtonItemScriptMod_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (ActiveMod == null)
+                return;
+
+            var scriptsdirectory = ActiveMod.ModDirectory + "\\scripts\\local";
+            if (!Directory.Exists(scriptsdirectory)) Directory.CreateDirectory(scriptsdirectory);
+            var fullPath = scriptsdirectory + "\\" + "blank_script.ws";
+            var count = 1;
+            var fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
+            var extension = Path.GetExtension(fullPath);
+            var path = Path.GetDirectoryName(fullPath);
+            var newFullPath = fullPath;
+            while (File.Exists(newFullPath))
+            {
+                var tempFileName = $"{fileNameOnly}({count++})";
+                if (path != null) newFullPath = Path.Combine(path, tempFileName + extension);
+            }
+
+            File.WriteAllLines(newFullPath,
+                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
+        }
+
+        private void barButtonItemWwiseMod_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var of = new OpenFileDialog())
+            {
+                of.Multiselect = true;
+                of.Filter = "Wwise files | *.wem;*.bnk";
+                of.Title = "Please select the wwise bank and sound files for importing them into your mod";
+                if (of.ShowDialog() == DialogResult.OK)
+                    foreach (var f in of.FileNames)
+                    {
+                        var newfilepath = Path.Combine(ActiveMod.ModDirectory, new SoundManager().TypeName,
+                            Path.GetFileName(f));
+                        //Create the directory because it will crash if it doesn't exist.
+                        Directory.CreateDirectory(Path.GetDirectoryName(newfilepath));
+                        File.Copy(f, newfilepath, true);
+                    }
+            }
+        }
+
+        private void barButtonItemChunkFileMod_ItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
+
+        private void barButtonItemScriptDLC_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (ActiveMod == null)
+                return;
+
+            var scriptsdirectory = ActiveMod.DlcDirectory + "\\scripts\\local";
+            if (!Directory.Exists(scriptsdirectory)) Directory.CreateDirectory(scriptsdirectory);
+            var fullPath = scriptsdirectory + "\\" + "blank_script.ws";
+            var count = 1;
+            var fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
+            var extension = Path.GetExtension(fullPath);
+            var path = Path.GetDirectoryName(fullPath);
+            var newFullPath = fullPath;
+            while (File.Exists(newFullPath))
+            {
+                var tempFileName = $"{fileNameOnly}({count++})";
+                if (path != null) newFullPath = Path.Combine(path, tempFileName + extension);
+            }
+
+            File.WriteAllLines(newFullPath,
+                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
+        }
+
+        private void barButtonItemWwiseDLC_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var of = new OpenFileDialog())
+            {
+                of.Multiselect = true;
+                of.Filter = "Wwise files | *.wem;*.bnk";
+                of.Title = "Please select the wwise bank and sound files for importing them into your DLC";
+                if (of.ShowDialog() == DialogResult.OK)
+                    foreach (var f in of.FileNames)
+                    {
+                        var newfilepath = Path.Combine(ActiveMod.DlcDirectory, new SoundManager().TypeName, "dlc",
+                            ActiveMod.Name, Path.GetFileName(f));
+                        //Create the directory because it will crash if it doesn't exist.
+                        Directory.CreateDirectory(Path.GetDirectoryName(newfilepath));
+                        File.Copy(f, newfilepath, true);
+                    }
+            }
+        }
+
+        private void barButtonItemChunkFileDLC_ItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
+
         private delegate void strDelegate(string t);
 
         private delegate void logDelegate(string t, frmOutput.Logtype type);
@@ -186,7 +231,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
         #region Methods
 
         /// <summary>
-        ///     Occurs when something in the maincontroller is updated that is INotifyProeprtyChanged
+        ///     Occurs when something in the maincontroller is updated that is INotifyPropertyChanged
         ///     Thread safe and always should be
         /// </summary>
         /// <param name="sender"></param>
@@ -288,10 +333,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             MainController.Get().ProjectStatus = "Saved";
         }
 
-        private void btPack_Click(object sender, EventArgs e)
-        {
-            PackProject();
-        }
 
         private void ClearOutput()
         {
@@ -609,7 +650,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 ResetWindows();
                 UpdateModFileList(true);
                 SaveMod();
-                AddOutput("\"" + ActiveMod.Name + "\" sucesfully created and loaded!\n");
+                AddOutput("\"" + ActiveMod.Name + "\" successfully created and loaded!\n");
                 break;
             }
         }
@@ -1096,8 +1137,12 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 proc.RedirectStandardOutput = true;
                 proc.WindowStyle = ProcessWindowStyle.Hidden;
                 proc.CreateNoWindow = true;
-                if (!Directory.Exists(Path.GetDirectoryName(outfile)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(outfile));
+                if (string.IsNullOrWhiteSpace(outfile))
+                {
+                    AddOutput("The output directory is blank/empty, stopping import.", frmOutput.Logtype.Error);
+                }
+                Directory.CreateDirectory(Path.GetDirectoryName(outfile));
+
                 AddOutput("Executing " + proc.FileName + " " + proc.Arguments + "\n", frmOutput.Logtype.Important);
 
                 using (var process = Process.Start(proc))
@@ -1128,7 +1173,7 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         #endregion //Methods
 
-        #region  Control events
+        #region Control events
 
         private void richpresenceworker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -1187,22 +1232,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
         }
 
-        private void nvidiaClothFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var of = new OpenFileDialog())
-            {
-                of.Title = "Please select your cloth file for importing";
-                of.Filter = "APB files | *.apb";
-                if (of.ShowDialog() == DialogResult.OK)
-                    using (var sf = new SaveFileDialog())
-                    {
-                        sf.Filter = "Witcher 3 cloth file | *.redcloth";
-                        sf.Title = "Please specify a location to save the imported file";
-                        sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
-                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
-                    }
-            }
-        }
 
         private void dockPanel_ActiveDocumentChanged(object sender, EventArgs e)
         {
@@ -1437,10 +1466,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             ShowModExplorer();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
 
         private void saveActiveFile()
@@ -1538,16 +1563,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             }
         }
 
-        private void addFileToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            var dlg = new OpenFileDialog {Title = "Open CR2W File"};
-            dlg.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                MainController.Get().Configuration.InitialFileDirectory = Path.GetDirectoryName(dlg.FileName);
-                LoadDocument(dlg.FileName);
-            }
-        }
 
         private void packageInstallerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1624,62 +1639,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
             wcclicense.Show();
         }
 
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveActiveFile();
-        }
-
-        private void SaveAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveAllFiles();
-        }
-
-        private void DLCScriptToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (ActiveMod == null)
-                return;
-
-            var scriptsdirectory = ActiveMod.DlcDirectory + "\\scripts\\local";
-            if (!Directory.Exists(scriptsdirectory)) Directory.CreateDirectory(scriptsdirectory);
-            var fullPath = scriptsdirectory + "\\" + "blank_script.ws";
-            var count = 1;
-            var fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
-            var extension = Path.GetExtension(fullPath);
-            var path = Path.GetDirectoryName(fullPath);
-            var newFullPath = fullPath;
-            while (File.Exists(newFullPath))
-            {
-                var tempFileName = $"{fileNameOnly}({count++})";
-                if (path != null) newFullPath = Path.Combine(path, tempFileName + extension);
-            }
-
-            File.WriteAllLines(newFullPath,
-                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
-        }
-
-        private void ModscriptToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (ActiveMod == null)
-                return;
-
-            var scriptsdirectory = ActiveMod.ModDirectory + "\\scripts\\local";
-            if (!Directory.Exists(scriptsdirectory)) Directory.CreateDirectory(scriptsdirectory);
-            var fullPath = scriptsdirectory + "\\" + "blank_script.ws";
-            var count = 1;
-            var fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
-            var extension = Path.GetExtension(fullPath);
-            var path = Path.GetDirectoryName(fullPath);
-            var newFullPath = fullPath;
-            while (File.Exists(newFullPath))
-            {
-                var tempFileName = $"{fileNameOnly}({count++})";
-                if (path != null) newFullPath = Path.Combine(path, tempFileName + extension);
-            }
-
-            File.WriteAllLines(newFullPath,
-                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
-        }
-
         private void menuCreatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var fmc = new frmMenuCreator())
@@ -1687,7 +1646,6 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
                 fmc.ShowDialog();
             }
         }
-
         private void renderW2meshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (bool.Parse(renderW2meshToolStripMenuItem.Tag.ToString()))
@@ -1704,12 +1662,10 @@ _col - for simple stuff like boxes and spheres", "Information about importing mo
 
         private void RecordStepsToReproduceBugToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
-                    @"This will launch an app that will help you record the steps needed to reproduce the bug/problem.
+            if (MessageBox.Show(@"This will launch an app that will help you record the steps needed to reproduce the bug/problem.
 After its done it saves a zip file.
 Please send that to hambalko.bence@gmail.com with a short description about the problem.
-Would you like to open the problem steps recorder?", "Bug reporting", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes)
+Would you like to open the problem steps recorder?", "Bug reporting", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 Process.Start("psr.exe");
         }
 
@@ -1728,18 +1684,14 @@ Would you like to open the problem steps recorder?", "Bug reporting", MessageBox
             gdb.Show();
         }
 
-        private void RecentFile_click(object sender, EventArgs e)
-        {
-            openMod(sender.ToString());
-        }
 
         #endregion
 
         #region Mod Pack
 
-        public async Task QuickBuild(bool install = true)
+        public async Task QuickBuild()
         {
-            var packer = PackAndInstallMod(true, false);
+            await PackAndInstallMod(true, false);
         }
 
         public async Task PackAndInstallMod(bool install = true, bool showForm = true)

@@ -35,20 +35,6 @@ namespace WolvenKit
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ModscriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modwwise = new System.Windows.Forms.ToolStripMenuItem();
-            this.ModchunkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DLCScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dlcwwise = new System.Windows.Forms.ToolStripMenuItem();
-            this.DLCChunkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createPackedInstallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,18 +85,29 @@ namespace WolvenKit
             this.barButtonItemQuickBuild = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemAddModFile = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemImport = new DevExpress.XtraBars.BarButtonItem();
+            this.popupMenuImport = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barButtonItemFBXCollisons = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemNvidiaClothFile = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemExport = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBuild = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.popupMenuImport = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.barButtonItemFBXCollisons = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemNvidiaClothFile = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemAddNewFile = new DevExpress.XtraBars.BarButtonItem();
+            this.popupMenuNewFile = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barSubItemMod = new DevExpress.XtraBars.BarSubItem();
+            this.barSubItemDLC = new DevExpress.XtraBars.BarSubItem();
+            this.barButtonItemScriptMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemWwiseMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemChunkFileMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemScriptDLC = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemWwiseDLC = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemChunkFileDLC = new DevExpress.XtraBars.BarButtonItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuNewFile)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -118,7 +115,6 @@ namespace WolvenKit
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
             this.modToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.viewToolStripMenuItem,
@@ -130,119 +126,6 @@ namespace WolvenKit
             this.menuStrip1.Size = new System.Drawing.Size(1280, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "topMS";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator6,
-            this.newFileToolStripMenuItem,
-            this.toolStripSeparator8,
-            this.toolStripSeparator3,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(181, 6);
-            // 
-            // newFileToolStripMenuItem
-            // 
-            this.newFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.modToolStripMenuItem1,
-            this.dLCToolStripMenuItem});
-            this.newFileToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.FileGroup_10135_16x;
-            this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.newFileToolStripMenuItem.Text = "New file";
-            // 
-            // modToolStripMenuItem1
-            // 
-            this.modToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ModscriptToolStripMenuItem,
-            this.modwwise,
-            this.ModchunkToolStripMenuItem});
-            this.modToolStripMenuItem1.Name = "modToolStripMenuItem1";
-            this.modToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
-            this.modToolStripMenuItem1.Text = "Mod";
-            // 
-            // ModscriptToolStripMenuItem
-            // 
-            this.ModscriptToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.FileGroup_10135_16x;
-            this.ModscriptToolStripMenuItem.Name = "ModscriptToolStripMenuItem";
-            this.ModscriptToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.ModscriptToolStripMenuItem.Text = "Script";
-            this.ModscriptToolStripMenuItem.Click += new System.EventHandler(this.ModscriptToolStripMenuItem_Click);
-            // 
-            // modwwise
-            // 
-            this.modwwise.Image = global::WolvenKit.Properties.Resources.bug;
-            this.modwwise.Name = "modwwise";
-            this.modwwise.Size = new System.Drawing.Size(178, 22);
-            this.modwwise.Text = "Wwise sound(bank)";
-            this.modwwise.Click += new System.EventHandler(this.ModWwiseNew_Click);
-            // 
-            // ModchunkToolStripMenuItem
-            // 
-            this.ModchunkToolStripMenuItem.Enabled = false;
-            this.ModchunkToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.AddNodefromFile_354;
-            this.ModchunkToolStripMenuItem.Name = "ModchunkToolStripMenuItem";
-            this.ModchunkToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.ModchunkToolStripMenuItem.Text = "Chunk file";
-            // 
-            // dLCToolStripMenuItem
-            // 
-            this.dLCToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DLCScriptToolStripMenuItem,
-            this.dlcwwise,
-            this.DLCChunkToolStripMenuItem});
-            this.dLCToolStripMenuItem.Name = "dLCToolStripMenuItem";
-            this.dLCToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
-            this.dLCToolStripMenuItem.Text = "DLC";
-            // 
-            // DLCScriptToolStripMenuItem
-            // 
-            this.DLCScriptToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.FileGroup_10135_16x;
-            this.DLCScriptToolStripMenuItem.Name = "DLCScriptToolStripMenuItem";
-            this.DLCScriptToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.DLCScriptToolStripMenuItem.Text = "Script";
-            this.DLCScriptToolStripMenuItem.Click += new System.EventHandler(this.DLCScriptToolStripMenuItem_Click);
-            // 
-            // dlcwwise
-            // 
-            this.dlcwwise.Image = global::WolvenKit.Properties.Resources.bug;
-            this.dlcwwise.Name = "dlcwwise";
-            this.dlcwwise.Size = new System.Drawing.Size(178, 22);
-            this.dlcwwise.Text = "Wwise sound(bank)";
-            this.dlcwwise.Click += new System.EventHandler(this.DLCWwise_Click);
-            // 
-            // DLCChunkToolStripMenuItem
-            // 
-            this.DLCChunkToolStripMenuItem.Enabled = false;
-            this.DLCChunkToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.AddNodefromFile_354;
-            this.DLCChunkToolStripMenuItem.Name = "DLCChunkToolStripMenuItem";
-            this.DLCChunkToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.DLCChunkToolStripMenuItem.Text = "Chunk file";
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(181, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(181, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.exclamation_red;
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // modToolStripMenuItem
             // 
@@ -552,9 +435,18 @@ namespace WolvenKit
             this.barButtonItemImport,
             this.barButtonItemExport,
             this.barButtonItemFBXCollisons,
-            this.barButtonItemNvidiaClothFile});
+            this.barButtonItemNvidiaClothFile,
+            this.barButtonItemAddNewFile,
+            this.barSubItemMod,
+            this.barSubItemDLC,
+            this.barButtonItemScriptMod,
+            this.barButtonItemWwiseMod,
+            this.barButtonItemChunkFileMod,
+            this.barButtonItemScriptDLC,
+            this.barButtonItemWwiseDLC,
+            this.barButtonItemChunkFileDLC});
             this.ribbonControlMain.Location = new System.Drawing.Point(0, 24);
-            this.ribbonControlMain.MaxItemId = 19;
+            this.ribbonControlMain.MaxItemId = 30;
             this.ribbonControlMain.Name = "ribbonControlMain";
             this.ribbonControlMain.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageHome});
@@ -690,9 +582,29 @@ namespace WolvenKit
             this.barButtonItemImport.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemImport.ImageOptions.SvgImage")));
             this.barButtonItemImport.Name = "barButtonItemImport";
             // 
+            // popupMenuImport
+            // 
+            this.popupMenuImport.ItemLinks.Add(this.barButtonItemFBXCollisons);
+            this.popupMenuImport.ItemLinks.Add(this.barButtonItemNvidiaClothFile);
+            this.popupMenuImport.Name = "popupMenuImport";
+            this.popupMenuImport.Ribbon = this.ribbonControlMain;
+            // 
+            // barButtonItemFBXCollisons
+            // 
+            this.barButtonItemFBXCollisons.Caption = "FBX With Collisons";
+            this.barButtonItemFBXCollisons.Id = 17;
+            this.barButtonItemFBXCollisons.Name = "barButtonItemFBXCollisons";
+            this.barButtonItemFBXCollisons.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemFBXCollisons_ItemClick);
+            // 
+            // barButtonItemNvidiaClothFile
+            // 
+            this.barButtonItemNvidiaClothFile.Caption = "Nvidia Cloth File";
+            this.barButtonItemNvidiaClothFile.Id = 18;
+            this.barButtonItemNvidiaClothFile.Name = "barButtonItemNvidiaClothFile";
+            this.barButtonItemNvidiaClothFile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemNvidiaClothFile_ItemClick);
+            // 
             // barButtonItemExport
             // 
-            this.barButtonItemExport.ActAsDropDown = true;
             this.barButtonItemExport.Caption = "Export";
             this.barButtonItemExport.Id = 16;
             this.barButtonItemExport.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemExport.ImageOptions.SvgImage")));
@@ -714,6 +626,7 @@ namespace WolvenKit
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemRecent);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemSave);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemSaveAll);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemAddNewFile);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemAddFileFromBundle);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemAddModFile);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemImport);
@@ -729,26 +642,90 @@ namespace WolvenKit
             this.ribbonPageGroupBuild.Name = "ribbonPageGroupBuild";
             this.ribbonPageGroupBuild.Text = "Build";
             // 
-            // popupMenuImport
+            // barButtonItemAddNewFile
             // 
-            this.popupMenuImport.ItemLinks.Add(this.barButtonItemFBXCollisons);
-            this.popupMenuImport.ItemLinks.Add(this.barButtonItemNvidiaClothFile);
-            this.popupMenuImport.Name = "popupMenuImport";
-            this.popupMenuImport.Ribbon = this.ribbonControlMain;
+            this.barButtonItemAddNewFile.ActAsDropDown = true;
+            this.barButtonItemAddNewFile.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+            this.barButtonItemAddNewFile.Caption = "Add New File";
+            this.barButtonItemAddNewFile.DropDownControl = this.popupMenuNewFile;
+            this.barButtonItemAddNewFile.Id = 19;
+            this.barButtonItemAddNewFile.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemAddNewFile.ImageOptions.SvgImage")));
+            this.barButtonItemAddNewFile.Name = "barButtonItemAddNewFile";
             // 
-            // barButtonItemFBXCollisons
+            // popupMenuNewFile
             // 
-            this.barButtonItemFBXCollisons.Caption = "FBX With Collisons";
-            this.barButtonItemFBXCollisons.Id = 17;
-            this.barButtonItemFBXCollisons.Name = "barButtonItemFBXCollisons";
-            this.barButtonItemFBXCollisons.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemFBXCollisons_ItemClick);
+            this.popupMenuNewFile.ItemLinks.Add(this.barSubItemMod);
+            this.popupMenuNewFile.ItemLinks.Add(this.barSubItemDLC);
+            this.popupMenuNewFile.Name = "popupMenuNewFile";
+            this.popupMenuNewFile.Ribbon = this.ribbonControlMain;
             // 
-            // barButtonItemNvidiaClothFile
+            // barSubItemMod
             // 
-            this.barButtonItemNvidiaClothFile.Caption = "Nvidia Cloth File";
-            this.barButtonItemNvidiaClothFile.Id = 18;
-            this.barButtonItemNvidiaClothFile.Name = "barButtonItemNvidiaClothFile";
-            this.barButtonItemNvidiaClothFile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemNvidiaClothFile_ItemClick);
+            this.barSubItemMod.Caption = "Mod";
+            this.barSubItemMod.Id = 22;
+            this.barSubItemMod.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemScriptMod),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemWwiseMod),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemChunkFileMod)});
+            this.barSubItemMod.Name = "barSubItemMod";
+            // 
+            // barSubItemDLC
+            // 
+            this.barSubItemDLC.Caption = "DLC";
+            this.barSubItemDLC.Id = 23;
+            this.barSubItemDLC.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemScriptDLC),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemWwiseDLC),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemChunkFileDLC)});
+            this.barSubItemDLC.Name = "barSubItemDLC";
+            // 
+            // barButtonItemScriptMod
+            // 
+            this.barButtonItemScriptMod.Caption = "Script";
+            this.barButtonItemScriptMod.Id = 24;
+            this.barButtonItemScriptMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemScriptMod.ImageOptions.SvgImage")));
+            this.barButtonItemScriptMod.Name = "barButtonItemScriptMod";
+            this.barButtonItemScriptMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemScriptMod_ItemClick);
+            // 
+            // barButtonItemWwiseMod
+            // 
+            this.barButtonItemWwiseMod.Caption = "Wwise Sound(bank)";
+            this.barButtonItemWwiseMod.Id = 25;
+            this.barButtonItemWwiseMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemWwiseMod.ImageOptions.SvgImage")));
+            this.barButtonItemWwiseMod.Name = "barButtonItemWwiseMod";
+            this.barButtonItemWwiseMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemWwiseMod_ItemClick);
+            // 
+            // barButtonItemChunkFileMod
+            // 
+            this.barButtonItemChunkFileMod.Caption = "Chunk file";
+            this.barButtonItemChunkFileMod.Id = 26;
+            this.barButtonItemChunkFileMod.Name = "barButtonItemChunkFileMod";
+            this.barButtonItemChunkFileMod.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.barButtonItemChunkFileMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemChunkFileMod_ItemClick);
+            // 
+            // barButtonItemScriptDLC
+            // 
+            this.barButtonItemScriptDLC.Caption = "Script";
+            this.barButtonItemScriptDLC.Id = 27;
+            this.barButtonItemScriptDLC.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemScriptDLC.ImageOptions.SvgImage")));
+            this.barButtonItemScriptDLC.Name = "barButtonItemScriptDLC";
+            this.barButtonItemScriptDLC.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemScriptDLC_ItemClick);
+            // 
+            // barButtonItemWwiseDLC
+            // 
+            this.barButtonItemWwiseDLC.Caption = "WWise Sound(bank)";
+            this.barButtonItemWwiseDLC.Id = 28;
+            this.barButtonItemWwiseDLC.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemWwiseDLC.ImageOptions.SvgImage")));
+            this.barButtonItemWwiseDLC.Name = "barButtonItemWwiseDLC";
+            this.barButtonItemWwiseDLC.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemWwiseDLC_ItemClick);
+            // 
+            // barButtonItemChunkFileDLC
+            // 
+            this.barButtonItemChunkFileDLC.Caption = "Chunk file";
+            this.barButtonItemChunkFileDLC.Id = 29;
+            this.barButtonItemChunkFileDLC.Name = "barButtonItemChunkFileDLC";
+            this.barButtonItemChunkFileDLC.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.barButtonItemChunkFileDLC.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemChunkFileDLC_ItemClick);
             // 
             // frmMain
             // 
@@ -778,6 +755,7 @@ namespace WolvenKit
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuNewFile)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -785,7 +763,6 @@ namespace WolvenKit
 
         #endregion
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem modToolStripMenuItem;
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem toolsToolStripMenuItem;
@@ -797,8 +774,6 @@ namespace WolvenKit
         private ToolStripMenuItem aboutRedkit2ToolStripMenuItem;
         private ToolStripMenuItem joinOurDiscordToolStripMenuItem;
         private DockPanel dockPanel;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem outputToolStripMenuItem;
         private ToolStripMenuItem tutorialsToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator4;
@@ -807,10 +782,7 @@ namespace WolvenKit
         private ToolStripMenuItem createPackedInstallerToolStripMenuItem;
         private ToolStripMenuItem witcherIIIModdingToolLicenseToolStripMenuItem;
         private ToolStripMenuItem buildDateToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator6;
-        private ToolStripMenuItem newFileToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator7;
-        private ToolStripSeparator toolStripSeparator8;
 		private ToolStripMenuItem stringsEncoderGUIToolStripMenuItem;
         private ToolStripMenuItem menuCreatorToolStripMenuItem;
         private ToolStripMenuItem recordStepsToReproduceBugToolStripMenuItem;
@@ -821,17 +793,9 @@ namespace WolvenKit
         private ToolStripLabel statusLBL;
         private ToolStripSeparator toolStripSeparator9;
         private ToolStripProgressBar toolStripProgressBar1;
-        private ToolStripMenuItem modToolStripMenuItem1;
-        private ToolStripMenuItem ModscriptToolStripMenuItem;
-        private ToolStripMenuItem ModchunkToolStripMenuItem;
-        private ToolStripMenuItem dLCToolStripMenuItem;
-        private ToolStripMenuItem DLCScriptToolStripMenuItem;
-        private ToolStripMenuItem DLCChunkToolStripMenuItem;
         private ToolStripMenuItem donateToolStripMenuItem;
         private ToolStripMenuItem renderW2meshToolStripMenuItem;
         private ToolStripMenuItem dumpFileToolStripMenuItem;
-        private ToolStripMenuItem modwwise;
-        private ToolStripMenuItem dlcwwise;
         private BackgroundWorker richpresenceworker;
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControlMain;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageHome;
@@ -856,5 +820,15 @@ namespace WolvenKit
         private DevExpress.XtraBars.PopupMenu popupMenuImport;
         private DevExpress.XtraBars.BarButtonItem barButtonItemFBXCollisons;
         private DevExpress.XtraBars.BarButtonItem barButtonItemNvidiaClothFile;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemAddNewFile;
+        private DevExpress.XtraBars.PopupMenu popupMenuNewFile;
+        private DevExpress.XtraBars.BarSubItem barSubItemMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemScriptMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemWwiseMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemChunkFileMod;
+        private DevExpress.XtraBars.BarSubItem barSubItemDLC;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemScriptDLC;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemWwiseDLC;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemChunkFileDLC;
     }
 }
