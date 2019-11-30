@@ -32,6 +32,7 @@ namespace WolvenKit
         public Point MainLocation { get; set; }
         public FormWindowState MainState { get; set; }
         public string InitialExportDirectory { get; set; }
+        public string Palette { get; set; }
 
         [XmlIgnore] public string GameDLCDir => Path.Combine(ExecutablePath, @"..\..\DLC\");
 
