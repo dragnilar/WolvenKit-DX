@@ -106,6 +106,9 @@ namespace WolvenKit
             this.modExplorerControl = new WolvenKit.ModExplorer();
             this.documentManagerMain = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedViewMain = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.ribbonPageGroupOutput = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemSaveOutput = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).BeginInit();
@@ -178,9 +181,11 @@ namespace WolvenKit
             this.barButtonItemAboutWolvenkit,
             this.barButtonItemDonate,
             this.barStaticItemStatus,
-            this.barStaticItemBuildDate});
+            this.barStaticItemBuildDate,
+            this.barButtonItemClearOutput,
+            this.barButtonItemSaveOutput});
             this.ribbonControlMain.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControlMain.MaxItemId = 55;
+            this.ribbonControlMain.MaxItemId = 57;
             this.ribbonControlMain.Name = "ribbonControlMain";
             this.ribbonControlMain.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageHome,
@@ -601,7 +606,8 @@ namespace WolvenKit
             this.ribbonPageHome.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroupFile,
             this.ribbonPageGroupBuild,
-            this.ribbonPageGroupView});
+            this.ribbonPageGroupView,
+            this.ribbonPageGroupOutput});
             this.ribbonPageHome.Name = "ribbonPageHome";
             this.ribbonPageHome.Text = "Home";
             // 
@@ -787,6 +793,29 @@ namespace WolvenKit
             this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedViewMain});
             // 
+            // ribbonPageGroupOutput
+            // 
+            this.ribbonPageGroupOutput.ItemLinks.Add(this.barButtonItemClearOutput);
+            this.ribbonPageGroupOutput.ItemLinks.Add(this.barButtonItemSaveOutput);
+            this.ribbonPageGroupOutput.Name = "ribbonPageGroupOutput";
+            this.ribbonPageGroupOutput.Text = "Output Log";
+            // 
+            // barButtonItemClearOutput
+            // 
+            this.barButtonItemClearOutput.Caption = "Clear Output";
+            this.barButtonItemClearOutput.Id = 55;
+            this.barButtonItemClearOutput.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemClearOutput.ImageOptions.SvgImage")));
+            this.barButtonItemClearOutput.Name = "barButtonItemClearOutput";
+            this.barButtonItemClearOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemClearOutput_ItemClick);
+            // 
+            // barButtonItemSaveOutput
+            // 
+            this.barButtonItemSaveOutput.Caption = "Save Output";
+            this.barButtonItemSaveOutput.Id = 56;
+            this.barButtonItemSaveOutput.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemSaveOutput.ImageOptions.SvgImage")));
+            this.barButtonItemSaveOutput.Name = "barButtonItemSaveOutput";
+            this.barButtonItemSaveOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSaveOutput_ItemClick);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -896,5 +925,8 @@ namespace WolvenKit
         private ModExplorer modExplorerControl;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManagerMain;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedViewMain;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOutput;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemClearOutput;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemSaveOutput;
     }
 }

@@ -53,6 +53,18 @@ namespace WolvenKit
             UserLookAndFeel.Default.StyleChanged += DefaultOnStyleChanged;
         }
 
+        public W3Mod ActiveMod
+        {
+            get => MainController.Get().ActiveMod;
+            set
+            {
+                MainController.Get().ActiveMod = value;
+                UpdateTitle();
+            }
+        }
+
+        public string Version => FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+
         private void SetPalette()
         {
             var palette = Configuration.Load().Palette;
@@ -66,18 +78,6 @@ namespace WolvenKit
             MainController.Get().Configuration.Palette = UserLookAndFeel.Default.ActiveSvgPaletteName;
             MainController.Get().Configuration.Save();
         }
-
-        public W3Mod ActiveMod
-        {
-            get => MainController.Get().ActiveMod;
-            set
-            {
-                MainController.Get().ActiveMod = value;
-                UpdateTitle();
-            }
-        }
-
-        public string Version => FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
 
 
         private void barButtonItemFBXCollisons_ItemClick(object sender, ItemClickEventArgs e)
@@ -408,6 +408,16 @@ namespace WolvenKit
             Process.Start("https://www.paypal.me/traderain");
         }
 
+        private void barButtonItemClearOutput_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            outputViewControl.ClearDocument();
+        }
+
+        private void barButtonItemSaveOutput_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            outputViewControl.SaveDocument();
+        }
+
         private delegate void strDelegate(string t);
 
         private delegate void logDelegate(string t, OutputView.Logtype type);
@@ -511,7 +521,8 @@ namespace WolvenKit
 
         private void UpdateTitle()
         {
-            barStaticItemBuildDate.Caption = $"Build Date: {Assembly.GetExecutingAssembly().GetLinkerTime().ToString("yyyy MMMM dd")}";
+            barStaticItemBuildDate.Caption =
+                $"Build Date: {Assembly.GetExecutingAssembly().GetLinkerTime().ToString("yyyy MMMM dd")}";
             Text = BaseTitle + " v" + Version;
             if (ActiveMod != null) Text += " [" + ActiveMod.Name + "] ";
 
@@ -544,7 +555,6 @@ namespace WolvenKit
 
         private void AddOutput(string text, OutputView.Logtype type = OutputView.Logtype.Normal)
         {
-            
             if (outputViewControl != null && !outputViewControl.IsDisposed)
             {
                 if (string.IsNullOrWhiteSpace(text))
@@ -1406,7 +1416,7 @@ namespace WolvenKit
             WindowState = FormWindowState.Normal;
             config.MainSize = Size;
             config.MainLocation = Location;
-            
+
             //TODO - Add back in serializing the layout
         }
 
@@ -1419,7 +1429,6 @@ namespace WolvenKit
             WindowState = config.MainState;
             try
             {
-
                 //TODO - Add back in deserializing the layout
             }
             catch
@@ -1661,7 +1670,6 @@ namespace WolvenKit
         {
             AddModFile(true);
         }
-
 
         #endregion
 
