@@ -9,8 +9,7 @@ Examples of changes include:
 - Stand Alone version of the String Encoder GUI since I have to make a lot of string changes for my own mod.
 - The stand alone version of the String Encoder uses DevExpress' controls instead of the bare bones Windows Forms grid, which both looks better and allows for filtering, searching, sorting and an overall better user experience.
 - The Main Window uses DevExpress' dock layout manager instead of the one Traderain was using. This includes more docking capabilities, pinning and greater flexability for the user.
-- Both the Output view and Mod Explorer view are now user controls which use DevExpress' components instead of their base Windows Forms equivileants. 
--- I should note that the Mod Explorer currently does not have 100% parity with the original Wolven-Kit due to the fact that the DX XtraTreeList is not a direct parallel with its Windows Forms equivelant. Also the File I/O listener that Traderain was using has been disabled for the time being.
+- Both the Output view and Mod Explorer view are now user controls which use DevExpress' components instead of their base Windows Forms equivileants.* 
 - Refactored some of the code for String Encoder (stand alone only) so that it is easier to read and/or simplifed some of the logic.
 - Changed a couple instances of the Folder Selection Dialog that Tradearin was using so that it is using the Vista Folder Browser dialog instead of the old XP style dialog.
 - "Fixed" a few spots where Wolven-kit throws errors when it should be doing shell executes (I.E. image, witcher script files).
@@ -19,3 +18,6 @@ Examples of changes include:
 
 # Note / Shameless Advertisement: 
 Since this uses DevExpress, you will need a license for thier controls if you wish to build this solution. I have my own Universal Subscription license and strongly recommend that you get one from DevExpress if you love their components. They provide amazing technical support and offer probably some of the best looking components for desktop/web/mobile that money can buy. It is expensive, but its money well spent. 
+
+#Notes On Changes:
+- *: I should note that the Mod Explorer currently does not have 100% parity with the original Wolven-Kit due to the fact that the DX XtraTreeList is not a direct parallel with its Windows Forms equivelant. Also the File I/O listener that Traderain was using has been disabled for the time being.
