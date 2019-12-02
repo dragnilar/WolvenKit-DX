@@ -63,10 +63,8 @@ namespace WolvenKit
 
         private void DefaultOnStyleChanged(object sender, EventArgs e)
         {
-            var activePalette = UserLookAndFeel.Default.ActiveSvgPaletteName;
-            var config = Configuration.Load();
-            config.Palette = activePalette;
-            config.Save();
+            MainController.Get().Configuration.Palette = UserLookAndFeel.Default.ActiveSvgPaletteName;
+            MainController.Get().Configuration.Save();
         }
 
         public W3Mod ActiveMod
@@ -419,7 +417,6 @@ namespace WolvenKit
         private frmCR2WDocument _activedocument;
         public List<frmCR2WDocument> OpenDocuments = new List<frmCR2WDocument>();
         public frmStringsGui stringsGui;
-        public OutputView OutputView { get; set; }
 
         public frmCR2WDocument ActiveDocument
         {
@@ -541,18 +538,19 @@ namespace WolvenKit
 
         private void ClearOutput()
         {
-            if (OutputView != null && !OutputView.IsDisposed) OutputView.Clear();
+            if (outputViewControl != null && !outputViewControl.IsDisposed) outputViewControl.Clear();
             MainController.Get().ProjectStatus = "Output cleared";
         }
 
         private void AddOutput(string text, OutputView.Logtype type = OutputView.Logtype.Normal)
         {
-            if (OutputView != null && !OutputView.IsDisposed)
+            
+            if (outputViewControl != null && !outputViewControl.IsDisposed)
             {
                 if (string.IsNullOrWhiteSpace(text))
                     return;
 
-                OutputView.AddText(text, type);
+                outputViewControl.AddText(text, type);
             }
         }
 
@@ -1090,7 +1088,6 @@ namespace WolvenKit
             //    t.Activate();
             //    return null;
             //}
-            ClearAndHideMainDockPanel();
             var doc = new frmCR2WDocument();
             OpenDocuments.Add(doc);
 
@@ -1201,7 +1198,6 @@ namespace WolvenKit
             }
 
             //doc.Activated += doc_Activated;
-            ClearAndHideMainDockPanel();
             tabbedViewMain.AddDocument(doc);
             doc.Dock = DockStyle.Fill;
             //doc.FormClosed += doc_FormClosed;
