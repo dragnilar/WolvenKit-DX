@@ -15,7 +15,6 @@ using AutoUpdaterDotNET;
 using DevExpress.LookAndFeel;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
-using Dfust.Hotkeys;
 using SharpPresence;
 using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Bundles;
@@ -25,14 +24,12 @@ using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
 using WolvenKit.Render;
-using Enums = Dfust.Hotkeys.Enums;
 
 namespace WolvenKit
 {
     public partial class frmMain : XtraForm
     {
         public static Task Packer;
-        private readonly HotkeyCollection _hotKeys;
         private readonly string BaseTitle = "Wolven kit";
         private bool _renderW2Mesh;
 
@@ -41,13 +38,6 @@ namespace WolvenKit
             InitializeComponent();
             UpdateTitle();
             MainController.Get().PropertyChanged += MainControllerUpdated;
-            _hotKeys = new HotkeyCollection(Enums.Scope.Application);
-            _hotKeys.RegisterHotkey(Keys.Control | Keys.S, HKSave, "Save");
-            _hotKeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.S, HKSaveAll, "SaveAll");
-            _hotKeys.RegisterHotkey(Keys.F1, HKHelp, "Help");
-            _hotKeys.RegisterHotkey(Keys.Control | Keys.C, HKCopy, "Copy");
-            _hotKeys.RegisterHotkey(Keys.Control | Keys.V, HKPaste, "Paste");
-            _hotKeys.RegisterHotkey(Keys.Control | Keys.Shift | Keys.B, HKPackProject, "PackProject");
             MainController.Get().InitForm(this);
             SetPalette();
             UserLookAndFeel.Default.StyleChanged += DefaultOnStyleChanged;
@@ -462,61 +452,6 @@ namespace WolvenKit
             barStaticItemStatus.Caption = text;
         }
 
-        private void HKSave(HotKeyEventArgs e)
-        {
-            if (ActiveDocument != null)
-                saveFile(ActiveDocument);
-        }
-
-        private void HKSaveAll(HotKeyEventArgs e)
-        {
-            if (OpenDocuments != null && OpenDocuments.Count > 0)
-                saveAllFiles();
-        }
-
-        private void HKHelp(HotKeyEventArgs e)
-        {
-            Process.Start("https://github.com/Traderain/Wolven-kit/wiki");
-        }
-
-        private void HKCopy(HotKeyEventArgs e)
-        {
-            if (ActiveDocument != null)
-            {
-                if (ActiveDocument.chunkList.IsActivated)
-                {
-                    ActiveDocument.chunkList.CopyChunks();
-                    AddOutput("Selected chunk(s) copied!\n");
-                }
-                else if (ActiveDocument.propertyWindow.IsActivated)
-                {
-                    ActiveDocument.propertyWindow.copyVariable();
-                    AddOutput("Selected propertie(s) copied!\n");
-                }
-            }
-        }
-
-        private void HKPaste(HotKeyEventArgs e)
-        {
-            if (ActiveDocument != null)
-            {
-                if (ActiveDocument.chunkList.IsActivated)
-                {
-                    ActiveDocument.chunkList.PasteChunks();
-                    AddOutput("Copied chunk(s) pasted!\n");
-                }
-                else if (ActiveDocument.propertyWindow.IsActivated)
-                {
-                    ActiveDocument.propertyWindow.pasteVariable();
-                    AddOutput("Copied propertie(s) pasted!\n");
-                }
-            }
-        }
-
-        private void HKPackProject(HotKeyEventArgs e)
-        {
-            PackProject();
-        }
 
 
         private void UpdateTitle()
@@ -1060,7 +995,7 @@ namespace WolvenKit
         /// <param name="clear">if true files or completely redrawn</param>
         private void UpdateModFileList(bool clear = false)
         {
-            modExplorerControl.UpdateModFileList(true, clear);
+            modExplorerControl.UpdateModFileList(true, clear, ActiveMod.FileDirectory);
         }
 
         /// <summary>
@@ -1531,8 +1466,7 @@ namespace WolvenKit
             SaveMod();
             MainController.Get().ProjectStatus = "Ready";
             modExplorerControl.FoldersShown = true;
-            modExplorerControl.FilteredFiles = ActiveMod.Files;
-            modExplorerControl.UpdateModFileList(true, true);
+            modExplorerControl.UpdateModFileList(true, true, ActiveMod.FileDirectory);
             modExplorerControl.ResumeMonitoring();
         }
 

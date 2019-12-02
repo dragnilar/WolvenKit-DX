@@ -86,10 +86,13 @@ namespace WolvenKit
             this.barButtonItemDonate = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItemStatus = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItemBuildDate = new DevExpress.XtraBars.BarStaticItem();
+            this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemSaveOutput = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBuild = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupOutput = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageProjectTools = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupProject = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTools = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -106,9 +109,6 @@ namespace WolvenKit
             this.modExplorerControl = new WolvenKit.ModExplorer();
             this.documentManagerMain = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedViewMain = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.ribbonPageGroupOutput = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemSaveOutput = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).BeginInit();
@@ -601,6 +601,22 @@ namespace WolvenKit
             this.barStaticItemBuildDate.Id = 54;
             this.barStaticItemBuildDate.Name = "barStaticItemBuildDate";
             // 
+            // barButtonItemClearOutput
+            // 
+            this.barButtonItemClearOutput.Caption = "Clear Output";
+            this.barButtonItemClearOutput.Id = 55;
+            this.barButtonItemClearOutput.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemClearOutput.ImageOptions.SvgImage")));
+            this.barButtonItemClearOutput.Name = "barButtonItemClearOutput";
+            this.barButtonItemClearOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemClearOutput_ItemClick);
+            // 
+            // barButtonItemSaveOutput
+            // 
+            this.barButtonItemSaveOutput.Caption = "Save Output";
+            this.barButtonItemSaveOutput.Id = 56;
+            this.barButtonItemSaveOutput.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemSaveOutput.ImageOptions.SvgImage")));
+            this.barButtonItemSaveOutput.Name = "barButtonItemSaveOutput";
+            this.barButtonItemSaveOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSaveOutput_ItemClick);
+            // 
             // ribbonPageHome
             // 
             this.ribbonPageHome.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -640,6 +656,13 @@ namespace WolvenKit
             this.ribbonPageGroupView.ItemLinks.Add(this.barButtonItemViewOutput);
             this.ribbonPageGroupView.Name = "ribbonPageGroupView";
             this.ribbonPageGroupView.Text = "View";
+            // 
+            // ribbonPageGroupOutput
+            // 
+            this.ribbonPageGroupOutput.ItemLinks.Add(this.barButtonItemClearOutput);
+            this.ribbonPageGroupOutput.ItemLinks.Add(this.barButtonItemSaveOutput);
+            this.ribbonPageGroupOutput.Name = "ribbonPageGroupOutput";
+            this.ribbonPageGroupOutput.Text = "Output Log";
             // 
             // ribbonPageProjectTools
             // 
@@ -758,8 +781,8 @@ namespace WolvenKit
             this.dockPanelModExplorer.ID = new System.Guid("50856fd6-7347-48d1-a37e-9d341c9f5a58");
             this.dockPanelModExplorer.Location = new System.Drawing.Point(0, 158);
             this.dockPanelModExplorer.Name = "dockPanelModExplorer";
-            this.dockPanelModExplorer.OriginalSize = new System.Drawing.Size(290, 200);
-            this.dockPanelModExplorer.Size = new System.Drawing.Size(290, 460);
+            this.dockPanelModExplorer.OriginalSize = new System.Drawing.Size(447, 200);
+            this.dockPanelModExplorer.Size = new System.Drawing.Size(447, 460);
             this.dockPanelModExplorer.Text = "Mod Explorer";
             // 
             // dockPanel2_Container
@@ -767,7 +790,7 @@ namespace WolvenKit
             this.dockPanel2_Container.Controls.Add(this.modExplorerControl);
             this.dockPanel2_Container.Location = new System.Drawing.Point(0, 27);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(289, 433);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(446, 433);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // modExplorerControl
@@ -779,7 +802,7 @@ namespace WolvenKit
             this.modExplorerControl.Location = new System.Drawing.Point(0, 0);
             this.modExplorerControl.Margin = new System.Windows.Forms.Padding(2);
             this.modExplorerControl.Name = "modExplorerControl";
-            this.modExplorerControl.Size = new System.Drawing.Size(289, 433);
+            this.modExplorerControl.Size = new System.Drawing.Size(446, 433);
             this.modExplorerControl.TabIndex = 0;
             this.modExplorerControl.RequestFileOpen += new System.EventHandler<WolvenKit.RequestFileArgs>(this.ModExplorer_RequestFileOpen);
             this.modExplorerControl.RequestFileDelete += new System.EventHandler<WolvenKit.RequestFileArgs>(this.ModExplorer_RequestFileDelete);
@@ -792,29 +815,6 @@ namespace WolvenKit
             this.documentManagerMain.View = this.tabbedViewMain;
             this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedViewMain});
-            // 
-            // ribbonPageGroupOutput
-            // 
-            this.ribbonPageGroupOutput.ItemLinks.Add(this.barButtonItemClearOutput);
-            this.ribbonPageGroupOutput.ItemLinks.Add(this.barButtonItemSaveOutput);
-            this.ribbonPageGroupOutput.Name = "ribbonPageGroupOutput";
-            this.ribbonPageGroupOutput.Text = "Output Log";
-            // 
-            // barButtonItemClearOutput
-            // 
-            this.barButtonItemClearOutput.Caption = "Clear Output";
-            this.barButtonItemClearOutput.Id = 55;
-            this.barButtonItemClearOutput.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemClearOutput.ImageOptions.SvgImage")));
-            this.barButtonItemClearOutput.Name = "barButtonItemClearOutput";
-            this.barButtonItemClearOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemClearOutput_ItemClick);
-            // 
-            // barButtonItemSaveOutput
-            // 
-            this.barButtonItemSaveOutput.Caption = "Save Output";
-            this.barButtonItemSaveOutput.Id = 56;
-            this.barButtonItemSaveOutput.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemSaveOutput.ImageOptions.SvgImage")));
-            this.barButtonItemSaveOutput.Name = "barButtonItemSaveOutput";
-            this.barButtonItemSaveOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSaveOutput_ItemClick);
             // 
             // frmMain
             // 

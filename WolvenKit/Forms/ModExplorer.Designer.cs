@@ -33,216 +33,79 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModExplorer));
-            this.modFileList = new System.Windows.Forms.TreeView();
-            this.treeImages = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyRelativePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.markAsModDlcFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.showFileInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchstrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.searchBox = new System.Windows.Forms.ToolStripTextBox();
-            this.resetfilesButton = new System.Windows.Forms.ToolStripButton();
-            this.showhideButton = new System.Windows.Forms.ToolStripButton();
-            this.ExpandBTN = new System.Windows.Forms.ToolStripButton();
-            this.CollapseBTN = new System.Windows.Forms.ToolStripButton();
+            this.treeListModFiles = new DevExpress.XtraTreeList.TreeList();
+            this.treeListColumnFullName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.treeListColumnDisplayName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.treeListColumnFileType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.svgImageCollectionModExplorer = new DevExpress.Utils.SvgImageCollection(this.components);
             this.modexplorerSlave = new System.IO.FileSystemWatcher();
-            this.virtualServerModeSource1 = new DevExpress.Data.VirtualServerModeSource(this.components);
-            this.contextMenu.SuspendLayout();
-            this.searchstrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.treeListModFiles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionModExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modexplorerSlave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.virtualServerModeSource1)).BeginInit();
             this.SuspendLayout();
             // 
-            // modFileList
+            // treeListModFiles
             // 
-            this.modFileList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.modFileList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modFileList.ImageIndex = 0;
-            this.modFileList.ImageList = this.treeImages;
-            this.modFileList.Location = new System.Drawing.Point(0, 27);
-            this.modFileList.Margin = new System.Windows.Forms.Padding(2);
-            this.modFileList.Name = "modFileList";
-            this.modFileList.SelectedImageIndex = 0;
-            this.modFileList.Size = new System.Drawing.Size(363, 418);
-            this.modFileList.TabIndex = 0;
-            this.modFileList.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.modFileList_NodeMouseClick);
-            this.modFileList.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.modFileList_NodeMouseDoubleClick);
-            this.modFileList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.modFileList_KeyDown);
+            this.treeListModFiles.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.treeListColumnFullName,
+            this.treeListColumnDisplayName,
+            this.treeListColumnFileType});
+            this.treeListModFiles.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.treeListModFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeListModFiles.Location = new System.Drawing.Point(0, 0);
+            this.treeListModFiles.Margin = new System.Windows.Forms.Padding(2);
+            this.treeListModFiles.Name = "treeListModFiles";
+            this.treeListModFiles.OptionsBehavior.Editable = false;
+            this.treeListModFiles.OptionsCustomization.CustomizationFormSearchBoxVisible = true;
+            this.treeListModFiles.OptionsFind.AlwaysVisible = true;
+            this.treeListModFiles.Size = new System.Drawing.Size(363, 445);
+            this.treeListModFiles.StateImageList = this.svgImageCollectionModExplorer;
+            this.treeListModFiles.TabIndex = 0;
+            this.treeListModFiles.BeforeExpand += new DevExpress.XtraTreeList.BeforeExpandEventHandler(this.modFileList_BeforeExpand);
+            this.treeListModFiles.AfterExpand += new DevExpress.XtraTreeList.NodeEventHandler(this.modFileList_AfterExpand);
+            this.treeListModFiles.AfterCollapse += new DevExpress.XtraTreeList.NodeEventHandler(this.modFileList_AfterCollapse);
+            this.treeListModFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.modFileList_KeyDown);
+            this.treeListModFiles.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modFileList_MouseDown);
             // 
-            // treeImages
+            // treeListColumnFullName
             // 
-            this.treeImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeImages.ImageStream")));
-            this.treeImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.treeImages.Images.SetKeyName(0, "genericFile");
-            this.treeImages.Images.SetKeyName(1, "normalFolder");
-            this.treeImages.Images.SetKeyName(2, "openFolder");
-            this.treeImages.Images.SetKeyName(3, "csv");
-            this.treeImages.Images.SetKeyName(4, "redswf");
-            this.treeImages.Images.SetKeyName(5, "env");
-            this.treeImages.Images.SetKeyName(6, "journal");
-            this.treeImages.Images.SetKeyName(7, "w2beh");
-            this.treeImages.Images.SetKeyName(8, "xml");
-            this.treeImages.Images.SetKeyName(9, "w2behtree");
-            this.treeImages.Images.SetKeyName(10, "w2scene");
-            this.treeImages.Images.SetKeyName(11, "w2p");
-            this.treeImages.Images.SetKeyName(12, "w2rig");
+            this.treeListColumnFullName.Caption = "FullName";
+            this.treeListColumnFullName.FieldName = "FullName";
+            this.treeListColumnFullName.Name = "treeListColumnFullName";
             // 
-            // contextMenu
+            // treeListColumnDisplayName
             // 
-            this.contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addFileToolStripMenuItem,
-            this.removeFileToolStripMenuItem,
-            this.renameToolStripMenuItem,
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.copyRelativePathToolStripMenuItem,
-            this.markAsModDlcFileToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.showFileInExplorerToolStripMenuItem});
-            this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(197, 218);
-            this.contextMenu.Opened += new System.EventHandler(this.contextMenu_Opened);
+            this.treeListColumnDisplayName.Caption = "File Name";
+            this.treeListColumnDisplayName.FieldName = "FileName";
+            this.treeListColumnDisplayName.Name = "treeListColumnDisplayName";
+            this.treeListColumnDisplayName.Visible = true;
+            this.treeListColumnDisplayName.VisibleIndex = 0;
+            this.treeListColumnDisplayName.Width = 282;
             // 
-            // addFileToolStripMenuItem
+            // treeListColumnFileType
             // 
-            this.addFileToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.AddNodefromFile_354;
-            this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
-            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.addFileToolStripMenuItem.Text = "Add File";
-            this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
+            this.treeListColumnFileType.Caption = "Type";
+            this.treeListColumnFileType.FieldName = "FileTYpe";
+            this.treeListColumnFileType.Name = "treeListColumnFileType";
+            this.treeListColumnFileType.Visible = true;
+            this.treeListColumnFileType.VisibleIndex = 1;
+            this.treeListColumnFileType.Width = 54;
             // 
-            // removeFileToolStripMenuItem
+            // svgImageCollectionModExplorer
             // 
-            this.removeFileToolStripMenuItem.Name = "removeFileToolStripMenuItem";
-            this.removeFileToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.removeFileToolStripMenuItem.Text = "Delete";
-            this.removeFileToolStripMenuItem.Click += new System.EventHandler(this.removeFileToolStripMenuItem_Click);
-            // 
-            // renameToolStripMenuItem
-            // 
-            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.renameToolStripMenuItem.Text = "Rename";
-            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.copyToolStripMenuItem.Text = "Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // copyRelativePathToolStripMenuItem
-            // 
-            this.copyRelativePathToolStripMenuItem.Name = "copyRelativePathToolStripMenuItem";
-            this.copyRelativePathToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.copyRelativePathToolStripMenuItem.Text = "Copy relative path";
-            this.copyRelativePathToolStripMenuItem.Click += new System.EventHandler(this.copyRelativePathToolStripMenuItem_Click);
-            // 
-            // markAsModDlcFileToolStripMenuItem
-            // 
-            this.markAsModDlcFileToolStripMenuItem.Name = "markAsModDlcFileToolStripMenuItem";
-            this.markAsModDlcFileToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.markAsModDlcFileToolStripMenuItem.Text = "Mark as [Mod/Dlc] file";
-            this.markAsModDlcFileToolStripMenuItem.Click += new System.EventHandler(this.markAsModDlcFileToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(193, 6);
-            // 
-            // showFileInExplorerToolStripMenuItem
-            // 
-            this.showFileInExplorerToolStripMenuItem.Name = "showFileInExplorerToolStripMenuItem";
-            this.showFileInExplorerToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
-            this.showFileInExplorerToolStripMenuItem.Text = "Show file in explorer";
-            this.showFileInExplorerToolStripMenuItem.Click += new System.EventHandler(this.showFileInExplorerToolStripMenuItem_Click);
-            // 
-            // searchstrip
-            // 
-            this.searchstrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.searchstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.searchBox,
-            this.resetfilesButton,
-            this.showhideButton,
-            this.ExpandBTN,
-            this.CollapseBTN});
-            this.searchstrip.Location = new System.Drawing.Point(0, 0);
-            this.searchstrip.Name = "searchstrip";
-            this.searchstrip.Size = new System.Drawing.Size(363, 27);
-            this.searchstrip.TabIndex = 1;
-            this.searchstrip.Text = "toolStrip1";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(45, 24);
-            this.toolStripLabel1.Text = "Search:";
-            // 
-            // searchBox
-            // 
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(76, 27);
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
-            // 
-            // resetfilesButton
-            // 
-            this.resetfilesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.resetfilesButton.Image = global::WolvenKit.Properties.Resources.ExitIcon;
-            this.resetfilesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.resetfilesButton.Name = "resetfilesButton";
-            this.resetfilesButton.Size = new System.Drawing.Size(24, 24);
-            this.resetfilesButton.Text = "Reset filelist";
-            this.resetfilesButton.Click += new System.EventHandler(this.UpdatefilelistButtonClick);
-            // 
-            // showhideButton
-            // 
-            this.showhideButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showhideButton.Image = global::WolvenKit.Properties.Resources.LayerGroupVisibled;
-            this.showhideButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showhideButton.Name = "showhideButton";
-            this.showhideButton.Size = new System.Drawing.Size(24, 24);
-            this.showhideButton.Text = "Show/Hide folders";
-            this.showhideButton.ToolTipText = "Show/Hide folders";
-            this.showhideButton.Click += new System.EventHandler(this.showhideButton_Click);
-            // 
-            // ExpandBTN
-            // 
-            this.ExpandBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ExpandBTN.Image = global::WolvenKit.Properties.Resources.Editing_Expand_icon;
-            this.ExpandBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ExpandBTN.Name = "ExpandBTN";
-            this.ExpandBTN.Size = new System.Drawing.Size(24, 24);
-            this.ExpandBTN.Text = "Expand all";
-            this.ExpandBTN.Click += new System.EventHandler(this.ExpandBTN_Click);
-            // 
-            // CollapseBTN
-            // 
-            this.CollapseBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CollapseBTN.Image = global::WolvenKit.Properties.Resources.Editing_Collapse_icon;
-            this.CollapseBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CollapseBTN.Name = "CollapseBTN";
-            this.CollapseBTN.Size = new System.Drawing.Size(24, 24);
-            this.CollapseBTN.Text = "Collapse all";
-            this.CollapseBTN.ToolTipText = "Collapse all";
-            this.CollapseBTN.Click += new System.EventHandler(this.CollapseBTN_Click);
+            this.svgImageCollectionModExplorer.Add("genericFile", "image://svgimages/richedit/insertimage.svg");
+            this.svgImageCollectionModExplorer.Add("normalFolder", "image://svgimages/icon builder/actions_folderclose.svg");
+            this.svgImageCollectionModExplorer.Add("openFolder", "image://svgimages/actions/open.svg");
+            this.svgImageCollectionModExplorer.Add("csv", "image://svgimages/export/exporttocsv.svg");
+            this.svgImageCollectionModExplorer.Add("redswf", "image://svgimages/dashboards/sliceanddice.svg");
+            this.svgImageCollectionModExplorer.Add("env", "image://svgimages/icon builder/business_world.svg");
+            this.svgImageCollectionModExplorer.Add("journal", "image://svgimages/spreadsheet/text.svg");
+            this.svgImageCollectionModExplorer.Add("w2beh", "image://svgimages/business objects/bo_employee.svg");
+            this.svgImageCollectionModExplorer.Add("xml", "image://svgimages/export/exporttoxml.svg");
+            this.svgImageCollectionModExplorer.Add("w2behtree", "image://svgimages/icon builder/travel_forest.svg");
+            this.svgImageCollectionModExplorer.Add("w2scene", "image://svgimages/business objects/bo_organization.svg");
+            this.svgImageCollectionModExplorer.Add("w2p", "image://svgimages/icon builder/travel_walk.svg");
+            this.svgImageCollectionModExplorer.Add("w2rig", "image://svgimages/spreadsheet/chartdatalabels_right.svg");
             // 
             // modexplorerSlave
             // 
@@ -259,44 +122,24 @@ namespace WolvenKit
             this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.modFileList);
-            this.Controls.Add(this.searchstrip);
+            this.Controls.Add(this.treeListModFiles);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ModExplorer";
             this.Size = new System.Drawing.Size(363, 445);
             this.Load += new System.EventHandler(this.frmModExplorer_Shown);
-            this.contextMenu.ResumeLayout(false);
-            this.searchstrip.ResumeLayout(false);
-            this.searchstrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.treeListModFiles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionModExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.modexplorerSlave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.virtualServerModeSource1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private TreeView modFileList;
-        private ImageList treeImages;
-        private ContextMenuStrip contextMenu;
-        private ToolStripMenuItem removeFileToolStripMenuItem;
-        private ToolStripMenuItem addFileToolStripMenuItem;
-        private ToolStripMenuItem renameToolStripMenuItem;
-        private ToolStripMenuItem copyToolStripMenuItem;
-        private ToolStripMenuItem pasteToolStripMenuItem;
-        private ToolStrip searchstrip;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripTextBox searchBox;
-        private ToolStripButton showhideButton;
-        private ToolStripButton resetfilesButton;
         private FileSystemWatcher modexplorerSlave;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem showFileInExplorerToolStripMenuItem;
-        private ToolStripButton ExpandBTN;
-        private ToolStripButton CollapseBTN;
-        private ToolStripMenuItem copyRelativePathToolStripMenuItem;
-        private ToolStripMenuItem markAsModDlcFileToolStripMenuItem;
-        private DevExpress.Data.VirtualServerModeSource virtualServerModeSource1;
+        private DevExpress.XtraTreeList.TreeList treeListModFiles;
+        private DevExpress.Utils.SvgImageCollection svgImageCollectionModExplorer;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumnDisplayName;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumnFileType;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumnFullName;
     }
 }
