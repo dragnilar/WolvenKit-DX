@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using DevExpress.XtraRichEdit;
+using DevExpress.XtraRichEdit.Commands;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace WolvenKit
@@ -34,13 +37,13 @@ namespace WolvenKit
                     txOutput.AppendText(text, Color.DarkBlue);
                     break;
                 case Logtype.Wcc:
-                    txOutput.AppendText(text);
+                    txOutput.AppendText(text, Color.DarkOrchid);
                     break;
                 case Logtype.Success:
                     txOutput.AppendText(text, Color.LimeGreen);
                     break;
                 default:
-                    txOutput.AppendText("[" + DateTime.Now.ToString("G") + "]: " + text);
+                    txOutput.AppendText(text, Color.Black);
                     break;
             }
 
@@ -49,40 +52,45 @@ namespace WolvenKit
 
         internal void Clear()
         {
-            txOutput.Clear();
+            txOutput.Text = string.Empty;
         }
 
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void txOutput_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
         {
-            Clipboard.SetText(txOutput.Text);
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var sf = new SaveFileDialog())
+            if (e.Menu != null)
             {
-                sf.Title = "Choose a location to save the log to.";
-                sf.Filter = "Text file (.txt) | *.txt";
-                if (sf.ShowDialog() == DialogResult.OK) File.WriteAllLines(sf.FileName, txOutput.Lines);
+                e.Menu.RemoveMenuItem(RichEditCommandId.CreateBookmark);
+                e.Menu.RemoveMenuItem(RichEditCommandId.ShowBookmarkForm);
+                e.Menu.RemoveMenuItem(RichEditCommandId.CreateHyperlink);
+                e.Menu.RemoveMenuItem(RichEditCommandId.NewCommentContentMenu);
             }
         }
 
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        public void SaveDocument()
+        {
+            txOutput.SaveDocumentAs();
+        }
+
+        public void ClearDocument()
         {
             Clear();
         }
     }
 
-    public static class RichTextBoxExtensions
+    public static class RichTextEditExtensions
     {
-        public static void AppendText(this RichTextBox box, string text, Color color)
+        public static void AppendText(this RichEditControl box, string text, Color color)
         {
-            box.SelectionStart = box.TextLength;
-            box.SelectionLength = 0;
-
-            box.SelectionColor = color;
-            box.AppendText("[" + DateTime.Now.ToString("G") + "]: " + text);
-            box.SelectionColor = box.ForeColor;
+            var document = box.Document;
+            var documentPosition = document.Selection.Start;
+            document.BeginUpdate();
+            document.InsertText(documentPosition, "[" + DateTime.Now.ToString("G") + "]: " + text);
+            var documentRange = box.Document.CreateRange(document.Selection.Start, text.Length);
+            var characterProperties = box.Document.BeginUpdateCharacters(documentRange);
+            characterProperties.ForeColor = color;
+            box.Document.EndUpdateCharacters(characterProperties);
+            document.EndUpdate();
+            
         }
     }
 }

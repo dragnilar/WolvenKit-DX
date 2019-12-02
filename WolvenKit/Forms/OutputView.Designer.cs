@@ -31,77 +31,37 @@ namespace WolvenKit
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputView));
-            this.txOutput = new System.Windows.Forms.RichTextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1.SuspendLayout();
+            this.txOutput = new DevExpress.XtraRichEdit.RichEditControl();
             this.SuspendLayout();
             // 
             // txOutput
             // 
-            this.txOutput.ContextMenuStrip = this.contextMenuStrip1;
+            this.txOutput.ActiveViewType = DevExpress.XtraRichEdit.RichEditViewType.Simple;
             this.txOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txOutput.LayoutUnit = DevExpress.XtraRichEdit.DocumentLayoutUnit.Pixel;
             this.txOutput.Location = new System.Drawing.Point(0, 0);
             this.txOutput.Name = "txOutput";
+            this.txOutput.Options.Bookmarks.Visibility = DevExpress.XtraRichEdit.RichEditBookmarkVisibility.Hidden;
+            this.txOutput.Options.HorizontalRuler.Visibility = DevExpress.XtraRichEdit.RichEditRulerVisibility.Hidden;
+            this.txOutput.Options.VerticalRuler.Visibility = DevExpress.XtraRichEdit.RichEditRulerVisibility.Hidden;
             this.txOutput.Size = new System.Drawing.Size(930, 259);
-            this.txOutput.TabIndex = 0;
-            this.txOutput.Text = "";
+            this.txOutput.TabIndex = 1;
+            this.txOutput.PopupMenuShowing += new DevExpress.XtraRichEdit.PopupMenuShowingEventHandler(this.txOutput_PopupMenuShowing);
             // 
-            // contextMenuStrip1
+            // OutputView
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
-            this.clearToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 92);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveAsToolStripMenuItem.Text = "Save as..";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            // 
-            // clearToolStripMenuItem
-            // 
-            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.clearToolStripMenuItem.Text = "Clear";
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
-            // 
-            // frmOutput
-            // 
+            this.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(930, 259);
             this.Controls.Add(this.txOutput);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "OutputView";
-            this.Text = "Output";
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(930, 259);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private RichTextBox txOutput;
-        private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem copyToolStripMenuItem;
-        private ToolStripMenuItem saveAsToolStripMenuItem;
-        private ToolStripMenuItem clearToolStripMenuItem;
+        private DevExpress.XtraRichEdit.RichEditControl txOutput;
     }
 }
