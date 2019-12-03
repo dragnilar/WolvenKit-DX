@@ -36,9 +36,15 @@ namespace WolvenKit
         public frmMain()
         {
             InitializeComponent();
-            UpdateTitle();
+
             MainController.Get().PropertyChanged += MainControllerUpdated;
             MainController.Get().InitForm(this);
+            Shown += OnShown;
+        }
+
+        private void OnShown(object sender, EventArgs e)
+        {
+            UpdateTitle();
             SetPalette();
             UserLookAndFeel.Default.StyleChanged += DefaultOnStyleChanged;
         }
