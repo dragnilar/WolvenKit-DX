@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Nodes;
@@ -80,6 +85,7 @@ namespace WolvenKit
                 treeListModFiles.Nodes.Clear();
                 InitFolders(rootFilePath, null);
             }
+
             treeListModFiles.ExpandAll();
             treeListModFiles.EndUpdate();
         }
@@ -180,11 +186,10 @@ namespace WolvenKit
         {
             if (e.Node.Tag != null)
             {
-                var currentCursor = Cursor.Current;
                 Cursor.Current = Cursors.WaitCursor;
                 InitFolders(e.Node.GetDisplayText(treeListColumnFullName.FieldName), e.Node);
                 e.Node.Tag = null;
-                Cursor.Current = currentCursor;
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -230,112 +235,170 @@ namespace WolvenKit
                         {File = treeListModFiles.Selection[0][treeListColumnFullName.FieldName].ToString()});
         }
 
+        private void barButtonItemExpandAll_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            treeListModFiles.BeginUpdate();
+            treeListModFiles.ExpandAll();
+            treeListModFiles.EndUpdate();
+        }
+
+        private void barButtonItemCollapseAll_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            treeListModFiles.BeginUpdate();
+            treeListModFiles.CollapseAll();
+            treeListModFiles.EndUpdate();
+        }
+
+        private void barButtonItemAddFile_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedPath = GetSelectedNodeFilePath();
+            if (!string.IsNullOrWhiteSpace(selectedPath))
+                RequestFileAdd?.Invoke(this,
+                    new RequestFileArgs {File = GetExplorerString(selectedPath ?? string.Empty)});
+        }
+
+        private void barButtonItemShowInExplorer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedFilePath = GetSelectedNodeFilePath();
+            if (!string.IsNullOrWhiteSpace(selectedFilePath))
+            {
+                var directoryPath = Path.GetDirectoryName(selectedFilePath);
+                Process.Start("explorer.exe", directoryPath);
+            }
 
 
+        }
+
+        private void barButtonItemMarkAs_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //TODO - This may not work right...
+            var selectedFilePath = GetSelectedNodeFilePath();
+            var fileName = GetSelectedFileName();
+            if (!string.IsNullOrWhiteSpace(selectedFilePath) && !string.IsNullOrWhiteSpace(fileName))
+            {
+                if (!File.Exists(selectedFilePath))
+                    return;
+                var newfullpath =
+                    Path.Combine(new[] {ActiveMod.FileDirectory, fileName.Split('\\')[0] == "DLC" ? "Mod" : "DLC"}
+                        .Concat(fileName.Split('\\').Skip(1).ToArray()).ToArray());
+
+                if (File.Exists(newfullpath))
+                    return;
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(newfullpath));
+                }
+                catch
+                {
+                }
+
+                File.Move(selectedFilePath, newfullpath);
+                MainController.Get().ProjectStatus = "File moved";
+            }
+        }
+
+        private void barButtonItemCopyPath_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Clipboard.SetText(GetSelectedNodeFilePath());
+        }
+
+        private void barButtonItemPaste_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (File.Exists(Clipboard.GetText()))
+            {
+                var selectedFilePath = GetSelectedNodeFilePath();
+                if (string.IsNullOrWhiteSpace(selectedFilePath)) return;
+                var attr = File.GetAttributes(selectedFilePath);
+                if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+                    SafeCopy(Clipboard.GetText(),
+                        selectedFilePath +
+                        Path.GetFileName(Clipboard.GetText()));
+                else
+                    SafeCopy(Clipboard.GetText(),
+                        Path.GetDirectoryName(selectedFilePath) +
+                        "\\" + Path.GetFileName(Clipboard.GetText()));
+            }
+        }
+
+        private void barButtonItemCopy_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //TODO - This may not work, I do not think it was implemented in the original WK
+            var selectedFilePath = GetSelectedNodeFilePath();
+            if (!string.IsNullOrWhiteSpace(selectedFilePath) && File.Exists(selectedFilePath))
+                Clipboard.SetFileDropList(new StringCollection {selectedFilePath});
+        }
+
+        private void barButtonItemRename_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedFilePath = GetSelectedNodeFilePath();
+            if (!string.IsNullOrWhiteSpace(selectedFilePath))
+                RequestFileRename?.Invoke(this, new RequestFileArgs {File = selectedFilePath});
+        }
+
+        private void barButtonItemDelete_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedFilePath = GetSelectedNodeFilePath();
+            if (!string.IsNullOrWhiteSpace(selectedFilePath))
+                RequestFileDelete?.Invoke(this, new RequestFileArgs {File = selectedFilePath});
+        }
 
 
-        //TODO - There was a lot of stuff below that had to be whacked due to the fact that it was dependent on either the old tool strip
-        //Or something else that was not compatible with the DevExpress XtraTreeList. Anything below that the XtraTreeList does not fully or partially
-        //implement ouf of the box will need to be rewritten.
+        private string GetSelectedNodeFilePath()
+        {
+            return treeListModFiles.Selection == null
+                ? string.Empty
+                : treeListModFiles.Selection[0][treeListColumnFullName.FieldName].ToString();
+        }
+
+        private string GetSelectedFileName()
+        {
+            return treeListModFiles.Selection == null
+                ? string.Empty
+                : treeListModFiles.Selection[0][treeListColumnDisplayName.FieldName].ToString();
+        }
 
 
-        //private void removeFileToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (modFileList.SelectedNode != null)
-        //        RequestFileDelete?.Invoke(this, new RequestFileArgs { File = modFileList.SelectedNode.FullPath });
-        //}
+        public static IEnumerable<string> FallbackPaths(string path)
+        {
+            yield return path;
 
-        //private void addFileToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    RequestFileAdd?.Invoke(this,
-        //        new RequestFileArgs { File = GetExplorerString(modFileList.SelectedNode?.FullPath ?? string.Empty) });
-        //}
+            var dir = Path.GetDirectoryName(path);
+            var file = Path.GetFileNameWithoutExtension(path);
+            var ext = Path.GetExtension(path);
 
-        //private void modFileList_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        //{
-        //    if (e.Button == MouseButtons.Right)
-        //    {
-        //        modFileList.SelectedNode = e.Node;
-        //        contextMenu.Show(modFileList, e.Location);
-        //    }
-        //}
+            yield return Path.Combine(dir, file + " - Copy" + ext);
+            for (var i = 2;; i++) yield return Path.Combine(dir, file + " - Copy " + i + ext);
+        }
 
+        public static void SafeCopy(string src, string dest)
+        {
+            foreach (var path in FallbackPaths(dest).Where(path => !File.Exists(path)))
+            {
+                File.Copy(src, path);
+                break;
+            }
+        }
 
-        //public static IEnumerable<string> FallbackPaths(string path)
-        //{
-        //    yield return path;
+        public string GetExplorerString(string s)
+        {
+            if (s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length > 1)
+            {
+                var r = string.Join(Path.DirectorySeparatorChar.ToString(),
+                    new[] {"Root"}.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
+                        .ToArray());
+                return string.Join(Path.DirectorySeparatorChar.ToString(),
+                    new[] {"Root"}.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
+                        .ToArray());
+            }
 
-        //    var dir = Path.GetDirectoryName(path);
-        //    var file = Path.GetFileNameWithoutExtension(path);
-        //    var ext = Path.GetExtension(path);
+            return s;
+        }
 
-        //    yield return Path.Combine(dir, file + " - Copy" + ext);
-        //    for (var i = 2; ; i++) yield return Path.Combine(dir, file + " - Copy " + i + ext);
-        //}
-
-        //public static void SafeCopy(string src, string dest)
-        //{
-        //    foreach (var path in FallbackPaths(dest).Where(path => !File.Exists(path)))
-        //    {
-        //        File.Copy(src, path);
-        //        break;
-        //    }
-        //}
-
-        //private void copyRelativePathToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (modFileList.SelectedNode != null)
-        //        Clipboard.SetText(GetArchivePath(modFileList.SelectedNode.FullPath));
-        //}
-
-        //private void markAsModDlcFileToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (modFileList.SelectedNode != null)
-        //    {
-        //        var filename = modFileList.SelectedNode.FullPath;
-        //        var fullpath = Path.Combine(ActiveMod.FileDirectory, filename);
-        //        if (!File.Exists(fullpath))
-        //            return;
-        //        var newfullpath =
-        //            Path.Combine(new[] { ActiveMod.FileDirectory, filename.Split('\\')[0] == "DLC" ? "Mod" : "DLC" }
-        //                .Concat(filename.Split('\\').Skip(1).ToArray()).ToArray());
-
-        //        if (File.Exists(newfullpath))
-        //            return;
-        //        try
-        //        {
-        //            Directory.CreateDirectory(Path.GetDirectoryName(newfullpath));
-        //        }
-        //        catch
-        //        {
-        //        }
-
-        //        File.Move(fullpath, newfullpath);
-        //        MainController.Get().ProjectStatus = "File moved";
-        //    }
-        //}
-
-        //public string GetExplorerString(string s)
-        //{
-        //    if (s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length > 1)
-        //    {
-        //        var r = string.Join(Path.DirectorySeparatorChar.ToString(),
-        //            new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
-        //                .ToArray());
-        //        return string.Join(Path.DirectorySeparatorChar.ToString(),
-        //            new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
-        //                .ToArray());
-        //    }
-
-        //    return s;
-        //}
-
-        //public string GetArchivePath(string s)
-        //{
-        //    if (s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length > 2)
-        //        return string.Join(Path.DirectorySeparatorChar.ToString(),
-        //            s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(2).ToArray());
-        //    return s;
-        //}
+        private void treeListModFiles_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            barButtonItemPaste.Enabled = treeListModFiles.Selection != null;
+            popupMenuModExplorer.ShowPopup(MousePosition);
+            e.Allow = false;
+        }
     }
 }
