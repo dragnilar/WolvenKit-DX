@@ -396,9 +396,19 @@ namespace WolvenKit
 
         private void treeListModFiles_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
         {
-            barButtonItemPaste.Enabled = treeListModFiles.Selection != null;
-            popupMenuModExplorer.ShowPopup(MousePosition);
-            e.Allow = false;
+            var treeList = sender as TreeList;
+            var hitInfo = treeList.CalcHitInfo(e.Point);
+            if (hitInfo.HitInfoType == HitInfoType.Cell)
+            {
+                popupMenuModExplorer.ShowPopup(MousePosition);
+                e.Allow = false;
+            }
+            else
+            {
+                e.Allow = true;
+            }
+
+
         }
     }
 }
