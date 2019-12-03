@@ -446,10 +446,10 @@
     <Compile Include="Forms\frmTextInput.Designer.cs">
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmTextureFile.cs">
+    <Compile Include="Controls\frmTextureFile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmTextureFile.Designer.cs">
+    <Compile Include="Controls\frmTextureFile.Designer.cs">
       <DependentUpon>frmTextureFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmUsmPlayer.cs">
@@ -538,10 +538,10 @@
     <Compile Include="Forms\frmChunkProperties.Designer.cs">
       <DependentUpon>frmChunkProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmCR2WDocument.cs">
+    <Compile Include="Controls\frmCR2WDocument.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmCR2WDocument.Designer.cs">
+    <Compile Include="Controls\frmCR2WDocument.Designer.cs">
       <DependentUpon>frmCR2WDocument.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmEmbeddedFiles.cs">
@@ -568,10 +568,10 @@
     <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ModExplorer.cs">
+    <Compile Include="Controls\ModExplorer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\ModExplorer.Designer.cs">
+    <Compile Include="Controls\ModExplorer.Designer.cs">
       <DependentUpon>ModExplorer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmModSettings.cs">
@@ -580,10 +580,10 @@
     <Compile Include="Forms\frmModSettings.Designer.cs">
       <DependentUpon>frmModSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\OutputView.cs">
+    <Compile Include="Controls\OutputView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\OutputView.Designer.cs">
+    <Compile Include="Controls\OutputView.Designer.cs">
       <DependentUpon>OutputView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmRenameDialog.cs">
@@ -640,7 +640,7 @@
     <EmbeddedResource Include="Forms\frmChunkProperties.resx">
       <DependentUpon>frmChunkProperties.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmCR2WDocument.resx">
+    <EmbeddedResource Include="Controls\frmCR2WDocument.resx">
       <DependentUpon>frmCR2WDocument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDebug.resx">
@@ -673,13 +673,13 @@
     <EmbeddedResource Include="Forms\frmMenuCreator.resx">
       <DependentUpon>frmMenuCreator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ModExplorer.resx">
+    <EmbeddedResource Include="Controls\ModExplorer.resx">
       <DependentUpon>ModExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmModSettings.resx">
       <DependentUpon>frmModSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OutputView.resx">
+    <EmbeddedResource Include="Controls\OutputView.resx">
       <DependentUpon>OutputView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPackSettings.resx">
@@ -709,7 +709,7 @@
     <EmbeddedResource Include="Forms\frmTextInput.resx">
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTextureFile.resx">
+    <EmbeddedResource Include="Controls\frmTextureFile.resx">
       <DependentUpon>frmTextureFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmUsmPlayer.resx">
