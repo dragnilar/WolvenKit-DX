@@ -8,6 +8,8 @@ using WolvenKit.Render;
 
 namespace WolvenKit
 {
+    //TODO - This whole thing is tightly coupled to WeifinLuo.WinformsUi.Docking; it will need to be reimplemented to
+    // become a true reusable user control.
     public partial class frmCR2WDocument : XtraUserControl
     {
         public frmChunkList chunkList;
