@@ -38,10 +38,10 @@ namespace WolvenKit
             this.treeListColumnDisplayName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.treeListColumnFileType = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.svgImageCollectionModExplorer = new DevExpress.Utils.SvgImageCollection(this.components);
-            this.modexplorerSlave = new System.IO.FileSystemWatcher();
+            this.fileWatcherModExplorer = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.treeListModFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionModExplorer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modexplorerSlave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileWatcherModExplorer)).BeginInit();
             this.SuspendLayout();
             // 
             // treeListModFiles
@@ -107,14 +107,14 @@ namespace WolvenKit
             this.svgImageCollectionModExplorer.Add("w2p", "image://svgimages/icon builder/travel_walk.svg");
             this.svgImageCollectionModExplorer.Add("w2rig", "image://svgimages/spreadsheet/chartdatalabels_right.svg");
             // 
-            // modexplorerSlave
+            // fileWatcherModExplorer
             // 
-            this.modexplorerSlave.EnableRaisingEvents = true;
-            this.modexplorerSlave.IncludeSubdirectories = true;
-            this.modexplorerSlave.SynchronizingObject = this;
-            this.modexplorerSlave.Created += new System.IO.FileSystemEventHandler(this.FileChanges_Detected);
-            this.modexplorerSlave.Deleted += new System.IO.FileSystemEventHandler(this.FileChanges_Detected);
-            this.modexplorerSlave.Renamed += new System.IO.RenamedEventHandler(this.FileChanges_Detected);
+            this.fileWatcherModExplorer.EnableRaisingEvents = true;
+            this.fileWatcherModExplorer.IncludeSubdirectories = true;
+            this.fileWatcherModExplorer.SynchronizingObject = this;
+            this.fileWatcherModExplorer.Created += new System.IO.FileSystemEventHandler(this.FileChanges_Detected);
+            this.fileWatcherModExplorer.Deleted += new System.IO.FileSystemEventHandler(this.FileChanges_Detected);
+            this.fileWatcherModExplorer.Renamed += new System.IO.RenamedEventHandler(this.FileChanges_Detected);
             // 
             // ModExplorer
             // 
@@ -129,13 +129,13 @@ namespace WolvenKit
             this.Load += new System.EventHandler(this.frmModExplorer_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.treeListModFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionModExplorer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modexplorerSlave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileWatcherModExplorer)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private FileSystemWatcher modexplorerSlave;
+        private FileSystemWatcher fileWatcherModExplorer;
         private DevExpress.XtraTreeList.TreeList treeListModFiles;
         private DevExpress.Utils.SvgImageCollection svgImageCollectionModExplorer;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumnDisplayName;

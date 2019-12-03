@@ -33,20 +33,20 @@ namespace WolvenKit
         public event EventHandler<RequestFileArgs> RequestFileRename;
 
 
-        //TODO - Slave does not work well with the tree list, need to investigate. Or possibly trash it since it causes an annoying performance hit.
         public void PauseMonitoring()
         {
-          //  modexplorerSlave.EnableRaisingEvents = false;
+            fileWatcherModExplorer.EnableRaisingEvents = false;
         }
 
         public void ResumeMonitoring()
         {
-           // modexplorerSlave.EnableRaisingEvents = true;
+            fileWatcherModExplorer.Path = ActiveMod.FileDirectory;
+            fileWatcherModExplorer.EnableRaisingEvents = true;
         }
 
         public void StopMonitoringDirectory()
         {
-            //   modexplorerSlave.Dispose();
+            fileWatcherModExplorer.Dispose();
         }
 
         public bool DeleteNode(string fullPath)
@@ -80,7 +80,7 @@ namespace WolvenKit
                 treeListModFiles.Nodes.Clear();
                 InitFolders(rootFilePath, null);
             }
-
+            treeListModFiles.ExpandAll();
             treeListModFiles.EndUpdate();
         }
 
@@ -129,6 +129,7 @@ namespace WolvenKit
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -218,7 +219,7 @@ namespace WolvenKit
         private void frmModExplorer_Shown(object sender, EventArgs e)
         {
             if (ActiveMod != null)
-                modexplorerSlave.Path = ActiveMod.FileDirectory;
+                fileWatcherModExplorer.Path = ActiveMod.FileDirectory;
         }
 
         private void modFileList_KeyDown(object sender, KeyEventArgs e)
