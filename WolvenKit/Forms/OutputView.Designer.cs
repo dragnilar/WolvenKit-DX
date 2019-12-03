@@ -37,7 +37,10 @@ namespace WolvenKit
             // txOutput
             // 
             this.txOutput.ActiveViewType = DevExpress.XtraRichEdit.RichEditViewType.Simple;
+            this.txOutput.Appearance.Text.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txOutput.Appearance.Text.Options.UseFont = true;
             this.txOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txOutput.DocumentViewDirection = DevExpress.XtraRichEdit.DocumentViewDirection.LeftToRight;
             this.txOutput.LayoutUnit = DevExpress.XtraRichEdit.DocumentLayoutUnit.Pixel;
             this.txOutput.Location = new System.Drawing.Point(0, 0);
             this.txOutput.Name = "txOutput";
@@ -46,6 +49,7 @@ namespace WolvenKit
             this.txOutput.Options.VerticalRuler.Visibility = DevExpress.XtraRichEdit.RichEditRulerVisibility.Hidden;
             this.txOutput.Size = new System.Drawing.Size(930, 259);
             this.txOutput.TabIndex = 1;
+            this.txOutput.Views.SimpleView.BackColor = System.Drawing.Color.Black;
             this.txOutput.PopupMenuShowing += new DevExpress.XtraRichEdit.PopupMenuShowingEventHandler(this.txOutput_PopupMenuShowing);
             // 
             // OutputView

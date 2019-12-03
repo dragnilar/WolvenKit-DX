@@ -43,7 +43,7 @@ namespace WolvenKit
                     txOutput.AppendText(text, Color.LimeGreen);
                     break;
                 default:
-                    txOutput.AppendText(text, Color.Black);
+                    txOutput.AppendText(text, Color.White);
                     break;
             }
 
