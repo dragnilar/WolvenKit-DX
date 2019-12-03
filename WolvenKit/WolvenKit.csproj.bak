@@ -1,0 +1,1341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12FD792B-EC76-4969-8B42-9671025D5108}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WolvenKit</RootNamespace>
+    <AssemblyName>WolvenKit</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>./Publish/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <UpdateUrl>http://traderain.hu/Witcher/WolvenKit/Release/</UpdateUrl>
+    <SupportUrl>https://traderain.hu</SupportUrl>
+    <ErrorReportUrl>https://traderain.hu</ErrorReportUrl>
+    <ProductName>WolvenKit</ProductName>
+    <PublisherName>Traderain</PublisherName>
+    <SuiteName>WolvenKit</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationVersion>0.0.2.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\WolvenKit.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>wolven_kit_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>56D600A08C1A75A7D44B3384AB83B913576E5024</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>W3Edit_1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <NoWarn>CS1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\WolvenKit.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <NoWarn>CS1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\WolvenKit.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AltoControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AltoControls.1.0.1\lib\AltoControls.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoUpdater.NET, Version=1.5.8.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autoupdater.NET.Official.1.5.8\lib\net40\AutoUpdater.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="CircularProgressBar, Version=2.7.0.7, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\CircularProgressBar.2.7.0.7\lib\net40\CircularProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="Cyotek.Windows.Forms.ImageBox, Version=1.2.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
+      <HintPath>..\packages\CyotekImageBox.1.3.0-Alpha1\lib\net20\Cyotek.Windows.Forms.ImageBox.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevZH.FlatBuffers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevZH.FlatBuffers.1.4.0\lib\net35\DevZH.FlatBuffers.dll</HintPath>
+    </Reference>
+    <Reference Include="Doboz">
+      <HintPath>..\packages\doboz4net.1.0.1\lib\net40-client\Doboz.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="IniParserLTK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IniParserLTK.1.1.5\lib\net45\IniParserLTK.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.ZLib, Version=2.0.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkerMetro.Unity.Ionic.Zlib.2.0.0.14\lib\net35\Ionic.ZLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IrrlichtLime, Version=1.5.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\IrrlichtLime.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4, Version=1.0.15.93, Culture=neutral, PublicKeyToken=62e1b5ec1eec9bdd, processorArchitecture=MSIL">
+      <HintPath>..\packages\lz4net.1.0.15.93\lib\net4-client\LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4PCL">
+      <HintPath>..\packages\LZ4PCL.1.0.0\lib\portable-net4+netcore45+wpa81+MonoAndroid1+MonoTouch1\LZ4PCL.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.9.1.25410, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.2-alpha2\lib\net20\ObjectListView.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenGL.Net, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenGL.Net.0.8.4\lib\net461\OpenGL.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenGL.Net.WinForms, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenGL.Net.WinForms.0.8.4\lib\net461\OpenGL.Net.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PropertyGridEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyGridEx.1.0.0\lib\net20\PropertyGridEx.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.4\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="RtfPipe, Version=1.0.7246.39337, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RtfPipe.1.0.7246.39337\lib\net45\RtfPipe.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.1\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="VisualPlus, Version=0.4.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VisualPlus.0.4.1.4-beta\lib\VisualPlus\NET4\VisualPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Core.3.0.0\lib\net45\Vlc.DotNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core.Interops, Version=3.0.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Core.Interops.3.0.0\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Forms, Version=3.0.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Forms.3.0.0\lib\net45\Vlc.DotNet.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\Atflib\VSLangProj.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyExtensions.cs" />
+    <Compile Include="DDSUtility.cs" />
+    <Compile Include="discord.cs" />
+    <Compile Include="Forms\frmLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLoading.Designer.cs">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStringsGuiImporterIDDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStringsGuiImporterIDDialog.Designer.cs">
+      <DependentUpon>frmStringsGuiImporterIDDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCreateInstaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCreateInstaller.Designer.cs">
+      <DependentUpon>frmCreateInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WitcherListViewItem.cs" />
+    <Compile Include="Commonfunctions.cs" />
+    <Compile Include="Forms\frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="CopyController.cs" />
+    <Compile Include="FileSavedEventArgs.cs" />
+    <Compile Include="Forms\frmDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDebug.Designer.cs">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImagePreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImagePreview.Designer.cs">
+      <DependentUpon>frmImagePreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmInstallPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmInstallPackage.Designer.cs">
+      <DependentUpon>frmInstallPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmJournalEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmJournalEditor.Designer.cs">
+      <DependentUpon>frmJournalEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMenuCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMenuCreator.Designer.cs">
+      <DependentUpon>frmMenuCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPackSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPackSettings.Designer.cs">
+      <DependentUpon>frmPackSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSaveEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSaveEditor.Designer.cs">
+      <DependentUpon>frmSaveEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStringsGui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStringsGui.Designer.cs">
+      <DependentUpon>frmStringsGui.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStringsGuiImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStringsGuiImporter.Designer.cs">
+      <DependentUpon>frmStringsGuiImporter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStringsGuiScriptsPrefixDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStringsGuiScriptsPrefixDialog.Designer.cs">
+      <DependentUpon>frmStringsGuiScriptsPrefixDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTextInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTextInput.Designer.cs">
+      <DependentUpon>frmTextInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTextureFile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTextureFile.Designer.cs">
+      <DependentUpon>frmTextureFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmUsmPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmUsmPlayer.Designer.cs">
+      <DependentUpon>frmUsmPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmWCCLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmWCCLicense.Designer.cs">
+      <DependentUpon>frmWCCLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExportUtility.cs" />
+    <Compile Include="FlowTreeEditors\ChunkEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\ChunkEditor.Designer.cs">
+      <DependentUpon>ChunkEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowTreeEditors\MoveEditorArgs.cs" />
+    <Compile Include="FlowTreeEditors\SceneChoiceEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneChoiceEditor.Designer.cs">
+      <DependentUpon>SceneChoiceEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneFlowConditionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneFlowConditionEditor.Designer.cs">
+      <DependentUpon>SceneFlowConditionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneLinkEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneLinkEditor.Designer.cs">
+      <DependentUpon>SceneLinkEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneRandomizerEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneRandomizerEditor.Designer.cs">
+      <DependentUpon>SceneRandomizerEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneSectionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneSectionEditor.Designer.cs">
+      <DependentUpon>SceneSectionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddChunk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddChunk.Designer.cs">
+      <DependentUpon>frmAddChunk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddVariable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddVariable.Designer.cs">
+      <DependentUpon>frmAddVariable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAssetBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAssetBrowser.Designer.cs">
+      <DependentUpon>frmAssetBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChunkFlowDiagram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChunkFlowDiagram.Designer.cs">
+      <DependentUpon>frmChunkFlowDiagram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChunkList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChunkList.Designer.cs">
+      <DependentUpon>frmChunkList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChunkProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChunkProperties.Designer.cs">
+      <DependentUpon>frmChunkProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCR2WDocument.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCR2WDocument.Designer.cs">
+      <DependentUpon>frmCR2WDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEmbeddedFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEmbeddedFiles.Designer.cs">
+      <DependentUpon>frmEmbeddedFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmExtractAmbigious.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmExtractAmbigious.Designer.cs">
+      <DependentUpon>frmExtractAmbigious.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmHexEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHexEditorView.Designer.cs">
+      <DependentUpon>frmHexEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ModExplorer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ModExplorer.Designer.cs">
+      <DependentUpon>ModExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmModSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmModSettings.Designer.cs">
+      <DependentUpon>frmModSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OutputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\OutputView.Designer.cs">
+      <DependentUpon>OutputView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRenameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRenameDialog.Designer.cs">
+      <DependentUpon>frmRenameDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestFileOpenArgs.cs" />
+    <Compile Include="SelectChunkArgs.cs" />
+    <Compile Include="SortableBindinglist.cs" />
+    <Compile Include="Win32.cs" />
+    <Compile Include="WKPackage.cs" />
+    <EmbeddedResource Include="Forms\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlowTreeEditors\ChunkEditor.resx">
+      <DependentUpon>ChunkEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlowTreeEditors\SceneFlowConditionEditor.resx">
+      <DependentUpon>SceneFlowConditionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlowTreeEditors\SceneLinkEditor.resx">
+      <DependentUpon>SceneLinkEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddChunk.resx">
+      <DependentUpon>frmAddChunk.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddVariable.resx">
+      <DependentUpon>frmAddVariable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAssetBrowser.resx">
+      <DependentUpon>frmAssetBrowser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChunkFlowDiagram.resx">
+      <DependentUpon>frmChunkFlowDiagram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChunkList.resx">
+      <DependentUpon>frmChunkList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChunkProperties.resx">
+      <DependentUpon>frmChunkProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCR2WDocument.resx">
+      <DependentUpon>frmCR2WDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDebug.resx">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEmbeddedFiles.resx">
+      <DependentUpon>frmEmbeddedFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmExtractAmbigious.resx">
+      <DependentUpon>frmExtractAmbigious.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmHexEditorView.resx">
+      <DependentUpon>frmHexEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImagePreview.resx">
+      <DependentUpon>frmImagePreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmInstallPackage.resx">
+      <DependentUpon>frmInstallPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmJournalEditor.resx">
+      <DependentUpon>frmJournalEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLoading.resx">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMenuCreator.resx">
+      <DependentUpon>frmMenuCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ModExplorer.resx">
+      <DependentUpon>ModExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmModSettings.resx">
+      <DependentUpon>frmModSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OutputView.resx">
+      <DependentUpon>OutputView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPackSettings.resx">
+      <DependentUpon>frmPackSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRenameDialog.resx">
+      <DependentUpon>frmRenameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSaveEditor.resx">
+      <DependentUpon>frmSaveEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStringsGui.resx">
+      <DependentUpon>frmStringsGui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStringsGuiImporter.resx">
+      <DependentUpon>frmStringsGuiImporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStringsGuiImporterIDDialog.resx">
+      <DependentUpon>frmStringsGuiImporterIDDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStringsGuiScriptsPrefixDialog.resx">
+      <DependentUpon>frmStringsGuiScriptsPrefixDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTextInput.resx">
+      <DependentUpon>frmTextInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTextureFile.resx">
+      <DependentUpon>frmTextureFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmUsmPlayer.resx">
+      <DependentUpon>frmUsmPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmWCCLicense.resx">
+      <DependentUpon>frmWCCLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCreateInstaller.resx">
+      <DependentUpon>frmCreateInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open_6529.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NewSolutionFolder_6289.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_6530.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Saveall_6518.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gear_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddNodefromFile_354.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\properties_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FileGroup_10135_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WolvenKit.Bundles\WolvenKit.Bundles.csproj">
+      <Project>{5bd2292a-24db-4b4a-a5b1-5d435769c289}</Project>
+      <Name>WolvenKit.Bundles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Common\WolvenKit.Common.csproj">
+      <Project>{4d1019f1-f099-450f-85b8-697e0332a94f}</Project>
+      <Name>WolvenKit.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.CR2W\WolvenKit.CR2W.csproj">
+      <Project>{f3129e02-31ad-4327-a9ef-7c52d777c71f}</Project>
+      <Name>WolvenKit.CR2W</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Net\WolvenKit.Net.csproj">
+      <Project>{f60b8974-617d-45b5-bd33-68a9f739de4f}</Project>
+      <Name>WolvenKit.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Render\WolvenKit.Render.csproj">
+      <Project>{8be56f4f-3b98-4bd8-8052-2b5e630af3d7}</Project>
+      <Name>WolvenKit.Render</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Scaleform\WolvenKit.Scaleform.csproj">
+      <Project>{031dd6da-b643-4c2a-a30d-a2e2212724c2}</Project>
+      <Name>WolvenKit.Scaleform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Cache\WolvenKit.Cache.csproj">
+      <Project>{17cf5901-6e1f-467f-afe0-3cc04dc9688a}</Project>
+      <Name>WolvenKit.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.W3Speech\WolvenKit.W3Speech.csproj">
+      <Project>{c025f253-c78b-4a3b-87e7-1b2a1a453b97}</Project>
+      <Name>WolvenKit.W3Speech</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.W3Strings\WolvenKit.W3Strings.csproj">
+      <Project>{32d40d10-d6c3-48f0-aeb6-0f41c7e75cfd}</Project>
+      <Name>WolvenKit.W3Strings</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Save\WolvenKit.Save.csproj">
+      <Project>{9c026da7-481d-43c6-8c18-635d69fdb423}</Project>
+      <Name>WolvenKit.Save</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WolvenKit.Wwise\WolvenKit.Wwise.csproj">
+      <Project>{dcbbe807-cd6e-493e-8c04-db976a1591ea}</Project>
+      <Name>WolvenKit.Wwise</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\geralt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Editing-Collapse-icon.png" />
+    <None Include="Resources\Editing-Expand-icon.png" />
+    <None Include="Resources\mail.png" />
+    <None Include="Resources\player_record.png" />
+    <Content Include="..\Libs\Irrlicht.dll">
+      <Link>Irrlicht.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\box.png" />
+    <None Include="Resources\box--arrow.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\exclamation-red.png" />
+    <None Include="Resources\edit-letter-spacing.png" />
+    <None Include="Resources\ui-menu-blue.png" />
+    <None Include="Resources\home.png" />
+    <None Include="Resources\stickman.png" />
+    <None Include="Resources\t-shirt-gray.png" />
+    <None Include="Resources\arrow-circle-315.png" />
+    <None Include="Resources\ui-check-box.png" />
+    <None Include="Resources\ui-check-box-uncheck.png" />
+    <None Include="Resources\wooden-box--arrow.png" />
+    <None Include="Resources\Logo.png" />
+    <None Include="Resources\loading_black.png" />
+    <None Include="Resources\Logo_wkit.png" />
+    <Content Include="discord-rpc.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\sword_s19.svg" />
+    <Content Include="wolven_kit_icon.ico" />
+    <Content Include="Licenses\License.doboz4net.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\License.dockpanelsuit.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\License.dotnetzip.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\License.dotnetzip.zlib.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\License.lz4net.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\License.objectlistview.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\License.W3SaveGameEditor.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\ExpandIcon.png" />
+    <None Include="Resources\ExitIcon.png" />
+    <None Include="Resources\LayerGroupVisibled.png" />
+    <None Include="Resources\wcc_eula.rtf" />
+    <None Include="Resources\witcher3_102.ico" />
+    <None Include="Resources\witcher3_101.ico" />
+    <None Include="Resources\2c21aeda16de354ba5334551a883b481.png" />
+    <None Include="Resources\info-icon-23818.jpg" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\aERVQbx_460s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <PublishFile Include="AltoControls">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Crc32C.NET">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Cyotek.Windows.Forms.ImageBox">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Doboz">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ICSharpCode.SharpZipLib">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="IniParserLTK">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Ionic.ZLib">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Irrlicht.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="IrrlichtLime">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.doboz4net.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.dockpanelsuit.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.dotnetzip.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.dotnetzip.zlib.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.lz4net.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.objectlistview.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Licenses\License.W3SaveGameEditor.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LZ4">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="LZ4PCL">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Newtonsoft.Json">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ObjectListView">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="OpenGL.Net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="OpenGL.Net.WinForms">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Snappy.NET">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="System.Runtime.CompilerServices.Unsafe">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Vlc.DotNet.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Vlc.DotNet.Core.Interops">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Vlc.DotNet.Forms">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="W3SavegameEditor.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WeifenLuo.WinFormsUI.Docking">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Bundles">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Cache">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.CR2W">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Interfaces">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Render">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Scaleform">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.W3Speech">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.W3Strings">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="WolvenKit.Wwise">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="wolven_kit_icon.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
