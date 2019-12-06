@@ -235,4 +235,16 @@
   <data name="loading_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading_black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DebugRun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DebugRun.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="packageInstaller" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\packageInstaller.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="W2ent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\W2ent.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="WSFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WSFile.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
