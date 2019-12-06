@@ -679,7 +679,7 @@ namespace WolvenKit
                 }
 
             // Delete from mod explorer
-            modExplorerControl.DeleteNode(filename);
+            modExplorerControl.DeleteNode(fullpath);
 
             SaveMod();
         }
@@ -771,7 +771,7 @@ namespace WolvenKit
                     Name = modname
                 };
                 ResetWindows();
-                UpdateModFileList(true);
+                UpdateModFileList();
                 SaveMod();
                 AddOutput("\"" + ActiveMod.Name + "\" successfully created and loaded!\n");
                 break;
@@ -867,7 +867,7 @@ namespace WolvenKit
                 ActiveMod.FileName = file;
                 modfile.Close();
                 ResetWindows();
-                UpdateModFileList(true);
+                UpdateModFileList();
                 AddOutput("\"" + ActiveMod.Name + "\" loaded successfully!\n");
                 MainController.Get().ProjectStatus = "Ready";
 
@@ -998,10 +998,11 @@ namespace WolvenKit
         /// <summary>
         ///     Update the list of files in the ModExplorer
         /// </summary>
-        /// <param name="clear">if true files or completely redrawn</param>
-        private void UpdateModFileList(bool clear = false)
+        private void UpdateModFileList()
         {
-            modExplorerControl.UpdateModFileList(true, clear, ActiveMod.FileDirectory);
+            modExplorerControl.PauseMonitoring();
+            modExplorerControl.UpdateModFileList(ActiveMod.FileDirectory);
+            modExplorerControl.ResumeMonitoring();
         }
 
         /// <summary>
@@ -1458,7 +1459,6 @@ namespace WolvenKit
         private void Assetbrowser_FileAdd(object sender,
             Tuple<List<IWitcherArchive>, List<WitcherListViewItem>, bool> Details)
         {
-            modExplorerControl.PauseMonitoring();
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {
                 XtraMessageBox.Show(@"Please close The Witcher 3 before tinkering with the files!", string.Empty,
@@ -1471,9 +1471,6 @@ namespace WolvenKit
             foreach (var item in Details.Item2) skipping = AddToMod(item, skipping, Details.Item1, Details.Item3);
             SaveMod();
             MainController.Get().ProjectStatus = "Ready";
-            modExplorerControl.FoldersShown = true;
-            modExplorerControl.UpdateModFileList(true, true, ActiveMod.FileDirectory);
-            modExplorerControl.ResumeMonitoring();
         }
 
         private void ModExplorer_RequestFileOpen(object sender, RequestFileArgs e)
@@ -1533,16 +1530,12 @@ namespace WolvenKit
                 }
                 catch
                 {
+                    //Ignored
                 }
 
                 File.Move(fullpath, newfullpath);
 
-                // Rename file in mod explorer
-                if (modExplorerControl != null)
-                {
-                    modExplorerControl.DeleteNode(filename);
-                    modExplorerControl.UpdateModFileList(true, true);
-                }
+                //File renames are now handled by the monitor
             }
 
             MainController.Get().ProjectStatus = "File renamed";

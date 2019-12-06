@@ -856,6 +856,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\sword_s19.svg" />
+    <None Include="Resources\DebugRun.svg" />
+    <None Include="Resources\packageInstaller.svg" />
+    <None Include="Resources\W2ent.svg" />
+    <None Include="Resources\WSFile.svg" />
     <Content Include="wolven_kit_icon.ico" />
     <Content Include="Licenses\License.doboz4net.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

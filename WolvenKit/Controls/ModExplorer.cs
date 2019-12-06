@@ -22,7 +22,6 @@ namespace WolvenKit
         public ModExplorer()
         {
             InitializeComponent();
-            UpdateModFileList(true, true);
             LastChange = DateTime.Now;
         }
 
@@ -41,11 +40,20 @@ namespace WolvenKit
         public void PauseMonitoring()
         {
             fileWatcherModExplorer.EnableRaisingEvents = false;
+            
         }
 
         public void ResumeMonitoring()
         {
-            fileWatcherModExplorer.Path = ActiveMod.FileDirectory;
+            if (fileWatcherModExplorer == null)
+            {
+                fileWatcherModExplorer = new FileSystemWatcher(ActiveMod.FileDirectory);
+            }
+            else
+            {
+                fileWatcherModExplorer.Path = ActiveMod.FileDirectory;
+            }
+
             fileWatcherModExplorer.EnableRaisingEvents = true;
         }
 
@@ -56,22 +64,43 @@ namespace WolvenKit
 
         public bool DeleteNode(string fullPath)
         {
-            foreach (var t in fullPath.Split('\\'))
+            var node = treeListModFiles.FindNode(x => x[treeListColumnFullName].ToString() == fullPath);
+            if (node != null)
             {
-                var node = treeListModFiles.FindNodeByFieldValue(treeListColumnFullName.FieldName, t);
-                if (node != null)
+                treeListModFiles.BeginUpdate();
+                try
                 {
                     treeListModFiles.Nodes.Remove(node);
-                    return true;
                 }
-
-                break;
+                catch (Exception)
+                {
+                    //Ignore
+                }
+                treeListModFiles.EndUpdate();
             }
 
             return false;
         }
 
-        public void UpdateModFileList(bool showfolders, bool clear = false, string rootFilePath = null)
+        private void RenameNode(string oldFilePath, string newFilePath)
+        {
+            var node = treeListModFiles.FindNode(x => x[treeListColumnFullName].ToString() == oldFilePath);
+            if (node == null) return;
+            var fi = new FileInfo(newFilePath);
+            treeListModFiles.BeginUpdate();
+            try
+            {
+                node[treeListColumnFullName] = newFilePath;
+                node[treeListColumnDisplayName] = fi.Name;
+            }
+            catch (Exception )
+            {
+                //Ignored
+            }
+            treeListModFiles.EndUpdate();
+        }
+
+        public void UpdateModFileList(string rootFilePath)
         {
             if (ActiveMod == null)
                 return;
@@ -99,12 +128,7 @@ namespace WolvenKit
                 foreach (var s in Directory.GetDirectories(path))
                     try
                     {
-                        var di = new DirectoryInfo(s);
-                        var node = treeListModFiles.AppendNode(new object[] {s, di.Name, "Folder"}, parentNode);
-                        node.StateImageIndex = 1;
-                        node.HasChildren = HasFiles(s);
-                        if (node.HasChildren)
-                            node.Tag = true;
+                        AddFolderNode(s, parentNode);
                     }
                     catch
                     {
@@ -127,10 +151,7 @@ namespace WolvenKit
             {
                 foreach (var s in root)
                 {
-                    var fi = new FileInfo(s);
-                    var node = treeListModFiles.AppendNode(new object[] {s, fi.Name, "File"}, parentNode);
-                    node.StateImageIndex = GetImageIndex(fi.Extension);
-                    node.HasChildren = false;
+                    AddFileNode(s, parentNode);
                 }
             }
             catch
@@ -182,6 +203,29 @@ namespace WolvenKit
             return false;
         }
 
+        private bool IsDirectory(string path)
+        {
+            var attributes = File.GetAttributes(path);
+            return attributes.HasFlag(FileAttributes.Directory);
+        }
+
+        private void AddFileNode(string path, TreeListNode parentsNode)
+        {
+            var fi = new FileInfo(path);
+            var node = treeListModFiles.AppendNode(new object[] {path, fi.Name, "File"}, parentsNode);
+            node.StateImageIndex = GetImageIndex(fi.Extension);
+        }
+
+        private void AddFolderNode(string path, TreeListNode parentsNode)
+        {
+            var di = new DirectoryInfo(path);
+            var node = treeListModFiles.AppendNode(new object[] {path, di.Name, "Folder"}, parentsNode);
+            node.StateImageIndex = 1;
+            node.HasChildren = HasFiles(path);
+            if (node.HasChildren)
+                node.Tag = true;
+        }
+
         private void modFileList_BeforeExpand(object sender, BeforeExpandEventArgs e)
         {
             if (e.Node.Tag != null)
@@ -217,7 +261,48 @@ namespace WolvenKit
 
         private void FileChanges_Detected(object sender, FileSystemEventArgs e)
         {
-            UpdateModFileList(FoldersShown, true, ActiveMod.FileDirectory);
+            switch ((e.ChangeType))
+            {
+                case WatcherChangeTypes.Created:
+                {
+                    AddParentForPath(e.FullPath);
+                    break;
+                }
+                case WatcherChangeTypes.Deleted:
+                    DeleteNode(e.FullPath);
+                    break;
+                case WatcherChangeTypes.Renamed:
+                    if (e is RenamedEventArgs renameEvent) RenameNode(renameEvent.OldFullPath, e.FullPath);
+                    break;
+
+            }
+        }
+
+
+
+        private void AddParentForPath(string path)
+        {
+            var parentDirectory = Directory.GetParent(path);
+            var parentsNode =
+                treeListModFiles.FindNode(x => x[treeListColumnFullName].ToString() == parentDirectory.FullName);
+            if (parentsNode == null) return;
+            treeListModFiles.BeginUpdate();
+            try
+            {
+                if (IsDirectory(path))
+                {
+                    AddFolderNode(path, parentsNode);
+                }
+                else
+                {
+                    AddFileNode(path, parentsNode);
+                }
+            }
+            catch (Exception)
+            {
+                //Ignored
+            }
+            treeListModFiles.EndUpdate();
         }
 
 
@@ -290,6 +375,7 @@ namespace WolvenKit
                 }
                 catch
                 {
+                    // ignored
                 }
 
                 File.Move(selectedFilePath, newfullpath);

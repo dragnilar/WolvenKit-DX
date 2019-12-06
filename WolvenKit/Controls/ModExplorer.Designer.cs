@@ -84,8 +84,11 @@ namespace WolvenKit
             this.treeListModFiles.OptionsMenu.ShowFooterItem = true;
             this.treeListModFiles.OptionsScrollAnnotations.ShowSelectedRows = DevExpress.Utils.DefaultBoolean.True;
             this.treeListModFiles.OptionsView.ShowFilterPanelMode = DevExpress.XtraTreeList.ShowFilterPanelMode.ShowAlways;
+            this.treeListModFiles.OptionsView.ShowHorzLines = false;
             this.treeListModFiles.OptionsView.ShowIndicator = false;
             this.treeListModFiles.OptionsView.ShowTreeLines = DevExpress.Utils.DefaultBoolean.True;
+            this.treeListModFiles.OptionsView.ShowVertLines = false;
+            this.treeListModFiles.OptionsView.TreeLineStyle = DevExpress.XtraTreeList.LineStyle.Light;
             this.treeListModFiles.Size = new System.Drawing.Size(363, 445);
             this.treeListModFiles.StateImageList = this.svgImageCollectionModExplorer;
             this.treeListModFiles.TabIndex = 0;
@@ -116,8 +119,6 @@ namespace WolvenKit
             this.treeListColumnFileType.Caption = "Type";
             this.treeListColumnFileType.FieldName = "FileTYpe";
             this.treeListColumnFileType.Name = "treeListColumnFileType";
-            this.treeListColumnFileType.Visible = true;
-            this.treeListColumnFileType.VisibleIndex = 1;
             this.treeListColumnFileType.Width = 54;
             // 
             // barManagerModExplorer
@@ -267,6 +268,8 @@ namespace WolvenKit
             this.svgImageCollectionModExplorer.Add("w2scene", "image://svgimages/business objects/bo_organization.svg");
             this.svgImageCollectionModExplorer.Add("w2p", "image://svgimages/icon builder/travel_walk.svg");
             this.svgImageCollectionModExplorer.Add("w2rig", "image://svgimages/spreadsheet/chartdatalabels_right.svg");
+            this.svgImageCollectionModExplorer.Add("ws", ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("svgImageCollectionModExplorer.ws"))));
+            this.svgImageCollectionModExplorer.Add("w2ent", ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("svgImageCollectionModExplorer.w2ent"))));
             // 
             // fileWatcherModExplorer
             // 
