@@ -266,7 +266,7 @@ namespace WolvenKit.CR2W
         public CVariable ReadVariable(BinaryReader file)
         {
             var nameId = file.ReadUInt16();
-            if (nameId == 0)
+            if (nameId == 0 || nameId > strings.Count)
             {
                 return null;
             }

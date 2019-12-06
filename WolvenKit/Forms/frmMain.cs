@@ -782,7 +782,7 @@ namespace WolvenKit
         {
             if (ActiveMod != null)
             {
-                if (ActiveMod.LastOpenedFiles != null)
+                if (ActiveMod.LastOpenedFiles != null && OpenDocuments.Any())
                     ActiveMod.LastOpenedFiles = OpenDocuments.Select(x => x.File.FileName).ToList();
                 var ser = new XmlSerializer(typeof(W3Mod));
                 var modfile = new FileStream(ActiveMod.FileName, FileMode.Create, FileAccess.Write);
@@ -1502,7 +1502,15 @@ namespace WolvenKit
                 default:
                     //This fails unnecessarily in the event that we're trying to open a file extension that isn't associated with anything in Windows and also is not an actually supported file type.
                     //See note about Dragnilar's File Extension Hack below...
-                    LoadDocument(fullpath);
+                    try
+                    {
+                        LoadDocument(fullpath);
+                    }
+                    catch (Exception ex)
+                    {
+                        XtraMessageBox.Show("Error loading document. Further details are as follows:\n\n" + ex,
+                            "Error Loading Document", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
             }
         }
