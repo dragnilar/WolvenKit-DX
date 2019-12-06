@@ -14,6 +14,7 @@ using System.Collections.Generic;
 
 namespace WolvenKit.Render
 {
+    //TODO - Convert to XtraUserControl
     public partial class frmRender : DockContent
     {
         /// <summary>
