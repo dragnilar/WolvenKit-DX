@@ -7,6 +7,7 @@ using WolvenKit.CR2W.Types;
 
 namespace WolvenKit
 {
+    //TODO - Convert to XtraUserControl
     public partial class frmJournalEditor : DockContent
     {
         public string descriptiontext;
