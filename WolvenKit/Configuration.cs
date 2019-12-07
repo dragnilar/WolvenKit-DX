@@ -26,11 +26,8 @@ namespace WolvenKit
         public string TextLanguage { get; set; }
         public string VoiceLanguage { get; set; }
         public string WccLite { get; set; }
-        public Size MainSize { get; set; }
         public string InitialModDirectory { get; set; }
         public string InitialFileDirectory { get; set; }
-        public Point MainLocation { get; set; }
-        public FormWindowState MainState { get; set; }
         public string InitialExportDirectory { get; set; }
         public string Palette { get; set; }
 

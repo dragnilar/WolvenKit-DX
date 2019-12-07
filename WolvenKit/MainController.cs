@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
 using WolvenKit.Common;
+using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
@@ -29,6 +30,20 @@ namespace WolvenKit
         private bool _loaded;
 
         private string _loadstatus = "Loading...";
+
+        public static List<string> EditableFiles = new List<string>
+        {
+            ".w2mg",
+            ".w2p",
+            ".w2ent",
+            ".reddlc",
+            ".w2beh",
+            ".w2behtree",
+            ".w2scene",
+            ".w2rig",
+            ".env",
+            ".journal"
+        };
 
 
         private KeyValuePair<string, OutputView.Logtype> _logMessage =
@@ -375,12 +390,12 @@ namespace WolvenKit
             }
         }
 
-        public frmCR2WDocument LoadDocument(string filename, bool suppressErrors = false)
+        public CR2WDocumentContainer LoadDocument(string filename, bool suppressErrors = false)
         {
             return Window.LoadDocument(filename, null, suppressErrors);
         }
 
-        public frmCR2WDocument LoadDocument(string filename, MemoryStream memoryStream, bool suppressErrors = false)
+        public CR2WDocumentContainer LoadDocument(string filename, MemoryStream memoryStream, bool suppressErrors = false)
         {
             return Window.LoadDocument(filename, memoryStream, suppressErrors);
         }
@@ -469,7 +484,7 @@ namespace WolvenKit
         {
             if (args.Stream is MemoryStream)
             {
-                var doc = (frmCR2WDocument)sender;
+                var doc = (CR2WDocumentContainer)sender;
                 var editvar = (CVariable)doc.SaveTarget;
                 editvar.SetValue(((MemoryStream)args.Stream).ToArray());
             }
