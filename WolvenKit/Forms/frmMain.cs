@@ -20,6 +20,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
 using WolvenKit.Common;
+using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
@@ -31,7 +32,7 @@ namespace WolvenKit
     {
         public static Task Packer;
         private readonly string BaseTitle = "Wolven kit";
-        private bool _renderW2Mesh;
+        public bool RenderW2Mesh;
 
         public frmMain()
         {
@@ -351,7 +352,7 @@ namespace WolvenKit
 
         private void barCheckItemRenderW2Mesh_CheckedChanged(object sender, ItemClickEventArgs e)
         {
-            _renderW2Mesh = barCheckItemRenderW2Mesh.Checked;
+            RenderW2Mesh = barCheckItemRenderW2Mesh.Checked;
         }
 
         private void barButtonItemViewModExplorer_ItemClick(object sender, ItemClickEventArgs e)
@@ -419,20 +420,7 @@ namespace WolvenKit
         private delegate void logDelegate(string t, OutputView.Logtype type);
 
         #region Forms
-
-        private frmCR2WDocument _activedocument;
-        public List<frmCR2WDocument> OpenDocuments = new List<frmCR2WDocument>();
         public frmStringsGui stringsGui;
-
-        public frmCR2WDocument ActiveDocument
-        {
-            get => _activedocument;
-            set
-            {
-                _activedocument = value;
-                UpdateTitle();
-            }
-        }
 
         #endregion
 
@@ -467,20 +455,25 @@ namespace WolvenKit
             Text = BaseTitle + " v" + Version;
             if (ActiveMod != null) Text += " [" + ActiveMod.Name + "] ";
 
-            if (ActiveDocument != null && !ActiveDocument.IsDisposed) Text += Path.GetFileName(ActiveDocument.FileName);
+            if (tabbedViewMain.ActiveDocument != null) Text += Path.GetFileName(tabbedViewMain.ActiveDocument.Caption);
         }
 
         private void saveAllFiles()
         {
-            foreach (var d in OpenDocuments.Where(d => d.SaveTarget != null)) saveFile(d);
+            foreach (var document in tabbedViewMain.Documents)
+            {
+                if (document.Control is CR2WDocumentContainer container && container.SaveTarget != null)
+                {
+                    saveFile(container);
+                }
 
-            foreach (var d in OpenDocuments.Where(d => d.SaveTarget == null)) saveFile(d);
+            }
             AddOutput("All files saved!\n");
             MainController.Get().ProjectStatus = "Item(s) Saved";
             MainController.Get().ProjectUnsaved = false;
         }
 
-        private void saveFile(frmCR2WDocument d)
+        private void saveFile(CR2WDocumentContainer d)
         {
             d.SaveFile();
             AddOutput(d.FileName + " saved!\n");
@@ -782,12 +775,22 @@ namespace WolvenKit
         {
             if (ActiveMod != null)
             {
-                if (ActiveMod.LastOpenedFiles != null && OpenDocuments.Any())
-                    ActiveMod.LastOpenedFiles = OpenDocuments.Select(x => x.File.FileName).ToList();
+                ActiveMod.LastOpenedFiles = new List<string>();
+                if (ActiveMod.LastOpenedFiles != null && tabbedViewMain.Documents.Any())
+                {
+
+                    foreach (var document in tabbedViewMain.Documents)
+                    {
+                        if (document.Control is CR2WDocumentContainer container)
+                        {
+                            ActiveMod.LastOpenedFiles.Add(container.FileName);
+                        }
+                    }
+                }
                 var ser = new XmlSerializer(typeof(W3Mod));
-                var modfile = new FileStream(ActiveMod.FileName, FileMode.Create, FileAccess.Write);
-                ser.Serialize(modfile, ActiveMod);
-                modfile.Close();
+                var modFile = new FileStream(ActiveMod.FileName, FileMode.Create, FileAccess.Write);
+                ser.Serialize(modFile, ActiveMod);
+                modFile.Close();
             }
         }
 
@@ -889,10 +892,10 @@ namespace WolvenKit
                     MessageBoxIcon.Error);
             }
 
-            if (ActiveMod?.LastOpenedFiles != null)
-                foreach (var doc in ActiveMod.LastOpenedFiles)
-                    if (File.Exists(doc))
-                        LoadDocument(doc);
+            //if (ActiveMod?.LastOpenedFiles != null)
+            //    foreach (var doc in ActiveMod.LastOpenedFiles)
+            //        if (File.Exists(doc))
+            //            LoadDocument(doc);
         }
 
         /// <summary>
@@ -1029,178 +1032,120 @@ namespace WolvenKit
             dockPanelModExplorer.Show();
         }
 
-        public frmCR2WDocument LoadDocument(string filename, MemoryStream memoryStream = null,
+        /// <summary>
+        /// Opens the selected file path or memory stream (if supplied) in the CR2W Document Container.
+        /// </summary>
+        /// <param name="filePath">Full UNC file path to the file.</param>
+        /// <param name="memoryStream">Optional, memory stream for the file (will take priority over the file if supplied)</param>
+        /// <param name="suppressErrors">If set to true, will not display any exception/error messages that may pop up if files fail to open.</param>
+        /// <returns></returns>
+        public CR2WDocumentContainer LoadDocument(string filePath, MemoryStream memoryStream = null,
             bool suppressErrors = false)
         {
-            if (memoryStream == null && !File.Exists(filename))
+            if (memoryStream == null && !File.Exists(filePath))
                 return null;
+            var doc = new CR2WDocumentContainer();
 
-            //foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
-            //{
-            //    t.Activate();
-            //    return null;
-            //}
-            var doc = new frmCR2WDocument();
-            OpenDocuments.Add(doc);
 
             try
             {
-                if (memoryStream != null)
-                    doc.LoadFile(filename, memoryStream);
+                if (MainController.EditableFiles.Contains(Path.GetExtension(filePath)))
+                {
+                    if (memoryStream == null)
+                    {
+                        doc.LoadFile(filePath);
+                    }
+                    else
+                    {
+                        doc.LoadFile(filePath, memoryStream);
+                    }
+                }
                 else
-                    doc.LoadFile(filename);
+                {
+                    Process.Start(filePath);
+                    return null;
+                }
             }
             catch (InvalidFileTypeException ex)
             {
-                //Dragnilar's File Extension Handling Hack:
-                //This is a hack to get around the original author's design flaw with handling file extensions that are not yet associated with anything in Windows.
-                //If the file extension isn't associated with anything in Windows, the OS will simply alert the user to associate it with something.
-                //A dictionary of supported file types should probably be used instead of using a switch statement.
-                //Note: In .NET Core "ShellExecute" needs to be set to true for this to be treated as a proper command.
-                try
-                {
-                    Process.Start(filename);
-                }
-                catch (Exception)
-                {
-                    if (!suppressErrors)
-                        XtraMessageBox.Show(this, ex.Message, @"Error opening file.");
-                }
-
-                OpenDocuments.Remove(doc);
+                if (!suppressErrors)
+                    XtraMessageBox.Show(this, ex.Message, @"Error opening file.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 doc.Dispose();
                 return null;
             }
             catch (MissingTypeException ex)
             {
                 if (!suppressErrors)
-                    XtraMessageBox.Show(this, ex.Message, @"Error opening file.");
+                    XtraMessageBox.Show(this, ex.Message, @"Error opening file.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
-                OpenDocuments.Remove(doc);
                 doc.Dispose();
                 return null;
             }
-
-            switch (Path.GetExtension(filename))
+            catch (Exception ex)
             {
-                case ".w2scene":
-                {
-                    doc.flowDiagram = new frmChunkFlowDiagram
-                    {
-                        File = doc.File,
-                        DockAreas = DockAreas.Document
-                    };
-                    doc.flowDiagram.OnSelectChunk += doc.frmCR2WDocument_OnSelectChunk;
-                    doc.flowDiagram.Show(doc.FormPanel, DockState.Document);
-                    break;
-                }
-                case ".journal":
-                {
-                    doc.JournalEditor = new frmJournalEditor
-                    {
-                        File = doc.File,
-                        DockAreas = DockAreas.Document
-                    };
-                    doc.JournalEditor.Show(doc.FormPanel, DockState.Document);
-                    break;
-                }
-                case ".xbm":
-                {
-                    doc.ImageViewer = new frmImagePreview
-                    {
-                        File = doc.File,
-                        DockAreas = DockAreas.Document
-                    };
-                    doc.ImageViewer.Show(doc.FormPanel, DockState.Document);
-                    break;
-                }
-                /*case ".w2ent":
-                    {
-                        CHandle mesh = doc.File.chunks[2].GetVariableByName("mesh") as CHandle;
-                        var docW2Mesh = LoadDocument(Path.GetDirectoryName(filename) + @"\model\" + Path.GetFileName(mesh.Handle));
-                        if (docW2Mesh == null)
-                            XtraMessageBox.Show(".w2mesh file not found in model folder!" + "\n" + "Have you extracted it properly?");
-                        break;
-                    }*/
-                case ".w2mesh":
-                {
-                    if (_renderW2Mesh)
-                    {
-                        doc.RenderViewer = new frmRender
-                        {
-                            LoadDocument = LoadDocumentAndGetFile,
-                            MeshFile = doc.File,
-                            DockAreas = DockAreas.Document
-                        };
-                        doc.RenderViewer.Show(doc.FormPanel, DockState.Document);
-                    }
-
-                    break;
-                }
+                if (!suppressErrors)
+                    XtraMessageBox.Show(this, ex.Message, @"Error Opening File", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                return null;
             }
 
-            if (doc.File.block7.Count > 0)
-            {
-                doc.embeddedFiles = new frmEmbeddedFiles
-                {
-                    File = doc.File,
-                    DockAreas = DockAreas.Document
-                };
-                doc.embeddedFiles.Show(doc.FormPanel, DockState.Document);
-            }
 
-            //doc.Activated += doc_Activated;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             tabbedViewMain.AddDocument(doc);
+            tabbedViewMain.Documents.Last().Caption = fileNameWithoutExtension;
             doc.Dock = DockStyle.Fill;
-            //doc.FormClosed += doc_FormClosed;
 
             var output = new StringBuilder();
 
-            if (doc.File.UnknownTypes.Any())
+            if (doc.ContainerFile != null)
             {
-                ShowOutput();
+                if (doc.ContainerFile.block7.Count > 0)
+                {
+                    //TODO - This window may need to be converted to a user control, it isn't clear as to what control combination it belongs.
+                    var embeddedFileForm = new frmEmbeddedFiles()
+                    {
+                        File = doc.ContainerFile
+                    };
+                    embeddedFileForm.Show();
+                }
 
-                output.Append(doc.FileName + ": contains " + doc.File.UnknownTypes.Count + " unknown type(s):\n");
-                foreach (var unk in doc.File.UnknownTypes) output.Append("\"" + unk + "\", \n");
+                if (doc.ContainerFile.UnknownTypes.Any())
+                {
+                    ShowOutput();
 
-                output.Append("-------\n\n");
+                    output.Append(doc.FileName + ": contains " + doc.ContainerFile.UnknownTypes.Count + " unknown type(s):\n");
+                    foreach (var unk in doc.ContainerFile.UnknownTypes) output.Append("\"" + unk + "\", \n");
+
+                    output.Append("-------\n\n");
+                }
+
+                var hasUnknownBytes = false;
+
+                foreach (var t in doc.ContainerFile.chunks.Where(t =>
+                    t.unknownBytes?.Bytes != null && t.unknownBytes.Bytes.Length > 0))
+                {
+                    output.Append(t.Name + " contains " + t.unknownBytes.Bytes.Length + " unknown bytes. \n");
+                    hasUnknownBytes = true;
+                }
+
+                if (hasUnknownBytes)
+                    output.Append("-------\n\n");
+
+                AddOutput(output.ToString());
             }
 
-            var hasUnknownBytes = false;
-
-            foreach (var t in doc.File.chunks.Where(t =>
-                t.unknownBytes?.Bytes != null && t.unknownBytes.Bytes.Length > 0))
-            {
-                output.Append(t.Name + " contains " + t.unknownBytes.Bytes.Length + " unknown bytes. \n");
-                hasUnknownBytes = true;
-            }
-
-            if (hasUnknownBytes)
-                output.Append("-------\n\n");
-
-            AddOutput(output.ToString());
             return doc;
         }
 
-        public CR2WFile LoadDocumentAndGetFile(string filename)
-        {
-            foreach (var t in OpenDocuments.Where(t => t.FileName == filename))
-                return t.File;
-            //TODO - Need to reimplement this if necessary.
-            //var activedoc = tabbedViewMain.Documents.FirstOrDefault(d => d.IsActive);
-            var doc = LoadDocument(filename);
-            //activedoc.Activate();
-            return doc != null ? doc.File : null;
-        }
 
-        private async Task DumpFile(string folder, string outfolder)
+        private async Task DumpFile(string folder, string outPutFolder)
         {
             var config = MainController.Get().Configuration;
             var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
             try
             {
                 MainController.Get().ProjectStatus = "Dumping folder";
-                proc.Arguments = $"dumpfile -dir={folder} -out={outfolder}";
+                proc.Arguments = $"dumpfile -dir={folder} -out={outPutFolder}";
                 proc.UseShellExecute = false;
                 proc.RedirectStandardOutput = true;
                 proc.WindowStyle = ProcessWindowStyle.Hidden;
@@ -1320,24 +1265,6 @@ namespace WolvenKit
         {
         }
 
-        private void frmMain_MdiChildActivate(object sender, EventArgs e)
-        {
-            if (sender is frmCR2WDocument) doc_Activated(sender, e);
-        }
-
-        private void doc_Activated(object sender, EventArgs e)
-        {
-            ActiveDocument = (frmCR2WDocument) sender;
-        }
-
-        private void doc_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            var doc = (frmCR2WDocument) sender;
-            OpenDocuments.Remove(doc);
-
-            if (doc == ActiveDocument) ActiveDocument = null;
-        }
-
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             richpresenceworker.CancelAsync();
@@ -1351,13 +1278,8 @@ namespace WolvenKit
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var config = MainController.Get().Configuration;
 
-            config.MainState = WindowState;
-
-            WindowState = FormWindowState.Normal;
-            config.MainSize = Size;
-            config.MainLocation = Location;
+            //Do not save the window state or any of that other stuff. It is annoying and causes friction with Windows.
 
             //TODO - Add back in serializing the layout
         }
@@ -1365,10 +1287,6 @@ namespace WolvenKit
         private void frmMain_Shown(object sender, EventArgs e)
         {
             ResetWindows();
-            var config = MainController.Get().Configuration;
-            Size = config.MainSize;
-            Location = config.MainLocation;
-            WindowState = config.MainState;
             try
             {
                 //TODO - Add back in deserializing the layout
@@ -1475,36 +1393,34 @@ namespace WolvenKit
 
         private void ModExplorer_RequestFileOpen(object sender, RequestFileArgs e)
         {
-            var fullpath = Path.Combine(ActiveMod.FileDirectory, e.File);
+            var path = Path.Combine(ActiveMod.FileDirectory, e.File);
 
-            var ext = Path.GetExtension(fullpath);
-
-            switch (ext)
+            switch (Path.GetExtension(path))
             {
                 case ".csv":
                 case ".xml":
                 case ".txt":
-                    ShellExecute(fullpath);
+                    ShellExecute(path);
                     break;
                 case ".subs":
-                    PolymorphExecute(fullpath, ".txt");
+                    PolymorphExecute(path, ".txt");
                     break;
                 case ".usm":
-                    LoadUsmFile(fullpath);
+                    LoadUsmFile(path);
                     break;
                 case ".ws":
                     ShellExecute(
-                        fullpath); //We need to use Shell Execute for Witcher Script files, PolymorphExecute erroneously tries to open them with Notepad. A user may expect it to open with NP++ or some other app.
+                        path); //We need to use Shell Execute for Witcher Script files, PolymorphExecute erroneously tries to open them with Notepad. A user may expect it to open with NP++ or some other app.
                     break;
                 case ".dds":
-                    LoadDDSFile(fullpath);
+                    LoadDDSFile(path);
                     break;
                 default:
                     //This fails unnecessarily in the event that we're trying to open a file extension that isn't associated with anything in Windows and also is not an actually supported file type.
                     //See note about Dragnilar's File Extension Hack below...
                     try
                     {
-                        LoadDocument(fullpath);
+                        LoadDocument(path);
                     }
                     catch (Exception ex)
                     {
@@ -1567,9 +1483,9 @@ namespace WolvenKit
 
         private void saveActiveFile()
         {
-            if (ActiveDocument != null && !ActiveDocument.IsDisposed)
+            if (tabbedViewMain.ActiveDocument.Control is CR2WDocumentContainer container && container.SaveTarget != null)
             {
-                saveFile(ActiveDocument);
+                saveFile(container);
                 AddOutput("Saved!\n");
             }
         }

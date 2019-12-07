@@ -349,8 +349,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyExtensions.cs" />
+    <Compile Include="Controls\ChunkListEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChunkListEditor.Designer.cs">
+      <DependentUpon>ChunkListEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CR2WDocumentContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CR2WDocumentContainer.Designer.cs">
+      <DependentUpon>CR2WDocumentContainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="DDSUtility.cs" />
     <Compile Include="discord.cs" />
+    <Compile Include="Controls\ChunkFlowDiagram.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChunkFlowDiagram.designer.cs">
+      <DependentUpon>ChunkFlowDiagram.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmLoading.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,11 +404,11 @@
     <Compile Include="Forms\frmDebug.Designer.cs">
       <DependentUpon>frmDebug.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmImagePreview.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Controls\ImagePreview.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmImagePreview.Designer.cs">
-      <DependentUpon>frmImagePreview.cs</DependentUpon>
+    <Compile Include="Controls\ImagePreview.Designer.cs">
+      <DependentUpon>ImagePreview.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmInstallPackage.cs">
       <SubType>Form</SubType>
@@ -398,11 +416,11 @@
     <Compile Include="Forms\frmInstallPackage.Designer.cs">
       <DependentUpon>frmInstallPackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmJournalEditor.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Controls\JournalEditor.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmJournalEditor.Designer.cs">
-      <DependentUpon>frmJournalEditor.cs</DependentUpon>
+    <Compile Include="Controls\JournalEditor.Designer.cs">
+      <DependentUpon>JournalEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmMenuCreator.cs">
       <SubType>Form</SubType>
@@ -446,11 +464,11 @@
     <Compile Include="Forms\frmTextInput.Designer.cs">
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\frmTextureFile.cs">
+    <Compile Include="Controls\TextureFileViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\frmTextureFile.Designer.cs">
-      <DependentUpon>frmTextureFile.cs</DependentUpon>
+    <Compile Include="Controls\TextureFileViewer.Designer.cs">
+      <DependentUpon>TextureFileViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmUsmPlayer.cs">
       <SubType>Form</SubType>
@@ -520,29 +538,17 @@
     <Compile Include="Forms\frmAssetBrowser.Designer.cs">
       <DependentUpon>frmAssetBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmChunkFlowDiagram.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChunkFlowDiagram.Designer.cs">
-      <DependentUpon>frmChunkFlowDiagram.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChunkList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChunkList.Designer.cs">
-      <DependentUpon>frmChunkList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChunkProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChunkProperties.Designer.cs">
-      <DependentUpon>frmChunkProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\frmCR2WDocument.cs">
+    <Compile Include="Controls\ChunkListViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\frmCR2WDocument.Designer.cs">
-      <DependentUpon>frmCR2WDocument.cs</DependentUpon>
+    <Compile Include="Controls\ChunkListViewer.Designer.cs">
+      <DependentUpon>ChunkListViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChunkPropertyViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChunkPropertyViewer.Designer.cs">
+      <DependentUpon>ChunkPropertyViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmEmbeddedFiles.cs">
       <SubType>Form</SubType>
@@ -606,6 +612,12 @@
     <Compile Include="SortableBindinglist.cs" />
     <Compile Include="Win32.cs" />
     <Compile Include="WKPackage.cs" />
+    <EmbeddedResource Include="Controls\ChunkListEditor.resx">
+      <DependentUpon>ChunkListEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CR2WDocumentContainer.resx">
+      <DependentUpon>CR2WDocumentContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -631,17 +643,14 @@
       <DependentUpon>frmAssetBrowser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChunkFlowDiagram.resx">
-      <DependentUpon>frmChunkFlowDiagram.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ChunkListViewer.resx">
+      <DependentUpon>ChunkListViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChunkList.resx">
-      <DependentUpon>frmChunkList.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ChunkPropertyViewer.resx">
+      <DependentUpon>ChunkPropertyViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChunkProperties.resx">
-      <DependentUpon>frmChunkProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\frmCR2WDocument.resx">
-      <DependentUpon>frmCR2WDocument.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ChunkFlowDiagram.resx">
+      <DependentUpon>ChunkFlowDiagram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDebug.resx">
       <DependentUpon>frmDebug.cs</DependentUpon>
@@ -655,14 +664,14 @@
     <EmbeddedResource Include="Forms\frmHexEditorView.resx">
       <DependentUpon>frmHexEditorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmImagePreview.resx">
-      <DependentUpon>frmImagePreview.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ImagePreview.resx">
+      <DependentUpon>ImagePreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmInstallPackage.resx">
       <DependentUpon>frmInstallPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmJournalEditor.resx">
-      <DependentUpon>frmJournalEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\JournalEditor.resx">
+      <DependentUpon>JournalEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLoading.resx">
       <DependentUpon>frmLoading.cs</DependentUpon>
@@ -709,8 +718,8 @@
     <EmbeddedResource Include="Forms\frmTextInput.resx">
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\frmTextureFile.resx">
-      <DependentUpon>frmTextureFile.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\TextureFileViewer.resx">
+      <DependentUpon>TextureFileViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmUsmPlayer.resx">
       <DependentUpon>frmUsmPlayer.cs</DependentUpon>
