@@ -1,8 +1,7 @@
-﻿using System;
+﻿using DevExpress.XtraEditors;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Cache;
 using WolvenKit.CR2W;
 

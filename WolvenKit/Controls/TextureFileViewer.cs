@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Cache;
 
 namespace WolvenKit
@@ -36,11 +35,11 @@ namespace WolvenKit
             if (origImg.Width > Width || origImg.Height > Height)
             {
                 Size newSize;
-                var ratio = pictureBox1.Image.Height / (float) pictureBox1.Image.Width;
+                var ratio = pictureBox1.Image.Height / (float)pictureBox1.Image.Width;
                 if (pictureBox1.Image.Width > pictureBox1.Image.Height)
-                    newSize = new Size(Width, (int) (ratio * Width));
+                    newSize = new Size(Width, (int)(ratio * Width));
                 else
-                    newSize = new Size((int) (1 / ratio * Height), Height);
+                    newSize = new Size((int)(1 / ratio * Height), Height);
                 if (newSize.Height > 0 && newSize.Width > 0)
                     pictureBox1.Image = new Bitmap(origImg, newSize);
             }

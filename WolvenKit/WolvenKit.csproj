@@ -339,9 +339,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\Atflib\VSLangProj.dll</HintPath>
     </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
-      <HintPath>..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
       <HintPath>..\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
@@ -551,7 +548,7 @@
       <DependentUpon>ChunkPropertyViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmEmbeddedFiles.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\frmEmbeddedFiles.Designer.cs">
       <DependentUpon>frmEmbeddedFiles.cs</DependentUpon>
@@ -1192,16 +1189,6 @@
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="W3SavegameEditor.Core">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="WeifenLuo.WinFormsUI.Docking">
       <Visible>False</Visible>
       <Group>
       </Group>

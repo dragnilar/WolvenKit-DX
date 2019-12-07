@@ -1,4 +1,9 @@
-﻿using System;
+﻿using AutoUpdaterDotNET;
+using DevExpress.LookAndFeel;
+using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
+using SharpPresence;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,12 +16,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using AutoUpdaterDotNET;
-using DevExpress.LookAndFeel;
-using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using SharpPresence;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
 using WolvenKit.Common;
@@ -24,7 +23,6 @@ using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
-using WolvenKit.Render;
 
 namespace WolvenKit
 {
@@ -145,7 +143,7 @@ namespace WolvenKit
             }
 
             File.WriteAllLines(newFullPath,
-                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
+                new[] { @"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/" });
         }
 
         private void barButtonItemWwiseMod_ItemClick(object sender, ItemClickEventArgs e)
@@ -191,7 +189,7 @@ namespace WolvenKit
             }
 
             File.WriteAllLines(newFullPath,
-                new[] {@"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/"});
+                new[] { @"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/" });
         }
 
         private void barButtonItemWwiseDLC_ItemClick(object sender, ItemClickEventArgs e)
@@ -233,7 +231,7 @@ namespace WolvenKit
             if (ActiveMod == null)
                 return;
             //With this cloned it won't get modified when we change it in dlg
-            var oldmod = (W3Mod) ActiveMod.Clone();
+            var oldmod = (W3Mod)ActiveMod.Clone();
             using (var dlg = new frmModSettings())
             {
                 dlg.Mod = ActiveMod;
@@ -435,10 +433,10 @@ namespace WolvenKit
         private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "ProjectStatus")
-                Invoke(new strDelegate(SetStatusLabelText), ((MainController) sender).ProjectStatus);
+                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).ProjectStatus);
             if (e.PropertyName == "LogMessage")
-                Invoke(new logDelegate(AddOutput), ((MainController) sender).LogMessage.Key + "\n",
-                    ((MainController) sender).LogMessage.Value);
+                Invoke(new logDelegate(AddOutput), ((MainController)sender).LogMessage.Key + "\n",
+                    ((MainController)sender).LogMessage.Value);
         }
 
         private void SetStatusLabelText(string text)
@@ -534,12 +532,12 @@ namespace WolvenKit
                     {
                         //Loop throught dirs and delete the old files in them.
                         foreach (var d in dirs)
-                        foreach (var f in d.Elements("file"))
-                            if (File.Exists(f.Value))
-                            {
-                                File.Delete(f.Value);
-                                Debug.WriteLine("File delete: " + f.Value);
-                            }
+                            foreach (var f in d.Elements("file"))
+                                if (File.Exists(f.Value))
+                                {
+                                    File.Delete(f.Value);
+                                    Debug.WriteLine("File delete: " + f.Value);
+                                }
 
                         //Delete the empty directories.
                         foreach (var d in dirs)
@@ -679,13 +677,13 @@ namespace WolvenKit
 
         private static void ShellExecute(string fullpath)
         {
-            var proc = new ProcessStartInfo(fullpath) {UseShellExecute = true};
+            var proc = new ProcessStartInfo(fullpath) { UseShellExecute = true };
             Process.Start(proc);
         }
 
         private static void PolymorphExecute(string fullpath, string extension)
         {
-            File.WriteAllBytes(Path.GetTempPath() + "asd." + extension, new byte[] {0x01});
+            File.WriteAllBytes(Path.GetTempPath() + "asd." + extension, new byte[] { 0x01 });
             var programname = new StringBuilder();
             NativeMethods.FindExecutable("asd." + extension, Path.GetTempPath(), programname);
             if (programname.ToString().ToUpper().Contains(".EXE"))
@@ -794,10 +792,6 @@ namespace WolvenKit
             }
         }
 
-        public IDockContent DeserializeDockContent(string persistString)
-        {
-            return null;
-        }
 
         private void openMod(string file = "")
         {
@@ -830,21 +824,21 @@ namespace WolvenKit
                         default:
                             return;
                         case DialogResult.Yes:
-                        {
-                            Commonfunctions.DirectoryMove(
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
-                                    "Mod", "Bundle"));
-                            break;
-                        }
+                            {
+                                Commonfunctions.DirectoryMove(
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
+                                        "Mod", "Bundle"));
+                                break;
+                            }
                         case DialogResult.No:
-                        {
-                            Commonfunctions.DirectoryMove(
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
-                                Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
-                                    "DLC", "Bundle"));
-                            break;
-                        }
+                            {
+                                Commonfunctions.DirectoryMove(
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files"),
+                                    Path.Combine(Path.GetDirectoryName(file), old.Root.Element("Name").Value, "files",
+                                        "DLC", "Bundle"));
+                                break;
+                            }
                     }
 
                     //Upgrade the project xml
@@ -866,7 +860,7 @@ namespace WolvenKit
                 //Loading the project
                 var ser = new XmlSerializer(typeof(W3Mod));
                 var modfile = new FileStream(file, FileMode.Open, FileAccess.Read);
-                ActiveMod = (W3Mod) ser.Deserialize(modfile);
+                ActiveMod = (W3Mod)ser.Deserialize(modfile);
                 ActiveMod.FileName = file;
                 modfile.Close();
                 ResetWindows();
@@ -1141,7 +1135,7 @@ namespace WolvenKit
         private async Task DumpFile(string folder, string outPutFolder)
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             try
             {
                 MainController.Get().ProjectStatus = "Dumping folder";
@@ -1181,7 +1175,7 @@ namespace WolvenKit
         private async Task ImportFile(string infile, string outfile)
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             try
             {
                 var importwdir = Path.Combine(Path.GetDirectoryName(MainController.Get().Configuration.WccLite),
@@ -1318,7 +1312,7 @@ namespace WolvenKit
 
         private void barButtonItemRecent_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var dlg = new OpenFileDialog {Title = "Open CR2W File"};
+            var dlg = new OpenFileDialog { Title = "Open CR2W File" };
             dlg.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -1439,7 +1433,7 @@ namespace WolvenKit
             if (!File.Exists(fullpath))
                 return;
 
-            var dlg = new frmRenameDialog {FileName = filename};
+            var dlg = new frmRenameDialog { FileName = filename };
             if (dlg.ShowDialog() == DialogResult.OK && dlg.FileName != filename)
             {
                 var newfullpath = Path.Combine(ActiveMod.FileDirectory, dlg.FileName);
@@ -1716,7 +1710,7 @@ namespace WolvenKit
         private async Task PackBundles()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =
@@ -1848,7 +1842,7 @@ namespace WolvenKit
         private async Task CreateModMetaData()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =
@@ -1952,7 +1946,7 @@ namespace WolvenKit
         private async Task CookMod()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var cookedModDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"cooked\Mods\mod" + ActiveMod.Name + @"\content\");
             var cookedDLCDir = Path.Combine(ActiveMod.ProjectDirectory,
@@ -2078,7 +2072,7 @@ namespace WolvenKit
         private async Task GenerateCollisionCache()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =
@@ -2187,7 +2181,7 @@ namespace WolvenKit
         private async Task PackTextures()
         {
             var config = MainController.Get().Configuration;
-            var proc = new ProcessStartInfo(config.WccLite) {WorkingDirectory = Path.GetDirectoryName(config.WccLite)};
+            var proc = new ProcessStartInfo(config.WccLite) { WorkingDirectory = Path.GetDirectoryName(config.WccLite) };
             var modpackDir = Path.Combine(ActiveMod.ProjectDirectory,
                 @"packed\Mods\mod" + ActiveMod.Name + @"\content\");
             var DlcpackDir =

@@ -46,9 +46,9 @@ namespace WolvenKit.Forms
         private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "loadStatus")
-                Invoke(new strDelegate(SetStatusLabelText), ((MainController) sender).loadStatus);
+                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).loadStatus);
             if (e.PropertyName == "Loaded")
-                Invoke(new boolDelegate(Finish), ((MainController) sender).Loaded);
+                Invoke(new boolDelegate(Finish), ((MainController)sender).Loaded);
         }
 
         private void Finish(bool b)

@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.IO;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 using WolvenKit.Render;
 
@@ -51,46 +42,46 @@ namespace WolvenKit.Controls
             switch (Path.GetExtension(fileName))
             {
                 case ".w2scene":
-                {
-                    var flowDiagram = new ChunkFlowDiagram
                     {
-                        File = ContainerFile,
-                        Dock =  DockStyle.Fill
-                    };
-                    Controls.Add(flowDiagram);
-                    break;
-                }
+                        var flowDiagram = new ChunkFlowDiagram
+                        {
+                            File = ContainerFile,
+                            Dock = DockStyle.Fill
+                        };
+                        Controls.Add(flowDiagram);
+                        break;
+                    }
                 case ".journal":
-                {
-                    var JournalEditor = new frmJournalEditor
                     {
-                        File = ContainerFile,
-                        Dock =  DockStyle.Fill
-                    };
-                    Controls.Add(JournalEditor);
-                    break;
-                }
+                        var JournalEditor = new frmJournalEditor
+                        {
+                            File = ContainerFile,
+                            Dock = DockStyle.Fill
+                        };
+                        Controls.Add(JournalEditor);
+                        break;
+                    }
                 case ".xbm":
-                {
-                    var ImageViewer = new frmImagePreview
                     {
-                        File = ContainerFile,
-                        Dock =  DockStyle.Fill
-                    };
-                    Controls.Add(ImageViewer);
-                    break;
-                }
+                        var ImageViewer = new frmImagePreview
+                        {
+                            File = ContainerFile,
+                            Dock = DockStyle.Fill
+                        };
+                        Controls.Add(ImageViewer);
+                        break;
+                    }
                 case ".w2mesh":
-                {
-                    var renderControl = new frmRender
                     {
-                        LoadDocument = delegate { return ContainerFile; },
-                        MeshFile = ContainerFile,
-                        DockAreas = DockAreas.Document
-                    };
-                    Controls.Add(renderControl);
-                    break;
-                }
+                        var renderControl = new RendererControl
+                        {
+                            LoadDocument = delegate { return ContainerFile; },
+                            MeshFile = ContainerFile,
+                            Dock = DockStyle.Fill
+                        };
+                        Controls.Add(renderControl);
+                        break;
+                    }
                 default:
                     var chunkEditor = new ChunkListEditor
                     {
@@ -134,7 +125,7 @@ namespace WolvenKit.Controls
                     ContainerFile.Write(writer);
 
                     if (OnFileSaved != null)
-                        OnFileSaved(this, new FileSavedEventArgs {FileName = FileName, Stream = mem, File = ContainerFile});
+                        OnFileSaved(this, new FileSavedEventArgs { FileName = FileName, Stream = mem, File = ContainerFile });
                 }
             }
         }
@@ -156,7 +147,7 @@ namespace WolvenKit.Controls
 
                             if (OnFileSaved != null)
                                 OnFileSaved(this,
-                                    new FileSavedEventArgs {FileName = FileName, Stream = fs, File = ContainerFile});
+                                    new FileSavedEventArgs { FileName = FileName, Stream = fs, File = ContainerFile });
                             fs.Close();
                         }
                     }

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using DevExpress.XtraEditors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.FlowTreeEditors;
@@ -178,10 +177,10 @@ namespace WolvenKit
             var controlPartsObj = File.chunks[0].GetVariableByName("controlParts");
             if (controlPartsObj != null && controlPartsObj is CArray)
             {
-                var controlParts = (CArray) controlPartsObj;
+                var controlParts = (CArray)controlPartsObj;
                 rootNodes.AddRange(from part in controlParts.OfType<CPtr>()
-                    where part != null && part.PtrTargetType == "CStorySceneInput"
-                    select part.PtrTarget);
+                                   where part != null && part.PtrTargetType == "CStorySceneInput"
+                                   select part.PtrTarget);
             }
         }
 
@@ -305,9 +304,9 @@ namespace WolvenKit
                 zoom = 23;
             foreach (ChunkEditor c in Controls)
             {
-                c.Size = new Size((int) (c.OriginalSize.Width * zoom / 100),
-                    (int) (c.OriginalSize.Height * zoom / 100));
-                c.Left = (int) (c.Left * zoom / prevZoom);
+                c.Size = new Size((int)(c.OriginalSize.Width * zoom / 100),
+                    (int)(c.OriginalSize.Height * zoom / 100));
+                c.Left = (int)(c.Left * zoom / prevZoom);
             }
 
             Invalidate();
@@ -451,9 +450,9 @@ namespace WolvenKit
             var rect = new Rectangle(x, y, w, h);
 
             foreach (var c in from c in ChunkEditors.Values
-                let r = new Rectangle(c.Location, c.Size)
-                where rect.IntersectsWith(r)
-                select c) selectedEditors.Add(c);
+                              let r = new Rectangle(c.Location, c.Size)
+                              where rect.IntersectsWith(r)
+                              select c) selectedEditors.Add(c);
         }
 
         protected override Point ScrollToControl(Control activeControl)

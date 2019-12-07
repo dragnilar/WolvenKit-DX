@@ -20,7 +20,7 @@ namespace WolvenKit.FlowTreeEditors
                 var nextLinkElementObj = Chunk.GetVariableByName("nextLinkElement");
                 if (nextLinkElementObj != null && nextLinkElementObj is CPtr)
                 {
-                    var nextLinkElementPtr = (CPtr) nextLinkElementObj;
+                    var nextLinkElementPtr = (CPtr)nextLinkElementObj;
                     if (nextLinkElementPtr.PtrTarget != null) list.Add(nextLinkElementPtr);
                 }
 

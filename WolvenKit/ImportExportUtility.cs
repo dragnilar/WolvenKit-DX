@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Ionic.Zlib;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Ionic.Zlib;
 
 namespace WolvenKit
 {
@@ -73,7 +73,7 @@ namespace WolvenKit
             }
 
             reader.BaseStream.Seek(0, SeekOrigin.Begin);
-            return reader.ReadBytes((int) reader.BaseStream.Length);
+            return reader.ReadBytes((int)reader.BaseStream.Length);
         }
 
         private static byte[] uncompressToFWS(byte[] bytes)
@@ -86,9 +86,9 @@ namespace WolvenKit
 
             var memout = new MemoryStream();
             var writer = new BinaryWriter(memout);
-            writer.Write((byte) 'F');
-            writer.Write((byte) 'W');
-            writer.Write((byte) 'S');
+            writer.Write((byte)'F');
+            writer.Write((byte)'W');
+            writer.Write((byte)'S');
             writer.Write(version);
             writer.Write(size);
 
@@ -105,9 +105,9 @@ namespace WolvenKit
             var version = reader.ReadByte();
             var size = reader.ReadUInt32();
 
-            writer.Write((byte) 'C');
-            writer.Write((byte) 'F');
-            writer.Write((byte) 'X');
+            writer.Write((byte)'C');
+            writer.Write((byte)'F');
+            writer.Write((byte)'X');
             writer.Write(version);
             writer.Write(size);
 

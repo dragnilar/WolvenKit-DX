@@ -51,7 +51,7 @@ namespace WolvenKit
                     .GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    var titleAttribute = (AssemblyTitleAttribute) attributes[0];
+                    var titleAttribute = (AssemblyTitleAttribute)attributes[0];
                     if (titleAttribute.Title != string.Empty) return titleAttribute.Title;
                 }
 
@@ -68,7 +68,7 @@ namespace WolvenKit
                 var attributes =
                     Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0) return string.Empty;
-                return ((AssemblyDescriptionAttribute) attributes[0]).Description;
+                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
 
@@ -79,7 +79,7 @@ namespace WolvenKit
                 var attributes = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyProductAttribute), false);
                 if (attributes.Length == 0) return string.Empty;
-                return ((AssemblyProductAttribute) attributes[0]).Product;
+                return ((AssemblyProductAttribute)attributes[0]).Product;
             }
         }
 
@@ -90,7 +90,7 @@ namespace WolvenKit
                 var attributes = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0) return string.Empty;
-                return ((AssemblyCopyrightAttribute) attributes[0]).Copyright;
+                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
 
@@ -101,7 +101,7 @@ namespace WolvenKit
                 var attributes = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyTrademarkAttribute), false);
                 if (attributes.Length == 0) return string.Empty;
-                return ((AssemblyTrademarkAttribute) attributes[0]).Trademark;
+                return ((AssemblyTrademarkAttribute)attributes[0]).Trademark;
             }
         }
 

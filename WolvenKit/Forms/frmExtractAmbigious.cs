@@ -14,7 +14,7 @@ namespace WolvenKit
             lsBundleList.SelectedIndex = lsBundleList.Items.Count - 1;
         }
 
-        public string SelectedBundle => (string) lsBundleList.SelectedItem;
+        public string SelectedBundle => (string)lsBundleList.SelectedItem;
         public bool Skip => dnamaCHB.Checked;
     }
 }

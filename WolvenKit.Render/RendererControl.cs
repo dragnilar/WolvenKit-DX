@@ -7,15 +7,14 @@ using IrrlichtLime.Video;
 using IrrlichtLime.Scene;
 using IrrlichtLime.GUI;
 using System.IO;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using System.Collections.Generic;
+using DevExpress.XtraEditors;
 
 namespace WolvenKit.Render
 {
-    //TODO - Convert to XtraUserControl
-    public partial class frmRender : DockContent
+    public partial class RendererControl : XtraUserControl
     {
         /// <summary>
         /// The delegate to load a document.
@@ -29,7 +28,7 @@ namespace WolvenKit.Render
         /// <summary>
         /// Form constructor.
         /// </summary>
-        public frmRender()
+        public RendererControl()
         {
             // Required for Windows Form Designer support
             InitializeComponent();
@@ -531,7 +530,7 @@ namespace WolvenKit.Render
             var rigPath = $@"{basePath}characters\base_entities\{modelName}_base\{modelName}_base.w2rig";*/
             if (MessageBox.Show("Could not find .w2rig for model!\nWould you like to search for the rig manually?", "Rig not found!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                this.Activate();
+                this.Focus();
                 var ofd = new OpenFileDialog();
                 ofd.Filter = "Rig file|*.w2rig";
                 if (ofd.ShowDialog() == DialogResult.OK)
@@ -543,7 +542,7 @@ namespace WolvenKit.Render
         {
             if (MessageBox.Show("Could not find .w2anims for model!\nWould you like to search for the animation manually (highly experimental)?", "Animation not found!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                this.Activate();
+                this.Focus();
                 var ofd = new OpenFileDialog();
                 ofd.Filter = "Animation file|*.w2anims";
                 selectedAnimIdx = 0;

@@ -21,7 +21,7 @@ namespace VanWassenhove.Util
         protected override void ApplySortCore(PropertyDescriptor prop, ListSortDirection direction)
         {
             var itemsList = Items as List<T>;
-            itemsList.Sort(delegate(T t1, T t2)
+            itemsList.Sort(delegate (T t1, T t2)
             {
                 propertyDescriptor = prop;
                 listSortDirection = direction;

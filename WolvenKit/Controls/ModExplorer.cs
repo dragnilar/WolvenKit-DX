@@ -1,14 +1,14 @@
-﻿using System;
+﻿using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using DevExpress.XtraTreeList;
-using DevExpress.XtraTreeList.Nodes;
 using WolvenKit.Common;
 
 namespace WolvenKit
@@ -40,7 +40,7 @@ namespace WolvenKit
         public void PauseMonitoring()
         {
             fileWatcherModExplorer.EnableRaisingEvents = false;
-            
+
         }
 
         public void ResumeMonitoring()
@@ -93,7 +93,7 @@ namespace WolvenKit
                 node[treeListColumnFullName] = newFilePath;
                 node[treeListColumnDisplayName] = fi.Name;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 //Ignored
             }
@@ -212,14 +212,14 @@ namespace WolvenKit
         private void AddFileNode(string path, TreeListNode parentsNode)
         {
             var fi = new FileInfo(path);
-            var node = treeListModFiles.AppendNode(new object[] {path, fi.Name, "File"}, parentsNode);
+            var node = treeListModFiles.AppendNode(new object[] { path, fi.Name, "File" }, parentsNode);
             node.StateImageIndex = GetImageIndex(fi.Extension);
         }
 
         private void AddFolderNode(string path, TreeListNode parentsNode)
         {
             var di = new DirectoryInfo(path);
-            var node = treeListModFiles.AppendNode(new object[] {path, di.Name, "Folder"}, parentsNode);
+            var node = treeListModFiles.AppendNode(new object[] { path, di.Name, "Folder" }, parentsNode);
             node.StateImageIndex = 1;
             node.HasChildren = HasFiles(path);
             if (node.HasChildren)
@@ -255,7 +255,7 @@ namespace WolvenKit
                     var hitInfo = treeList.CalcHitInfo(e.Location);
                     if (hitInfo.HitInfoType == HitInfoType.Cell)
                         RequestFileOpen?.Invoke(this,
-                            new RequestFileArgs {File = hitInfo.Node[treeListColumnFullName.FieldName].ToString()});
+                            new RequestFileArgs { File = hitInfo.Node[treeListColumnFullName.FieldName].ToString() });
                 }
         }
 
@@ -264,10 +264,10 @@ namespace WolvenKit
             switch ((e.ChangeType))
             {
                 case WatcherChangeTypes.Created:
-                {
-                    AddParentForPath(e.FullPath);
-                    break;
-                }
+                    {
+                        AddParentForPath(e.FullPath);
+                        break;
+                    }
                 case WatcherChangeTypes.Deleted:
                     DeleteNode(e.FullPath);
                     break;
@@ -317,7 +317,7 @@ namespace WolvenKit
             if (e.KeyCode == Keys.F2 && treeListModFiles.Selection != null)
                 RequestFileRename?.Invoke(this,
                     new RequestFileArgs
-                        {File = treeListModFiles.Selection[0][treeListColumnFullName.FieldName].ToString()});
+                    { File = treeListModFiles.Selection[0][treeListColumnFullName.FieldName].ToString() });
         }
 
         private void barButtonItemExpandAll_ItemClick(object sender, ItemClickEventArgs e)
@@ -339,7 +339,7 @@ namespace WolvenKit
             var selectedPath = GetSelectedNodeFilePath();
             if (!string.IsNullOrWhiteSpace(selectedPath))
                 RequestFileAdd?.Invoke(this,
-                    new RequestFileArgs {File = GetExplorerString(selectedPath ?? string.Empty)});
+                    new RequestFileArgs { File = GetExplorerString(selectedPath ?? string.Empty) });
         }
 
         private void barButtonItemShowInExplorer_ItemClick(object sender, ItemClickEventArgs e)
@@ -364,7 +364,7 @@ namespace WolvenKit
                 if (!File.Exists(selectedFilePath))
                     return;
                 var newfullpath =
-                    Path.Combine(new[] {ActiveMod.FileDirectory, fileName.Split('\\')[0] == "DLC" ? "Mod" : "DLC"}
+                    Path.Combine(new[] { ActiveMod.FileDirectory, fileName.Split('\\')[0] == "DLC" ? "Mod" : "DLC" }
                         .Concat(fileName.Split('\\').Skip(1).ToArray()).ToArray());
 
                 if (File.Exists(newfullpath))
@@ -411,21 +411,21 @@ namespace WolvenKit
             //TODO - This may not work, I do not think it was implemented in the original WK
             var selectedFilePath = GetSelectedNodeFilePath();
             if (!string.IsNullOrWhiteSpace(selectedFilePath) && File.Exists(selectedFilePath))
-                Clipboard.SetFileDropList(new StringCollection {selectedFilePath});
+                Clipboard.SetFileDropList(new StringCollection { selectedFilePath });
         }
 
         private void barButtonItemRename_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedFilePath = GetSelectedNodeFilePath();
             if (!string.IsNullOrWhiteSpace(selectedFilePath))
-                RequestFileRename?.Invoke(this, new RequestFileArgs {File = selectedFilePath});
+                RequestFileRename?.Invoke(this, new RequestFileArgs { File = selectedFilePath });
         }
 
         private void barButtonItemDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedFilePath = GetSelectedNodeFilePath();
             if (!string.IsNullOrWhiteSpace(selectedFilePath))
-                RequestFileDelete?.Invoke(this, new RequestFileArgs {File = selectedFilePath});
+                RequestFileDelete?.Invoke(this, new RequestFileArgs { File = selectedFilePath });
         }
 
 
@@ -453,7 +453,7 @@ namespace WolvenKit
             var ext = Path.GetExtension(path);
 
             yield return Path.Combine(dir, file + " - Copy" + ext);
-            for (var i = 2;; i++) yield return Path.Combine(dir, file + " - Copy " + i + ext);
+            for (var i = 2; ; i++) yield return Path.Combine(dir, file + " - Copy " + i + ext);
         }
 
         public static void SafeCopy(string src, string dest)
@@ -470,10 +470,10 @@ namespace WolvenKit
             if (s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length > 1)
             {
                 var r = string.Join(Path.DirectorySeparatorChar.ToString(),
-                    new[] {"Root"}.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
+                    new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
                         .ToArray());
                 return string.Join(Path.DirectorySeparatorChar.ToString(),
-                    new[] {"Root"}.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
+                    new[] { "Root" }.Concat(s.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Skip(1))
                         .ToArray());
             }
 

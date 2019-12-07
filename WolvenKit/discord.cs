@@ -82,7 +82,7 @@ namespace SharpPresence
 
         public static void Respond(string userID, Reply reply)
         {
-            Discord_Respond(userID, (int) reply);
+            Discord_Respond(userID, (int)reply);
         }
 
         public struct EventHandlers

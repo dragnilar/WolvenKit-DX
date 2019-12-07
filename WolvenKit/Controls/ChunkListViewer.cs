@@ -1,9 +1,8 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using DevExpress.XtraEditors;
+using System;
 using System.Linq;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
-using DevExpress.XtraEditors;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 
 namespace WolvenKit
@@ -53,8 +52,8 @@ namespace WolvenKit
 
         private void chunkListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (OnSelectChunk != null && (CR2WChunk) listView.SelectedObject != null)
-                OnSelectChunk(this, new SelectChunkArgs {Chunk = (CR2WChunk) listView.SelectedObject});
+            if (OnSelectChunk != null && (CR2WChunk)listView.SelectedObject != null)
+                OnSelectChunk(this, new SelectChunkArgs { Chunk = (CR2WChunk)listView.SelectedObject });
         }
 
         private void addChunkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,7 +67,7 @@ namespace WolvenKit
                     listView.AddObject(chunk);
 
                     if (OnSelectChunk != null && chunk != null)
-                        OnSelectChunk(this, new SelectChunkArgs {Chunk = chunk});
+                        OnSelectChunk(this, new SelectChunkArgs { Chunk = chunk });
                 }
                 catch (InvalidChunkTypeException ex)
                 {
@@ -86,7 +85,7 @@ namespace WolvenKit
                     "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 var selected = listView.SelectedObjects;
-                foreach (var obj in selected) File.RemoveChunk((CR2WChunk) obj);
+                foreach (var obj in selected) File.RemoveChunk((CR2WChunk)obj);
 
                 listView.RemoveObjects(selected);
                 listView.UpdateObjects(File.chunks);
@@ -120,7 +119,7 @@ namespace WolvenKit
                     {
                         var pastedchunk = CR2WCopyAction.CopyChunk(chunk, chunk.CR2WOwner);
                         listView.AddObject(pastedchunk);
-                        OnSelectChunk?.Invoke(this, new SelectChunkArgs {Chunk = pastedchunk});
+                        OnSelectChunk?.Invoke(this, new SelectChunkArgs { Chunk = pastedchunk });
                         MainController.Get().ProjectStatus = "Chunk copied";
                     }
                     catch (InvalidChunkTypeException ex)
@@ -146,7 +145,7 @@ namespace WolvenKit
 
         private void searchTB_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == (int) Keys.Enter)
+            if (e.KeyValue == (int)Keys.Enter)
                 updateList(searchTB.Text);
         }
 

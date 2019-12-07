@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -57,7 +56,7 @@ namespace WolvenKit
             {
                 var ser = new XmlSerializer(typeof(Configuration));
                 var stream = new FileStream(ConfigurationPath, FileMode.Open, FileAccess.Read);
-                var config = (Configuration) ser.Deserialize(stream);
+                var config = (Configuration)ser.Deserialize(stream);
                 stream.Close();
                 return config;
             }

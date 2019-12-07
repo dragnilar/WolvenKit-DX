@@ -142,7 +142,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             protected override string GetDisplayText(object value)
             {
-                return base.GetDisplayText(string.Format(((WitcherMenuElement) value).DisplayName));
+                return base.GetDisplayText(string.Format(((WitcherMenuElement)value).DisplayName));
             }
         }
 
@@ -248,7 +248,7 @@ Exception: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DisplayName = option.Attribute("displayName")?.Value
                 };
                 foreach (var ent in option.Elements("Entry").Select(entry => new PresetEntry
-                    {VarId = entry.Attribute("varId")?.Value, Value = entry.Attribute("value")?.Value}))
+                { VarId = entry.Attribute("varId")?.Value, Value = entry.Attribute("value")?.Value }))
                     wvo.Entries.Add(ent);
                 ret.Add(wvo);
             }

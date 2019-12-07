@@ -1,12 +1,8 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraRichEdit;
 using DevExpress.XtraRichEdit.Commands;
-using WeifenLuo.WinFormsUI.Docking;
+using System;
+using System.Drawing;
 
 namespace WolvenKit
 {
@@ -90,7 +86,7 @@ namespace WolvenKit
             characterProperties.ForeColor = color;
             box.Document.EndUpdateCharacters(characterProperties);
             document.EndUpdate();
-            
+
         }
     }
 }

@@ -45,7 +45,7 @@ namespace WolvenKit
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var sf = new SaveFileDialog {Title = "Please select where to save the log."};
+            var sf = new SaveFileDialog { Title = "Please select where to save the log." };
             if (sf.ShowDialog() == DialogResult.OK) File.WriteAllLines(sf.FileName, logbox.Lines);
         }
 
@@ -160,22 +160,22 @@ namespace WolvenKit
 
         public void UpdateVarDgv(object source, EventArgs args)
         {
-            varDGV.Invoke((MethodInvoker) delegate
-            {
-                varDGV.DataSource = Variables;
-                varDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                if (varDGV.ColumnCount > 0)
-                {
-                    for (var i = 0; i < varDGV.Columns.Count; i++)
-                    {
-                        varDGV.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        varDGV.Columns[i].ReadOnly = true;
-                        varDGV.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
-                    }
+            varDGV.Invoke((MethodInvoker)delegate
+           {
+               varDGV.DataSource = Variables;
+               varDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+               if (varDGV.ColumnCount > 0)
+               {
+                   for (var i = 0; i < varDGV.Columns.Count; i++)
+                   {
+                       varDGV.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                       varDGV.Columns[i].ReadOnly = true;
+                       varDGV.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
+                   }
 
-                    varDGV.Columns[varDGV.Columns.Count - 1].ReadOnly = false;
-                }
-            });
+                   varDGV.Columns[varDGV.Columns.Count - 1].ReadOnly = false;
+               }
+           });
         }
 
         public void CheckResponse(Response.Data resdata)
@@ -185,26 +185,26 @@ namespace WolvenKit
                 return;
 
             if (resdata.Params.First().Type == Net.Response.ParamType.Int32)
-                if ((ulong) ((Response.Int_32) resdata.Params.First()).Value == 0xFFFFFFFFCC00CC00)
-                    varDGV.Invoke((MethodInvoker) delegate
-                    {
-                        for (var i = 2; i < resdata.Params.Count; i++)
-                        {
-                            if (i + 4 > resdata.Params.Count)
-                                break;
-                            var variable = new Variable();
-                            variable.byte1 = resdata.Params[i].ToString();
-                            i++;
-                            variable.byte2 = resdata.Params[i].ToString();
-                            i++;
-                            variable.Varname = resdata.Params[i].ToString();
-                            i++;
-                            variable.Section = resdata.Params[i].ToString();
-                            i++;
-                            variable.Value = resdata.Params[i].ToString();
-                            Variables.Add(variable);
-                        }
-                    });
+                if ((ulong)((Response.Int_32)resdata.Params.First()).Value == 0xFFFFFFFFCC00CC00)
+                    varDGV.Invoke((MethodInvoker)delegate
+                   {
+                       for (var i = 2; i < resdata.Params.Count; i++)
+                       {
+                           if (i + 4 > resdata.Params.Count)
+                               break;
+                           var variable = new Variable();
+                           variable.byte1 = resdata.Params[i].ToString();
+                           i++;
+                           variable.byte2 = resdata.Params[i].ToString();
+                           i++;
+                           variable.Varname = resdata.Params[i].ToString();
+                           i++;
+                           variable.Section = resdata.Params[i].ToString();
+                           i++;
+                           variable.Value = resdata.Params[i].ToString();
+                           Variables.Add(variable);
+                       }
+                   });
             VarlistRecieved?.Invoke(this, null);
         }
 
@@ -238,7 +238,7 @@ namespace WolvenKit
 
         private void DataRecieveWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            logbox.Invoke((MethodInvoker) delegate { AddOutput("Started recieving!"); });
+            logbox.Invoke((MethodInvoker)delegate { AddOutput("Started recieving!"); });
             var dataIn = new byte[8192 * 32];
             while (GameSocket.Connected)
                 try
@@ -248,12 +248,12 @@ namespace WolvenKit
                     {
                         Response = new Response.Data(dataIn);
                         CheckResponse(Response);
-                        logbox.Invoke((MethodInvoker) delegate
-                        {
-                            AddOutput("\nRecieved packet of " + Response.Params.Count + " params [" + bytesRead +
-                                      " bytes]:\n" +
-                                      Response.Params.Aggregate(string.Empty, (c, n) => c += n.Type + ": " + n + "\n"));
-                        });
+                        logbox.Invoke((MethodInvoker)delegate
+                       {
+                           AddOutput("\nRecieved packet of " + Response.Params.Count + " params [" + bytesRead +
+                                     " bytes]:\n" +
+                                     Response.Params.Aggregate(string.Empty, (c, n) => c += n.Type + ": " + n + "\n"));
+                       });
                     }
                     else
                     {
@@ -273,10 +273,10 @@ namespace WolvenKit
                 }
                 catch (Exception ex)
                 {
-                    logbox.Invoke((MethodInvoker) delegate
-                    {
-                        AddOutput("Error: " + ex.Message + "\n\n" + ex.StackTrace);
-                    });
+                    logbox.Invoke((MethodInvoker)delegate
+                   {
+                       AddOutput("Error: " + ex.Message + "\n\n" + ex.StackTrace);
+                   });
                 }
 
             GameSocket?.Close();
@@ -292,7 +292,7 @@ namespace WolvenKit
         {
             try
             {
-                var client = (Socket) ar.AsyncState;
+                var client = (Socket)ar.AsyncState;
                 client.EndConnect(ar);
                 Commands.Init().ForEach(x => Send(GameSocket, x));
             }
@@ -316,9 +316,9 @@ namespace WolvenKit
         {
             try
             {
-                var client = (Socket) ar.AsyncState;
+                var client = (Socket)ar.AsyncState;
                 var bytesSent = client.EndSend(ar);
-                logbox.Invoke((MethodInvoker) delegate { AddOutput("Sent " + bytesSent + " bytes."); });
+                logbox.Invoke((MethodInvoker)delegate { AddOutput("Sent " + bytesSent + " bytes."); });
             }
             catch (Exception e)
             {

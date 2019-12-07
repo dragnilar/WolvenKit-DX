@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,8 +10,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-using ICSharpCode.SharpZipLib.Core;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace WolvenKit
 {
@@ -122,7 +122,7 @@ namespace WolvenKit
             if (nameOverride != string.Empty)
                 entryName = nameOverride;
             entryName = ZipEntry.CleanName(entryName);
-            var newEntry = new ZipEntry(entryName) {DateTime = fi.LastWriteTime, Size = fi.Length};
+            var newEntry = new ZipEntry(entryName) { DateTime = fi.LastWriteTime, Size = fi.Length };
             zipStream.PutNextEntry(newEntry);
             var buffer = new byte[4096];
             using (var streamReader = File.OpenRead(filename))
@@ -162,7 +162,7 @@ namespace WolvenKit
         public static void CompressStream(byte[] file, string filename, ZipOutputStream zipStream)
         {
             filename = ZipEntry.CleanName(filename);
-            var newEntry = new ZipEntry(filename) {DateTime = DateTime.Now, Size = file.Length};
+            var newEntry = new ZipEntry(filename) { DateTime = DateTime.Now, Size = file.Length };
             zipStream.PutNextEntry(newEntry);
             var buffer = new byte[4096];
             StreamUtils.Copy(new MemoryStream(file), zipStream, buffer);
@@ -184,7 +184,7 @@ namespace WolvenKit
                 var fi = new FileInfo(filename);
                 var entryName = filename.Substring(folderOffset);
                 entryName = ZipEntry.CleanName(entryName);
-                var newEntry = new ZipEntry(entryName) {DateTime = fi.LastWriteTime, Size = fi.Length};
+                var newEntry = new ZipEntry(entryName) { DateTime = fi.LastWriteTime, Size = fi.Length };
                 zipStream.PutNextEntry(newEntry);
                 var buffer = new byte[4096];
                 using (var streamReader = File.OpenRead(filename))

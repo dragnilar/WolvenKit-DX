@@ -116,7 +116,7 @@ namespace WolvenKit
                 file.Read(br);
             }
 
-            foreach (var str in file.block1) strings.Add(new List<string> {str.str_id.ToString(), "0", str.str});
+            foreach (var str in file.block1) strings.Add(new List<string> { str.str_id.ToString(), "0", str.str });
 
             FillListView(strings);
             toolStripStatusLabelStringsCount.Text = "Strings Loaded: " + strings.Count;
@@ -128,7 +128,7 @@ namespace WolvenKit
                 Path.GetDirectoryName(MainController.Get().Configuration.ExecutablePath));
 
             foreach (var line in stringsManager.Lines)
-                strings.Add(new List<string> {line.Value[0].str_id.ToString(), "0", line.Value[0].str});
+                strings.Add(new List<string> { line.Value[0].str_id.ToString(), "0", line.Value[0].str });
             FillListView(strings);
             toolStripStatusLabelStringsCount.Text = "Strings Loaded: " + strings.Count;
 

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Vlc.DotNet.Core;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.Scaleform;
 
 namespace WolvenKit

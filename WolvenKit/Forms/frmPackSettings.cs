@@ -10,7 +10,7 @@ namespace WolvenKit
         public frmPackSettings()
         {
             InitializeComponent();
-            Shown +=  OnShown;
+            Shown += OnShown;
             if (MainController.Get().Window.ActiveMod.Files.Any(x => x.EndsWith(".xbm")))
                 texturecachecCHB.Checked = true;
             if (MainController.Get().Window.ActiveMod.Files.Any(x => x.EndsWith(".ws")))

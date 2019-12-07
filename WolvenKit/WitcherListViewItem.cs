@@ -28,7 +28,7 @@ namespace WolvenKit
 
         public override object Clone()
         {
-            var c = (WitcherListViewItem) MemberwiseClone();
+            var c = (WitcherListViewItem)MemberwiseClone();
             c.IsDirectory = IsDirectory;
             c.Node = Node;
             c.FullPath = FullPath;

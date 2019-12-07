@@ -1,12 +1,11 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using DevExpress.XtraEditors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
-using DevExpress.XtraEditors;
-using WeifenLuo.WinFormsUI.Docking;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
@@ -20,8 +19,8 @@ namespace WolvenKit
         public ChunkPropertyViewer()
         {
             InitializeComponent();
-            treeView.CanExpandGetter = x => ((VariableListNode) x).ChildCount > 0;
-            treeView.ChildrenGetter = x => ((VariableListNode) x).Children;
+            treeView.CanExpandGetter = x => ((VariableListNode)x).ChildCount > 0;
+            treeView.ChildrenGetter = x => ((VariableListNode)x).Children;
         }
 
         public CR2WChunk Chunk
@@ -110,7 +109,7 @@ namespace WolvenKit
             var variable = (e.RowObject as VariableListNode).Variable;
             if (e.Column.AspectName == "Value")
             {
-                e.Control = ((VariableListNode) e.RowObject).Variable.GetEditor();
+                e.Control = ((VariableListNode)e.RowObject).Variable.GetEditor();
                 if (e.Control != null)
                 {
                     e.Control.Location = new Point(e.CellBounds.Location.X, e.CellBounds.Location.Y - 1);
@@ -156,26 +155,26 @@ namespace WolvenKit
         public void copyVariable()
         {
             var tocopynodes = (from VariableListNode item in treeView.SelectedObjects
-                where item?.Variable != null
-                select item.Variable).ToList();
+                               where item?.Variable != null
+                               select item.Variable).ToList();
             if (tocopynodes.Count > 0) CopyController.VariableTargets = tocopynodes;
         }
 
         public void pasteVariable()
         {
-            var node = (VariableListNode) treeView.SelectedObject;
+            var node = (VariableListNode)treeView.SelectedObject;
             if (CopyController.VariableTargets == null || node?.Variable == null ||
                 !node.Variable.CanAddVariable(null)) return;
 
             if (CopyController.VariableTargets.All(x => x is CVariable))
-                foreach (var newvar in from v in CopyController.VariableTargets.Select(x => (CVariable) x)
-                    let context = new CR2WCopyAction
-                    {
-                        SourceFile = v.cr2w,
-                        DestinationFile = node.Variable.CR2WOwner,
-                        MaxIterationDepth = 0
-                    }
-                    select v.Copy(context))
+                foreach (var newvar in from v in CopyController.VariableTargets.Select(x => (CVariable)x)
+                                       let context = new CR2WCopyAction
+                                       {
+                                           SourceFile = v.cr2w,
+                                           DestinationFile = node.Variable.CR2WOwner,
+                                           MaxIterationDepth = 0
+                                       }
+                                       select v.Copy(context))
                 {
                     node.Variable.AddVariable(newvar);
 
@@ -189,14 +188,14 @@ namespace WolvenKit
 
         private void addVariableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var node = (VariableListNode) treeView.SelectedObject;
+            var node = (VariableListNode)treeView.SelectedObject;
             if (node?.Variable == null || !node.Variable.CanAddVariable(null)) return;
 
             CVariable newvar = null;
 
             if (node.Variable is CArray)
             {
-                var nodearray = (CArray) node.Variable;
+                var nodearray = (CArray)node.Variable;
                 newvar = CR2WTypeManager.Get().GetByName(nodearray.elementtype, string.Empty, Chunk.cr2w, false);
                 if (newvar == null)
                     return;
@@ -221,7 +220,7 @@ namespace WolvenKit
                 if (result == DialogResult.Cancel)
                     return;
 
-                ((CHandle) newvar).ChunkHandle = result == DialogResult.Yes;
+                ((CHandle)newvar).ChunkHandle = result == DialogResult.Yes;
             }
 
             node.Variable.AddVariable(newvar);
@@ -257,7 +256,7 @@ namespace WolvenKit
 
         private void expandAllChildrenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var node = (VariableListNode) treeView.SelectedObject;
+            var node = (VariableListNode)treeView.SelectedObject;
             if (node != null)
             {
                 treeView.Expand(node);
@@ -272,7 +271,7 @@ namespace WolvenKit
 
         private void collapseAllChildrenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var node = (VariableListNode) treeView.SelectedObject;
+            var node = (VariableListNode)treeView.SelectedObject;
             if (node != null)
                 foreach (var c in node.Children)
                     treeView.Collapse(c);
@@ -300,16 +299,16 @@ namespace WolvenKit
 
         private void ptrPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var node = (VariableListNode) treeView.SelectedObject;
+            var node = (VariableListNode)treeView.SelectedObject;
             if ((node?.Variable as CPtr)?.PtrTarget == null)
                 return;
 
-            Chunk = ((CPtr) node.Variable).PtrTarget;
+            Chunk = ((CPtr)node.Variable).PtrTarget;
         }
 
         private void copyTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var node = (VariableListNode) treeView.SelectedObject;
+            var node = (VariableListNode)treeView.SelectedObject;
             if (node?.Parent == null || !node.Parent.Variable.CanRemoveVariable(node.Variable))
                 return;
             if (node.Value != null)

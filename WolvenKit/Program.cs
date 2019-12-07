@@ -19,15 +19,15 @@ namespace WolvenKit
                     switch (Path.GetExtension(args[0]))
                     {
                         case ".w3modproj":
-                        {
-                            MainController.Get().InitialModProject = args[0];
-                            break;
-                        }
+                            {
+                                MainController.Get().InitialModProject = args[0];
+                                break;
+                            }
                         case ".wkp":
-                        {
-                            MainController.Get().InitialWKP = args[0];
-                            break;
-                        }
+                            {
+                                MainController.Get().InitialWKP = args[0];
+                                break;
+                            }
                     }
 
             Application.Run(MainController.Get().Window);
