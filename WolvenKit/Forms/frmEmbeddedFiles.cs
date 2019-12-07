@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using BrightIdeasSoftware;
 using WeifenLuo.WinFormsUI.Docking;
+using WolvenKit.Controls;
 using WolvenKit.CR2W;
 
 namespace WolvenKit
@@ -53,7 +54,7 @@ namespace WolvenKit
 
         private void OnFileSaved(object sender, FileSavedEventArgs e)
         {
-            var doc = (frmCR2WDocument) sender;
+            var doc = (CR2WDocumentContainer) sender;
             var editvar = (CR2WHeaderBlock7) doc.SaveTarget;
             editvar.unknowndata = ((MemoryStream) e.Stream).ToArray();
         }
