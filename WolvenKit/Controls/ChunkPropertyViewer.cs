@@ -12,6 +12,7 @@ using WolvenKit.CR2W.Types;
 
 namespace WolvenKit
 {
+    //TODO - This will need to be converted to either the DX Grid or the DX Tree List View. 
     public partial class ChunkPropertyViewer : XtraUserControl
     {
         private CR2WChunk chunk;
