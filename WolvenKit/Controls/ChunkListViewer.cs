@@ -24,13 +24,13 @@ namespace WolvenKit
             set
             {
                 file = value;
-                updateList();
+                UpdateList();
             }
         }
 
         public event EventHandler<SelectChunkArgs> OnSelectChunk;
 
-        private void updateList(string keyword = "")
+        private void UpdateList(string keyword = "")
         {
             var limit = -1;
             if (limitCB.Checked) int.TryParse(limitTB.Text, out limit);
@@ -112,14 +112,14 @@ namespace WolvenKit
 
         public void PasteChunks()
         {
-            var copiedchunks = CopyController.ChunkList;
-            if (copiedchunks != null && copiedchunks.Count > 0)
-                foreach (var chunk in copiedchunks)
+            var copiedChunks = CopyController.ChunkList;
+            if (copiedChunks != null && copiedChunks.Count > 0)
+                foreach (var chunk in copiedChunks)
                     try
                     {
-                        var pastedchunk = CR2WCopyAction.CopyChunk(chunk, chunk.CR2WOwner);
-                        listView.AddObject(pastedchunk);
-                        OnSelectChunk?.Invoke(this, new SelectChunkArgs { Chunk = pastedchunk });
+                        var pastedChunk = CR2WCopyAction.CopyChunk(chunk, chunk.CR2WOwner);
+                        listView.AddObject(pastedChunk);
+                        OnSelectChunk?.Invoke(this, new SelectChunkArgs { Chunk = pastedChunk });
                         MainController.Get().ProjectStatus = "Chunk copied";
                     }
                     catch (InvalidChunkTypeException ex)
@@ -130,12 +130,12 @@ namespace WolvenKit
 
         private void searchBTN_Click(object sender, EventArgs e)
         {
-            updateList(searchTB.Text);
+            UpdateList(searchTB.Text);
         }
 
         private void resetBTN_Click(object sender, EventArgs e)
         {
-            updateList();
+            UpdateList();
         }
 
         private void limitCB_CheckStateChanged(object sender, EventArgs e)
@@ -146,7 +146,7 @@ namespace WolvenKit
         private void searchTB_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == (int)Keys.Enter)
-                updateList(searchTB.Text);
+                UpdateList(searchTB.Text);
         }
 
         private void listView_ItemsChanged(object sender, ItemsChangedEventArgs e)
