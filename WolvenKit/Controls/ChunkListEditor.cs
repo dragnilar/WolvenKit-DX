@@ -1,26 +1,34 @@
-﻿using WolvenKit.CR2W;
+﻿using DevExpress.XtraGrid.Views.Grid;
+using WolvenKit.CR2W;
 
 namespace WolvenKit.Controls
 {
     public partial class ChunkListEditor : DevExpress.XtraEditors.XtraUserControl
     {
+        private CR2WFile _file;
         public CR2WFile File
         {
-            get => chunkListViewerControl.File;
-            set => chunkListViewerControl.File = value;
+            get => _file;
+            set
+            {
+                _file = value;
+                gridControlChunkEditor.DataSource = _file.chunks;
+            }
         }
 
         public ChunkListEditor()
         {
             InitializeComponent();
+            gridViewChunkEditor.RowClick += GridViewChunkEditorOnRowClick;
         }
 
-        private void chunkListViewerControl_OnSelectChunk(object sender, SelectChunkArgs e)
+        private void GridViewChunkEditorOnRowClick(object sender, RowClickEventArgs e)
         {
-            if (e.Chunk != null)
+            if (gridViewChunkEditor.GetRow(e.RowHandle) is CR2WChunk selectedRow)
             {
-                chunkPropertyViewerControl.Chunk = e.Chunk;
+                chunkPropertyViewerControl.Chunk = selectedRow;
             }
         }
+
     }
 }
