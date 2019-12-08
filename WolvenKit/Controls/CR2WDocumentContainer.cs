@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using WolvenKit.CR2W;
+using WolvenKit.Interfaces;
 using WolvenKit.Render;
 
 namespace WolvenKit.Controls
@@ -41,7 +42,7 @@ namespace WolvenKit.Controls
         {
             switch (Path.GetExtension(fileName))
             {
-                case ".w2scene":
+                case SupportedFileType.W2Scene:
                     {
                         var flowDiagram = new ChunkFlowDiagram
                         {
@@ -51,27 +52,27 @@ namespace WolvenKit.Controls
                         Controls.Add(flowDiagram);
                         break;
                     }
-                case ".journal":
+                case SupportedFileType.Journal:
                     {
-                        var JournalEditor = new frmJournalEditor
+                        var journalEditor = new frmJournalEditor
                         {
                             File = ContainerFile,
                             Dock = DockStyle.Fill
                         };
-                        Controls.Add(JournalEditor);
+                        Controls.Add(journalEditor);
                         break;
                     }
-                case ".xbm":
+                case SupportedFileType.Xbm:
                     {
-                        var ImageViewer = new frmImagePreview
+                        var imageViewer = new ImagePreview
                         {
                             File = ContainerFile,
                             Dock = DockStyle.Fill
                         };
-                        Controls.Add(ImageViewer);
+                        Controls.Add(imageViewer);
                         break;
                     }
-                case ".w2mesh":
+                case SupportedFileType.W2Mesh:
                     {
                         var renderControl = new RendererControl
                         {
@@ -111,26 +112,24 @@ namespace WolvenKit.Controls
         public void SaveFile()
         {
             if (SaveTarget == null)
-                saveToFileName();
+                SaveToFileNameInternal();
             else
-                saveToMemoryStream();
+                SaveToMemoryStreamInternal();
         }
 
-        private void saveToMemoryStream()
+        private void SaveToMemoryStreamInternal()
         {
             using (var mem = new MemoryStream())
             {
                 using (var writer = new BinaryWriter(mem))
                 {
                     ContainerFile.Write(writer);
-
-                    if (OnFileSaved != null)
-                        OnFileSaved(this, new FileSavedEventArgs { FileName = FileName, Stream = mem, File = ContainerFile });
+                    OnFileSaved?.Invoke(this, new FileSavedEventArgs { FileName = FileName, Stream = mem, File = ContainerFile });
                 }
             }
         }
 
-        private void saveToFileName()
+        private void SaveToFileNameInternal()
         {
             try
             {
@@ -144,11 +143,8 @@ namespace WolvenKit.Controls
                         using (var fs = new FileStream(FileName, FileMode.Create, FileAccess.Write))
                         {
                             mem.WriteTo(fs);
-
-                            if (OnFileSaved != null)
-                                OnFileSaved(this,
-                                    new FileSavedEventArgs { FileName = FileName, Stream = fs, File = ContainerFile });
-                            fs.Close();
+                            OnFileSaved?.Invoke(this,
+                                new FileSavedEventArgs { FileName = FileName, Stream = fs, File = ContainerFile });
                         }
                     }
                 }

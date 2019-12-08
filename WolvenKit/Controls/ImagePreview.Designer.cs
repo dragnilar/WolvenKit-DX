@@ -1,6 +1,6 @@
 ﻿namespace WolvenKit
 {
-    partial class frmImagePreview
+    partial class ImagePreview
     {
         /// <summary>
         /// Required designer variable.

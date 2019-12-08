@@ -7,11 +7,11 @@ using WolvenKit.CR2W;
 
 namespace WolvenKit
 {
-    public partial class frmImagePreview : XtraUserControl
+    public partial class ImagePreview : XtraUserControl
     {
         private CR2WFile _file;
 
-        public frmImagePreview()
+        public ImagePreview()
         {
             InitializeComponent();
         }

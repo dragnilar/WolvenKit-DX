@@ -17,6 +17,7 @@ using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
+using WolvenKit.Interfaces;
 using WolvenKit.Properties;
 using WolvenKit.W3Strings;
 
@@ -33,16 +34,18 @@ namespace WolvenKit
 
         public static List<string> EditableFiles = new List<string>
         {
-            ".w2mg",
-            ".w2p",
-            ".w2ent",
-            ".reddlc",
-            ".w2beh",
-            ".w2behtree",
-            ".w2scene",
-            ".w2rig",
-            ".env",
-            ".journal"
+            SupportedFileType.Xbm,
+            SupportedFileType.W2Mesh,
+            SupportedFileType.W2Scene,
+            SupportedFileType.Journal,
+            SupportedFileType.W2Mg,
+            SupportedFileType.W2P,
+            SupportedFileType.Ent,
+            SupportedFileType.RedDlc,
+            SupportedFileType.Beh,
+            SupportedFileType.BehTree,
+            SupportedFileType.Rig,
+            SupportedFileType.Env,
         };
 
 

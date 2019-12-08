@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit
 {
@@ -164,29 +165,29 @@ namespace WolvenKit
         {
             switch (fileExtension.ToLower())
             {
-                case ".csv":
+                case SupportedFileType.Csv:
                     return 3;
-                case ".redswf":
+                case SupportedFileType.RedSwf:
                     return 4;
-                case ".env":
+                case SupportedFileType.Env:
                     return 5;
-                case ".journal":
+                case SupportedFileType.Journal:
                     return 6;
-                case ".w2beh":
+                case SupportedFileType.Beh:
                     return 7;
-                case ".xml":
+                case SupportedFileType.Xml:
                     return 8;
-                case ".w2behtree":
+                case SupportedFileType.BehTree:
                     return 9;
-                case ".w2scene":
+                case SupportedFileType.W2Scene:
                     return 10;
-                case ".w2p":
+                case SupportedFileType.W2P:
                     return 11;
-                case ".w2rig":
+                case SupportedFileType.Rig:
                     return 12;
-                case ".ws":
+                case SupportedFileType.WitcherScript:
                     return 13;
-                case ".w2ent":
+                case SupportedFileType.Ent:
                     return 14;
                 default:
                     return 0;
