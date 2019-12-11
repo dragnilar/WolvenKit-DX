@@ -212,6 +212,8 @@ namespace WolvenKit
 
         private void AddFileNode(string path, TreeListNode parentsNode)
         {
+            //Dragnilar - Do not add the node it if already exists; otherwise creates duplicates.
+            if (treeListModFiles.Nodes.Any(x => x[treeListColumnFullName].ToString() == path)) return;
             var fi = new FileInfo(path);
             var node = treeListModFiles.AppendNode(new object[] { path, fi.Name, "File" }, parentsNode);
             node.StateImageIndex = GetImageIndex(fi.Extension);
@@ -219,6 +221,8 @@ namespace WolvenKit
 
         private void AddFolderNode(string path, TreeListNode parentsNode)
         {
+            //Dragnilar - Do not add the node it if already exists; otherwise creates duplicates.
+            if (treeListModFiles.Nodes.Any(x => x[treeListColumnFullName].ToString() == path)) return;
             var di = new DirectoryInfo(path);
             var node = treeListModFiles.AppendNode(new object[] { path, di.Name, "Folder" }, parentsNode);
             node.StateImageIndex = 1;

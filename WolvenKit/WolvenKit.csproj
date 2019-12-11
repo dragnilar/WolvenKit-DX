@@ -215,6 +215,9 @@
     <Reference Include="RtfPipe, Version=1.0.7246.39337, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RtfPipe.1.0.7246.39337\lib\net45\RtfPipe.dll</HintPath>
     </Reference>
+    <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
@@ -357,6 +360,12 @@
     </Compile>
     <Compile Include="Controls\CR2WDocumentContainer.Designer.cs">
       <DependentUpon>CR2WDocumentContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScriptEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ScriptEditor.Designer.cs">
+      <DependentUpon>ScriptEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="DDSUtility.cs" />
     <Compile Include="discord.cs" />
@@ -614,6 +623,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CR2WDocumentContainer.resx">
       <DependentUpon>CR2WDocumentContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ScriptEditor.resx">
+      <DependentUpon>ScriptEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>

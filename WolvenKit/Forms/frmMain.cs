@@ -23,6 +23,7 @@ using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit
 {
@@ -242,9 +243,7 @@ namespace WolvenKit
                         try
                         {
                             modExplorerControl.StopMonitoringDirectory();
-                            //Close all docs so they won't cause problems
-                            //OpenDocuments.ForEach(x => x.Close());
-                            ClearAndHideMainDockPanel();
+                            tabbedViewMain.Documents.Clear();
                             //Move the files directory
                             Directory.Move(oldmod.ProjectDirectory,
                                 Path.Combine(Path.GetDirectoryName(oldmod.ProjectDirectory), dlg.Mod.Name));
@@ -653,7 +652,7 @@ namespace WolvenKit
             //    t.Close();
             //    break;
             //}
-            ClearAndHideMainDockPanel();
+            tabbedViewMain.Documents.Clear();
 
             // Delete from file structure
             var fullpath = Path.Combine(ActiveMod.FileDirectory, filename);
@@ -705,20 +704,24 @@ namespace WolvenKit
         {
             var dockedImage = new frmTextureFile();
             dockedImage.Dock = DockStyle.Fill;
-            ClearAndHideMainDockPanel();
             tabbedViewMain.AddDocument(dockedImage);
             dockedImage.Text = Path.GetFileName(path);
             dockedImage.LoadImage(path);
         }
 
+        private void LoadWitcherScriptFile(string filePath)
+        {
+            var scriptEditor = new ScriptEditor(filePath);
+            scriptEditor.Dock = DockStyle.Fill;
+            tabbedViewMain.AddDocument(scriptEditor);
+            tabbedViewMain.Documents.Last().Caption = Path.GetFileName(filePath);
+            tabbedViewMain.ActivateDocument(scriptEditor);
+        }
+
+
         private void ShowOutput()
         {
             dockPanelOutput.Show();
-        }
-
-        private void ClearAndHideMainDockPanel()
-        {
-            tabbedViewMain.Documents.Clear();
         }
 
 
@@ -1014,7 +1017,7 @@ namespace WolvenKit
             //    //    break;
             //    //}
 
-            ClearAndHideMainDockPanel();
+            tabbedViewMain.Documents.Clear();
             dockPanelModExplorer.Close();
             ShowModExplorer();
             ShowOutput();
@@ -1078,8 +1081,9 @@ namespace WolvenKit
             catch (Exception ex)
             {
                 if (!suppressErrors)
-                    XtraMessageBox.Show(this, ex.Message, @"Error Opening File", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    XtraMessageBox.Show("Error opening selected file. Further details are as follows:\n\n" + ex,
+                        "Error Loading File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                doc.Dispose();
                 return null;
             }
 
@@ -1391,36 +1395,21 @@ namespace WolvenKit
 
             switch (Path.GetExtension(path))
             {
-                case ".csv":
-                case ".xml":
-                case ".txt":
-                    ShellExecute(path);
-                    break;
                 case ".subs":
                     PolymorphExecute(path, ".txt");
                     break;
                 case ".usm":
                     LoadUsmFile(path);
                     break;
-                case ".ws":
-                    ShellExecute(
-                        path); //We need to use Shell Execute for Witcher Script files, PolymorphExecute erroneously tries to open them with Notepad. A user may expect it to open with NP++ or some other app.
+                case SupportedFileType.WitcherScript:
+                    //LoadWitcherScriptFile(path); //TODO - This works but the scintilla editor needs to be styled and customized to provide a decent user experience.
+                    ShellExecute(path);
                     break;
                 case ".dds":
                     LoadDDSFile(path);
                     break;
                 default:
-                    //This fails unnecessarily in the event that we're trying to open a file extension that isn't associated with anything in Windows and also is not an actually supported file type.
-                    //See note about Dragnilar's File Extension Hack below...
-                    try
-                    {
-                        LoadDocument(path);
-                    }
-                    catch (Exception ex)
-                    {
-                        XtraMessageBox.Show("Error loading document. Further details are as follows:\n\n" + ex,
-                            "Error Loading Document", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    LoadDocument(path);
                     break;
             }
         }
