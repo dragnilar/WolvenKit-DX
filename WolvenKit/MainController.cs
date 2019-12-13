@@ -174,7 +174,7 @@ namespace WolvenKit
         ///     Initializes the archive managers in an async thread
         /// </summary>
         /// <returns></returns>
-        public async Task Initialize()
+        public void Initialize()
         {
             try
             {

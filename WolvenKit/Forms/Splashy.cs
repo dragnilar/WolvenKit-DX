@@ -33,11 +33,6 @@ namespace WolvenKit.Forms
                 else
                     Close();
             }
-            else
-            {
-                Application.DoEvents();
-                Task.Factory.StartNew(() => MainController.Get().Initialize()); //Start the async task to load our stuff
-            }
         }
 
         private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)

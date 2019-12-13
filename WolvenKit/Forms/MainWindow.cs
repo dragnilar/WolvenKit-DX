@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using DevExpress.XtraSplashScreen;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
 using WolvenKit.Common;
@@ -36,7 +37,10 @@ namespace WolvenKit
         public frmMain()
         {
             InitializeComponent();
-
+            SplashScreenManager.ShowForm(typeof(Splashy));
+            Application.DoEvents();
+            MainController.Get().Initialize();
+            SplashScreenManager.CloseForm();
             MainController.Get().PropertyChanged += MainControllerUpdated;
             MainController.Get().InitForm(this);
             Shown += OnShown;
