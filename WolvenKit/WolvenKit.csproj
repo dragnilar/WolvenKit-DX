@@ -153,6 +153,7 @@
     <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v19.2.Core, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -392,6 +393,12 @@
     </Compile>
     <Compile Include="Forms\frmCreateInstaller.Designer.cs">
       <DependentUpon>frmCreateInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Splashy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Splashy.Designer.cs">
+      <DependentUpon>Splashy.cs</DependentUpon>
     </Compile>
     <Compile Include="WitcherListViewItem.cs" />
     <Compile Include="Commonfunctions.cs" />
@@ -738,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCreateInstaller.resx">
       <DependentUpon>frmCreateInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Splashy.resx">
+      <DependentUpon>Splashy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

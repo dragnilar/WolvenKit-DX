@@ -33,6 +33,7 @@ namespace WolvenKit
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManagerMain = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::WolvenKit.Forms.Splashy), true, true);
             this.richpresenceworker = new System.ComponentModel.BackgroundWorker();
             this.ribbonControlMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItemNewMod = new DevExpress.XtraBars.BarButtonItem();
@@ -814,6 +815,10 @@ namespace WolvenKit
             this.documentManagerMain.View = this.tabbedViewMain;
             this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedViewMain});
+            // 
+            // splashScreenManagerMain
+            // 
+            splashScreenManagerMain.ClosingDelay = 500;
             // 
             // frmMain
             // 

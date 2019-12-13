@@ -1496,12 +1496,6 @@ namespace WolvenKit
                 Close();
             }
 
-            //Start loading if everything is set up.
-            var frmload = new frmLoading();
-            frmload.ShowDialog();
-
-            //Update check should be after we are all set up. It goes on in the background.
-            AutoUpdater.Start("https://raw.githubusercontent.com/Traderain/Wolven-kit/master/Update.xml");
             richpresenceworker.RunWorkerAsync();
         }
 
