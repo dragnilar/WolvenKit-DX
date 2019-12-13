@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="richpresenceworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>25, 6</value>
+    <value>215, 17</value>
   </metadata>
   <assembly alias="DevExpress.Data.v19.2" name="DevExpress.Data.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="barButtonItemNewMod.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -259,7 +259,7 @@
 </value>
   </data>
   <metadata name="popupMenuLaunch.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>186, 8</value>
+    <value>373, 17</value>
   </metadata>
   <data name="barButtonItemDebug.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -365,7 +365,7 @@
 </value>
   </data>
   <metadata name="popupMenuImport.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>333, 11</value>
+    <value>531, 17</value>
   </metadata>
   <data name="barButtonItemImport.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -407,23 +407,8 @@
 </value>
   </data>
   <metadata name="popupMenuNewFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>479, 13</value>
+    <value>687, 17</value>
   </metadata>
-  <data name="barButtonItemAddNewFile.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjE5LjIsIFZlcnNpb249MTkuMi40
-        LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YQUBAAAAHURl
-        dkV4cHJlc3MuVXRpbHMuU3ZnLlN2Z0ltYWdlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAAMUBAAAC77u/
-        PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz4NCjxzdmcgeD0iMHB4IiB5PSIwcHgi
-        IHZpZXdCb3g9IjAgMCAzMiAzMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-        MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3Bh
-        Y2U9InByZXNlcnZlIiBpZD0iTmV3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMiAz
-        MiI+DQogIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CgkuQmxhY2t7ZmlsbDojNzI3MjcyO30KPC9zdHls
-        ZT4NCiAgPHBhdGggZD0iTTE5LDJINUM0LjQsMiw0LDIuNCw0LDN2MjRjMCwwLjYsMC40LDEsMSwxaDIw
-        YzAuNiwwLDEtMC40LDEtMVY5TDE5LDJ6IE0yNCwyNkg2VjRoMTJ2NWMwLDAuNiwwLjQsMSwxLDFoNSAg
-        VjI2eiIgY2xhc3M9IkJsYWNrIiAvPg0KPC9zdmc+Cw==
-</value>
-  </data>
   <data name="barButtonItemScriptMod.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjE5LjIsIFZlcnNpb249MTkuMi40
@@ -554,6 +539,21 @@
         YzAuNywwLjcsMS4yLDEuNywxLjIsMi44YzAsMS4xLTAuNCwyLjEtMS4yLDIuOGwxLjQsMS40YzEuMS0x
         LjEsMS44LTIuNiwxLjgtNC4yICAgUzIxLjMsMTIuOCwyMC4yLDExLjh6IiBjbGFzcz0iQmxhY2siIC8+
         DQogIDwvZz4NCjwvc3ZnPgs=
+</value>
+  </data>
+  <data name="barButtonItemAddNewFile.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjE5LjIsIFZlcnNpb249MTkuMi40
+        LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YQUBAAAAHURl
+        dkV4cHJlc3MuVXRpbHMuU3ZnLlN2Z0ltYWdlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAAMUBAAAC77u/
+        PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz4NCjxzdmcgeD0iMHB4IiB5PSIwcHgi
+        IHZpZXdCb3g9IjAgMCAzMiAzMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+        MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3Bh
+        Y2U9InByZXNlcnZlIiBpZD0iTmV3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMiAz
+        MiI+DQogIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CgkuQmxhY2t7ZmlsbDojNzI3MjcyO30KPC9zdHls
+        ZT4NCiAgPHBhdGggZD0iTTE5LDJINUM0LjQsMiw0LDIuNCw0LDN2MjRjMCwwLjYsMC40LDEsMSwxaDIw
+        YzAuNiwwLDEtMC40LDEtMVY5TDE5LDJ6IE0yNCwyNkg2VjRoMTJ2NWMwLDAuNiwwLjQsMSwxLDFoNSAg
+        VjI2eiIgY2xhc3M9IkJsYWNrIiAvPg0KPC9zdmc+Cw==
 </value>
   </data>
   <data name="barButtonItemCreatePackInstaller.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -994,32 +994,6 @@
         PC9nPg0KPC9zdmc+Cw==
 </value>
   </data>
-  <data name="barButtonItemDonate.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjE5LjIsIFZlcnNpb249MTkuMi40
-        LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YQUBAAAAHURl
-        dkV4cHJlc3MuVXRpbHMuU3ZnLlN2Z0ltYWdlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAAHEEAAAC77u/
-        PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz4NCjxzdmcgeD0iMHB4IiB5PSIwcHgi
-        IHZpZXdCb3g9IjAgMCAzMiAzMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-        MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3Bh
-        Y2U9InByZXNlcnZlIiBpZD0iTGF5ZXJfMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAg
-        MzIgMzIiPg0KICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLkJsdWV7ZmlsbDojMTE3N0Q3O30KCS5H
-        cmVlbntmaWxsOiMwMzlDMjM7fQoJLlllbGxvd3tmaWxsOiNGRkIxMTU7fQoJLkJsYWNre2ZpbGw6Izcy
-        NzI3Mjt9CgkuV2hpdGV7ZmlsbDojRkZGRkZGO30KCS5SZWR7ZmlsbDojRDExQzFDO30KCS5zdDB7b3Bh
-        Y2l0eTowLjc1O30KPC9zdHlsZT4NCiAgPGcgaWQ9Ik1vbmV5Ij4NCiAgICA8cGF0aCBkPSJNMTYsMjRj
-        LTQuNCwwLTgtMS4zLTgtM3YyYzAsMS43LDMuNiwzLDgsM3M4LTEuMyw4LTN2LTJDMjQsMjIuNywyMC40
-        LDI0LDE2LDI0eiIgY2xhc3M9IlllbGxvdyIgLz4NCiAgICA8cGF0aCBkPSJNMTYsMjhjLTQuNCwwLTgt
-        MS4zLTgtM3YyYzAsMS43LDMuNiwzLDgsM3M4LTEuMyw4LTN2LTJDMjQsMjYuNywyMC40LDI4LDE2LDI4
-        eiIgY2xhc3M9IlllbGxvdyIgLz4NCiAgICA8cGF0aCBkPSJNMTYsMjBjLTQuNCwwLTgtMS4zLTgtM3Yy
-        YzAsMS43LDMuNiwzLDgsM3M4LTEuMyw4LTN2LTJDMjQsMTguNywyMC40LDIwLDE2LDIweiIgY2xhc3M9
-        IlllbGxvdyIgLz4NCiAgICA8cGF0aCBkPSJNMTYsMTZjLTQuNCwwLTgtMS4zLTgtM3YyYzAsMS43LDMu
-        NiwzLDgsM3M4LTEuMyw4LTN2LTJDMjQsMTQuNywyMC40LDE2LDE2LDE2eiIgY2xhc3M9IlllbGxvdyIg
-        Lz4NCiAgICA8cGF0aCBkPSJNMTYsMTJjLTQuNCwwLTgtMS4zLTgtM3YyYzAsMS43LDMuNiwzLDgsM3M4
-        LTEuMyw4LTNWOUMyNCwxMC43LDIwLjQsMTIsMTYsMTJ6IiBjbGFzcz0iWWVsbG93IiAvPg0KICAgIDxw
-        YXRoIGQ9Ik0xNiwyYy00LjQsMC04LDEuMy04LDN2MmMwLDEuNywzLjYsMyw4LDNzOC0xLjMsOC0zVjVD
-        MjQsMy4zLDIwLjQsMiwxNiwyeiIgY2xhc3M9IlllbGxvdyIgLz4NCiAgPC9nPg0KPC9zdmc+Cw==
-</value>
-  </data>
   <data name="barButtonItemClearOutput.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v19.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjE5LjIsIFZlcnNpb249MTkuMi40
@@ -1061,17 +1035,8 @@
         R3JlZW4iIC8+DQogIDwvZz4NCjwvc3ZnPgs=
 </value>
   </data>
-  <metadata name="popupMenuLaunch.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>186, 8</value>
-  </metadata>
-  <metadata name="popupMenuImport.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>333, 11</value>
-  </metadata>
-  <metadata name="popupMenuNewFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>479, 13</value>
-  </metadata>
   <metadata name="dockManagerMainWindow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>644, 11</value>
+    <value>849, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="frmMain.IconOptions.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -2482,6 +2447,6 @@
 </value>
   </data>
   <metadata name="documentManagerMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>827, 13</value>
+    <value>1048, 17</value>
   </metadata>
 </root>

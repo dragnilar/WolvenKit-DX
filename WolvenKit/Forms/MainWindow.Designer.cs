@@ -32,8 +32,8 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManagerMain = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::WolvenKit.Forms.Splashy), true, true);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.richpresenceworker = new System.ComponentModel.BackgroundWorker();
             this.ribbonControlMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItemNewMod = new DevExpress.XtraBars.BarButtonItem();
@@ -83,7 +83,6 @@ namespace WolvenKit
             this.barButtonItemModToolLic = new DevExpress.XtraBars.BarButtonItem();
             this.ReportABug = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemAboutWolvenkit = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemDonate = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItemStatus = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItemBuildDate = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
@@ -121,6 +120,10 @@ namespace WolvenKit
             ((System.ComponentModel.ISupportInitialize)(this.documentManagerMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedViewMain)).BeginInit();
             this.SuspendLayout();
+            // 
+            // splashScreenManagerMain
+            // 
+            splashScreenManagerMain.ClosingDelay = 500;
             // 
             // richpresenceworker
             // 
@@ -179,7 +182,6 @@ namespace WolvenKit
             this.barButtonItemModToolLic,
             this.ReportABug,
             this.barButtonItemAboutWolvenkit,
-            this.barButtonItemDonate,
             this.barStaticItemStatus,
             this.barStaticItemBuildDate,
             this.barButtonItemClearOutput,
@@ -580,14 +582,6 @@ namespace WolvenKit
             this.barButtonItemAboutWolvenkit.Name = "barButtonItemAboutWolvenkit";
             this.barButtonItemAboutWolvenkit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAboutWolvenkit_ItemClick);
             // 
-            // barButtonItemDonate
-            // 
-            this.barButtonItemDonate.Caption = "Donate To Original Team";
-            this.barButtonItemDonate.Id = 52;
-            this.barButtonItemDonate.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemDonate.ImageOptions.SvgImage")));
-            this.barButtonItemDonate.Name = "barButtonItemDonate";
-            this.barButtonItemDonate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemDonate_ItemClick);
-            // 
             // barStaticItemStatus
             // 
             this.barStaticItemStatus.Caption = "Ready";
@@ -711,7 +705,6 @@ namespace WolvenKit
             this.ribbonPageGroupHelp.ItemLinks.Add(this.barButtonItemModToolLic);
             this.ribbonPageGroupHelp.ItemLinks.Add(this.ReportABug);
             this.ribbonPageGroupHelp.ItemLinks.Add(this.barButtonItemAboutWolvenkit);
-            this.ribbonPageGroupHelp.ItemLinks.Add(this.barButtonItemDonate);
             this.ribbonPageGroupHelp.Name = "ribbonPageGroupHelp";
             this.ribbonPageGroupHelp.Text = "Help";
             // 
@@ -816,10 +809,6 @@ namespace WolvenKit
             this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedViewMain});
             // 
-            // splashScreenManagerMain
-            // 
-            splashScreenManagerMain.ClosingDelay = 500;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -915,7 +904,6 @@ namespace WolvenKit
         private DevExpress.XtraBars.BarButtonItem barButtonItemModToolLic;
         private DevExpress.XtraBars.BarButtonItem ReportABug;
         private DevExpress.XtraBars.BarButtonItem barButtonItemAboutWolvenkit;
-        private DevExpress.XtraBars.BarButtonItem barButtonItemDonate;
         private DevExpress.XtraBars.BarStaticItem barStaticItemStatus;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBarMainWindow;
         private DevExpress.XtraBars.BarStaticItem barStaticItemBuildDate;

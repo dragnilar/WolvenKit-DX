@@ -393,15 +393,6 @@ namespace WolvenKit
             }
         }
 
-        private void barButtonItemDonate_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            XtraMessageBox.Show(
-                "This will take you to Traderain's pay pal page.\n Traderain is the developer for the original Wolvenkit and he is not affiliated with Wolvenkit DX\n" +
-                "If you enjoy using Wolvenkit DX, please consider contributing to his team for their hard work.",
-                "Note About Donations", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Process.Start("https://www.paypal.me/traderain");
-        }
-
         private void barButtonItemClearOutput_ItemClick(object sender, ItemClickEventArgs e)
         {
             outputViewControl.ClearDocument();
