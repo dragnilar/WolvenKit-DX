@@ -1,8 +1,13 @@
 # Wolven-Kit DX
 
-This is a fork of Traderain's Wolven-kit that contains several tweaks/modifications that which are to my own liking. This is not intended to be merged back with the main branch. I will try to merge in changes from Traderain when possible (as of 12/2/19 it is up to date with the original version), but at some point this fork will most likely branch off in a completely different direction. I intend to create a release for this once I feel it is at a state where it is different enough from Traderain's version to merit releasing it. 
+This is a fork of Traderain's Wolven-kit that features a significant user interface overhaul, performance improvements and other changes that I felt were necessary for making Wolven-Kit an overall better program for Witcher 3 mod development. Many of the changes are courtsey of Developer Express' widgets. 
 
-List of Changes:
+# Downloading / Installing
+
+I intend to create a release for this once I feel it is at a state where it is stable and different enough from Traderain's version to merit releasing it. Once it is at a release state, I will make an installer available for download in the releases section. The installer will most likely be using <a href="https://www.installpackbuilder.com/"> Paquet Builder </a> or some other installer. A zip / installer-less version will also be available.
+
+
+# What's Different From The Original: 
 
 - Incorporates DevExpress' Windows Forms suite. This means it uses Direct X, Vector Skins, etc.
 - Improved loading times due to using DevExpress Splash screen instead of the original WolvenKit splash screen.
@@ -21,6 +26,9 @@ List of Changes:
 - Added one click mod build / quick build feature that builds a mod with all default parameters. Can be invoked using the ribbon hot keys as well.
 - Upgraded to target .NET 4.8, I did not see any reason to leave it on 4.6.x.
 
+# What About Changes Made To The Original Wolven-Kit?
+
+As of 12/2/2019, this repository is current with all of Traderain's changes to the original Wolven-Kit. After that, this repo was broken off due to the fact that I felt it was too radically different for the two to stay in sync. I will still try to integrate in any fixes or improvements he makes to the original Wolven-Kit if possible, but please keep in mind that going from 12/2/2019 forward, there is no guarantee that these this and the original will have all of the code changes from the original. 
 
 # Note / Shameless Advertisement: 
 Since this uses DevExpress, you will need a license for thier controls if you wish to build this solution. I have my own Universal Subscription license and strongly recommend that you get one from DevExpress if you love their components. They provide amazing technical support and offer probably some of the best looking components for desktop/web/mobile that money can buy. It is expensive, but its money well spent. 
