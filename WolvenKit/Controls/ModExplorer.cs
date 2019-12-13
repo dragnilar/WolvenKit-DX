@@ -213,7 +213,7 @@ namespace WolvenKit
         private void AddFileNode(string path, TreeListNode parentsNode)
         {
             //Dragnilar - Do not add the node it if already exists; otherwise creates duplicates.
-            if (treeListModFiles.Nodes.Any(x => x[treeListColumnFullName].ToString() == path)) return;
+            if (treeListModFiles.FindNode(x=>x[treeListColumnFullName].ToString() == path) != null) return;
             var fi = new FileInfo(path);
             var node = treeListModFiles.AppendNode(new object[] { path, fi.Name, "File" }, parentsNode);
             node.StateImageIndex = GetImageIndex(fi.Extension);
@@ -222,7 +222,7 @@ namespace WolvenKit
         private void AddFolderNode(string path, TreeListNode parentsNode)
         {
             //Dragnilar - Do not add the node it if already exists; otherwise creates duplicates.
-            if (treeListModFiles.Nodes.Any(x => x[treeListColumnFullName].ToString() == path)) return;
+            if (treeListModFiles.FindNode(x=>x[treeListColumnFullName].ToString() == path) != null) return;
             var di = new DirectoryInfo(path);
             var node = treeListModFiles.AppendNode(new object[] { path, di.Name, "Folder" }, parentsNode);
             node.StateImageIndex = 1;
@@ -341,10 +341,12 @@ namespace WolvenKit
 
         private void barButtonItemAddFile_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var selectedPath = GetSelectedNodeFilePath();
-            if (!string.IsNullOrWhiteSpace(selectedPath))
-                RequestFileAdd?.Invoke(this,
-                    new RequestFileArgs { File = GetExplorerString(selectedPath ?? string.Empty) });
+            //TODO - The GetSelectedNodeFilePath() method here doesn't get the right path, need to rewrite it.
+            RequestFileAdd?.Invoke(this, new RequestFileArgs());
+            //var selectedPath = GetSelectedNodeFilePath();
+            //if (!string.IsNullOrWhiteSpace(selectedPath))
+            //    RequestFileAdd?.Invoke(this,
+            //        new RequestFileArgs { File = string.Empty });
         }
 
         private void barButtonItemShowInExplorer_ItemClick(object sender, ItemClickEventArgs e)
