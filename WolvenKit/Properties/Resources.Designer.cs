@@ -463,9 +463,9 @@ namespace WolvenKit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wolven_kit_icon {
+        internal static System.Drawing.Bitmap wkdxicon {
             get {
-                object obj = ResourceManager.GetObject("wolven_kit_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("wkdxicon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

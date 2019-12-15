@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Wolven kit")]
+[assembly: AssemblyTitle("Wolven Kit DX")]
 [assembly:
-    AssemblyDescription("Wolven kit a tool to operate with the game \"The Witcher 3: Wild Hunt\" in various ways.")]
+    AssemblyDescription("Wolven Kit DX Is A Fan Made Editor For \"The Witcher 3: Wild Hunt\"")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Community")]
-[assembly: AssemblyProduct("Wolven kit")]
+[assembly: AssemblyProduct("Wolven Kit DX")]
 [assembly: AssemblyCopyright("Copyright © 2015-2017")]
 [assembly: AssemblyTrademark("GPL-3.0")]
 [assembly: AssemblyCulture("")]
@@ -36,5 +36,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.3.1.0")]
-[assembly: AssemblyFileVersion("0.3.1.0")]
+[assembly: AssemblyVersion("0.4.0.0")]
+[assembly: AssemblyFileVersion("0.4.0.0")]

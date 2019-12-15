@@ -819,10 +819,11 @@ namespace WolvenKit
             this.Controls.Add(this.ribbonStatusBarMainWindow);
             this.Controls.Add(this.ribbonControlMain);
             this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmMain.IconOptions.Icon")));
+            this.IconOptions.Image = global::WolvenKit.Properties.Resources.wkdxicon;
             this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(584, 391);
             this.Name = "frmMain";
-            this.Text = "Wolven kit";
+            this.Text = "Wolven Kit DX";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);

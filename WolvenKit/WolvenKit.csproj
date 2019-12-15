@@ -67,7 +67,7 @@
     <DocumentationFile>bin\Release\WolvenKit.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>wolven_kit_icon.ico</ApplicationIcon>
+    <ApplicationIcon>wkdxicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>56D600A08C1A75A7D44B3384AB83B913576E5024</ManifestCertificateThumbprint>
@@ -354,6 +354,12 @@
     <Compile Include="Controls\ChunkListEditor.Designer.cs">
       <DependentUpon>ChunkListEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChunkListPropertyEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChunkListPropertyEditor.Designer.cs">
+      <DependentUpon>ChunkListPropertyEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CR2WDocumentContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -397,6 +403,11 @@
     </Compile>
     <Compile Include="Forms\Splashy.Designer.cs">
       <DependentUpon>Splashy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="WitcherListViewItem.cs" />
     <Compile Include="Commonfunctions.cs" />
@@ -626,6 +637,9 @@
     <EmbeddedResource Include="Controls\ChunkListEditor.resx">
       <DependentUpon>ChunkListEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChunkListPropertyEditor.resx">
+      <DependentUpon>ChunkListPropertyEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CR2WDocumentContainer.resx">
       <DependentUpon>CR2WDocumentContainer.cs</DependentUpon>
     </EmbeddedResource>
@@ -750,14 +764,9 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -886,7 +895,7 @@
     <None Include="Resources\packageInstaller.svg" />
     <None Include="Resources\W2ent.svg" />
     <None Include="Resources\WSFile.svg" />
-    <Content Include="wolven_kit_icon.ico" />
+    <Content Include="wkdxicon.ico" />
     <Content Include="Licenses\License.doboz4net.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1327,16 +1336,6 @@
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="wolven_kit_icon.ico">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

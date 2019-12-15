@@ -117,7 +117,7 @@ namespace WolvenKit
             if (dataGridViewStrings.Rows.Count != 1)
                 SaveCSV();
             else
-                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Current file is empty.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
@@ -140,7 +140,7 @@ namespace WolvenKit
             if (dataGridViewStrings.Rows.Count != 1)
                 Encode();
             else
-                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Current file is empty.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void toolStripButtonImport_Click(object sender, EventArgs e)
@@ -174,7 +174,7 @@ namespace WolvenKit
                 return;
             if (!fileIsSaved)
             {
-                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit",
+                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit DX",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                     return;
@@ -294,7 +294,7 @@ namespace WolvenKit
             else if (dataTableGridViewSource != null)
             {
                 var result = MessageBox.Show("Are you sure? English strings will be used for all languages.",
-                    "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                    "Wolven Kit DX", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                 {
                     comboBoxLanguagesMode.SelectedIndex = 1;
@@ -385,7 +385,7 @@ namespace WolvenKit
 
         private void AskForModID()
         {
-            MessageBox.Show("Enter mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Enter mod ID.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             textBoxModID.Text = string.Empty;
         }
 
@@ -422,7 +422,7 @@ namespace WolvenKit
 
             if (prefix == string.Empty)
             {
-                MessageBox.Show("Empty prefix.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Empty prefix.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -447,7 +447,7 @@ namespace WolvenKit
 
             if (matches.Count == 0)
             {
-                MessageBox.Show("No matches.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("No matches.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -462,7 +462,7 @@ namespace WolvenKit
                     var result = MessageBox.Show(
                         "Found uppercase string keys. String keys called in scripts must be all lowercase. " +
                         "Do you want to read them as lowercase? You will need to change the string keys in the scripts, or pass them to StrLower() function.",
-                        "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                        "Wolven Kit DX", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                     if (result == DialogResult.OK)
                         convertToLower = true;
                 }
@@ -686,7 +686,7 @@ namespace WolvenKit
 
             if (!IsIDValid(textBoxModID.Text))
             {
-                MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Invalid Mod ID.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                 if (currentModID != string.Empty)
                     textBoxModID.Text = currentModID;
@@ -708,7 +708,7 @@ namespace WolvenKit
 
                 if (!AreAllIDsValid(splittedIDs))
                 {
-                    MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Invalid Mod ID.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                     if (currentModID != string.Empty)
                         textBoxModID.Text = currentModID;
@@ -746,7 +746,7 @@ namespace WolvenKit
                 {
                     MessageBox.Show("Number of strings exceeds " + counter + ", number of IDs: " + modIDs.Count
                                     + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.",
-                        "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     dataTableGridViewSource.Clear();
                     break;
                 }
@@ -1082,7 +1082,7 @@ namespace WolvenKit
 
             WriteHash("encoded");
 
-            MessageBox.Show("Strings encoded.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Strings encoded.", "Wolven Kit DX", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         // to check for not encoded csvs, function from Sound_Cache.cs (FNV1A64)

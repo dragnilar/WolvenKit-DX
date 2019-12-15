@@ -31,7 +31,7 @@ namespace WolvenKit
     public partial class frmMain : XtraForm
     {
         public static Task Packer;
-        private readonly string BaseTitle = "Wolven kit";
+        private readonly string BaseTitle = "Wolven Kit DX";
         public bool RenderW2Mesh;
 
         public frmMain()
@@ -148,7 +148,7 @@ namespace WolvenKit
             }
 
             File.WriteAllLines(newFullPath,
-                new[] { @"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/" });
+                new[] { @"/*", $"{BaseTitle} - {Version}", DateTime.Now.ToString("d"), @"*/" });
         }
 
         private void barButtonItemWwiseMod_ItemClick(object sender, ItemClickEventArgs e)
@@ -194,7 +194,7 @@ namespace WolvenKit
             }
 
             File.WriteAllLines(newFullPath,
-                new[] { @"/*", $"Wolven kit - {Version}", DateTime.Now.ToString("d"), @"*/" });
+                new[] { @"/*", $"{BaseTitle} - {Version}", DateTime.Now.ToString("d"), @"*/" });
         }
 
         private void barButtonItemWwiseDLC_ItemClick(object sender, ItemClickEventArgs e)
@@ -816,7 +816,7 @@ namespace WolvenKit
                     //This is an old "Sarcen's W3Edit"-project. We need to upgrade it.
                     //Put the files into their respective folder.
                     switch (XtraMessageBox.Show(
-                        "The project you are opening has been made with an older version of Wolven Kit or Sarcen's Witcher 3 Edit.\nIt needs to be upgraded for use with Wolvenkit.\nTo load as a mod please press yes. To load as a DLC project please press no.\n You can manually do the upgrade if you check the project structure: https://github.com/Traderain/Wolven-kit/wiki/Project-structure press cancel if you desire to do so. This may not always work but I tried my best.",
+                        $"The project you are opening has been made with an older version of {BaseTitle} or Sarcen's Witcher 3 Edit.\nIt needs to be upgraded for use with Wolvenkit.\nTo load as a mod please press yes. To load as a DLC project please press no.\n You can manually do the upgrade if you check the project structure: https://github.com/Traderain/Wolven-kit/wiki/Project-structure press cancel if you desire to do so. This may not always work but I tried my best.",
                         "Out of date project", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
                         default:
@@ -1041,7 +1041,7 @@ namespace WolvenKit
 
             try
             {
-                if (MainController.EditableFiles.Contains(Path.GetExtension(filePath)))
+                if (MainController.EditableFiles.Contains(Path.GetExtension(filePath)) || Path.GetFileName(filePath).ToLower() == "buffer" )
                 {
                     if (memoryStream == null)
                     {
@@ -1461,7 +1461,7 @@ namespace WolvenKit
 
         private void saveActiveFile()
         {
-            if (tabbedViewMain.ActiveDocument.Control is CR2WDocumentContainer container && container.SaveTarget != null)
+            if (tabbedViewMain.ActiveDocument.Control is CR2WDocumentContainer container)
             {
                 saveFile(container);
                 AddOutput("Saved!\n");

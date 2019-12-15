@@ -148,7 +148,7 @@ namespace WolvenKit.StringEncoder
                 return;
             if (!fileIsSaved)
             {
-                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit",
+                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit DX String Encoder DX String Encoder",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                     return;
@@ -187,7 +187,7 @@ namespace WolvenKit.StringEncoder
             if (gridViewStringsEncoder.RowCount != 1)
                 SaveCSV();
             else
-                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Current file is empty.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void barButtonItemEncode_ItemClick(object sender, ItemClickEventArgs e)
@@ -195,7 +195,7 @@ namespace WolvenKit.StringEncoder
             if (gridViewStringsEncoder.RowCount != 1)
                 Encode();
             else
-                MessageBox.Show("Current file is empty.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Current file is empty.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void repoItemTextEditModIDs_KeyDown(object sender, KeyEventArgs e)
@@ -249,7 +249,7 @@ namespace WolvenKit.StringEncoder
             else if (W3EncodedStrings != null)
             {
                 var result = MessageBox.Show("Are you sure? English strings will be used for all languages.",
-                    "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                    "Wolven Kit DX String Encoder", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                 {
                     barEditItemLanguage.EditValue = AllLanguagesVal;
@@ -349,7 +349,7 @@ namespace WolvenKit.StringEncoder
 
         private void AskForModID()
         {
-            MessageBox.Show("Enter mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Enter mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             barEditItemModId.EditValue = string.Empty;
         }
 
@@ -389,7 +389,7 @@ namespace WolvenKit.StringEncoder
 
             if (prefix == string.Empty)
             {
-                MessageBox.Show("Empty prefix.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Empty prefix.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -414,7 +414,7 @@ namespace WolvenKit.StringEncoder
 
             if (matches.Count == 0)
             {
-                MessageBox.Show("No matches.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("No matches.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -429,7 +429,7 @@ namespace WolvenKit.StringEncoder
                     var result = MessageBox.Show(
                         "Found uppercase string keys. String keys called in scripts must be all lowercase. " +
                         "Do you want to read them as lowercase? You will need to change the string keys in the scripts, or pass them to StrLower() function.",
-                        "Wolven Kit", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                        "Wolven Kit DX String Encoder", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                     if (result == DialogResult.OK)
                         convertToLower = true;
                 }
@@ -663,7 +663,7 @@ namespace WolvenKit.StringEncoder
 
             if (!IsIDValid(barEditItemModId.EditValue.ToString()))
             {
-                MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Invalid Mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                 if (currentModID != string.Empty)
                     barEditItemModId.EditValue = currentModID;
@@ -685,7 +685,7 @@ namespace WolvenKit.StringEncoder
 
                 if (!AreAllIDsValid(splittedIDs))
                 {
-                    MessageBox.Show("Invalid Mod ID.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Invalid Mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                     if (currentModID != string.Empty)
                         barEditItemModId.EditValue = currentModID;
@@ -722,7 +722,7 @@ namespace WolvenKit.StringEncoder
                 {
                     MessageBox.Show("Number of strings exceeds " + counter + ", number of IDs: " + modIDs.Count
                                     + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.",
-                        "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     W3EncodedStrings.Clear();
                     break;
                 }
@@ -1046,7 +1046,7 @@ namespace WolvenKit.StringEncoder
 
             WriteHash("encoded");
 
-            MessageBox.Show("Strings encoded.", "Wolven Kit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Strings encoded.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         // to check for not encoded csvs, function from Sound_Cache.cs (FNV1A64)
