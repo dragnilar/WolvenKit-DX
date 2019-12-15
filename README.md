@@ -24,11 +24,12 @@ I intend to create a release for this once I feel it is at a state where it is s
 - Cleaned up various spelling mistakes and/or other typographical errors.
 - Removed the (in my opinion) annoying recent files feature; it was buggy and I found it to be a nuisance since it kept reopening files that I had closed on subsequent loads.
 - Added one click mod build / quick build feature that builds a mod with all default parameters. Can be invoked using the ribbon hot keys as well.
+- Removed the dependency on the Visual Plus library/NuGet package (it was only being used for the package creator window) and replaced it with an equiv equivalent window that uses DevExpress' graphics instead. Also made some small improvements to it (icons, themable, better error handling and notifications for when packages are successfully created).
 - Upgraded to target .NET 4.8, I did not see any reason to leave it on 4.6.x.
 
 # What About Changes Made To The Original Wolven-Kit?
 
-As of 12/2/2019, this repository is current with all of Traderain's changes to the original Wolven-Kit. After that, this repo was broken off due to the fact that I felt it was too radically different for the two to stay in sync. I will still try to integrate in any fixes or improvements he makes to the original Wolven-Kit if possible, but please keep in mind that going from 12/2/2019 forward, there is no guarantee that these this and the original will have all of the code changes from the original. 
+As of 12/2/2019, this repository is current with all of Traderain's changes to the original Wolven-Kit. After that, this repo was broken off due to the fact that I felt it was too radically different for the two to stay in sync. I will still try to integrate in any fixes or improvements he makes to the original Wolven-Kit if possible, but please keep in mind that going from 12/2/2019 forward, there is no guarantee that WolvenKit DX will have 100% parity with the original WolvenKit. 
 
 # Note / Shameless Advertisement: 
 Since this uses DevExpress, you will need a license for thier controls if you wish to build this solution. I have my own Universal Subscription license and strongly recommend that you get one from DevExpress if you love their components. They provide amazing technical support and offer probably some of the best looking components for desktop/web/mobile that money can buy. It is expensive, but its money well spent. 
