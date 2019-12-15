@@ -24,6 +24,7 @@ I intend to create a release for this once I feel it is at a state where it is s
 - Cleaned up various spelling mistakes and/or other typographical errors.
 - Removed the (in my opinion) annoying recent files feature; it was buggy and I found it to be a nuisance since it kept reopening files that I had closed on subsequent loads.
 - Added one click mod build / quick build feature that builds a mod with all default parameters. Can be invoked using the ribbon hot keys as well.
+- Removed the dependency on the Visual Plus library/NuGet package (it was only being used for the package creator window) and replaced it with an equiv equivalent window that uses DevExpress' graphics instead. Also made some small improvements to it (icons, themable, better error handling and notifications for when packages are successfully created).
 - Upgraded to target .NET 4.8, I did not see any reason to leave it on 4.6.x.
 
 # What About Changes Made To The Original Wolven-Kit?
