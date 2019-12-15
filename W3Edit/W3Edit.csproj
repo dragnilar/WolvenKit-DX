@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: F:\dragn\Documents\Misc Applications\W3Edit\W3Edit.exe-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D64B8457-0643-4F91-B234-3F0EB366B0E0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>W3Edit</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ApplicationVersion>0.0.24.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>W3Edit</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zlib">
+      <HintPath>lib\Ionic.Zlib.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView">
+      <HintPath>lib\ObjectListView.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="W3Edit.Bundles">
+      <HintPath>lib\W3Edit.Bundles.dll</HintPath>
+    </Reference>
+    <Reference Include="W3Edit.CR2W">
+      <HintPath>lib\W3Edit.CR2W.dll</HintPath>
+    </Reference>
+    <Reference Include="W3Edit.W3Strings">
+      <HintPath>lib\W3Edit.W3Strings.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>lib\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="CopyController.cs" />
+    <Compile Include="FileSavedEventArgs.cs" />
+    <Compile Include="ImportExportUtility.cs" />
+    <Compile Include="frmAddChunk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddVariable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBundleExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChunkFlowDiagram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChunkList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChunkProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCR2WDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmbeddedFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExtractAmbigious.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHexEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRenameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="RequestFileArgs.cs" />
+    <Compile Include="SelectChunkArgs.cs" />
+    <Compile Include="Win32.cs" />
+    <Compile Include="FlowTreeEditors\ChunkEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\MoveEditorArgs.cs" />
+    <Compile Include="FlowTreeEditors\SceneChoiceEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneFlowConditionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneLinkEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneRandomizerEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowTreeEditors\SceneSectionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mod\ModManager.cs" />
+    <Compile Include="Mod\W3Mod.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FlowTreeEditors\ChunkEditor.resx" />
+    <EmbeddedResource Include="FlowTreeEditors\SceneFlowConditionEditor.resx" />
+    <EmbeddedResource Include="FlowTreeEditors\SceneLinkEditor.resx" />
+    <EmbeddedResource Include="frmAddChunk.resx" />
+    <EmbeddedResource Include="frmAddVariable.resx" />
+    <EmbeddedResource Include="frmBundleExplorer.resx" />
+    <EmbeddedResource Include="frmChunkFlowDiagram.resx" />
+    <EmbeddedResource Include="frmChunkList.resx" />
+    <EmbeddedResource Include="frmChunkProperties.resx" />
+    <EmbeddedResource Include="frmCR2WDocument.resx" />
+    <EmbeddedResource Include="frmEmbeddedFiles.resx" />
+    <EmbeddedResource Include="frmExtractAmbigious.resx" />
+    <EmbeddedResource Include="frmHexEditorView.resx" />
+    <EmbeddedResource Include="frmMain.resx" />
+    <EmbeddedResource Include="frmModExplorer.resx" />
+    <EmbeddedResource Include="frmModSettings.resx" />
+    <EmbeddedResource Include="frmOutput.resx" />
+    <EmbeddedResource Include="frmRenameDialog.resx" />
+    <EmbeddedResource Include="frmSettings.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
