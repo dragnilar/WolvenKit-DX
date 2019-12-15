@@ -11,6 +11,9 @@ I intend to create a release for this once I feel it is at a state where it is s
 
 - Incorporates DevExpress' Windows Forms suite. This means it uses Direct X, Vector Skins, etc.
 - Improved loading times due to using DevExpress Splash screen instead of the original WolvenKit splash screen.
+- Consequentially, the old splash screen is no longer used.
+- Added a new icon for the app to help differentiate it from the regular Wolven Kit.
+- Added a new script editor feature, powered by Scintilla Net (the editor used by Notepad++). This is a work in progress. The goal will be to allow you to edit your scripts inside Wolven Kit DX with standard syntax highlighting and other common features.
 - The Main Window now has a ribbon with much larger buttons, built in hot key support and is overall easier to use.
 - Stand Alone version of the String Encoder GUI since I have to make a lot of string changes for my own mod.
 - The stand alone version of the String Encoder uses DevExpress' controls instead of the bare bones Windows Forms grid, which both looks better and allows for filtering, searching, sorting and an overall better user experience.
