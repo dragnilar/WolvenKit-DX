@@ -185,6 +185,7 @@
     <Compile Include="Types\SAppearanceAttachment.cs" />
     <Compile Include="Types\SParticleEmitterLODLevel.cs" />
     <Compile Include="Types\SSeedKeyValue.cs" />
+    <Compile Include="VariableListNode.cs" />
     <Compile Include="W3ReaderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
