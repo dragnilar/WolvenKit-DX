@@ -33,7 +33,6 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChunkPropertyViewer));
             this.treeView = new BrightIdeasSoftware.TreeListView();
             this.colName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -68,8 +67,10 @@ namespace WolvenKit
             this.colValue,
             this.colType});
             this.treeView.ContextMenuStrip = this.contextMenu;
+            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.FullRowSelect = true;
+            this.treeView.HideSelection = false;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
             this.treeView.ShowGroups = false;
@@ -206,15 +207,15 @@ namespace WolvenKit
             this.ptrPropertiesToolStripMenuItem.Text = "Ptr Properties";
             this.ptrPropertiesToolStripMenuItem.Click += new System.EventHandler(this.ptrPropertiesToolStripMenuItem_Click);
             // 
-            // frmChunkProperties
+            // ChunkPropertyViewer
             // 
+            this.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 493);
             this.Controls.Add(this.treeView);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ChunkPropertyViewer";
-            this.Text = "Properties";
+            this.Size = new System.Drawing.Size(813, 493);
             this.Resize += new System.EventHandler(this.frmChunkProperties_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.treeView)).EndInit();
             this.contextMenu.ResumeLayout(false);
