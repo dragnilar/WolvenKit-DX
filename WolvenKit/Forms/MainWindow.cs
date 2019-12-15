@@ -577,7 +577,7 @@ namespace WolvenKit
 
         private void CreateInstaller()
         {
-            var cif = new frmCreateInstaller();
+            var cif = new CreatePackageInstallerView();
             cif.ShowDialog();
         }
 
