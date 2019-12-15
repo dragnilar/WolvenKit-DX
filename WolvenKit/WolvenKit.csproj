@@ -386,12 +386,6 @@
     <Compile Include="Forms\CreatePackageInstallerView.Designer.cs">
       <DependentUpon>CreatePackageInstallerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLoading.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmLoading.Designer.cs">
-      <DependentUpon>frmLoading.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmStringsGuiImporterIDDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -572,11 +566,11 @@
     <Compile Include="Controls\ChunkPropertyViewer.Designer.cs">
       <DependentUpon>ChunkPropertyViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmEmbeddedFiles.cs">
+    <Compile Include="Controls\EmbededFilesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\frmEmbeddedFiles.Designer.cs">
-      <DependentUpon>frmEmbeddedFiles.cs</DependentUpon>
+    <Compile Include="Controls\EmbededFilesView.Designer.cs">
+      <DependentUpon>EmbededFilesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmExtractAmbigious.cs">
       <SubType>Form</SubType>
@@ -686,8 +680,8 @@
     <EmbeddedResource Include="Forms\frmDebug.resx">
       <DependentUpon>frmDebug.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmEmbeddedFiles.resx">
-      <DependentUpon>frmEmbeddedFiles.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\EmbededFilesView.resx">
+      <DependentUpon>EmbededFilesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmExtractAmbigious.resx">
       <DependentUpon>frmExtractAmbigious.cs</DependentUpon>
@@ -703,9 +697,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\JournalEditor.resx">
       <DependentUpon>JournalEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmLoading.resx">
-      <DependentUpon>frmLoading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

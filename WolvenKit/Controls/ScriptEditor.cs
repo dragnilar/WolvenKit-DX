@@ -17,14 +17,30 @@ namespace WolvenKit.Controls
     public partial class ScriptEditor : DevExpress.XtraEditors.XtraUserControl
     {
 
+        public string FilePath { get; set; }
 
         public ScriptEditor(string filePath)
         {
             InitializeComponent();
+            FilePath = filePath;
             scintillaControl.Styles[Style.Default].BackColor = Color.DarkSlateGray;
-            scintillaControl.Styles[Style.Default].ForeColor = Color.White;
-            scintillaControl.Text = File.ReadAllText(filePath);
+            scintillaControl.Text = File.ReadAllText(FilePath);
+            ConfigureScintilla();
 
+        }
+
+        private void ConfigureScintilla()
+        {
+            scintillaControl.Margins[0].Width = 16;
+        }
+
+        public void SaveFile()
+        {
+            File.WriteAllText(FilePath, "");
+            using (var streamWriter = File.AppendText(FilePath))
+            {
+                streamWriter.Write(scintillaControl.Text);
+            }
         }
     }
 }

@@ -458,6 +458,10 @@ namespace WolvenKit
                 {
                     saveFile(container);
                 }
+                else if (document.Control is ScriptEditor editor)
+                {
+                    editor.SaveFile();
+                }
 
             }
             AddOutput("All files saved!\n");
@@ -706,8 +710,7 @@ namespace WolvenKit
 
         private void LoadWitcherScriptFile(string filePath)
         {
-            var scriptEditor = new ScriptEditor(filePath);
-            scriptEditor.Dock = DockStyle.Fill;
+            var scriptEditor = new ScriptEditor(filePath) {Dock = DockStyle.Fill};
             tabbedViewMain.AddDocument(scriptEditor);
             tabbedViewMain.Documents.Last().Caption = Path.GetFileName(filePath);
             tabbedViewMain.ActivateDocument(scriptEditor);
@@ -1095,7 +1098,7 @@ namespace WolvenKit
                 if (doc.ContainerFile.block7.Count > 0)
                 {
                     //TODO - This window may need to be converted to a user control, it isn't clear as to what control combination it belongs.
-                    var embeddedFileForm = new frmEmbeddedFiles()
+                    var embeddedFileForm = new EmbeddedFilesView()
                     {
                         File = doc.ContainerFile
                     };
@@ -1397,8 +1400,8 @@ namespace WolvenKit
                     LoadUsmFile(path);
                     break;
                 case SupportedFileType.WitcherScript:
-                    //LoadWitcherScriptFile(path); //TODO - This works but the scintilla editor needs to be styled and customized to provide a decent user experience.
-                    ShellExecute(path);
+                    LoadWitcherScriptFile(path); //TODO - This works but the scintilla editor needs to be styled and customized to provide a decent user experience.
+                    //ShellExecute(path);
                     break;
                 case ".dds":
                     LoadDDSFile(path);
@@ -1465,6 +1468,10 @@ namespace WolvenKit
             {
                 saveFile(container);
                 AddOutput("Saved!\n");
+            }
+            else if (tabbedViewMain.ActiveDocument.Control is ScriptEditor editor)
+            {
+                editor.SaveFile();
             }
         }
 

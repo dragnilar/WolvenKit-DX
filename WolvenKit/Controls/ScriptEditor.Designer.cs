@@ -33,6 +33,7 @@
             // 
             // scintillaControl
             // 
+            this.scintillaControl.CaretLineVisible = true;
             this.scintillaControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scintillaControl.Location = new System.Drawing.Point(0, 0);
             this.scintillaControl.Name = "scintillaControl";
