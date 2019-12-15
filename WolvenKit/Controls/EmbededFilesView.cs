@@ -6,11 +6,11 @@ using WolvenKit.CR2W;
 
 namespace WolvenKit
 {
-    public partial class frmEmbeddedFiles : XtraUserControl
+    public partial class EmbeddedFilesView : XtraUserControl
     {
         private CR2WFile file;
 
-        public frmEmbeddedFiles()
+        public EmbeddedFilesView()
         {
             InitializeComponent();
             UpdateList();
