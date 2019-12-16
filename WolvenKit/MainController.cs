@@ -57,7 +57,7 @@ namespace WolvenKit
         public string InitialWKP = string.Empty;
 
         /// <summary>
-        ///     Shows wheteher there are unsaved changes in the project.
+        ///     Shows whether there are unsaved changes in the project.
         /// </summary>
         public bool ProjectUnsaved = false;
 
