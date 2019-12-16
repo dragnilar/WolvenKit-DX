@@ -24,17 +24,12 @@ namespace WolvenKit.CR2W
         public CR2WChunk(CR2WFile cr2w)
         {
             this.cr2w = cr2w;
-
-
             parentPtr = new CPtr(cr2w);
-            parentPtr.Name = "Parent";
-
+            parentPtr.Name = nameof(Parent);
             flags = new CUInt16(cr2w);
-            flags.Name = "Flags";
-
+            flags.Name = nameof(Flags);
             typeName = new CName(cr2w);
-            typeName.Name = "Type";
-
+            typeName.Name = nameof(Type);
             Flags = 8192;
         }
 

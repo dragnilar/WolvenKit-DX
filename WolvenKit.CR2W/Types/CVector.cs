@@ -17,14 +17,19 @@ namespace WolvenKit.CR2W.Types
 
         public override void Read(BinaryReader file, uint size)
         {
-            var zero = file.ReadByte();
+            var num = (int) file.ReadByte();
 
             while (true)
             {
                 var var = cr2w.ReadVariable(file);
-                if (var == null)
+                if (var != null)
+                {
+                    AddVariable(var);
+                }
+                else
+                {
                     break;
-                AddVariable(var);
+                }
             }
         }
 

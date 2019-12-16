@@ -58,13 +58,11 @@ namespace WolvenKit.CR2W.Types
         public override void Read(BinaryReader file, uint size)
         {
             var count = file.ReadUInt32();
-
             for (var i = 0; i < count; i++)
             {
-                var var = CR2WTypeManager.Get().GetByName(elementtype, i.ToString(), cr2w, false);
-                if (var == null)
-                    var = new CVector(cr2w);
-                var.Read(file, 0);
+                var var = CR2WTypeManager.Get().GetByName(elementtype, i.ToString(), cr2w, false) ?? 
+                          new CVector(cr2w);
+                var.Read(file, 0U);
 
                 AddVariable(var);
             }
