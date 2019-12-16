@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WolvenKit
 {
-    partial class frmMain
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@ namespace WolvenKit
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManagerMain = new DevExpress.XtraSplashScreen.SplashScreenManager(this, null, true, true);
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.richpresenceworker = new System.ComponentModel.BackgroundWorker();
             this.ribbonControlMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItemNewMod = new DevExpress.XtraBars.BarButtonItem();
@@ -822,7 +822,7 @@ namespace WolvenKit
             this.IconOptions.Image = global::WolvenKit.Properties.Resources.wkdxicon;
             this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(584, 391);
-            this.Name = "frmMain";
+            this.Name = "MainWindow";
             this.Text = "Wolven Kit DX";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);

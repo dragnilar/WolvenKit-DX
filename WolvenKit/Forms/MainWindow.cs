@@ -28,13 +28,13 @@ using WolvenKit.Interfaces;
 
 namespace WolvenKit
 {
-    public partial class frmMain : XtraForm
+    public partial class MainWindow : XtraForm
     {
         public static Task Packer;
         private readonly string BaseTitle = "Wolven Kit DX";
         public bool RenderW2Mesh;
 
-        public frmMain()
+        public MainWindow()
         {
             InitializeComponent();
             SplashScreenManager.ShowForm(typeof(Splashy));

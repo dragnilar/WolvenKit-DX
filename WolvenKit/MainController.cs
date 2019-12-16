@@ -68,7 +68,7 @@ namespace WolvenKit
         }
 
         public Configuration Configuration { get; private set; }
-        public frmMain Window { get; private set; }
+        public MainWindow Window { get; private set; }
         public W3Mod ActiveMod { get; set; }
 
         public string ProjectStatus
@@ -164,7 +164,7 @@ namespace WolvenKit
             {
                 mainController = new MainController();
                 mainController.Configuration = Configuration.Load();
-                mainController.Window = new frmMain();
+                mainController.Window = new MainWindow();
             }
 
             return mainController;
