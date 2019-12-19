@@ -26,6 +26,15 @@ namespace WolvenKit.Controls
         RepositoryItemColorPickEdit repositoryItemColorPickEdit = new RepositoryItemColorPickEdit();
         RepositoryItemComboBox repoItemColItemComboBox = new RepositoryItemComboBox();
         RepositoryItemSpinEdit repoItemSpinEdit = new RepositoryItemSpinEdit();
+        RepositoryItemDateEdit repoItemDateEdit = new RepositoryItemDateEdit();
+        RepositoryItemCheckEdit repositoryItemCheckEdit = new RepositoryItemCheckEdit();
+
+        //TODO - These button edits show modal dialogs to edit the actual variable; W3Edit and WK used inline controls. 
+        //They would have to be recreated as custom repository items in order to be made edit-able inline. I don't feel like making those ATM.
+        RepositoryItemButtonEdit repoItemByteArrayEditButton = new RepositoryItemButtonEdit();
+        RepositoryItemButtonEdit repoItemPointArrayEditButton = new RepositoryItemButtonEdit();
+        RepositoryItemButtonEdit repoItemXmlButtonEdit = new RepositoryItemButtonEdit();
+        RepositoryItemButtonEdit idTagButtonEdit = new RepositoryItemButtonEdit();
 
         public ChunkListPropertyEditor()
         {
@@ -92,7 +101,32 @@ namespace WolvenKit.Controls
             if (variable != null)
             {
                 if (e.Column == treeListColumnValue)
-                {
+                { 
+                    //TODO - Implement these below...
+                    //CByteArray - ByteArrayEditor
+                    //Array - No Repo Item
+                    //CBytes - ByteArrayEditButton
+                    //CColor - ColorPickEdit
+                    //CColorShift - ColorPickEdit (uses three different subtypes like luminance, etc.)
+                    //CDateTime - DateTimeEdit
+                    //CFloat - TextEdit (use spin edit instead???)
+                    //CGuid - TextEdit
+                    //CHandle - ComboBoxEdit
+                    //CLocalizedStrings - TextEdit
+                    //CName - Can be ComboBoxEdit or TextEdit (lame)
+                    //CPtr - ComboBoxEdit
+                    //CSoft - PointArrayEditButton
+                    //CString - TextEdit
+                    //CStringAnsi - TextEdit
+                    //CVariable - No Repo Item
+                    //CVariant - Either no editor or specific editor
+                    //CVector - No Editor
+                    //CXml - XmlButtonEdit
+                    //CIdTag - IdTagButtonEdit
+                    //CBool - CheckEdit
+                    //CDynamicInt, CInt16, CInt32, CInt64, CInt8, CUInt16, CUInt32, CUInt64, CUInt8 - TextEdit (possibly spin edit???)
+                    //CR2WChunk - No Repo Item
+
                     switch (variable.GetType().Name)
                     {
                         default:
