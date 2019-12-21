@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
@@ -15,10 +10,14 @@ namespace WolvenKit.Forms
 {
     public partial class Splashy : SplashScreen
     {
+        public enum SplashScreenCommand
+        {
+        }
+
         public Splashy()
         {
             InitializeComponent();
-            this.Shown += Splashy_Shown;
+            Shown += Splashy_Shown;
             MainController.Get().PropertyChanged += MainControllerUpdated;
         }
 
@@ -38,13 +37,11 @@ namespace WolvenKit.Forms
         private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "LoadStatus")
-                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).LoadStatus);
+                Invoke(new strDelegate(SetStatusLabelText), ((MainController) sender).LoadStatus);
             if (e.PropertyName == "Loaded")
-                Invoke(new boolDelegate(Finish), ((MainController)sender).Loaded);
+                Invoke(new boolDelegate(Finish), ((MainController) sender).Loaded);
             if (e.PropertyName == "LoadPercentage")
-            {
                 Invoke(new intDelegate(SetLoadPercentage), ((MainController) sender).LoadPercentage);
-            }
         }
 
         #region Overrides
@@ -56,13 +53,9 @@ namespace WolvenKit.Forms
 
         #endregion
 
-        public enum SplashScreenCommand
-        {
-        }
-
         private void SetStatusLabelText(string text)
         {
-            labelStatus.Text = text;
+            textEditStatus.Text = text;
         }
 
         private void SetLoadPercentage(int percentage)
@@ -74,11 +67,12 @@ namespace WolvenKit.Forms
         {
             if (!success)
             {
-                labelStatus.Text = "Failed to initialize!";
+                textEditStatus.Text = "Failed to initialize!";
                 Application.DoEvents();
                 Thread.Sleep(3000);
             }
         }
+
 
         private delegate void strDelegate(string t);
 
