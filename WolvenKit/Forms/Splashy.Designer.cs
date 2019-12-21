@@ -38,9 +38,11 @@
             // 
             // labelStatus
             // 
+            this.labelStatus.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStatus.Appearance.Options.UseFont = true;
             this.labelStatus.Location = new System.Drawing.Point(24, 488);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(50, 13);
+            this.labelStatus.Size = new System.Drawing.Size(57, 16);
             this.labelStatus.TabIndex = 7;
             this.labelStatus.Text = "Starting...";
             // 
