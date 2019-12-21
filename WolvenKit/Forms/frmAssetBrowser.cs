@@ -5,11 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using WolvenKit.Common;
 
 namespace WolvenKit
 {
-    public partial class frmAssetBrowser : Form
+    public partial class frmAssetBrowser : XtraForm
     {
         public List<string> Autocompletelist;
         public List<IWitcherFile> FileList = new List<IWitcherFile>();

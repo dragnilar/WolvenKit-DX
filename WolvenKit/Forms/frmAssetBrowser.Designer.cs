@@ -33,7 +33,7 @@ namespace WolvenKit
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAssetBrowser));
-            this.btOpen = new System.Windows.Forms.Button();
+            this.btOpen = new DevExpress.XtraEditors.SimpleButton();
             this.fileListView = new System.Windows.Forms.ListView();
             this.colFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFileSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,16 +48,16 @@ namespace WolvenKit
             this.pathPanel = new System.Windows.Forms.Panel();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ClearFiles = new System.Windows.Forms.Button();
-            this.MarkSelected = new System.Windows.Forms.Button();
+            this.ClearFiles = new DevExpress.XtraEditors.SimpleButton();
+            this.MarkSelected = new DevExpress.XtraEditors.SimpleButton();
             this.filetypeCB = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button1 = new DevExpress.XtraEditors.SimpleButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button2 = new DevExpress.XtraEditors.SimpleButton();
             this.pathlistview = new System.Windows.Forms.ListView();
             this.columnPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clearSearch = new System.Windows.Forms.Button();
+            this.clearSearch = new DevExpress.XtraEditors.SimpleButton();
             this.regexCheckbox = new System.Windows.Forms.CheckBox();
             this.currentfolderCheckBox = new System.Windows.Forms.CheckBox();
             this.caseCheckBox = new System.Windows.Forms.CheckBox();
@@ -73,10 +73,9 @@ namespace WolvenKit
             this.tabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lExtension = new System.Windows.Forms.Label();
             this.extensionCB = new System.Windows.Forms.ComboBox();
-            this.addDLCFile = new System.Windows.Forms.Button();
-            this.homeBTN = new System.Windows.Forms.Button();
+            this.addDLCFile = new DevExpress.XtraEditors.SimpleButton();
+            this.homeBTN = new DevExpress.XtraEditors.SimpleButton();
             this.filebrowserMenuStrip.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btOpen
@@ -89,7 +88,6 @@ namespace WolvenKit
             this.btOpen.TabIndex = 3;
             this.btOpen.TabStop = false;
             this.btOpen.Text = "Add marked files to mod";
-            this.btOpen.UseVisualStyleBackColor = true;
             this.btOpen.Click += new System.EventHandler(this.btOpen_Click);
             // 
             // fileListView
@@ -240,7 +238,6 @@ namespace WolvenKit
             this.ClearFiles.TabIndex = 9;
             this.ClearFiles.TabStop = false;
             this.ClearFiles.Text = "Unmark selected";
-            this.ClearFiles.UseVisualStyleBackColor = true;
             this.ClearFiles.Click += new System.EventHandler(this.button1_Click);
             // 
             // MarkSelected
@@ -252,7 +249,6 @@ namespace WolvenKit
             this.MarkSelected.TabIndex = 10;
             this.MarkSelected.TabStop = false;
             this.MarkSelected.Text = "Mark selected";
-            this.MarkSelected.UseVisualStyleBackColor = true;
             this.MarkSelected.Click += new System.EventHandler(this.MarkSelected_Click);
             // 
             // filetypeCB
@@ -275,7 +271,6 @@ namespace WolvenKit
             this.button1.Size = new System.Drawing.Size(86, 23);
             this.button1.TabIndex = 12;
             this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // label2
@@ -307,7 +302,6 @@ namespace WolvenKit
             this.button2.TabIndex = 17;
             this.button2.TabStop = false;
             this.button2.Text = "Clear marks";
-            this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Clear_Click);
             // 
             // pathlistview
@@ -338,15 +332,12 @@ namespace WolvenKit
             // clearSearch
             // 
             this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearSearch.BackColor = System.Drawing.Color.Transparent;
-            this.clearSearch.BackgroundImage = global::WolvenKit.Properties.Resources.ExitIcon;
             this.clearSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.clearSearch.Location = new System.Drawing.Point(242, 69);
             this.clearSearch.Margin = new System.Windows.Forms.Padding(2);
             this.clearSearch.Name = "clearSearch";
             this.clearSearch.Size = new System.Drawing.Size(22, 24);
             this.clearSearch.TabIndex = 18;
-            this.clearSearch.UseVisualStyleBackColor = false;
             this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
             // 
             // regexCheckbox
@@ -364,7 +355,7 @@ namespace WolvenKit
             this.currentfolderCheckBox.AutoSize = true;
             this.currentfolderCheckBox.Location = new System.Drawing.Point(80, 98);
             this.currentfolderCheckBox.Name = "currentfolderCheckBox";
-            this.currentfolderCheckBox.Size = new System.Drawing.Size(178, 17);
+            this.currentfolderCheckBox.Size = new System.Drawing.Size(181, 17);
             this.currentfolderCheckBox.TabIndex = 22;
             this.currentfolderCheckBox.Text = "Search only in current mod folder";
             this.currentfolderCheckBox.UseVisualStyleBackColor = true;
@@ -382,15 +373,10 @@ namespace WolvenKit
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.bookmarkToolStripMenuItem,
-            this.tabsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(811, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1411, 24);
             this.menuStrip1.TabIndex = 24;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -459,7 +445,7 @@ namespace WolvenKit
             // 
             this.tabsToolStripMenuItem.Enabled = false;
             this.tabsToolStripMenuItem.Name = "tabsToolStripMenuItem";
-            this.tabsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.tabsToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.tabsToolStripMenuItem.Text = "Tabs";
             // 
             // lExtension
@@ -494,18 +480,17 @@ namespace WolvenKit
             this.addDLCFile.TabIndex = 27;
             this.addDLCFile.TabStop = false;
             this.addDLCFile.Text = "Add marked files to DLC";
-            this.addDLCFile.UseVisualStyleBackColor = true;
             this.addDLCFile.Click += new System.EventHandler(this.AddDLCFile_Click);
             // 
             // homeBTN
             // 
-            this.homeBTN.BackgroundImage = global::WolvenKit.Properties.Resources.home;
             this.homeBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.homeBTN.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.homeBTN.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("homeBTN.ImageOptions.SvgImage")));
             this.homeBTN.Location = new System.Drawing.Point(9, 40);
             this.homeBTN.Name = "homeBTN";
             this.homeBTN.Size = new System.Drawing.Size(28, 23);
             this.homeBTN.TabIndex = 28;
-            this.homeBTN.UseVisualStyleBackColor = true;
             this.homeBTN.Click += new System.EventHandler(this.Home_Click);
             // 
             // frmAssetBrowser
@@ -542,8 +527,6 @@ namespace WolvenKit
             this.Text = "Asset browser";
             this.Load += new System.EventHandler(this.frmBundleExplorer_Load);
             this.filebrowserMenuStrip.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,7 +534,7 @@ namespace WolvenKit
 
         #endregion
 
-        private Button btOpen;
+        private DevExpress.XtraEditors.SimpleButton btOpen;
         private ListView fileListView;
         private ColumnHeader colFileName;
         private ColumnHeader colFileSize;
@@ -561,19 +544,19 @@ namespace WolvenKit
         private ColumnHeader colType;
         private TextBox SearchBox;
         private Label label1;
-        private Button ClearFiles;
-        private Button MarkSelected;
+        private DevExpress.XtraEditors.SimpleButton ClearFiles;
+        private DevExpress.XtraEditors.SimpleButton MarkSelected;
         private ComboBox filetypeCB;
-        private Button button1;
+        private DevExpress.XtraEditors.SimpleButton button1;
         private Label label2;
         private Label label3;
-        private Button button2;
+        private DevExpress.XtraEditors.SimpleButton button2;
         private ListView pathlistview;
         private ColumnHeader columnPath;
         private ContextMenuStrip filebrowserMenuStrip;
         private ToolStripMenuItem copyPathToolStripMenuItem;
         private ToolStripMenuItem markToolStripMenuItem;
-        private Button clearSearch;
+        private DevExpress.XtraEditors.SimpleButton clearSearch;
         private CheckBox regexCheckbox;
         private CheckBox currentfolderCheckBox;
         private CheckBox caseCheckBox;
@@ -591,7 +574,7 @@ namespace WolvenKit
         private ImageList treeImages;
         private Label lExtension;
         private ComboBox extensionCB;
-        private Button addDLCFile;
-        private Button homeBTN;
+        private DevExpress.XtraEditors.SimpleButton addDLCFile;
+        private DevExpress.XtraEditors.SimpleButton homeBTN;
     }
 }
