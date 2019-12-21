@@ -92,7 +92,6 @@
             // 
             // refreshToolStripMenuItem
             // 
-            this.refreshToolStripMenuItem.Image = global::WolvenKit.Properties.Resources.arrow_circle_315;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";

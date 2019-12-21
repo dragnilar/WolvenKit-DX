@@ -703,6 +703,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMenuCreator.resx">
       <DependentUpon>frmMenuCreator.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ModExplorer.resx">
       <DependentUpon>ModExplorer.cs</DependentUpon>
@@ -776,27 +777,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Open_6529.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\NewSolutionFolder_6289.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Save_6530.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Saveall_6518.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gear_16xLG.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AddNodefromFile_354.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\properties_16xLG.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\package_16xLG.png" />
   </ItemGroup>
   <ItemGroup>
@@ -854,7 +834,6 @@
     <None Include="Resources\geralt.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Editing-Collapse-icon.png" />
     <None Include="Resources\Editing-Expand-icon.png" />
     <None Include="Resources\mail.png" />
     <None Include="Resources\player_record.png" />
@@ -862,18 +841,7 @@
       <Link>Irrlicht.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\box.png" />
-    <None Include="Resources\box--arrow.png" />
-    <None Include="Resources\bug.png" />
     <None Include="Resources\exclamation-red.png" />
-    <None Include="Resources\edit-letter-spacing.png" />
-    <None Include="Resources\ui-menu-blue.png" />
-    <None Include="Resources\home.png" />
-    <None Include="Resources\stickman.png" />
-    <None Include="Resources\t-shirt-gray.png" />
-    <None Include="Resources\arrow-circle-315.png" />
-    <None Include="Resources\ui-check-box.png" />
-    <None Include="Resources\ui-check-box-uncheck.png" />
     <None Include="Resources\wooden-box--arrow.png" />
     <None Include="Resources\Logo.png" />
     <None Include="Resources\loading_black.png" />
@@ -881,7 +849,6 @@
     <Content Include="discord-rpc.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\sword_s19.svg" />
     <None Include="Resources\DebugRun.svg" />
     <None Include="Resources\packageInstaller.svg" />
     <None Include="Resources\W2ent.svg" />
@@ -910,7 +877,6 @@
     </Content>
     <None Include="Resources\ExpandIcon.png" />
     <None Include="Resources\ExitIcon.png" />
-    <None Include="Resources\LayerGroupVisibled.png" />
     <None Include="Resources\wcc_eula.rtf" />
     <None Include="Resources\witcher3_102.ico" />
     <None Include="Resources\witcher3_101.ico" />
