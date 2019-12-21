@@ -1,4 +1,4 @@
-# Wolven-Kit DX
+# WolvenKit DX
 
 This is a fork of Traderain's Wolven-kit that features a significant user interface overhaul, performance improvements and other changes that I felt were necessary for making Wolven-Kit an overall better program for Witcher 3 mod development. Many of the changes are courtsey of Developer Express' widgets. 
 
@@ -11,6 +11,7 @@ I intend to create a release for this once I feel it is at a state where it is s
 
 - Incorporates DevExpress' Windows Forms suite. This means it uses Direct X, Vector Skins, etc.
 - Improved loading times due to using DevExpress Splash screen instead of the original WolvenKit splash screen.
+- The splash screen is entirely different in appearance and also features a progress bar. 
 - Consequentially, the old splash screen is no longer used.
 - Added a new icon for the app to help differentiate it from the regular Wolven Kit.
 - Added a new script editor feature, powered by Scintilla Net (the editor used by Notepad++). This is a work in progress. The goal will be to allow you to edit your scripts inside Wolven Kit DX with standard syntax highlighting and other common features.
