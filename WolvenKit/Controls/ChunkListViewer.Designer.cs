@@ -33,6 +33,7 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChunkListViewer));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addChunkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteChunkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +43,7 @@ namespace WolvenKit
             this.colIndex = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colDisplay = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.resetBTN = new System.Windows.Forms.Button();
+            this.resetBTN = new DevExpress.XtraEditors.SimpleButton();
             this.searchTB = new System.Windows.Forms.MaskedTextBox();
             this.searchBTN = new System.Windows.Forms.Button();
             this.limitCB = new System.Windows.Forms.CheckBox();
@@ -107,6 +108,7 @@ namespace WolvenKit
             this.listView.Cursor = System.Windows.Forms.Cursors.Default;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
+            this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(2, 38);
             this.listView.Name = "listView";
             this.listView.ShowGroups = false;
@@ -136,13 +138,13 @@ namespace WolvenKit
             // resetBTN
             // 
             this.resetBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.resetBTN.BackgroundImage = global::WolvenKit.Properties.Resources.ExitIcon;
             this.resetBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.resetBTN.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.resetBTN.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resetBTN.ImageOptions.SvgImage")));
             this.resetBTN.Location = new System.Drawing.Point(676, 7);
             this.resetBTN.Name = "resetBTN";
             this.resetBTN.Size = new System.Drawing.Size(25, 23);
             this.resetBTN.TabIndex = 6;
-            this.resetBTN.UseVisualStyleBackColor = true;
             this.resetBTN.Click += new System.EventHandler(this.resetBTN_Click);
             // 
             // searchTB
@@ -183,21 +185,21 @@ namespace WolvenKit
             this.limitTB.Size = new System.Drawing.Size(100, 20);
             this.limitTB.TabIndex = 11;
             // 
-            // frmChunkList
+            // ChunkListViewer
             // 
+            this.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 719);
             this.Controls.Add(this.limitTB);
             this.Controls.Add(this.limitCB);
             this.Controls.Add(this.searchBTN);
             this.Controls.Add(this.searchTB);
             this.Controls.Add(this.resetBTN);
             this.Controls.Add(this.listView);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MinimumSize = new System.Drawing.Size(100, 100);
             this.Name = "ChunkListViewer";
-            this.Text = "Chunk List";
+            this.Size = new System.Drawing.Size(720, 719);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listView)).EndInit();
             this.ResumeLayout(false);
@@ -216,7 +218,7 @@ namespace WolvenKit
         private OLVColumn colDisplay;
         private ToolStripMenuItem copyChunkToolStripMenuItem;
         private ToolStripMenuItem pasteChunkToolStripMenuItem;
-        private Button resetBTN;
+        private DevExpress.XtraEditors.SimpleButton resetBTN;
         private MaskedTextBox searchTB;
         private Button searchBTN;
         private CheckBox limitCB;
