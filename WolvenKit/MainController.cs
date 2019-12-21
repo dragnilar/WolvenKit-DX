@@ -32,6 +32,8 @@ namespace WolvenKit
 
         private string _loadstatus = "Loading...";
 
+        private int _loadPercentage = 0;
+
         public static List<string> EditableFiles = new List<string>
         {
             SupportedFileType.Xbm,
@@ -77,11 +79,18 @@ namespace WolvenKit
             set => SetField(ref _projectstatus, value, "ProjectStatus");
         }
 
-        public string loadStatus
+        public string LoadStatus
         {
             get => _loadstatus;
-            set => SetField(ref _loadstatus, value, "loadStatus");
+            set => SetField(ref _loadstatus, value, "LoadStatus");
         }
+        
+        public int LoadPercentage
+        {
+            get => _loadPercentage;
+            set => SetField(ref _loadPercentage, value, "LoadPercentage");
+        }
+        
 
         public bool Loaded
         {
@@ -178,7 +187,7 @@ namespace WolvenKit
         {
             try
             {
-                loadStatus = "Loading string manager";
+                LoadStatus = "Loading string manager";
 
                 #region Load string manager
 
@@ -223,7 +232,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loading bundle manager!";
+                LoadStatus = "Loading bundle manager!";
+                LoadPercentage = 14;
 
                 #region Load bundle manager
 
@@ -264,7 +274,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loading mod bundle manager!";
+                LoadStatus = "Loading mod bundle manager!";
+                LoadPercentage = 28;
 
                 #region Load mod bundle manager
 
@@ -276,7 +287,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loading texture manager!";
+                LoadStatus = "Loading texture manager!";
+                LoadPercentage = 42;
 
                 #region Load texture manager
 
@@ -317,7 +329,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loading mod texure manager!";
+                LoadStatus = "Loading mod texure manager!";
+                LoadPercentage = 56;
 
                 #region Load mod texture manager
 
@@ -329,7 +342,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loading sound manager!";
+                LoadStatus = "Loading sound manager!";
+                LoadPercentage = 70;
 
                 #region Load sound manager
 
@@ -370,7 +384,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loading mod sound manager!";
+                LoadStatus = "Loading mod sound manager!";
+                LoadPercentage = 84;
 
                 #region Load mod sound manager
 
@@ -382,7 +397,8 @@ namespace WolvenKit
 
                 #endregion
 
-                loadStatus = "Loaded";
+                LoadStatus = "Loaded";
+                LoadPercentage = 100;
 
                 mainController.Loaded = true;
             }

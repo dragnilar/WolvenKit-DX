@@ -37,10 +37,14 @@ namespace WolvenKit.Forms
 
         private void MainControllerUpdated(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "loadStatus")
-                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).loadStatus);
+            if (e.PropertyName == "LoadStatus")
+                Invoke(new strDelegate(SetStatusLabelText), ((MainController)sender).LoadStatus);
             if (e.PropertyName == "Loaded")
                 Invoke(new boolDelegate(Finish), ((MainController)sender).Loaded);
+            if (e.PropertyName == "LoadPercentage")
+            {
+                Invoke(new intDelegate(SetLoadPercentage), ((MainController) sender).LoadPercentage);
+            }
         }
 
         #region Overrides
@@ -61,6 +65,11 @@ namespace WolvenKit.Forms
             labelStatus.Text = text;
         }
 
+        private void SetLoadPercentage(int percentage)
+        {
+            progressBarControlSplashy.Position = percentage;
+        }
+
         private void Finish(bool success)
         {
             if (!success)
@@ -74,5 +83,7 @@ namespace WolvenKit.Forms
         private delegate void strDelegate(string t);
 
         private delegate void boolDelegate(bool b);
+
+        private delegate void intDelegate(int i);
     }
 }
