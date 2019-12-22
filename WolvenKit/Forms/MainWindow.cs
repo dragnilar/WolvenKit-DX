@@ -372,7 +372,7 @@ namespace WolvenKit
 
         private void barButtonItemModToolLic_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var wcclicense = new frmWCCLicense();
+            var wcclicense = new LicenseDocumentView();
             wcclicense.Show();
         }
 
