@@ -770,9 +770,6 @@
     <None Include="Resources\package_16xLG.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FileGroup_10135_16x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\WolvenKit.Bundles\WolvenKit.Bundles.csproj">
       <Project>{5bd2292a-24db-4b4a-a5b1-5d435769c289}</Project>
       <Name>WolvenKit.Bundles</Name>
@@ -824,17 +821,12 @@
     <None Include="Resources\geralt.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Editing-Expand-icon.png" />
-    <None Include="Resources\mail.png" />
     <None Include="Resources\player_record.png" />
     <Content Include="..\Libs\Irrlicht.dll">
       <Link>Irrlicht.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\exclamation-red.png" />
-    <None Include="Resources\wooden-box--arrow.png" />
     <None Include="Resources\Logo.png" />
-    <None Include="Resources\loading_black.png" />
     <None Include="Resources\Logo_wkit.png" />
     <None Include="Resources\DebugRun.svg" />
     <None Include="Resources\packageInstaller.svg" />
@@ -862,15 +854,9 @@
     <Content Include="Licenses\License.W3SaveGameEditor.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\ExpandIcon.png" />
-    <None Include="Resources\ExitIcon.png" />
     <None Include="Resources\wcc_eula.rtf" />
     <None Include="Resources\witcher3_102.ico" />
     <None Include="Resources\witcher3_101.ico" />
-    <None Include="Resources\2c21aeda16de354ba5334551a883b481.png" />
-    <None Include="Resources\info-icon-23818.jpg" />
-    <None Include="Resources\refresh.png" />
-    <None Include="Resources\aERVQbx_460s.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
