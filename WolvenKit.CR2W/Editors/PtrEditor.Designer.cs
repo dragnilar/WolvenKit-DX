@@ -45,14 +45,14 @@
             this.lblType.TabIndex = 0;
             this.lblType.Text = "Type";
             // 
-            // txType
+            // FileType
             // 
             this.FileType.Location = new System.Drawing.Point(40, 0);
             this.FileType.Name = "FileType";
             this.FileType.Size = new System.Drawing.Size(121, 20);
             this.FileType.TabIndex = 1;
             // 
-            // txHandle
+            // HandlePath
             // 
             this.HandlePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -70,7 +70,7 @@
             this.lblHandle.TabIndex = 2;
             this.lblHandle.Text = "Handle";
             // 
-            // txFlags
+            // Flags
             // 
             this.Flags.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Flags.Location = new System.Drawing.Point(418, 0);
@@ -110,5 +110,8 @@
         private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.Label lblHandle;
         private System.Windows.Forms.Label lblFlags;
+        public System.Windows.Forms.TextBox FileType;
+        public System.Windows.Forms.TextBox Flags;
+        public System.Windows.Forms.TextBox HandlePath;
     }
 }
