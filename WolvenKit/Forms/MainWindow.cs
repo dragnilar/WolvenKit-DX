@@ -1,5 +1,4 @@
-﻿using AutoUpdaterDotNET;
-using DevExpress.LookAndFeel;
+﻿using DevExpress.LookAndFeel;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using SharpPresence;
