@@ -370,7 +370,6 @@
       <DependentUpon>ScriptEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="DDSUtility.cs" />
-    <Compile Include="discord.cs" />
     <Compile Include="Controls\ChunkFlowDiagram.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -843,9 +842,6 @@
     <None Include="Resources\Logo.png" />
     <None Include="Resources\loading_black.png" />
     <None Include="Resources\Logo_wkit.png" />
-    <Content Include="discord-rpc.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\DebugRun.svg" />
     <None Include="Resources\packageInstaller.svg" />
     <None Include="Resources\W2ent.svg" />

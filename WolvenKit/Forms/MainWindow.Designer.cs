@@ -34,7 +34,6 @@ namespace WolvenKit
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManagerMain = new DevExpress.XtraSplashScreen.SplashScreenManager(this, null, true, true);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.richpresenceworker = new System.ComponentModel.BackgroundWorker();
             this.ribbonControlMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItemNewMod = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemOpenMod = new DevExpress.XtraBars.BarButtonItem();
@@ -123,13 +122,6 @@ namespace WolvenKit
             // splashScreenManagerMain
             // 
             splashScreenManagerMain.ClosingDelay = 500;
-            // 
-            // richpresenceworker
-            // 
-            this.richpresenceworker.WorkerSupportsCancellation = true;
-            this.richpresenceworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.richpresenceworker_DoWork);
-            this.richpresenceworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.richpresenceworker_ProgressChanged);
-            this.richpresenceworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.richpresenceworker_RunWorkerCompleted);
             // 
             // ribbonControlMain
             // 
@@ -835,7 +827,6 @@ namespace WolvenKit
         }
 
         #endregion
-        private BackgroundWorker richpresenceworker;
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControlMain;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageHome;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupFile;

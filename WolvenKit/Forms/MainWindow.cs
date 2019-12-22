@@ -1,7 +1,6 @@
 ﻿using DevExpress.LookAndFeel;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
-using SharpPresence;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1228,41 +1227,10 @@ namespace WolvenKit
 
         #region Control events
 
-        private void richpresenceworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var project = "non";
-
-            var handlers = new Discord.EventHandlers();
-            Discord.Initialize("482179494862651402", handlers);
-            while (!richpresenceworker.CancellationPending)
-            {
-                Thread.Sleep(1000);
-                if (MainController.Get().ActiveMod != null)
-                    if (project != MainController.Get().ActiveMod.Name)
-                    {
-                        project = MainController.Get().ActiveMod.Name;
-                        var rp = new Discord.RichPresence();
-                        rp.state = string.Empty;
-                        rp.details = "Developing " + project;
-                        rp.largeImageKey = "logo_wkit";
-                        Discord.UpdatePresence(rp);
-                    }
-            }
-        }
-
         public EventHandler errored;
-
-        private void richpresenceworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-        }
-
-        private void richpresenceworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-        }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            richpresenceworker.CancelAsync();
             if (MainController.Get().ProjectUnsaved)
                 if (XtraMessageBox.Show("There are unsaved changes in your project. Would you like to save them?",
                         "WolvenKit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -1497,7 +1465,6 @@ namespace WolvenKit
                 Close();
             }
 
-            richpresenceworker.RunWorkerAsync();
         }
 
 
