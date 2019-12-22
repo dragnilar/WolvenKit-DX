@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImagePreview));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImageAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ImagePreviewControl = new Cyotek.Windows.Forms.ImageBox();
+            this.ImagePreviewControl = new DevExpress.XtraEditors.PictureEdit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImagePreviewControl.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -70,25 +72,34 @@
             // 
             // ImagePreviewControl
             // 
-            this.ImagePreviewControl.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.ImagePreviewControl.ContextMenuStrip = this.contextMenuStrip1;
             this.ImagePreviewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ImagePreviewControl.Location = new System.Drawing.Point(0, 0);
             this.ImagePreviewControl.Name = "ImagePreviewControl";
+            this.ImagePreviewControl.Properties.AllowScrollOnMouseWheel = DevExpress.Utils.DefaultBoolean.True;
+            this.ImagePreviewControl.Properties.AllowScrollViaMouseDrag = true;
+            this.ImagePreviewControl.Properties.AllowZoomOnMouseWheel = DevExpress.Utils.DefaultBoolean.True;
+            this.ImagePreviewControl.Properties.Appearance.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.ImagePreviewControl.Properties.Appearance.Options.UseBackColor = true;
+            this.ImagePreviewControl.Properties.ContextMenuStrip = this.contextMenuStrip1;
+            this.ImagePreviewControl.Properties.ErrorImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ImagePreviewControl.Properties.ErrorImageOptions.SvgImage")));
+            this.ImagePreviewControl.Properties.ShowEditMenuItem = DevExpress.Utils.DefaultBoolean.True;
+            this.ImagePreviewControl.Properties.ShowScrollBars = true;
+            this.ImagePreviewControl.Properties.ShowZoomSubMenu = DevExpress.Utils.DefaultBoolean.True;
             this.ImagePreviewControl.Size = new System.Drawing.Size(657, 535);
             this.ImagePreviewControl.TabIndex = 1;
             // 
-            // frmImagePreview
+            // ImagePreview
             // 
+            this.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 535);
             this.Controls.Add(this.ImagePreviewControl);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmImagePreview";
-            this.Text = "Image preview";
+            this.Name = "ImagePreview";
+            this.Size = new System.Drawing.Size(657, 535);
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ImagePreviewControl.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -98,6 +109,6 @@
         private System.Windows.Forms.ToolStripMenuItem copyImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveImageAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem replaceImageToolStripMenuItem;
-        private Cyotek.Windows.Forms.ImageBox ImagePreviewControl;
+        private DevExpress.XtraEditors.PictureEdit ImagePreviewControl;
     }
 }
