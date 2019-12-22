@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 using WolvenKit.CR2W.Editors;
+using WolvenKit.CR2W.Interfaces;
 
 namespace WolvenKit.CR2W.Types
 {

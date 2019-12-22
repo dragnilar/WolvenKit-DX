@@ -16,6 +16,7 @@ using WolvenKit.Common;
 using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
+using WolvenKit.CR2W.Interfaces;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Interfaces;
 using WolvenKit.Properties;

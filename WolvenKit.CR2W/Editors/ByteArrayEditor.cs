@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using WolvenKit.CR2W.Interfaces;
 using WolvenKit.CR2W.Types;
 
 namespace WolvenKit.CR2W.Editors
 {
-    public interface IByteSource
-    {
-        byte[] Bytes { get; set; }
-    }
+
 
     public partial class ByteArrayEditor : UserControl
     {
