@@ -451,6 +451,15 @@ namespace WolvenKit
 
         private void saveAllFiles()
         {
+            foreach (var form in Application.OpenForms)
+            {
+                if (!(form is XtraForm window)) continue;
+                if (window.Tag?.ToString() != "BufferEditor") continue;
+                if (window.Controls[0] is CR2WDocumentContainer documentContainer)
+                {
+                    documentContainer.SaveFile();
+                }
+            }
             foreach (var document in tabbedViewMain.Documents)
             {
                 if (document.Control is CR2WDocumentContainer container && container.SaveTarget != null)

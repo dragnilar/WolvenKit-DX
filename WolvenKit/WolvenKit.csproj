@@ -377,12 +377,6 @@
     <Compile Include="Controls\ChunkFlowDiagram.designer.cs">
       <DependentUpon>ChunkFlowDiagram.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\BufferEditorView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\BufferEditorView.Designer.cs">
-      <DependentUpon>BufferEditorView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\ByteArrayDialogView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -648,9 +642,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ScriptEditor.resx">
       <DependentUpon>ScriptEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\BufferEditorView.resx">
-      <DependentUpon>BufferEditorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ByteArrayDialogView.resx">
       <DependentUpon>ByteArrayDialogView.cs</DependentUpon>

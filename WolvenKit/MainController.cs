@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
 using WolvenKit.Common;
@@ -487,14 +488,21 @@ namespace WolvenKit
 
             if (bytes != null)
             {
-                var doc = LoadDocument(editvar.cr2w.FileName + ":" + editvar.FullName, new MemoryStream(bytes), true);
-                if (doc != null)
+                try
                 {
-                    doc.OnFileSaved += OnVariableEditorSave;
-                    doc.SaveTarget = editvar;
+                    var doc = new XtraForm { StartPosition = FormStartPosition.CenterScreen, Text = editvar.FullName, Tag = "BufferEditor", Height = 640, Width = 800};
+                    var container = new CR2WDocumentContainer();
+                    var memoryStream = new MemoryStream(bytes);
+                    container.LoadFile(editvar.FullName, memoryStream);
+                    container.OnFileSaved += OnVariableEditorSave;
+                    container.SaveTarget = editvar;
+                    container.Dock = DockStyle.Fill;
+                    doc.Controls.Add(container);
+                    doc.Show();
                 }
-                else
+                catch (Exception ex)
                 {
+                    QueueLog($"Error opening buffer/file, defaulting to the hex editor.\n\n Further Details: {ex}", OutputView.Logtype.Error);
                     OpenHexEditorFor(editvar);
                 }
             }
