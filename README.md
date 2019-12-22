@@ -11,12 +11,15 @@ I intend to create a release for this once I feel it is at a state where it is s
 
 - Incorporates DevExpress' Windows Forms suite. This means it uses Direct X, Vector Skins, etc.
 - Improved loading times due to using DevExpress Splash screen instead of the original WolvenKit splash screen.
-- The splash screen is entirely different in appearance and also features a progress bar. 
+- The splash screen is entirely different in appearance and also features a progress bar.
+- Uses a different icon from the original WolvenKit to help differentiate the apps.
+- Removed a lot of dependencies that were not being used, unimplemented and/or rendered obsolete due to the usage of DevExpress.
 - Consequentially, the old splash screen is no longer used.
 - Added a new icon for the app to help differentiate it from the regular Wolven Kit.
 - Added a new script editor feature, powered by Scintilla Net (the editor used by Notepad++). This is a work in progress. The goal will be to allow you to edit your scripts inside Wolven Kit DX with standard syntax highlighting and other common features.
 - The Main Window now has a ribbon with much larger buttons, built in hot key support and is overall easier to use.
 - Stand Alone version of the String Encoder GUI since I have to make a lot of string changes for my own mod.
+- The build / package 
 - The stand alone version of the String Encoder uses DevExpress' controls instead of the bare bones Windows Forms grid, which both looks better and allows for filtering, searching, sorting and an overall better user experience.
 - The Main Window uses DevExpress' dock layout manager instead of the one Traderain was using. This includes more docking capabilities, pinning and greater flexability for the user.
 - Both the Output view and Mod Explorer view are now user controls which use DevExpress' components instead of their base Windows Forms equivileants.
@@ -33,7 +36,7 @@ I intend to create a release for this once I feel it is at a state where it is s
 
 # What About Changes Made To The Original Wolven-Kit?
 
-As of 12/2/2019, this repository is current with all of Traderain's changes to the original Wolven-Kit. After that, this repo was broken off due to the fact that I felt it was too radically different for the two to stay in sync. I will still try to integrate in any fixes or improvements he makes to the original Wolven-Kit if possible, but please keep in mind that going from 12/2/2019 forward, there is no guarantee that WolvenKit DX will have 100% parity with the original WolvenKit. 
+As of 12/2/2019, this repository is current with all of Traderain's changes to the original Wolven-Kit. After that, this repo was broken off from being a fork due to the fact that I felt it was too radically different for the two to stay in sync. I will still try to integrate in any fixes or improvements he makes to the original Wolven-Kit if possible, but please keep in mind that going from 12/2/2019 forward, there is no guarantee that WolvenKit DX will have 100% parity with the original WolvenKit. 
 
 # Note / Shameless Advertisement: 
 Since this uses DevExpress, you will need a license for thier controls if you wish to build this solution. I have my own Universal Subscription license and strongly recommend that you get one from DevExpress if you love their components. They provide amazing technical support and offer probably some of the best looking components for desktop/web/mobile that money can buy. It is expensive, but its money well spent. 
