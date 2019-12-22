@@ -10,9 +10,11 @@ using System.Windows.Forms;
 using BrightIdeasSoftware;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
+using W3SavegameEditor.Core.Savegame.Values;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
+using WolvenKit.Forms;
 
 namespace WolvenKit.Controls
 {
@@ -24,7 +26,7 @@ namespace WolvenKit.Controls
         //For now this control will not be accessible within WKDX.
         RepositoryItemTextEdit repoItemTextEdit = new RepositoryItemTextEdit();
         RepositoryItemColorPickEdit repositoryItemColorPickEdit = new RepositoryItemColorPickEdit();
-        RepositoryItemComboBox repoItemColItemComboBox = new RepositoryItemComboBox();
+        RepositoryItemComboBox repoItemComboBoxEdit = new RepositoryItemComboBox();
         RepositoryItemSpinEdit repoItemSpinEdit = new RepositoryItemSpinEdit();
         RepositoryItemDateEdit repoItemDateEdit = new RepositoryItemDateEdit();
         RepositoryItemCheckEdit repositoryItemCheckEdit = new RepositoryItemCheckEdit();
@@ -34,14 +36,21 @@ namespace WolvenKit.Controls
         RepositoryItemButtonEdit repoItemByteArrayEditButton = new RepositoryItemButtonEdit();
         RepositoryItemButtonEdit repoItemPointArrayEditButton = new RepositoryItemButtonEdit();
         RepositoryItemButtonEdit repoItemXmlButtonEdit = new RepositoryItemButtonEdit();
-        RepositoryItemButtonEdit idTagButtonEdit = new RepositoryItemButtonEdit();
+        RepositoryItemButtonEdit repoItemIdTagButtonEdit = new RepositoryItemButtonEdit();
 
         public ChunkListPropertyEditor()
         {
             InitializeComponent();
+            repoItemByteArrayEditButton.Click += RepoItemByteArrayEditButtonOnClick;
         }
 
-                private CR2WChunk chunk;
+        private void RepoItemByteArrayEditButtonOnClick(object sender, EventArgs e)
+        {
+            var byteArrayDialog = new ByteArrayDialogView {StartPosition = FormStartPosition.CenterScreen};
+            byteArrayDialog.Show();
+        }
+
+        private CR2WChunk chunk;
         public CR2WChunk Chunk
         {
             get => chunk;
@@ -103,32 +112,56 @@ namespace WolvenKit.Controls
                 if (e.Column == treeListColumnValue)
                 { 
                     //TODO - Implement these below...
-                    //CByteArray - ByteArrayEditor
-                    //Array - No Repo Item
-                    //CBytes - ByteArrayEditButton
-                    //CColor - ColorPickEdit
                     //CColorShift - ColorPickEdit (uses three different subtypes like luminance, etc.)
-                    //CDateTime - DateTimeEdit
-                    //CFloat - TextEdit (use spin edit instead???)
-                    //CGuid - TextEdit
-                    //CHandle - ComboBoxEdit
-                    //CLocalizedStrings - TextEdit
                     //CName - Can be ComboBoxEdit or TextEdit (lame)
-                    //CPtr - ComboBoxEdit
-                    //CSoft - PointArrayEditButton
-                    //CString - TextEdit
-                    //CStringAnsi - TextEdit
-                    //CVariable - No Repo Item
                     //CVariant - Either no editor or specific editor
-                    //CVector - No Editor
-                    //CXml - XmlButtonEdit
-                    //CIdTag - IdTagButtonEdit
-                    //CBool - CheckEdit
-                    //CDynamicInt, CInt16, CInt32, CInt64, CInt8, CUInt16, CUInt32, CUInt64, CUInt8 - TextEdit (possibly spin edit???)
-                    //CR2WChunk - No Repo Item
 
                     switch (variable.GetType().Name)
                     {
+                        case nameof(CDateTime):
+                            e.RepositoryItem = repoItemDateEdit;
+                            break;
+                        case nameof(CByteArray):
+                        case nameof(CBytes):
+                            e.RepositoryItem = repoItemByteArrayEditButton;
+                            break;
+                        case nameof(CArray):
+                        case nameof(CR2WChunk):
+                        case nameof(CVector):
+                        case nameof(CVariable):
+                            e.RepositoryItem = null;
+                            break;
+                        case nameof(CXml):
+                            e.RepositoryItem = repoItemXmlButtonEdit;
+                            break;
+                        case nameof(IdTag):
+                            e.RepositoryItem = repoItemIdTagButtonEdit;
+                            break;
+                        case nameof(CPtr):
+                        case nameof(CHandle):
+                            e.RepositoryItem = repoItemComboBoxEdit;
+                            break;
+                        case nameof(CSoft):
+                            e.RepositoryItem = repoItemPointArrayEditButton;
+                            break;
+                        case nameof(CDynamicInt):
+                        case nameof(CInt16):
+                        case nameof(CInt32):
+                        case nameof(CInt64):
+                        case nameof(CInt8):
+                        case nameof(CUInt8):
+                        case nameof(CUInt16):
+                        case nameof(CUInt32):
+                        case nameof(CUInt64):
+                        case nameof(CFloat):
+                            e.RepositoryItem = repoItemSpinEdit;
+                            break;
+                        case nameof(CColor):
+                            e.RepositoryItem = repositoryItemColorPickEdit;
+                            break;
+                        case nameof(CBool):
+                            e.RepositoryItem = repositoryItemCheckEdit;
+                            break;
                         default:
                             e.RepositoryItem = repoItemTextEdit;
                             break;
