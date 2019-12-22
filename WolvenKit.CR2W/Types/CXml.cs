@@ -10,7 +10,7 @@ using WolvenKit.CR2W.Editors;
 
 namespace WolvenKit.CR2W.Types
 {
-    class CXml : CVariable
+    public class CXml : CVariable
     {
         public CXml(CR2WFile cr2w)
             : base(cr2w)
