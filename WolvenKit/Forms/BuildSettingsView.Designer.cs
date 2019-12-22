@@ -38,8 +38,8 @@
             this.collisionCacheCHB = new DevExpress.XtraEditors.CheckEdit();
             this.stringsCHB = new DevExpress.XtraEditors.CheckEdit();
             this.bundlesCHB = new DevExpress.XtraEditors.CheckEdit();
-            this.button1 = new DevExpress.XtraEditors.SimpleButton();
-            this.button2 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonOk = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonCancel = new DevExpress.XtraEditors.SimpleButton();
             this.scriptsCHB = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.metadatastoreCHB.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkBox2.Properties)).BeginInit();
@@ -157,31 +157,31 @@
             this.bundlesCHB.Size = new System.Drawing.Size(91, 20);
             this.bundlesCHB.TabIndex = 8;
             // 
-            // button1
+            // simpleButtonOk
             // 
-            this.button1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Appearance.Options.UseFont = true;
-            this.button1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("button1.ImageOptions.SvgImage")));
-            this.button1.Location = new System.Drawing.Point(9, 231);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 35);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "OK";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.simpleButtonOk.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButtonOk.Appearance.Options.UseFont = true;
+            this.simpleButtonOk.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("button1.ImageOptions.SvgImage")));
+            this.simpleButtonOk.Location = new System.Drawing.Point(9, 231);
+            this.simpleButtonOk.Margin = new System.Windows.Forms.Padding(2);
+            this.simpleButtonOk.Name = "simpleButtonOk";
+            this.simpleButtonOk.Size = new System.Drawing.Size(158, 35);
+            this.simpleButtonOk.TabIndex = 9;
+            this.simpleButtonOk.Text = "OK";
+            this.simpleButtonOk.Click += new System.EventHandler(this.simpleButtonOk_Click);
             // 
-            // button2
+            // simpleButtonCancel
             // 
-            this.button2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Appearance.Options.UseFont = true;
-            this.button2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("button2.ImageOptions.SvgImage")));
-            this.button2.Location = new System.Drawing.Point(342, 231);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(158, 35);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Cancel";
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.simpleButtonCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButtonCancel.Appearance.Options.UseFont = true;
+            this.simpleButtonCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("button2.ImageOptions.SvgImage")));
+            this.simpleButtonCancel.Location = new System.Drawing.Point(342, 231);
+            this.simpleButtonCancel.Margin = new System.Windows.Forms.Padding(2);
+            this.simpleButtonCancel.Name = "simpleButtonCancel";
+            this.simpleButtonCancel.Size = new System.Drawing.Size(158, 35);
+            this.simpleButtonCancel.TabIndex = 10;
+            this.simpleButtonCancel.Text = "Cancel";
+            this.simpleButtonCancel.Click += new System.EventHandler(this.simpleButtonCancel_Click);
             // 
             // scriptsCHB
             // 
@@ -194,14 +194,14 @@
             this.scriptsCHB.Size = new System.Drawing.Size(172, 20);
             this.scriptsCHB.TabIndex = 11;
             // 
-            // frmPackSettings
+            // BuildSettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 278);
             this.Controls.Add(this.scriptsCHB);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.simpleButtonCancel);
+            this.Controls.Add(this.simpleButtonOk);
             this.Controls.Add(this.bundlesCHB);
             this.Controls.Add(this.stringsCHB);
             this.Controls.Add(this.collisionCacheCHB);
@@ -211,7 +211,7 @@
             this.Controls.Add(this.soundCHB);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.metadatastoreCHB);
-            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmPackSettings.IconOptions.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("BuildSettingsView.IconOptions.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -229,7 +229,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bundlesCHB.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scriptsCHB.Properties)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -244,8 +243,8 @@
         private DevExpress.XtraEditors.CheckEdit collisionCacheCHB;
         private DevExpress.XtraEditors.CheckEdit stringsCHB;
         private DevExpress.XtraEditors.CheckEdit bundlesCHB;
-        private DevExpress.XtraEditors.SimpleButton button1;
-        private DevExpress.XtraEditors.SimpleButton button2;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonOk;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonCancel;
         private DevExpress.XtraEditors.CheckEdit scriptsCHB;
     }
 }

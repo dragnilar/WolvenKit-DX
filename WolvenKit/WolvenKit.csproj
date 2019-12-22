@@ -441,11 +441,11 @@
     <Compile Include="Forms\frmMenuCreator.Designer.cs">
       <DependentUpon>frmMenuCreator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmPackSettings.cs">
+    <Compile Include="Forms\BuildSettingsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmPackSettings.Designer.cs">
-      <DependentUpon>frmPackSettings.cs</DependentUpon>
+    <Compile Include="Forms\BuildSettingsView.Designer.cs">
+      <DependentUpon>BuildSettingsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmSaveEditor.cs">
       <SubType>Form</SubType>
@@ -711,8 +711,8 @@
     <EmbeddedResource Include="Controls\OutputView.resx">
       <DependentUpon>OutputView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmPackSettings.resx">
-      <DependentUpon>frmPackSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BuildSettingsView.resx">
+      <DependentUpon>BuildSettingsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmRenameDialog.resx">
       <DependentUpon>frmRenameDialog.cs</DependentUpon>

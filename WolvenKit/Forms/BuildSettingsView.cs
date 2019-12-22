@@ -2,12 +2,13 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 
 namespace WolvenKit
 {
-    public partial class frmPackSettings : Form
+    public partial class BuildSettingsView : XtraForm
     {
-        public frmPackSettings()
+        public BuildSettingsView()
         {
             InitializeComponent();
             Shown += OnShown;
@@ -25,7 +26,7 @@ namespace WolvenKit
 
         private void OnShown(object sender, EventArgs e)
         {
-            button1.Focus();
+            simpleButtonOk.Focus();
         }
 
         public bool PackBundles => bundlesCHB.Checked;
@@ -36,12 +37,12 @@ namespace WolvenKit
         public bool Sound => soundCHB.Checked;
         public bool Strings => stringsCHB.Checked;
 
-        private void button1_Click(object sender, EventArgs e)
+        private void simpleButtonOk_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void simpleButtonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }

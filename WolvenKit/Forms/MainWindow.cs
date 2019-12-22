@@ -1526,9 +1526,9 @@ namespace WolvenKit
                 return;
             }
 
-            var packsettings = new frmPackSettings();
+            var buildSettings = new BuildSettingsView();
             //TODO - This is a hack to skip the form, this needs to be refactored so it doesn't depend on the actual form
-            if (showForm && packsettings.ShowDialog() == DialogResult.OK || !showForm)
+            if (showForm && buildSettings.ShowDialog() == DialogResult.OK || !showForm)
             {
                 barButtonItemBuildMod.Enabled = false;
                 ShowOutput();
@@ -1546,7 +1546,7 @@ namespace WolvenKit
                 //------------------------PRE COOKING-------------------------------------//
 
                 //Handle strings.
-                if (packsettings.Strings)
+                if (buildSettings.Strings)
                 {
                     if (stringsGui == null)
                         stringsGui = new frmStringsGui();
@@ -1562,7 +1562,7 @@ namespace WolvenKit
                 }
 
                 //Handle bundle packing.
-                if (packsettings.PackBundles) await PackBundles();
+                if (buildSettings.PackBundles) await PackBundles();
 
                 //------------------------- COOKING -------------------------------------//
 
@@ -1572,16 +1572,16 @@ namespace WolvenKit
                 //------------------------POST COOKING------------------------------------//
 
                 //Generate collision cache
-                if (packsettings.GenCollCache) await GenerateCollisionCache();
+                if (buildSettings.GenCollCache) await GenerateCollisionCache();
 
                 //Handle texture caching
-                if (packsettings.GenTexCache) await PackTextures();
+                if (buildSettings.GenTexCache) await PackTextures();
 
                 //Handle metadata generation.
-                if (packsettings.GenMetadata) await CreateModMetaData();
+                if (buildSettings.GenMetadata) await CreateModMetaData();
 
                 //Handle sound caching
-                if (packsettings.Sound)
+                if (buildSettings.Sound)
                 {
                     if (new DirectoryInfo(Path.Combine(ActiveMod.ModDirectory,
                             MainController.Get().SoundManager.TypeName)).GetFiles("*.*", SearchOption.AllDirectories)
@@ -1669,7 +1669,7 @@ namespace WolvenKit
                 }
 
                 //Copy the generated w3strings
-                if (packsettings.Strings)
+                if (buildSettings.Strings)
                 {
                     var files = Directory.GetFiles(ActiveMod.ProjectDirectory + "\\strings")
                         .Where(s => Path.GetExtension(s) == ".w3strings").ToList();
