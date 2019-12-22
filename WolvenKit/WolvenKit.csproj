@@ -205,9 +205,6 @@
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.4\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="RtfPipe, Version=1.0.7246.39337, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RtfPipe.1.0.7246.39337\lib\net45\RtfPipe.dll</HintPath>
-    </Reference>
     <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
     </Reference>
