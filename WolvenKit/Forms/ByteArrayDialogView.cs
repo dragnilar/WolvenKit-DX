@@ -17,35 +17,37 @@ namespace WolvenKit.Forms
 {
     public partial class ByteArrayDialogView : DevExpress.XtraEditors.XtraForm
     {
-
-        private IByteSource bytes;
         public ByteArrayDialogView()
         {
             InitializeComponent();
+            simpleButtonOpen.Click += SimpleButtonOpenOnClick;
+            simpleButtonClose.Click += SimpleButtonCloseOnClick;
+            simpleButtonExport.Click += SimpleButtonExportOnClick;
+            simpleButtonImport.Click += SimpleButtonImportOnClick;
+            
         }
 
-        public IByteSource Variable
-        {
-            get { return bytes; }
-            set
-            {
-                bytes = value;
-            }
-        }
-
-        private void btOpen_Click(object sender, EventArgs e)
-        {
-            ((CVariable) Variable).cr2w.CreateVariableEditor(((CVariable) Variable), EVariableEditorAction.Open);
-        }
-
-        private void btImport_Click(object sender, EventArgs e)
+        private void SimpleButtonImportOnClick(object sender, EventArgs e)
         {
             ((CVariable) Variable).cr2w.CreateVariableEditor(((CVariable) Variable), EVariableEditorAction.Import);
         }
 
-        private void btExport_Click(object sender, EventArgs e)
+        private void SimpleButtonOpenOnClick(object sender, EventArgs e)
+        {
+            ((CVariable) Variable).cr2w.CreateVariableEditor(((CVariable) Variable), EVariableEditorAction.Open);
+        }
+
+        private void SimpleButtonExportOnClick(object sender, EventArgs e)
         {
             ((CVariable) Variable).cr2w.CreateVariableEditor(((CVariable) Variable), EVariableEditorAction.Export);
         }
+
+        private void SimpleButtonCloseOnClick(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        public IByteSource Variable { get; set; }
+
     }
 }
