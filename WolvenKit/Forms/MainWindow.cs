@@ -387,15 +387,6 @@ namespace WolvenKit
                 Process.Start("https://github.com/dragnilar/Wolven-kit");
         }
 
-
-        private void barButtonItemAboutWolvenkit_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            using (var cf = new frmAbout())
-            {
-                cf.ShowDialog();
-            }
-        }
-
         private void barButtonItemClearOutput_ItemClick(object sender, ItemClickEventArgs e)
         {
             outputViewControl.ClearDocument();

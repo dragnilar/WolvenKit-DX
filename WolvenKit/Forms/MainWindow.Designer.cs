@@ -82,7 +82,6 @@ namespace WolvenKit
             this.barButtonItemWitcherScript = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemModToolLic = new DevExpress.XtraBars.BarButtonItem();
             this.ReportABug = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemAboutWolvenkit = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItemStatus = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItemBuildDate = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
@@ -181,7 +180,6 @@ namespace WolvenKit
             this.barButtonItemWitcherScript,
             this.barButtonItemModToolLic,
             this.ReportABug,
-            this.barButtonItemAboutWolvenkit,
             this.barStaticItemStatus,
             this.barStaticItemBuildDate,
             this.barButtonItemClearOutput,
@@ -574,14 +572,6 @@ namespace WolvenKit
             this.ReportABug.Name = "ReportABug";
             this.ReportABug.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.ReportABug_ItemClick);
             // 
-            // barButtonItemAboutWolvenkit
-            // 
-            this.barButtonItemAboutWolvenkit.Caption = "About Wolvenkit DX";
-            this.barButtonItemAboutWolvenkit.Id = 51;
-            this.barButtonItemAboutWolvenkit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemAboutWolvenkit.ImageOptions.SvgImage")));
-            this.barButtonItemAboutWolvenkit.Name = "barButtonItemAboutWolvenkit";
-            this.barButtonItemAboutWolvenkit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAboutWolvenkit_ItemClick);
-            // 
             // barStaticItemStatus
             // 
             this.barStaticItemStatus.Caption = "Ready";
@@ -704,7 +694,6 @@ namespace WolvenKit
             this.ribbonPageGroupHelp.ItemLinks.Add(this.barButtonItemWitcherScript);
             this.ribbonPageGroupHelp.ItemLinks.Add(this.barButtonItemModToolLic);
             this.ribbonPageGroupHelp.ItemLinks.Add(this.ReportABug);
-            this.ribbonPageGroupHelp.ItemLinks.Add(this.barButtonItemAboutWolvenkit);
             this.ribbonPageGroupHelp.Name = "ribbonPageGroupHelp";
             this.ribbonPageGroupHelp.Text = "Help";
             // 
@@ -809,7 +798,7 @@ namespace WolvenKit
             this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedViewMain});
             // 
-            // frmMain
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -818,7 +807,7 @@ namespace WolvenKit
             this.Controls.Add(this.dockPanelOutput);
             this.Controls.Add(this.ribbonStatusBarMainWindow);
             this.Controls.Add(this.ribbonControlMain);
-            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmMain.IconOptions.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("MainWindow.IconOptions.Icon")));
             this.IconOptions.Image = global::WolvenKit.Properties.Resources.wkdxicon;
             this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(584, 391);
@@ -904,7 +893,6 @@ namespace WolvenKit
         private DevExpress.XtraBars.BarButtonItem barButtonItemWitcherScript;
         private DevExpress.XtraBars.BarButtonItem barButtonItemModToolLic;
         private DevExpress.XtraBars.BarButtonItem ReportABug;
-        private DevExpress.XtraBars.BarButtonItem barButtonItemAboutWolvenkit;
         private DevExpress.XtraBars.BarStaticItem barStaticItemStatus;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBarMainWindow;
         private DevExpress.XtraBars.BarStaticItem barStaticItemBuildDate;

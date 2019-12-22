@@ -408,12 +408,6 @@
     </Compile>
     <Compile Include="WitcherListViewItem.cs" />
     <Compile Include="Commonfunctions.cs" />
-    <Compile Include="Forms\frmAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmAbout.Designer.cs">
-      <DependentUpon>frmAbout.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="CopyController.cs" />
     <Compile Include="FileSavedEventArgs.cs" />
@@ -648,9 +642,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreatePackageInstallerView.resx">
       <DependentUpon>CreatePackageInstallerView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAbout.resx">
-      <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlowTreeEditors\ChunkEditor.resx">
       <DependentUpon>ChunkEditor.cs</DependentUpon>
