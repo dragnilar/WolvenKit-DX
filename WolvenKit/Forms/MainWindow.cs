@@ -343,14 +343,14 @@ namespace WolvenKit
             using (var of = new FolderBrowserDialog())
             {
                 of.Description = "Select the folder to dump";
-                if (of.ShowDialog() == DialogResult.OK)
-                    using (var sf = new FolderBrowserDialog())
-                    {
-                        sf.Description = "Please specify a location to save the dumped file";
-                        if (sf.ShowDialog() == DialogResult.OK)
-                            DumpFile(of.SelectedPath.EndsWith("\\") ? of.SelectedPath : of.SelectedPath + "\\",
-                                sf.SelectedPath.EndsWith("\\") ? sf.SelectedPath : sf.SelectedPath + "\\");
-                    }
+                if (of.ShowDialog() != DialogResult.OK) return;
+                using (var sf = new FolderBrowserDialog())
+                {
+                    sf.Description = "Please specify a location to save the dumped file";
+                    if (sf.ShowDialog() == DialogResult.OK)
+                        _ = DumpFile(of.SelectedPath.EndsWith("\\") ? of.SelectedPath : of.SelectedPath + "\\",
+                            sf.SelectedPath.EndsWith("\\") ? sf.SelectedPath : sf.SelectedPath + "\\");
+                }
             }
         }
 
@@ -1239,8 +1239,6 @@ namespace WolvenKit
 
         #region Control events
 
-        public EventHandler errored;
-
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MainController.Get().ProjectUnsaved)
@@ -1273,11 +1271,11 @@ namespace WolvenKit
 
             if (!string.IsNullOrEmpty(MainController.Get().InitialModProject))
                 openMod(MainController.Get().InitialModProject);
-            if (!string.IsNullOrEmpty(MainController.Get().InitialWKP))
-                using (var pi = new frmInstallPackage(MainController.Get().InitialWKP))
-                {
-                    pi.ShowDialog();
-                }
+            if (string.IsNullOrEmpty(MainController.Get().InitialWKP)) return;
+            using (var pi = new frmInstallPackage(MainController.Get().InitialWKP))
+            {
+                pi.ShowDialog();
+            }
         }
 
 
@@ -1395,34 +1393,40 @@ namespace WolvenKit
         {
             var filename = e.File;
 
-            var fullpath = Path.Combine(ActiveMod.FileDirectory, filename);
-            if (!File.Exists(fullpath))
+            var fullPath = Path.Combine(ActiveMod.FileDirectory, filename);
+            if (!File.Exists(fullPath))
                 return;
 
             var dlg = new frmRenameDialog { FileName = filename };
             if (dlg.ShowDialog() == DialogResult.OK && dlg.FileName != filename)
             {
-                var newfullpath = Path.Combine(ActiveMod.FileDirectory, dlg.FileName);
+                var newFullPath = Path.Combine(ActiveMod.FileDirectory, dlg.FileName);
 
-                if (File.Exists(newfullpath))
+                if (File.Exists(newFullPath))
                     return;
-
-                // Rename file in file structure
                 try
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(newfullpath));
+                    var directoryPath = Path.GetDirectoryName(newFullPath);
+                    if (directoryPath != null)
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                        File.Move(fullPath, newFullPath);
+                    }
+
+                    throw new FileNotFoundException("The directory for the specified file was not found.\n It was most likely deleted or renamed before the file rename could take place.");
+
+
                 }
-                catch
+                catch(Exception ex)
                 {
-                    //Ignored
+                    AddOutput($"An error occured renaming the file. The file was not renamed.\n Further Details:\n {ex}", OutputView.Logtype.Error);
                 }
-
-                File.Move(fullpath, newfullpath);
-
-                //File renames are now handled by the monitor
             }
 
             MainController.Get().ProjectStatus = "File renamed";
+
+            //Dragnilar - After the file rename takes place, the file watcher for the mod explorer should update the tree list to show that the rename
+            //took place. Previously this method was having to handle that itself. 
         }
 
         private void ModExplorer_RequestAddFile(object sender, RequestFileArgs e)
