@@ -35,6 +35,7 @@ namespace WolvenKit
         public MainWindow()
         {
             InitializeComponent();
+            CheckForSettings();
             SplashScreenManager.ShowForm(typeof(Splashy));
             Application.DoEvents();
             MainController.Get().Initialize();
@@ -42,6 +43,17 @@ namespace WolvenKit
             MainController.Get().PropertyChanged += MainControllerUpdated;
             MainController.Get().InitForm(this);
             Shown += OnShown;
+        }
+
+        private void CheckForSettings()
+        {
+            if (File.Exists(MainController.Get().Configuration.ExecutablePath)) return;
+            var settings = new frmSettings {StartPosition = FormStartPosition.CenterScreen};
+            var result = settings.ShowDialog();
+            if (result != DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void OnShown(object sender, EventArgs e)
@@ -1445,26 +1457,7 @@ namespace WolvenKit
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //Load/Setup the config
-            var Exit = false;
-            while (!File.Exists(MainController.Get().Configuration.ExecutablePath))
-            {
-                var sets = new frmSettings();
-                if (sets.ShowDialog() != DialogResult.OK)
-                {
-                    Exit = true;
-                    break;
-                }
-
-                MainController.Get().ProjectStatus = "Ready";
-            }
-
-            if (Exit)
-            {
-                Visible = false;
-                Close();
-            }
-
+            //Does this still need to be used??
         }
 
 
