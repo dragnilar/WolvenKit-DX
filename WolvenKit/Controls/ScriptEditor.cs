@@ -23,7 +23,12 @@ namespace WolvenKit.Controls
         {
             InitializeComponent();
             FilePath = filePath;
-            scintillaControl.Styles[Style.Default].BackColor = Color.DarkSlateGray;
+            scintillaControl.StyleResetDefault();
+            scintillaControl.Styles[Style.Default].BackColor = Color.Black;
+            scintillaControl.Styles[Style.Default].ForeColor = Color.White;
+            scintillaControl.Styles[Style.LineNumber].ForeColor = Color.White;
+            scintillaControl.Styles[Style.Default].Font = "Consolas";
+            scintillaControl.StyleClearAll();
             scintillaControl.Text = File.ReadAllText(FilePath);
             scintillaControl.AssignCmdKey(Keys.ControlKey | Keys.D, Command.LineDuplicate);
             ConfigureScintilla();
@@ -39,6 +44,21 @@ namespace WolvenKit.Controls
             scintillaControl.SetKeywords(2, "int bool name float string String vector Vector out saved optional void array CEntityTemplate CR4Player W3IgniProjectile W3DamageAction SAbilityAttributeValue CEntity");
             scintillaControl.SetKeywords(3, "true false in");
             scintillaControl.SetKeywords(4, "if else for switch case while do");
+            scintillaControl.Styles[Style.Cpp.CommentLine].ForeColor = Color.Green;
+            scintillaControl.Styles[Style.Cpp.Comment].ForeColor = Color.Green;
+            scintillaControl.Styles[Style.Cpp.Default].ForeColor = Color.Silver;
+            scintillaControl.Styles[Style.Cpp.Number].ForeColor = Color.Orange;
+            scintillaControl.Styles[Style.Cpp.Word].ForeColor = Color.Blue;
+            scintillaControl.Styles[Style.Cpp.Word2].ForeColor = Color.Blue;
+            scintillaControl.Styles[Style.Cpp.String].ForeColor = Color.Orange; // Red
+            scintillaControl.Styles[Style.Cpp.Character].ForeColor = Color.Orange; // Red
+            scintillaControl.Styles[Style.Cpp.Verbatim].ForeColor = Color.Orange; // Red
+            scintillaControl.Styles[Style.Cpp.StringEol].BackColor = Color.Pink;
+            scintillaControl.Styles[Style.Cpp.Operator].ForeColor = Color.Red;
+            scintillaControl.Styles[Style.Cpp.Preprocessor].ForeColor = Color.Maroon;
+            scintillaControl.Styles[Style.Cpp.GlobalClass].ForeColor = Color.Yellow;
+            ;
+
 
         }
 
