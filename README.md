@@ -15,7 +15,7 @@ I intend to create a release for this once I feel it is at a state where it is s
 - The splash screen is entirely different in appearance and also features a progress bar.
 - Uses a different icon from the original WolvenKit to help differentiate the apps.
 - Added a new icon for the app to help differentiate it from the regular Wolven Kit.
-- Added a new script editor feature, powered by Scintilla Net (the editor used by Notepad++). This is a work in progress. The goal will be to allow you to edit your scripts inside Wolven Kit DX with standard syntax highlighting and other common features.
+- Added a new script editor feature, powered by Scintilla Net (the editor used by Notepad++). This is a work in progress. Currently the script editor features syntax highlighting for Witcher Script (uses the C++ lexer), code folding, line numbers and searching. 
 - The Main Window now has a ribbon with much larger buttons, built in hot key support and is overall easier to use.
 - Stand Alone version of the String Encoder GUI since I have to make a lot of string changes for my own mod.
 - The stand alone version of the String Encoder uses DevExpress' controls instead of the bare bones Windows Forms grid, which both looks better and allows for filtering, searching, sorting and an overall better user experience.
