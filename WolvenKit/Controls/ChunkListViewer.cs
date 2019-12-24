@@ -58,7 +58,7 @@ namespace WolvenKit
 
         private void addChunkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var dlg = new frmAddChunk();
+            var dlg = new AddChunkDialogView();
 
             if (dlg.ShowDialog() == DialogResult.OK)
                 try

@@ -526,11 +526,11 @@
     <Compile Include="FlowTreeEditors\SceneSectionEditor.Designer.cs">
       <DependentUpon>SceneSectionEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddChunk.cs">
+    <Compile Include="Forms\AddChunkDialogView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddChunk.Designer.cs">
-      <DependentUpon>frmAddChunk.cs</DependentUpon>
+    <Compile Include="Forms\AddChunkDialogView.Designer.cs">
+      <DependentUpon>AddChunkDialogView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmAddVariable.cs">
       <SubType>Form</SubType>
@@ -646,8 +646,8 @@
     <EmbeddedResource Include="FlowTreeEditors\SceneLinkEditor.resx">
       <DependentUpon>SceneLinkEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddChunk.resx">
-      <DependentUpon>frmAddChunk.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AddChunkDialogView.resx">
+      <DependentUpon>AddChunkDialogView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddVariable.resx">
