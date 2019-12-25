@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Web.UI.Design.WebControls;
 using System.Windows.Forms;
 
 namespace WolvenKit
@@ -32,21 +33,25 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialogView));
-            this.txExecutablePath = new System.Windows.Forms.TextBox();
-            this.lblExecutable = new System.Windows.Forms.Label();
-            this.btnBrowseExe = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
-            this.lblLanguage = new System.Windows.Forms.Label();
-            this.lblVoiceLanguage = new System.Windows.Forms.Label();
-            this.btBrowseWCC_Lite = new System.Windows.Forms.Button();
-            this.lblWCC_Lite = new System.Windows.Forms.Label();
-            this.txWCC_Lite = new System.Windows.Forms.TextBox();
-            this.btCancel = new System.Windows.Forms.Button();
-            this.txTextLanguage = new System.Windows.Forms.TextBox();
-            this.txVoiceLanguage = new System.Windows.Forms.TextBox();
+            this.txExecutablePath = new DevExpress.XtraEditors.TextEdit();
+            this.lblExecutable = new DevExpress.XtraEditors.LabelControl();
+            this.btnBrowseExe = new DevExpress.XtraEditors.SimpleButton();
+            this.btSave = new DevExpress.XtraEditors.SimpleButton();
+            this.lblLanguage = new DevExpress.XtraEditors.LabelControl();
+            this.lblVoiceLanguage = new DevExpress.XtraEditors.LabelControl();
+            this.btBrowseWCC_Lite = new DevExpress.XtraEditors.SimpleButton();
+            this.lblWCC_Lite = new DevExpress.XtraEditors.LabelControl();
+            this.txWCC_Lite = new DevExpress.XtraEditors.TextEdit();
+            this.btCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.txTextLanguage = new DevExpress.XtraEditors.TextEdit();
+            this.txVoiceLanguage = new DevExpress.XtraEditors.TextEdit();
             this.exeSearcherSlave = new System.ComponentModel.BackgroundWorker();
-            this.W3exeTickLBL = new System.Windows.Forms.Label();
-            this.WCCexeTickLBL = new System.Windows.Forms.Label();
+            this.W3exeTickLBL = new DevExpress.XtraEditors.LabelControl();
+            this.WCCexeTickLBL = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.txExecutablePath.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txWCC_Lite.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txTextLanguage.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txVoiceLanguage.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // txExecutablePath
@@ -61,73 +66,72 @@ namespace WolvenKit
             // 
             // lblExecutable
             // 
-            this.lblExecutable.AutoSize = true;
             this.lblExecutable.Location = new System.Drawing.Point(35, 9);
             this.lblExecutable.Name = "lblExecutable";
-            this.lblExecutable.Size = new System.Drawing.Size(135, 13);
+            this.lblExecutable.Size = new System.Drawing.Size(131, 13);
             this.lblExecutable.TabIndex = 1;
             this.lblExecutable.Text = "Witcher 3 executable path:";
             // 
             // btnBrowseExe
             // 
             this.btnBrowseExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowseExe.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnBrowseExe.ImageOptions.SvgImage")));
+            this.btnBrowseExe.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.btnBrowseExe.Location = new System.Drawing.Point(483, 26);
             this.btnBrowseExe.Name = "btnBrowseExe";
             this.btnBrowseExe.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseExe.TabIndex = 2;
             this.btnBrowseExe.Text = "Browse...";
-            this.btnBrowseExe.UseVisualStyleBackColor = true;
             this.btnBrowseExe.Click += new System.EventHandler(this.btnBrowseExe_Click);
             // 
             // btSave
             // 
             this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btSave.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btSave.ImageOptions.SvgImage")));
+            this.btSave.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.btSave.Location = new System.Drawing.Point(483, 108);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(75, 23);
             this.btSave.TabIndex = 3;
             this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // lblLanguage
             // 
-            this.lblLanguage.AutoSize = true;
             this.lblLanguage.Enabled = false;
             this.lblLanguage.Location = new System.Drawing.Point(12, 98);
             this.lblLanguage.Name = "lblLanguage";
-            this.lblLanguage.Size = new System.Drawing.Size(124, 13);
+            this.lblLanguage.Size = new System.Drawing.Size(119, 13);
             this.lblLanguage.TabIndex = 5;
             this.lblLanguage.Text = "Text Language (e.g. EN)";
             // 
             // lblVoiceLanguage
             // 
-            this.lblVoiceLanguage.AutoSize = true;
             this.lblVoiceLanguage.Enabled = false;
             this.lblVoiceLanguage.Location = new System.Drawing.Point(153, 98);
             this.lblVoiceLanguage.Name = "lblVoiceLanguage";
-            this.lblVoiceLanguage.Size = new System.Drawing.Size(140, 13);
+            this.lblVoiceLanguage.Size = new System.Drawing.Size(132, 13);
             this.lblVoiceLanguage.TabIndex = 7;
             this.lblVoiceLanguage.Text = "Speech Language (e.g. EN)";
             // 
             // btBrowseWCC_Lite
             // 
             this.btBrowseWCC_Lite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btBrowseWCC_Lite.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btBrowseWCC_Lite.ImageOptions.SvgImage")));
+            this.btBrowseWCC_Lite.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.btBrowseWCC_Lite.Location = new System.Drawing.Point(483, 66);
             this.btBrowseWCC_Lite.Name = "btBrowseWCC_Lite";
             this.btBrowseWCC_Lite.Size = new System.Drawing.Size(75, 23);
             this.btBrowseWCC_Lite.TabIndex = 10;
             this.btBrowseWCC_Lite.Text = "Browse...";
-            this.btBrowseWCC_Lite.UseVisualStyleBackColor = true;
             this.btBrowseWCC_Lite.Click += new System.EventHandler(this.btBrowseWCC_Lite_Click);
             // 
             // lblWCC_Lite
             // 
-            this.lblWCC_Lite.AutoSize = true;
             this.lblWCC_Lite.Location = new System.Drawing.Point(35, 50);
             this.lblWCC_Lite.Name = "lblWCC_Lite";
-            this.lblWCC_Lite.Size = new System.Drawing.Size(103, 13);
+            this.lblWCC_Lite.Size = new System.Drawing.Size(98, 13);
             this.lblWCC_Lite.TabIndex = 9;
             this.lblWCC_Lite.Text = "WCC_Lite.exe Path:";
             // 
@@ -145,12 +149,13 @@ namespace WolvenKit
             // 
             this.btCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btCancel.ImageOptions.SvgImage")));
+            this.btCancel.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.btCancel.Location = new System.Drawing.Point(402, 108);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 23);
             this.btCancel.TabIndex = 11;
             this.btCancel.Text = "Cancel";
-            this.btCancel.UseVisualStyleBackColor = true;
             // 
             // txTextLanguage
             // 
@@ -178,27 +183,29 @@ namespace WolvenKit
             // 
             // W3exeTickLBL
             // 
-            this.W3exeTickLBL.AutoSize = true;
-            this.W3exeTickLBL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.W3exeTickLBL.ForeColor = System.Drawing.Color.Red;
+            this.W3exeTickLBL.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W3exeTickLBL.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.W3exeTickLBL.Appearance.Options.UseFont = true;
+            this.W3exeTickLBL.Appearance.Options.UseForeColor = true;
             this.W3exeTickLBL.Location = new System.Drawing.Point(17, 31);
             this.W3exeTickLBL.Name = "W3exeTickLBL";
-            this.W3exeTickLBL.Size = new System.Drawing.Size(15, 13);
+            this.W3exeTickLBL.Size = new System.Drawing.Size(9, 13);
             this.W3exeTickLBL.TabIndex = 13;
             this.W3exeTickLBL.Text = "X";
             // 
             // WCCexeTickLBL
             // 
-            this.WCCexeTickLBL.AutoSize = true;
-            this.WCCexeTickLBL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WCCexeTickLBL.ForeColor = System.Drawing.Color.Red;
+            this.WCCexeTickLBL.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WCCexeTickLBL.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.WCCexeTickLBL.Appearance.Options.UseFont = true;
+            this.WCCexeTickLBL.Appearance.Options.UseForeColor = true;
             this.WCCexeTickLBL.Location = new System.Drawing.Point(17, 71);
             this.WCCexeTickLBL.Name = "WCCexeTickLBL";
-            this.WCCexeTickLBL.Size = new System.Drawing.Size(15, 13);
+            this.WCCexeTickLBL.Size = new System.Drawing.Size(9, 13);
             this.WCCexeTickLBL.TabIndex = 14;
             this.WCCexeTickLBL.Text = "X";
             // 
-            // frmSettings
+            // SettingsDialogView
             // 
             this.AcceptButton = this.btSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,10 +226,15 @@ namespace WolvenKit
             this.Controls.Add(this.btnBrowseExe);
             this.Controls.Add(this.lblExecutable);
             this.Controls.Add(this.txExecutablePath);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("SettingsDialogView.IconOptions.Icon")));
+            this.IconOptions.Image = global::WolvenKit.Properties.Resources.wkdxicon;
             this.Name = "SettingsDialogView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
+            ((System.ComponentModel.ISupportInitialize)(this.txExecutablePath.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txWCC_Lite.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txTextLanguage.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txVoiceLanguage.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,20 +242,20 @@ namespace WolvenKit
 
         #endregion
 
-        private TextBox txExecutablePath;
-        private Label lblExecutable;
-        private Button btnBrowseExe;
-        private Button btSave;
-        private Label lblLanguage;
-        private Label lblVoiceLanguage;
-        private Button btBrowseWCC_Lite;
-        private Label lblWCC_Lite;
-        private TextBox txWCC_Lite;
-        private Button btCancel;
-        private TextBox txTextLanguage;
-        private TextBox txVoiceLanguage;
+        private DevExpress.XtraEditors.TextEdit txExecutablePath;
+        private DevExpress.XtraEditors.LabelControl lblExecutable;
+        private DevExpress.XtraEditors.SimpleButton btnBrowseExe;
+        private DevExpress.XtraEditors.SimpleButton btSave;
+        private DevExpress.XtraEditors.LabelControl lblLanguage;
+        private DevExpress.XtraEditors.LabelControl lblVoiceLanguage;
+        private DevExpress.XtraEditors.SimpleButton btBrowseWCC_Lite;
+        private DevExpress.XtraEditors.LabelControl lblWCC_Lite;
+        private DevExpress.XtraEditors.TextEdit txWCC_Lite;
+        private DevExpress.XtraEditors.SimpleButton btCancel;
+        private DevExpress.XtraEditors.TextEdit txTextLanguage;
+        private DevExpress.XtraEditors.TextEdit txVoiceLanguage;
         private BackgroundWorker exeSearcherSlave;
-        private Label W3exeTickLBL;
-        private Label WCCexeTickLBL;
+        private DevExpress.XtraEditors.LabelControl W3exeTickLBL;
+        private DevExpress.XtraEditors.LabelControl WCCexeTickLBL;
     }
 }
