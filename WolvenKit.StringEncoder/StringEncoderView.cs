@@ -1,9 +1,4 @@
-﻿using DevExpress.Data;
-using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using DevExpress.XtraGrid.Views.Base;
-using DevExpress.XtraGrid.Views.Grid;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,7 +8,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using DevExpress.Utils.Extensions;
+using DevExpress.Data;
+using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using WolvenKit.Common;
 using WolvenKit.W3Strings;
 
@@ -27,46 +26,46 @@ namespace WolvenKit.StringEncoder
 
     public partial class StringEncoderView : XtraForm
     {
-        private readonly W3Mod activeMod;
-        private readonly List<string> groups = new List<string>();
+        private readonly W3Mod _activeMod;
+
+        private readonly object _allLanguagesVal;
+        private readonly bool _bringToFront;
+        private readonly List<string> _groups = new List<string>();
+
+        private readonly List<LanguageStringsCollection> _languageStrings = new List<LanguageStringsCollection>();
+        private readonly object _seperateLanguageVal;
 
         private readonly int idsLimit = 1000;
 
         private readonly IEnumerable<W3Language> languages = W3Language.languages;
+        private readonly List<int> modIDs = new List<int> {0};
+        private bool _abortedSwitchingBackToAllLanguages;
+        private int _counter;
 
-        private readonly List<LanguageStringsCollection> languagesStrings = new List<LanguageStringsCollection>();
-        private readonly List<int> modIDs = new List<int> { 0 };
-        private bool abortedSwitchingBackToAllLanguages;
-        private int counter;
+        private string _currentModId = string.Empty;
 
-        private string currentModID = string.Empty;
-        private bool fileIsSaved;
+        private bool _fileOpened;
+        private bool _fileSaved;
+        private string _languageTabSelected = "ar";
+        private bool _multipleIds;
+        private bool _rowAddedAutomatically;
 
-        private bool fileOpened;
-        private string languageTabSelected = "ar";
-        private bool multipleIDs;
-        private bool rowAddedAutomatically;
-
-        private BindingList<W3EncodedString> W3EncodedStrings;
-
-        private object AllLanguagesVal;
-        private object SeperateLanguagesVal;
-        private bool BringToFront;
+        private BindingList<W3EncodedString> _w3EncodedStrings;
 
         public StringEncoderView(W3Mod mod, bool bringToFront = false)
         {
             InitializeComponent();
-            activeMod = mod;
-            AllLanguagesVal = repoItemComboBoxLanguage.Items[0];
-            SeperateLanguagesVal = repoItemComboBoxLanguage.Items[1];
-            barEditItemLanguage.EditValue = AllLanguagesVal;
+            _activeMod = mod;
+            _allLanguagesVal = repoItemComboBoxLanguage.Items[0];
+            _seperateLanguageVal = repoItemComboBoxLanguage.Items[1];
+            barEditItemLanguage.EditValue = _allLanguagesVal;
             barButtonItemSave.Enabled = false;
 
             CreateDataSource();
 
-            if (activeMod != null)
+            if (_activeMod != null)
             {
-                var csvDir = activeMod.ProjectDirectory + "\\strings\\CSV";
+                var csvDir = _activeMod.ProjectDirectory + "\\strings\\CSV";
                 if (!Directory.Exists(csvDir))
                     return;
 
@@ -75,10 +74,10 @@ namespace WolvenKit.StringEncoder
                 if (fileNames.Length == 0)
                     return;
 
-                barEditItemLanguage.EditValue = AllLanguagesVal;
-                languagesStrings.Clear();
+                barEditItemLanguage.EditValue = _allLanguagesVal;
+                _languageStrings.Clear();
 
-                rowAddedAutomatically = true;
+                _rowAddedAutomatically = true;
 
                 {
                     var rows = ParseCSV(fileNames[0]);
@@ -94,33 +93,33 @@ namespace WolvenKit.StringEncoder
 
                     var strings = new List<List<string>>();
 
-                    rows.ForEach(x => { strings.Add(new List<string> { x[0], x[1], x[2], x[3] }); });
+                    rows.ForEach(x => { strings.Add(new List<string> {x[0], x[1], x[2], x[3]}); });
 
-                    languagesStrings.Add(new LanguageStringsCollection(language, strings));
+                    _languageStrings.Add(new LanguageStringsCollection(language, strings));
 
-                    foreach (var lang in languagesStrings.Where(lang => lang.language == "ar"))
+                    foreach (var lang in _languageStrings.Where(lang => lang.language == "ar"))
                     {
-                        W3EncodedStrings.Clear();
+                        _w3EncodedStrings.Clear();
                         foreach (var str in lang.strings)
-                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1],
+                            _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1],
                                 str[2], str[3]));
                         break;
                     }
                 }
 
-                fileOpened = true;
+                _fileOpened = true;
                 HashStringKeys();
                 UpdateModID();
                 gridControlStringsEncoder.Visible = true;
-                rowAddedAutomatically = false;
-                BringToFront = bringToFront;
-                this.Shown += OnShown;
+                _rowAddedAutomatically = false;
+                _bringToFront = bringToFront;
+                Shown += OnShown;
             }
         }
 
         private void OnShown(object sender, EventArgs e)
         {
-            if (BringToFront)
+            if (_bringToFront)
             {
                 TopMost = true;
                 Activate();
@@ -134,32 +133,26 @@ namespace WolvenKit.StringEncoder
             barButtonItemSave.Enabled = true;
         }
 
-        /*
-            Events
-        */
-
-        /*
-            toolStrip Buttons
-        */
 
         private void barButtonItemNew_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (gridControlStringsEncoder.Visible == false)
                 return;
-            if (!fileIsSaved)
+            if (!_fileSaved)
             {
-                var result = MessageBox.Show("File is not saved. Do you want to continue anyway?", "Wolven Kit DX String Encoder DX String Encoder",
+                var result = XtraMessageBox.Show("File is not saved. Do you want to continue anyway?",
+                    "Wolven Kit DX String Encoder DX String Encoder",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                     return;
             }
 
-            W3EncodedStrings.Clear();
+            _w3EncodedStrings.Clear();
             CreateDataSource();
             modIDs.Clear();
             barEditItemModId.EditValue = string.Empty;
             gridControlStringsEncoder.Visible = false;
-            languagesStrings.Clear();
+            _languageStrings.Clear();
         }
 
         private void barButtonItemOpen_ItemClick(object sender, ItemClickEventArgs e)
@@ -187,7 +180,8 @@ namespace WolvenKit.StringEncoder
             if (gridViewStringsEncoder.RowCount != 1)
                 SaveCSV();
             else
-                MessageBox.Show("Current file is empty.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                XtraMessageBox.Show("Current file is empty.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                    MessageBoxIcon.Asterisk);
         }
 
         private void barButtonItemEncode_ItemClick(object sender, ItemClickEventArgs e)
@@ -195,7 +189,8 @@ namespace WolvenKit.StringEncoder
             if (gridViewStringsEncoder.RowCount != 1)
                 Encode();
             else
-                MessageBox.Show("Current file is empty.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                XtraMessageBox.Show("Current file is empty.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                    MessageBoxIcon.Asterisk);
         }
 
         private void repoItemTextEditModIDs_KeyDown(object sender, KeyEventArgs e)
@@ -206,24 +201,23 @@ namespace WolvenKit.StringEncoder
 
         private void repoItemComboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (abortedSwitchingBackToAllLanguages)
-                abortedSwitchingBackToAllLanguages = false;
+            if (_abortedSwitchingBackToAllLanguages)
+                _abortedSwitchingBackToAllLanguages = false;
             //return;
-            if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
+            if (barEditItemLanguage.EditValue == _seperateLanguageVal)
             {
                 tabControlLanguages.Controls.Clear();
 
                 var allLanguagesStrings = new List<List<string>>();
 
-                foreach (var w3EncodedString in W3EncodedStrings)
-                {
+                foreach (var w3EncodedString in _w3EncodedStrings)
                     allLanguagesStrings.Add(new List<string>
                     {
-                        w3EncodedString.Id.ToString(), w3EncodedString.HexKey, w3EncodedString.StringKey, w3EncodedString.Localization
+                        w3EncodedString.Id.ToString(), w3EncodedString.HexKey, w3EncodedString.StringKey,
+                        w3EncodedString.Localization
                     });
-                }
 
-                languagesStrings.Add(new LanguageStringsCollection("all", allLanguagesStrings));
+                _languageStrings.Add(new LanguageStringsCollection("all", allLanguagesStrings));
 
 
                 foreach (var language in languages)
@@ -231,9 +225,9 @@ namespace WolvenKit.StringEncoder
                     var languageStrings = new List<List<string>>();
 
                     foreach (var str in allLanguagesStrings)
-                        languageStrings.Add(new List<string> { str[0], str[1], str[2], str[3] });
+                        languageStrings.Add(new List<string> {str[0], str[1], str[2], str[3]});
 
-                    languagesStrings.Add(new LanguageStringsCollection(language.Handle, languageStrings));
+                    _languageStrings.Add(new LanguageStringsCollection(language.Handle, languageStrings));
 
                     var newTabPage = new TabPage();
                     newTabPage.Location = new Point(4, 22);
@@ -246,24 +240,24 @@ namespace WolvenKit.StringEncoder
                     tabControlLanguages.Controls.Add(newTabPage);
                 }
             }
-            else if (W3EncodedStrings != null)
+            else if (_w3EncodedStrings != null)
             {
-                var result = MessageBox.Show("Are you sure? English strings will be used for all languages.",
+                var result = XtraMessageBox.Show("Are you sure? English strings will be used for all languages.",
                     "Wolven Kit DX String Encoder", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result == DialogResult.Cancel)
                 {
-                    barEditItemLanguage.EditValue = AllLanguagesVal;
-                    abortedSwitchingBackToAllLanguages = true;
+                    barEditItemLanguage.EditValue = _allLanguagesVal;
+                    _abortedSwitchingBackToAllLanguages = true;
                     return;
                 }
 
                 tabControlLanguages.Controls.Clear();
 
-                W3EncodedStrings.Clear();
-                foreach (var str in languagesStrings[7].strings)
-                    W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1], str[2],
+                _w3EncodedStrings.Clear();
+                foreach (var str in _languageStrings[7].strings)
+                    _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1], str[2],
                         str[3]));
-                languagesStrings.Clear();
+                _languageStrings.Clear();
 
                 var newTabPage = new TabPage
                 {
@@ -282,7 +276,7 @@ namespace WolvenKit.StringEncoder
         private void repoItemTextEditModIDs_Leave(object sender, EventArgs e)
         {
             FillModIDIfValid();
-            currentModID = barEditItemModId.EditValue.ToString();
+            _currentModId = barEditItemModId.EditValue.ToString();
         }
 
         /*
@@ -291,7 +285,7 @@ namespace WolvenKit.StringEncoder
 
         private void HashStringKeys()
         {
-            foreach (var w3EncodedString in W3EncodedStrings)
+            foreach (var w3EncodedString in _w3EncodedStrings)
             {
                 if (w3EncodedString == null) continue;
                 var key = w3EncodedString.StringKey;
@@ -311,8 +305,8 @@ namespace WolvenKit.StringEncoder
 
         private void ImportW3Strings()
         {
-            XtraMessageBox.Show("This is not supported in the stand alone version of the String Encoder at present.",
-                "Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            XtraMessageBox.Show("This is not supported in the Wolvenkit DX version of the string encoder at present.",
+                "Not Supported (YET)", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             //if (barEditItemModId.EditValue == string.Empty)
             //{
             //    AskForModID();
@@ -349,7 +343,8 @@ namespace WolvenKit.StringEncoder
 
         private void AskForModID()
         {
-            MessageBox.Show("Enter mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            XtraMessageBox.Show("Enter mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                MessageBoxIcon.Asterisk);
             barEditItemModId.EditValue = string.Empty;
         }
 
@@ -380,8 +375,8 @@ namespace WolvenKit.StringEncoder
 
             var scriptsDir = string.Empty;
 
-            if (activeMod != null)
-                scriptsDir = activeMod.FileDirectory + "\\scripts";
+            if (_activeMod != null)
+                scriptsDir = _activeMod.FileDirectory + "\\scripts";
 
             var prefix = ShowScriptPrefixDialog();
 
@@ -389,7 +384,8 @@ namespace WolvenKit.StringEncoder
 
             if (prefix == string.Empty)
             {
-                MessageBox.Show("Empty prefix.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                XtraMessageBox.Show("Empty prefix.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                    MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -414,7 +410,8 @@ namespace WolvenKit.StringEncoder
 
             if (matches.Count == 0)
             {
-                MessageBox.Show("No matches.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                XtraMessageBox.Show("No matches.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                    MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -426,7 +423,7 @@ namespace WolvenKit.StringEncoder
             {
                 if (match.Groups[1].Value.ToLower() != match.Groups[1].Value && !convertToLower)
                 {
-                    var result = MessageBox.Show(
+                    var result = XtraMessageBox.Show(
                         "Found uppercase string keys. String keys called in scripts must be all lowercase. " +
                         "Do you want to read them as lowercase? You will need to change the string keys in the scripts, or pass them to StrLower() function.",
                         "Wolven Kit DX String Encoder", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
@@ -448,14 +445,14 @@ namespace WolvenKit.StringEncoder
 
             var rows = strings.Select(x => x.Split('|')).ToList();
 
-            rowAddedAutomatically = true;
+            _rowAddedAutomatically = true;
 
-            currentModID = barEditItemModId.EditValue.ToString();
+            _currentModId = barEditItemModId.EditValue.ToString();
             rows.ForEach(x =>
             {
-                W3EncodedStrings.Add(W3EncodedString.ConvertStringArrayToW3EncodedString(x));
+                _w3EncodedStrings.Add(W3EncodedString.ConvertStringArrayToW3EncodedString(x));
 
-                rowAddedAutomatically = false;
+                _rowAddedAutomatically = false;
 
                 gridControlStringsEncoder.Visible = true;
                 UpdateModID();
@@ -465,7 +462,7 @@ namespace WolvenKit.StringEncoder
 
         private void ReadXML()
         {
-            rowAddedAutomatically = true;
+            _rowAddedAutomatically = true;
             //TODO check tags for custom display names, add prefixes to keys
             var path = GetXMLPath();
 
@@ -476,76 +473,76 @@ namespace WolvenKit.StringEncoder
             {
                 //Fix encoding
                 File.WriteAllLines(path,
-                    new[] { "<?xml version=\"1.0\" encoding=\"utf-8\"?>" }.ToList()
+                    new[] {"<?xml version=\"1.0\" encoding=\"utf-8\"?>"}.ToList()
                         .Concat(File.ReadAllLines(path).Skip(1).ToArray()));
 
                 var doc = XDocument.Load(path);
 
                 // vars displayNames
                 foreach (var vars in doc.Descendants("UserConfig").Descendants("Group").Descendants("VisibleVars"))
-                    foreach (var var in vars.Descendants("Var"))
-                    {
-                        var name = var.Attribute("displayName").Value;
-                        if (counter > idsLimit)
-                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[1] * 1000,
-                                string.Empty,
-                                DisplayNameToKey(name), name));
-                        else
-                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[0] * 1000
-                                , string.Empty,
-                                DisplayNameToKey(name), name));
+                foreach (var var in vars.Descendants("Var"))
+                {
+                    var name = var.Attribute("displayName").Value;
+                    if (_counter > idsLimit)
+                        _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(_counter + 2110000000 + modIDs[1] * 1000,
+                            string.Empty,
+                            DisplayNameToKey(name), name));
+                    else
+                        _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(_counter + 2110000000 + modIDs[0] * 1000
+                            , string.Empty,
+                            DisplayNameToKey(name), name));
 
-                        ++counter;
-                    }
+                    ++_counter;
+                }
 
                 // optionsArray vars displayNames
                 foreach (var vars in doc.Descendants("UserConfig").Descendants("Group").Descendants("VisibleVars")
                     .Descendants("OptionsArray"))
-                    foreach (var var in vars.Descendants("Option"))
-                    {
-                        var name = var.Attribute("displayName").Value;
-                        if (counter > idsLimit)
-                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[1] * 1000
-                                , string.Empty,
-                                DisplayNameToKey(name), name));
-                        else
-                            W3EncodedStrings.Add(W3EncodedString.GenerateW3String(counter + 2110000000 + modIDs[0] * 1000
-                                , string.Empty,
-                                DisplayNameToKey(name), name));
-                        ++counter;
-                    }
+                foreach (var var in vars.Descendants("Option"))
+                {
+                    var name = var.Attribute("displayName").Value;
+                    if (_counter > idsLimit)
+                        _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(_counter + 2110000000 + modIDs[1] * 1000
+                            , string.Empty,
+                            DisplayNameToKey(name), name));
+                    else
+                        _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(_counter + 2110000000 + modIDs[0] * 1000
+                            , string.Empty,
+                            DisplayNameToKey(name), name));
+                    ++_counter;
+                }
 
                 // groups displayNames
                 foreach (var vars in doc.Descendants("UserConfig"))
-                    foreach (var var in vars.Descendants("Group"))
+                foreach (var var in vars.Descendants("Group"))
+                {
+                    var name = var.Attribute("displayName").Value;
+
+                    var groupNames = DisplayNameToKeyGroup(name);
+
+                    foreach (var groupName in groupNames)
                     {
-                        var name = var.Attribute("displayName").Value;
+                        var splitGroupName = groupName.Split('_').ToList();
+                        splitGroupName.RemoveAt(0);
+                        var localisationName = string.Join(string.Empty, splitGroupName);
 
-                        var groupNames = DisplayNameToKeyGroup(name);
+                        if (_counter > idsLimit)
+                            _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(
+                                _counter + 2110000000 + modIDs[0] * 1000
+                                , string.Empty,
+                                groupName, localisationName));
+                        else
+                            _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(
+                                _counter + 2110000000 + modIDs[0] * 1000
+                                , string.Empty,
+                                groupName, localisationName));
 
-                        foreach (var groupName in groupNames)
-                        {
-                            var splitGroupName = groupName.Split('_').ToList();
-                            splitGroupName.RemoveAt(0);
-                            var localisationName = string.Join(string.Empty, splitGroupName);
-
-                            if (counter > idsLimit)
-                                W3EncodedStrings.Add(W3EncodedString.GenerateW3String(
-                                    counter + 2110000000 + modIDs[0] * 1000
-                                    , string.Empty,
-                                    groupName, localisationName));
-                            else
-                                W3EncodedStrings.Add(W3EncodedString.GenerateW3String(
-                                    counter + 2110000000 + modIDs[0] * 1000
-                                    , string.Empty,
-                                    groupName, localisationName));
-
-                            ++counter;
-                        }
+                        ++_counter;
                     }
+                }
             }
 
-            rowAddedAutomatically = false;
+            _rowAddedAutomatically = false;
 
             HashStringKeys();
             UpdateModID();
@@ -576,19 +573,19 @@ namespace WolvenKit.StringEncoder
 
             var stringKeySplitted = stringKey.Split('.');
 
-            if (groups.Count() == 0)
+            if (_groups.Count() == 0)
             {
-                groups.Add(stringKeySplitted[stringKeySplitted.Length - 1]);
+                _groups.Add(stringKeySplitted[stringKeySplitted.Length - 1]);
                 stringKeys.Add("panel_" + stringKeySplitted[stringKeySplitted.Length - 1]);
             }
 
             for (var i = 0; i < stringKeySplitted.Length; ++i)
-                for (var j = 0; j < groups.Count(); ++j)
-                    if (!groups.Contains(stringKeySplitted[i]))
-                    {
-                        groups.Add(stringKeySplitted[i]);
-                        stringKeys.Add("panel_" + stringKeySplitted[i]);
-                    }
+            for (var j = 0; j < _groups.Count(); ++j)
+                if (!_groups.Contains(stringKeySplitted[i]))
+                {
+                    _groups.Add(stringKeySplitted[i]);
+                    stringKeys.Add("panel_" + stringKeySplitted[i]);
+                }
 
             return stringKeys;
         }
@@ -616,25 +613,25 @@ namespace WolvenKit.StringEncoder
 
         private bool IsIDValid(string id)
         {
-            var digits = new char[10] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            var digits = new char[10] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
             var convertedId = id.ToCharArray();
             var validCharCount = 0;
             var idLength = id.Length;
             for (var i = 0; i < idLength; ++i)
-                for (var j = 0; j < 10; ++j)
-                    if (convertedId[i] == digits[j])
-                    {
-                        ++validCharCount;
-                        break;
-                    }
-                    else if (convertedId[i] == ';')
-                    {
-                        multipleIDs = true;
-                        ++validCharCount;
-                        break;
-                    }
+            for (var j = 0; j < 10; ++j)
+                if (convertedId[i] == digits[j])
+                {
+                    ++validCharCount;
+                    break;
+                }
+                else if (convertedId[i] == ';')
+                {
+                    _multipleIds = true;
+                    ++validCharCount;
+                    break;
+                }
 
-            if (!multipleIDs && idLength > 4)
+            if (!_multipleIds && idLength > 4)
                 return false;
             if (validCharCount == idLength && validCharCount != 0)
                 return true;
@@ -663,17 +660,18 @@ namespace WolvenKit.StringEncoder
 
             if (!IsIDValid(barEditItemModId.EditValue.ToString()))
             {
-                MessageBox.Show("Invalid Mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                XtraMessageBox.Show("Invalid Mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                    MessageBoxIcon.Asterisk);
 
-                if (currentModID != string.Empty)
-                    barEditItemModId.EditValue = currentModID;
+                if (_currentModId != string.Empty)
+                    barEditItemModId.EditValue = _currentModId;
                 else
                     barEditItemModId.EditValue = string.Empty;
 
                 return false;
             }
 
-            if (!multipleIDs)
+            if (!_multipleIds)
             {
                 modIDs.Add(Convert.ToInt32(barEditItemModId.EditValue));
                 gridControlStringsEncoder.Visible = true;
@@ -685,10 +683,11 @@ namespace WolvenKit.StringEncoder
 
                 if (!AreAllIDsValid(splittedIDs))
                 {
-                    MessageBox.Show("Invalid Mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    XtraMessageBox.Show("Invalid Mod ID.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                        MessageBoxIcon.Asterisk);
 
-                    if (currentModID != string.Empty)
-                        barEditItemModId.EditValue = currentModID;
+                    if (_currentModId != string.Empty)
+                        barEditItemModId.EditValue = _currentModId;
                     else
                         barEditItemModId.EditValue = string.Empty;
 
@@ -706,29 +705,29 @@ namespace WolvenKit.StringEncoder
 
         private void UpdateModID()
         {
-            rowAddedAutomatically = true;
+            _rowAddedAutomatically = true;
             //TODO - fix for empty dataGridView
-            if (W3EncodedStrings == null)
+            if (_w3EncodedStrings == null)
                 return;
 
             var counter = 0;
             var newModID = modIDs[0] * 1000 + 2110000000;
-            foreach (var row in W3EncodedStrings)
+            foreach (var row in _w3EncodedStrings)
             {
                 var newModIdRow = newModID + counter;
                 row.Id = newModIdRow;
                 ++counter;
                 if (counter / idsLimit >= modIDs.Count)
                 {
-                    MessageBox.Show("Number of strings exceeds " + counter + ", number of IDs: " + modIDs.Count
-                                    + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.",
+                    XtraMessageBox.Show("Number of strings exceeds " + counter + ", number of IDs: " + modIDs.Count
+                                        + "\nStrings Limit per one modID is " + idsLimit + " Enter more modIDs.",
                         "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    W3EncodedStrings.Clear();
+                    _w3EncodedStrings.Clear();
                     break;
                 }
             }
 
-            rowAddedAutomatically = false;
+            _rowAddedAutomatically = false;
         }
 
         private void SaveCSV()
@@ -737,11 +736,11 @@ namespace WolvenKit.StringEncoder
             HashStringKeys();
 
             var outputPath = string.Empty;
-            if (activeMod != null)
+            if (_activeMod != null)
             {
-                outputPath = activeMod.ProjectDirectory + "\\strings\\CSV";
+                outputPath = _activeMod.ProjectDirectory + "\\strings\\CSV";
                 if (!Directory.Exists(outputPath))
-                    Directory.CreateDirectory(activeMod.ProjectDirectory + "\\strings\\CSV");
+                    Directory.CreateDirectory(_activeMod.ProjectDirectory + "\\strings\\CSV");
             }
             else
             {
@@ -752,18 +751,16 @@ namespace WolvenKit.StringEncoder
                 return;
             var sb = new StringBuilder();
             var firstStringId = modIDs[0] * 1000 + 2110000000;
-            if (barEditItemLanguage.EditValue == AllLanguagesVal)
+            if (barEditItemLanguage.EditValue == _allLanguagesVal)
             {
-                if (W3EncodedStrings.Any(x=>x.Id < firstStringId))
-                    if (W3EncodedStrings.Count >= 1)
-                    {
-                        W3EncodedStrings.OrderByDescending(x => x.Id).First().Id =
-                           W3EncodedStrings.OrderByDescending(x => x.Id).ElementAt(1).Id + 1;
-                    }
+                if (_w3EncodedStrings.Any(x => x.Id < firstStringId))
+                    if (_w3EncodedStrings.Count >= 1)
+                        _w3EncodedStrings.OrderByDescending(x => x.Id).First().Id =
+                            _w3EncodedStrings.OrderByDescending(x => x.Id).ElementAt(1).Id + 1;
                     else
-                     W3EncodedStrings.First().Id = modIDs[0] * firstStringId;
+                        _w3EncodedStrings.First().Id = modIDs[0] * firstStringId;
 
-                foreach (var encodedString in W3EncodedStrings)
+                foreach (var encodedString in _w3EncodedStrings)
                     sb.AppendLine(string.Join("|", encodedString.Id.ToString(), encodedString.HexKey,
                         encodedString.StringKey, encodedString.Localization));
 
@@ -776,7 +773,7 @@ namespace WolvenKit.StringEncoder
                         var csv = sb.ToString();
 
                         // leaving space for the hex key empty
-                        if (!fileOpened)
+                        if (!_fileOpened)
                         {
                             var splitCsv = csv.Split('\n').ToList();
                             var splitCsvLength = splitCsv.Count();
@@ -790,15 +787,15 @@ namespace WolvenKit.StringEncoder
                                 }
 
                             csv = string.Join("\n", splitCsv);
-
                         }
+
                         csv += "\n";
                         file.WriteLine(csv, Encoding.UTF8);
                     }
             }
             else
             {
-                foreach (var language in languagesStrings)
+                foreach (var language in _languageStrings)
                 {
                     foreach (var line in language.strings)
                         sb.AppendLine(string.Join("|", line.ToArray()));
@@ -811,7 +808,7 @@ namespace WolvenKit.StringEncoder
                         var csv = sb.ToString();
 
                         // leaving space for the hex key empty
-                        if (!fileOpened)
+                        if (!_fileOpened)
                         {
                             var splittedCsv = csv.Split('\n').ToList();
                             var splittedCsvLength = splittedCsv.Count();
@@ -825,8 +822,8 @@ namespace WolvenKit.StringEncoder
                                 }
 
                             csv = string.Join("\n", splittedCsv);
-
                         }
+
                         csv += "\n";
                         file.WriteLine(csv, Encoding.UTF8);
                     }
@@ -836,7 +833,7 @@ namespace WolvenKit.StringEncoder
             }
 
             WriteHash("csv");
-            fileIsSaved = true;
+            _fileSaved = true;
             barButtonItemSave.Enabled = false;
         }
 
@@ -850,16 +847,16 @@ namespace WolvenKit.StringEncoder
 
         private void CreateDataSource()
         {
-            if (W3EncodedStrings == null)
+            if (_w3EncodedStrings == null)
             {
-                W3EncodedStrings = new BindingList<W3EncodedString>
+                _w3EncodedStrings = new BindingList<W3EncodedString>
                 {
                     AllowNew = true,
                     AllowEdit = true,
                     AllowRemove = true
                 };
-                gridControlStringsEncoder.DataSource = W3EncodedStrings;
-                W3EncodedStrings.ListChanged += W3EncodedStringsOnListChanged;
+                gridControlStringsEncoder.DataSource = _w3EncodedStrings;
+                _w3EncodedStrings.ListChanged += W3EncodedStringsOnListChanged;
             }
         }
 
@@ -874,15 +871,15 @@ namespace WolvenKit.StringEncoder
                 var currentRowID = Convert.ToInt32((Convert.ToInt32(row[0]) - 2110000000) / 1000);
                 foreach (var addedID in modIDs.ToList()) // to prevent modified collection exception
                     if (currentRowID != addedID)
-                        if (!multipleIDs)
+                        if (!_multipleIds)
                         {
-                            multipleIDs = true;
+                            _multipleIds = true;
                             modIDs.Add(currentRowID);
                         }
             }
 
             barEditItemModId.EditValue = string.Empty;
-            if (multipleIDs)
+            if (_multipleIds)
             {
                 foreach (var id in modIDs)
                     barEditItemModId.EditValue += Convert.ToString(id) + ";";
@@ -919,7 +916,7 @@ namespace WolvenKit.StringEncoder
 
         private void OpenCSV()
         {
-            rowAddedAutomatically = true;
+            _rowAddedAutomatically = true;
             string filePath;
             var ofd = new OpenFileDialog();
             ofd.Filter = "CSV | *.csv;";
@@ -930,32 +927,32 @@ namespace WolvenKit.StringEncoder
                 var rows = ParseCSV(filePath);
                 GetCSVIDs(rows);
 
-                if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
+                if (barEditItemLanguage.EditValue == _seperateLanguageVal)
                 {
                     var firstLine = File.ReadLines(filePath, Encoding.UTF8).First();
                     var language = Regex.Match(firstLine, "language=([a-zAZ]+)]").Groups[1].Value;
                     var strings = new List<List<string>>();
 
-                    rows.ForEach(row => { strings.Add(new List<string> { row[0], row[1], row[2], row[3] }); });
+                    rows.ForEach(row => { strings.Add(new List<string> {row[0], row[1], row[2], row[3]}); });
 
-                    foreach (var lang in languagesStrings)
+                    foreach (var lang in _languageStrings)
                         if (lang.language == language)
                         {
                             lang.strings = strings;
 
-                            if (lang.language == "ar" && languageTabSelected == "ar")
+                            if (lang.language == "ar" && _languageTabSelected == "ar")
                                 foreach (var str in lang.strings)
-                                    W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]),
+                                    _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]),
                                         str[1], str[2], str[3]));
                             break;
                         }
                 }
                 else
                 {
-                    currentModID = barEditItemModId.EditValue.ToString();
+                    _currentModId = barEditItemModId.EditValue.ToString();
                     rows.ForEach(row =>
                     {
-                        W3EncodedStrings.Add(W3EncodedString.ConvertStringArrayToW3EncodedString(row));
+                        _w3EncodedStrings.Add(W3EncodedString.ConvertStringArrayToW3EncodedString(row));
                     });
                 }
             }
@@ -964,11 +961,11 @@ namespace WolvenKit.StringEncoder
                 return;
             }
 
-            fileOpened = true;
+            _fileOpened = true;
             HashStringKeys();
             UpdateModID();
             gridControlStringsEncoder.Visible = true;
-            rowAddedAutomatically = false;
+            _rowAddedAutomatically = false;
         }
 
         private void Encode()
@@ -977,11 +974,11 @@ namespace WolvenKit.StringEncoder
             HashStringKeys();
 
             var stringsDir = string.Empty;
-            if (activeMod != null)
+            if (_activeMod != null)
             {
-                stringsDir = activeMod.ProjectDirectory + "\\strings";
+                stringsDir = _activeMod.ProjectDirectory + "\\strings";
                 if (!Directory.Exists(stringsDir))
-                    Directory.CreateDirectory(activeMod.ProjectDirectory + "\\strings");
+                    Directory.CreateDirectory(_activeMod.ProjectDirectory + "\\strings");
             }
             else
             {
@@ -990,10 +987,10 @@ namespace WolvenKit.StringEncoder
 
             if (stringsDir == string.Empty)
                 return;
-            if (barEditItemLanguage.EditValue == AllLanguagesVal)
+            if (barEditItemLanguage.EditValue == _allLanguagesVal)
             {
                 var strings = new List<List<string>>();
-                foreach (var encodedString in W3EncodedStrings)
+                foreach (var encodedString in _w3EncodedStrings)
                 {
                     //Do not add the hex key
                     var str = new List<string>
@@ -1017,14 +1014,14 @@ namespace WolvenKit.StringEncoder
             }
             else
             {
-                foreach (var lang in languagesStrings)
+                foreach (var lang in _languageStrings)
                 {
                     if (lang.language == "all") continue;
 
-                    if (lang.language == languageTabSelected)
+                    if (lang.language == _languageTabSelected)
                     {
                         lang.strings.Clear();
-                        foreach (var w3EncodedString in W3EncodedStrings)
+                        foreach (var w3EncodedString in _w3EncodedStrings)
                             lang.strings.Add(new List<string>
                             {
                                 w3EncodedString.Id.ToString(), w3EncodedString.HexKey,
@@ -1035,7 +1032,7 @@ namespace WolvenKit.StringEncoder
                     var w3tringFile = new W3StringFile();
                     var stringsBlock1Strings = new List<List<string>>();
                     foreach (var str in lang.strings)
-                        stringsBlock1Strings.Add(new List<string> { str[0], str[2], str[3] }); //Do not add the hex key
+                        stringsBlock1Strings.Add(new List<string> {str[0], str[2], str[3]}); //Do not add the hex key
                     w3tringFile.Create(stringsBlock1Strings, lang.language);
                     using (var bw = new BinaryWriter(File.OpenWrite(stringsDir + "\\" + lang.language + ".w3strings")))
                     {
@@ -1046,7 +1043,8 @@ namespace WolvenKit.StringEncoder
 
             WriteHash("encoded");
 
-            MessageBox.Show("Strings encoded.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            XtraMessageBox.Show("Strings encoded.", "Wolven Kit DX String Encoder", MessageBoxButtons.OK,
+                MessageBoxIcon.Asterisk);
         }
 
         // to check for not encoded csvs, function from Sound_Cache.cs (FNV1A64)
@@ -1071,17 +1069,17 @@ namespace WolvenKit.StringEncoder
 
             if (type == "encoded")
             {
-                var stringsDir = activeMod.ProjectDirectory + "\\strings";
+                var stringsDir = _activeMod.ProjectDirectory + "\\strings";
                 if (!Directory.Exists(stringsDir))
                     return;
 
                 outputPath = stringsDir;
 
-                if (barEditItemLanguage.EditValue == SeperateLanguagesVal)
-                    toHash += (from lang in languagesStrings from str in lang.strings from column in str select column)
+                if (barEditItemLanguage.EditValue == _seperateLanguageVal)
+                    toHash += (from lang in _languageStrings from str in lang.strings from column in str select column)
                         .Aggregate(toHash, (current, column) => current + column);
                 else
-                    foreach (var w3EncodedString in W3EncodedStrings)
+                    foreach (var w3EncodedString in _w3EncodedStrings)
                     {
                         toHash += w3EncodedString.Id.ToString();
                         toHash += w3EncodedString.HexKey;
@@ -1092,7 +1090,7 @@ namespace WolvenKit.StringEncoder
 
             if (type == "csv")
             {
-                var csvDir = activeMod.ProjectDirectory + "\\strings\\CSV";
+                var csvDir = _activeMod.ProjectDirectory + "\\strings\\CSV";
                 if (!Directory.Exists(csvDir))
                     return;
 
@@ -1140,10 +1138,10 @@ namespace WolvenKit.StringEncoder
 
         public bool AreHashesDifferent()
         {
-            if (activeMod == null)
+            if (_activeMod == null)
                 return false;
 
-            var stringsHashPath = activeMod.ProjectDirectory + "\\strings\\hash";
+            var stringsHashPath = _activeMod.ProjectDirectory + "\\strings\\hash";
             if (!File.Exists(stringsHashPath))
                 return false;
 
@@ -1158,7 +1156,7 @@ namespace WolvenKit.StringEncoder
             foreach (var b in hash)
                 hashStringsBytesSum += b;
 
-            var csvHashPath = activeMod.ProjectDirectory + "\\strings\\CSV\\hash";
+            var csvHashPath = _activeMod.ProjectDirectory + "\\strings\\CSV\\hash";
             if (!File.Exists(csvHashPath))
                 return false;
 
@@ -1185,32 +1183,31 @@ namespace WolvenKit.StringEncoder
 
             gridControlStringsEncoder.EndUpdate();
 
-            foreach (var language in languagesStrings.Where(language => language.language == languageTabSelected))
+            foreach (var language in _languageStrings.Where(language => language.language == _languageTabSelected))
             {
                 language.strings.Clear();
 
 
-                foreach (var w3EncodedString in W3EncodedStrings)
-                {
+                foreach (var w3EncodedString in _w3EncodedStrings)
                     language.strings.Add(new List<string>
                     {
-                        w3EncodedString.Id.ToString(), w3EncodedString.HexKey, w3EncodedString.StringKey, w3EncodedString.Localization
+                        w3EncodedString.Id.ToString(), w3EncodedString.HexKey, w3EncodedString.StringKey,
+                        w3EncodedString.Localization
                     });
-                }
             }
 
-            foreach (var language in languagesStrings.Where(language => language.language == e.TabPage.Text))
+            foreach (var language in _languageStrings.Where(language => language.language == e.TabPage.Text))
             {
-                W3EncodedStrings.Clear();
+                _w3EncodedStrings.Clear();
 
                 foreach (var str in language.strings)
-                    W3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1], str[2],
+                    _w3EncodedStrings.Add(W3EncodedString.GenerateW3String(Convert.ToInt32(str[0]), str[1], str[2],
                         str[3]));
                 break;
             }
 
             if (e.TabPage != null)
-                languageTabSelected = e.TabPage.Text;
+                _languageTabSelected = e.TabPage.Text;
 
             HashStringKeys();
             UpdateModID();
@@ -1223,26 +1220,25 @@ namespace WolvenKit.StringEncoder
 
         private void gridViewStringsEncoder_ValidateRow(object sender, ValidateRowEventArgs e)
         {
-            if (rowAddedAutomatically)
+            if (_rowAddedAutomatically)
                 return;
 
-            if ((string)barEditItemModId.EditValue == string.Empty)
+            if ((string) barEditItemModId.EditValue == string.Empty)
             {
                 AskForModID();
                 return;
             }
+
             HashStringKeys();
-            fileIsSaved = false;
+            _fileSaved = false;
         }
 
         private void gridViewStringsEncoder_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
-                if (XtraMessageBox.Show("Do you want to delete this string?", "Delete Encoded String?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                {
-                    return;
-                }
+                if (XtraMessageBox.Show("Do you want to delete this string?", "Delete Encoded String?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
                 var view = sender as GridView;
                 view?.DeleteRow(view.FocusedRowHandle);
@@ -1252,11 +1248,11 @@ namespace WolvenKit.StringEncoder
         private void gridViewStringsEncoder_InitNewRow(object sender, InitNewRowEventArgs e)
         {
             if (sender == null) return;
-            rowAddedAutomatically = false;
+            _rowAddedAutomatically = false;
             if (!(sender is GridView view)) return;
             int id;
-            if (W3EncodedStrings.Count >= 1)
-                id = W3EncodedStrings.Max(x=>x.Id) + 1;
+            if (_w3EncodedStrings.Count >= 1)
+                id = _w3EncodedStrings.Max(x => x.Id) + 1;
             else
                 id = modIDs[0] * 1000 + 2110000000;
             view.SetRowCellValue(e.RowHandle, gridColumnId, id);
