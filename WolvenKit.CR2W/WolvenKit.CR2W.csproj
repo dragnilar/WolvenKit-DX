@@ -81,9 +81,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +180,6 @@
     <Compile Include="Types\SAppearanceAttachment.cs" />
     <Compile Include="Types\SParticleEmitterLODLevel.cs" />
     <Compile Include="Types\SSeedKeyValue.cs" />
-    <Compile Include="VariableListNode.cs" />
     <Compile Include="W3ReaderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
