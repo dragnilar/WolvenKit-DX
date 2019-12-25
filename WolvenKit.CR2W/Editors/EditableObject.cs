@@ -42,10 +42,20 @@ namespace WolvenKit.CR2W.Editors
 
         public void AddVariable(CVariable var)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("Editable objects cannot have variables added to them.");
         }
 
         public void RemoveVariable(IEditableVariable child)
+        {
+            throw new NotSupportedException("Editable objects cannot have their variables removed.");
+        }
+
+        public CVariable SetValue(object val)
+        {
+            return null;
+        }
+
+        public object GetValue()
         {
             throw new NotImplementedException();
         }

@@ -88,6 +88,12 @@ namespace WolvenKit.CR2W.Types
             return this;
         }
 
+        public object GetValue()
+        {
+            return this;
+        }
+
+
         public virtual CVariable Copy(CR2WCopyAction context)
         {
             var var = Create(context.DestinationFile);

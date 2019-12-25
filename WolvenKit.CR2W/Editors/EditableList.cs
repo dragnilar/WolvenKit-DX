@@ -63,6 +63,16 @@ namespace WolvenKit.CR2W.Editors
             }
         }
 
+        public CVariable SetValue(object val)
+        {
+            return null;
+        }
+
+        public object GetValue()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override string ToString()
         {
             return "";

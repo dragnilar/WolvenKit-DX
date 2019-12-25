@@ -135,6 +135,16 @@ namespace WolvenKit.CR2W
         {
         }
 
+        public CVariable SetValue(object val)
+        {
+            return null;
+        }
+
+        public object GetValue()
+        {
+            return null;
+        }
+
         public void Read(BinaryReader file)
         {
             Flags = file.ReadUInt16();
