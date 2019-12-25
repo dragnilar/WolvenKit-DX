@@ -3,61 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-using WolvenKit.W3Strings;
 
 namespace WolvenKit.Bundles
 {
     public class Metadata_Store
     {
-        #region Info
-        public byte[] IDString = { 0x03, 0x56, 0x54, 0x4D }; // ".VTM"
-        public Int32 Version = 6;
-        public Int32 MaxFileSizeInBundle;
-        public Int32 MaxFileSIzeInMemory;
-        #endregion
+        private readonly List<int> Buffers = new List<int>();
+        private readonly TDynArray<UBundleInfo> bundleInfoList;
+        private readonly TDynArray<UDirInitInfo> dirInitInfoList;
+        private readonly TDynArray<UFileEntryInfo> fileEntryInfoList;
+        private readonly TDynArray<UFileInfo> fileInfoList;
+        private readonly TDynArray<UFileInitInfo> fileInitInfoList;
 
         public byte[] FileStringTable;
-        TDynArray<UFileInfo> fileInfoList;
-        TDynArray<UFileEntryInfo> fileEntryInfoList;
-        TDynArray<UBundleInfo> bundleInfoList;
-        List<Int32> Buffers = new List<int>();
-        TDynArray<UDirInitInfo> dirInitInfoList;
-        TDynArray<UFileInitInfo> fileInitInfoList;
-        TDynArray<UHash> hashes;
-
-        public void cwdump(object obj,BinaryReader br)
-        {
-            Console.WriteLine("Dumping object: " + obj.GetType().Name);
-            Console.WriteLine(ObjectDumper.Dump(obj));
-            Console.WriteLine("Br is at: " + br.BaseStream.Position + "[0x"+ br.BaseStream.Position.ToString("X") + "] left: " + ((int)br.BaseStream.Length-br.BaseStream.Position) + "[0x" + ((int)br.BaseStream.Length-br.BaseStream.Position).ToString("X") + "]");
-            Console.WriteLine();
-
-        }
-
-        public static string ReadCR2WString(BinaryReader br, int len = 0)
-        {
-            if (br.BaseStream.Position >= br.BaseStream.Length)
-                throw new IndexOutOfRangeException();
-            string str = null;
-            if (len > 0)
-            {
-                str = Encoding.Default.GetString(br.ReadBytes(len));
-            }
-            else
-            {
-                bool shouldread = true;
-                while (shouldread)
-                {
-                    if (br.BaseStream.Position >= br.BaseStream.Length) //mallformed string not closed by '\0' properly
-                        throw new IndexOutOfRangeException();
-                    var c = br.ReadByte();
-                    str += (char)c;
-                    shouldread = (c != 0);
-                }
-            }
-            return str;
-        }
+        private readonly TDynArray<UHash> hashes;
 
         public Metadata_Store(string filepath)
         {
@@ -87,7 +46,7 @@ namespace WolvenKit.Bundles
                 //Read the file infos
                 fileInfoList = new TDynArray<UFileInfo>();
                 fileInfoList.Deserialize(br);
-                
+
 
                 using (var ms = new MemoryStream(FileStringTable))
                 {
@@ -104,7 +63,7 @@ namespace WolvenKit.Bundles
                 //Read the file entry infos
                 fileEntryInfoList = new TDynArray<UFileEntryInfo>();
                 fileEntryInfoList.Deserialize(br);
-                
+
                 //Read the Bundle Infos
                 bundleInfoList = new TDynArray<UBundleInfo>();
                 bundleInfoList.Deserialize(br);
@@ -112,13 +71,9 @@ namespace WolvenKit.Bundles
                 //Read the buffers
                 var buffercount = br.ReadVLQInt32();
                 if (buffercount > 0)
-                {
-                    for (int i = 0;i < buffercount;i++)
-                    {
+                    for (var i = 0; i < buffercount; i++)
                         Buffers.Add(br.ReadInt32());
-                    }
-                }
-         
+
                 //Read dir initialization infos
                 dirInitInfoList = new TDynArray<UDirInitInfo>();
                 dirInitInfoList.Deserialize(br);
@@ -131,29 +86,72 @@ namespace WolvenKit.Bundles
                 hashes = new TDynArray<UHash>();
                 hashes.Deserialize(br);
 
-                if(br.BaseStream.Position == br.BaseStream.Length)
+                if (br.BaseStream.Position == br.BaseStream.Length)
                     Console.WriteLine("Succesfully read everything!");
                 else
+                    Console.WriteLine(
+                        $"Reader is at {br.BaseStream.Position} bytes. The length of the file is {br.BaseStream.Length} bytes.\n{br.BaseStream.Length - br.BaseStream.Position} bytes wasn't read.");
+            }
+        }
+
+        public void cwdump(object obj, BinaryReader br)
+        {
+            Console.WriteLine("Dumping object: " + obj.GetType().Name);
+            Console.WriteLine(ObjectDumper.Dump(obj));
+            Console.WriteLine("Br is at: " + br.BaseStream.Position + "[0x" + br.BaseStream.Position.ToString("X") +
+                              "] left: " + ((int) br.BaseStream.Length - br.BaseStream.Position) + "[0x" +
+                              ((int) br.BaseStream.Length - br.BaseStream.Position).ToString("X") + "]");
+            Console.WriteLine();
+        }
+
+        public static string ReadCR2WString(BinaryReader br, int len = 0)
+        {
+            if (br.BaseStream.Position >= br.BaseStream.Length)
+                throw new IndexOutOfRangeException();
+            string str = null;
+            if (len > 0)
+            {
+                str = Encoding.Default.GetString(br.ReadBytes(len));
+            }
+            else
+            {
+                var shouldread = true;
+                while (shouldread)
                 {
-                    Console.WriteLine($"Reader is at {br.BaseStream.Position} bytes. The length of the file is { br.BaseStream.Length} bytes.\n{ br.BaseStream.Length-br.BaseStream.Position} bytes wasn't read.");
+                    if (br.BaseStream.Position >= br.BaseStream.Length) //mallformed string not closed by '\0' properly
+                        throw new IndexOutOfRangeException();
+                    var c = br.ReadByte();
+                    str += (char) c;
+                    shouldread = c != 0;
                 }
             }
+
+            return str;
         }
 
         public void Write(string OutPutPath, params Bundle[] Bundles)
         {
             //TODO: Code this when everything is figured out.
         }
+
+        #region Info
+
+        public byte[] IDString = {0x03, 0x56, 0x54, 0x4D}; // ".VTM"
+        public int Version = 6;
+        public int MaxFileSizeInBundle;
+        public int MaxFileSIzeInMemory;
+
+        #endregion
     }
 
     public class UBundleInfo : ISerializable
     {
-        public UInt32 Name;
-        public UInt32 FirstFileEntry;
-        public UInt32 NumBundleEntries;
-        public UInt32 DataBlockSize;
-        public UInt32 DataBlockOffset;
-        public UInt32 BurstDataBlockSize;
+        public uint BurstDataBlockSize;
+        public uint DataBlockOffset;
+        public uint DataBlockSize;
+        public uint FirstFileEntry;
+        public uint Name;
+        public uint NumBundleEntries;
 
         public void Deserialize(BinaryReader reader)
         {
@@ -173,16 +171,16 @@ namespace WolvenKit.Bundles
 
     public class UFileInfo : ISerializable
     {
+        public uint bufferid;
+        public uint CompressionType;
+        public uint FirstEntry;
+        public uint hasbuffer;
         public string path;
+        public uint PathHash;
+        public uint SizeInBundle;
+        public uint SizeInMemory;
 
-        public UInt32 StringTableNameOffset;
-        public UInt32 PathHash;
-        public UInt32 SizeInBundle;
-        public UInt32 SizeInMemory;
-        public UInt32  FirstEntry;
-        public UInt32 CompressionType;
-        public UInt32 bufferid;
-        public UInt32 hasbuffer;
+        public uint StringTableNameOffset;
 
         public void Deserialize(BinaryReader reader)
         {
@@ -198,17 +196,16 @@ namespace WolvenKit.Bundles
 
         public void Serialize(BinaryWriter writer)
         {
-            
         }
     }
 
     public class UFileEntryInfo : ISerializable
     {
-        public UInt32 FileID;
-        public UInt32 BundleID;
-        public UInt32 OffsetInBundle;
-        public UInt32 SizeInBundle;
-        public UInt32 NextEntry;
+        public uint BundleID;
+        public uint FileID;
+        public uint NextEntry;
+        public uint OffsetInBundle;
+        public uint SizeInBundle;
 
         public void Deserialize(BinaryReader reader)
         {
@@ -227,8 +224,8 @@ namespace WolvenKit.Bundles
 
     public class UDirInitInfo : ISerializable
     {
-        public Int32 Name;
-        public Int32 Parent;
+        public int Name;
+        public int Parent;
 
         public void Deserialize(BinaryReader reader)
         {
@@ -244,9 +241,9 @@ namespace WolvenKit.Bundles
 
     public class UFileInitInfo : ISerializable
     {
-        public Int32 FileIF;
-        public Int32 DirID;
-        public Int32 Name;
+        public int DirID;
+        public int FileIF;
+        public int Name;
 
         public void Deserialize(BinaryReader reader)
         {
@@ -263,8 +260,8 @@ namespace WolvenKit.Bundles
 
     public class UHash : ISerializable
     {
-        public Int64 Hash;
-        public Int64 Unk2; //Some count thing
+        public long Hash;
+        public long Unk2; //Some count thing
 
         public void Deserialize(BinaryReader reader)
         {

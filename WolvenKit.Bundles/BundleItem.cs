@@ -10,18 +10,18 @@ namespace WolvenKit.Bundles
 {
     public class BundleItem : IWitcherFile
     {
-        public IWitcherArchiveType Bundle { get; set; }
-        public string Name { get; set; }
         public byte[] Hash { get; set; }
         public uint Empty { get; set; }
-        public long Size { get; set; }
-        public uint ZSize { get; set; }
-        public long PageOFfset { get; set; }
         public ulong TimeStamp { get; set; }
         public byte[] Zero { get; set; }
         public uint CRC { get; set; }
         public uint Compression { get; set; }
         public string DateString { get; set; }
+        public IWitcherArchiveType Bundle { get; set; }
+        public string Name { get; set; }
+        public long Size { get; set; }
+        public uint ZSize { get; set; }
+        public long PageOFfset { get; set; }
 
         public string CompressionType
         {
@@ -73,7 +73,7 @@ namespace WolvenKit.Bundles
                             var buffer = new byte[ZSize];
                             var c = viewstream.Read(buffer, 0, buffer.Length);
                             var uncompressed = SnappyCodec.Uncompress(buffer);
-                            output.Write(uncompressed,0,uncompressed.Length);
+                            output.Write(uncompressed, 0, uncompressed.Length);
                             break;
                         }
                         case "Doboz":

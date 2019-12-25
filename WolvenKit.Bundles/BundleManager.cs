@@ -18,11 +18,12 @@ namespace WolvenKit.Bundles
             AutocompleteSource = new AutoCompleteStringCollection();
         }
 
-        public Dictionary<string, List<IWitcherFile>> Items { get; set; }
         public Dictionary<string, Bundle> Bundles { get; set; }
+
+        public Dictionary<string, List<IWitcherFile>> Items { get; set; }
         public WitcherTreeNode RootNode { get; set; }
         public List<IWitcherFile> FileList { get; set; }
-        public string TypeName { get { return new Bundle().TypeName; } }
+        public string TypeName => new Bundle().TypeName;
         public List<string> Extensions { get; set; }
         public AutoCompleteStringCollection AutocompleteSource { get; set; }
 
@@ -43,7 +44,7 @@ namespace WolvenKit.Bundles
                 if (!Items.ContainsKey(GetModFolder(filename) + "\\" + item.Key))
                     Items.Add(GetModFolder(filename) + "\\" + item.Key, new List<IWitcherFile>());
 
-                Items[GetModFolder(filename) + "\\" +item.Key].Add(item.Value);
+                Items[GetModFolder(filename) + "\\" + item.Key].Add(item.Value);
             }
 
             Bundles.Add(filename, bundle);
@@ -81,34 +82,33 @@ namespace WolvenKit.Bundles
 
             var contentdirs = new List<string>(Directory.GetDirectories(content, "content*"));
             contentdirs.Sort(new AlphanumComparator<string>());
-            foreach (var file in contentdirs.SelectMany(dir => Directory.GetFiles(dir, "*.bundle", SearchOption.AllDirectories)))
-            {
-                LoadBundle(file);
-            }
+            foreach (var file in contentdirs.SelectMany(dir =>
+                Directory.GetFiles(dir, "*.bundle", SearchOption.AllDirectories))) LoadBundle(file);
 
             var patchdirs = new List<string>(Directory.GetDirectories(content, "patch*"));
             patchdirs.Sort(new AlphanumComparator<string>());
-            foreach (var file in patchdirs.SelectMany(dir => Directory.GetFiles(dir, "*.bundle", SearchOption.AllDirectories)))
-            {
-                LoadBundle(file);
-            }
+            foreach (var file in patchdirs.SelectMany(dir =>
+                Directory.GetFiles(dir, "*.bundle", SearchOption.AllDirectories))) LoadBundle(file);
 
             var dlc = Path.Combine(exedir, @"..\..\DLC\");
             if (Directory.Exists(dlc))
             {
                 var dlcdirs = new List<string>(Directory.GetDirectories(dlc));
                 dlcdirs.Sort(new AlphanumComparator<string>());
-                foreach (var file in dlcdirs.Where(dir => new Regex("(DLC..)|(DLC.)|(BOB)|(ep.)|(bob)|(EP.)").IsMatch(Path.GetFileName(dir ?? ""))).SelectMany(dir => Directory.GetFiles(dir ?? "", "*.bundle", SearchOption.AllDirectories).OrderBy(k => k)))
-                {
+                foreach (var file in dlcdirs
+                    .Where(dir =>
+                        new Regex("(DLC..)|(DLC.)|(BOB)|(ep.)|(bob)|(EP.)").IsMatch(Path.GetFileName(dir ?? "")))
+                    .SelectMany(dir =>
+                        Directory.GetFiles(dir ?? "", "*.bundle", SearchOption.AllDirectories).OrderBy(k => k)))
                     LoadBundle(file);
-                }
             }
+
             RebuildRootNode();
         }
 
         /// <summary>
-        /// Loads the .bundle files from the /Mods/ folder
-        /// Note this resets everything
+        ///     Loads the .bundle files from the /Mods/ folder
+        ///     Note this resets everything
         /// </summary>
         /// <param name="exedir"></param>
         public void LoadModsBundles(string exedir)
@@ -118,31 +118,31 @@ namespace WolvenKit.Bundles
                 Directory.CreateDirectory(mods);
             var modsdirs = new List<string>(Directory.GetDirectories(mods));
             modsdirs.Sort(new AlphanumComparator<string>());
-            var modbundles = modsdirs.SelectMany(dir => Directory.GetFiles(dir, "*.bundle", SearchOption.AllDirectories)).ToList();
-            foreach (var file in modbundles)
-            {
-                LoadModBundle(file);
-            }
+            var modbundles = modsdirs
+                .SelectMany(dir => Directory.GetFiles(dir, "*.bundle", SearchOption.AllDirectories)).ToList();
+            foreach (var file in modbundles) LoadModBundle(file);
 
             var dlc = Path.Combine(exedir, @"..\..\DLC\");
             if (Directory.Exists(dlc))
             {
                 var dlcdirs = new List<string>(Directory.GetDirectories(dlc));
                 dlcdirs.Sort(new AlphanumComparator<string>());
-                foreach (var file in dlcdirs.Where(dir => !new Regex("(DLC..)|(DLC.)|(BOB)|(bob)|(EP.)|(ep.)").IsMatch(Path.GetFileName(dir ?? ""))).SelectMany(dir => Directory.GetFiles(dir ?? "", "*.bundle", SearchOption.AllDirectories).OrderBy(k => k)))
-                {
+                foreach (var file in dlcdirs
+                    .Where(dir =>
+                        !new Regex("(DLC..)|(DLC.)|(BOB)|(bob)|(EP.)|(ep.)").IsMatch(Path.GetFileName(dir ?? "")))
+                    .SelectMany(dir =>
+                        Directory.GetFiles(dir ?? "", "*.bundle", SearchOption.AllDirectories).OrderBy(k => k)))
                     LoadModBundle(file);
-                }
             }
+
             RebuildRootNode();
         }
 
         public static string GetModFolder(string path)
         {
             if (path.Split('\\').Length > 3 && path.Split('\\').Contains("content"))
-            {
-                return path.Split('\\')[path.Split('\\').ToList().IndexOf(path.Split('\\').FirstOrDefault(x => x == "content")) - 1];
-            }
+                return path.Split('\\')[
+                    path.Split('\\').ToList().IndexOf(path.Split('\\').FirstOrDefault(x => x == "content")) - 1];
             return path;
         }
 
@@ -159,7 +159,6 @@ namespace WolvenKit.Bundles
                 var parts = item.Key.Split('\\');
 
                 for (var i = 0; i < parts.Length - 1; i++)
-                {
                     if (!currentNode.Directories.ContainsKey(parts[i]))
                     {
                         var newNode = new WitcherTreeNode
@@ -174,17 +173,17 @@ namespace WolvenKit.Bundles
                     {
                         currentNode = currentNode.Directories[parts[i]];
                     }
-                }
 
                 currentNode.Files.Add(parts[parts.Length - 1], item.Value);
             }
+
             RebuildFileList();
             RebuildExtensions();
             RebuildAutoCompleteSource();
         }
 
         /// <summary>
-        /// Calls GetFiles on the rootnode
+        ///     Calls GetFiles on the rootnode
         /// </summary>
         public void RebuildFileList()
         {
@@ -192,19 +191,17 @@ namespace WolvenKit.Bundles
         }
 
         /// <summary>
-        /// Gets the avaliable extensions in the files
+        ///     Gets the avaliable extensions in the files
         /// </summary>
         public void RebuildExtensions()
         {
             foreach (var file in FileList.Where(file => !Extensions.Contains(file.Name.Split('.').Last())))
-            {
                 Extensions.Add(file.Name.Split('.').Last());
-            }
             Extensions.Sort();
         }
 
         /// <summary>
-        /// Gets the distinct filenames from the loaded bundles so they can be used for autocomplete
+        ///     Gets the distinct filenames from the loaded bundles so they can be used for autocomplete
         /// </summary>
         public void RebuildAutoCompleteSource()
         {
@@ -212,7 +209,7 @@ namespace WolvenKit.Bundles
         }
 
         /// <summary>
-        /// Deep search for files
+        ///     Deep search for files
         /// </summary>
         /// <param name="mainnode">The rootnode to get the files from</param>
         /// <returns></returns>
@@ -221,17 +218,15 @@ namespace WolvenKit.Bundles
             var bundfiles = new List<IWitcherFile>();
             if (mainnode?.Files != null)
             {
-                foreach (var wfile in mainnode.Files)
-                {
-                    bundfiles.AddRange(wfile.Value);
-                }
+                foreach (var wfile in mainnode.Files) bundfiles.AddRange(wfile.Value);
                 bundfiles.AddRange(mainnode.Directories.Values.SelectMany(GetFiles));
             }
+
             return bundfiles;
         }
 
         /// <summary>
-        /// Since File.GetFileName() only works for real paths we need to have this
+        ///     Since File.GetFileName() only works for real paths we need to have this
         /// </summary>
         /// <param name="s">Path/Name of the file</param>
         /// <returns></returns>
