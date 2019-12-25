@@ -36,7 +36,7 @@ namespace WolvenKit.StringEncoder
             }
 
 
-            Application.Run(new frmStringsGui(w3Mod, true));
+            Application.Run(new StringEncoderView(w3Mod, true));
         }
     }
 }

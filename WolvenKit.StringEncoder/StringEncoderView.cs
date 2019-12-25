@@ -25,7 +25,7 @@ namespace WolvenKit.StringEncoder
         GROUP
     }
 
-    public partial class frmStringsGui : XtraForm
+    public partial class StringEncoderView : XtraForm
     {
         private readonly W3Mod activeMod;
         private readonly List<string> groups = new List<string>();
@@ -53,7 +53,7 @@ namespace WolvenKit.StringEncoder
         private object SeperateLanguagesVal;
         private bool BringToFront;
 
-        public frmStringsGui(W3Mod mod, bool bringToFront = false)
+        public StringEncoderView(W3Mod mod, bool bringToFront = false)
         {
             InitializeComponent();
             activeMod = mod;

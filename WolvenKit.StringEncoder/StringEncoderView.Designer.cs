@@ -1,6 +1,6 @@
 ﻿namespace WolvenKit.StringEncoder
 {
-	partial class frmStringsGui
+	partial class StringEncoderView
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStringsGui));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StringEncoderView));
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainerTabs = new System.Windows.Forms.SplitContainer();
             this.tabControlLanguages = new System.Windows.Forms.TabControl();
@@ -470,8 +470,8 @@
             this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmStringsGui.IconOptions.Icon")));
             this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("frmStringsGui.IconOptions.Image")));
             this.MinimumSize = new System.Drawing.Size(1184, 39);
-            this.Name = "frmStringsGui";
-            this.Text = "Automated Strings GUI";
+            this.Name = "StringEncoderView";
+            this.Text = "Wolvenkit DX String Encoder";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
