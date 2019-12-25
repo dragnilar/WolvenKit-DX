@@ -27,6 +27,7 @@ namespace WolvenKit.Controls
             if (gridViewChunkEditor.GetRow(e.RowHandle) is CR2WChunk selectedRow)
             {
                 chunkPropertyViewerControl.Chunk = selectedRow;
+                chunkListPropertyEditor1.Chunk = selectedRow;
             }
         }
 

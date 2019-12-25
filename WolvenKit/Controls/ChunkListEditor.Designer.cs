@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControlChunkEditor = new DevExpress.XtraLayout.LayoutControl();
+            this.chunkListPropertyEditor1 = new WolvenKit.Controls.ChunkListPropertyEditor();
             this.gridControlChunkEditor = new DevExpress.XtraGrid.GridControl();
             this.gridViewChunkEditor = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumnChunkIndex = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -39,6 +40,8 @@
             this.lciChunkProperties = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitterChunkListEditor = new DevExpress.XtraLayout.SplitterItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlChunkEditor)).BeginInit();
             this.layoutControlChunkEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlChunkEditor)).BeginInit();
@@ -47,10 +50,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.lciChunkProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterChunkListEditor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControlChunkEditor
             // 
+            this.layoutControlChunkEditor.Controls.Add(this.chunkListPropertyEditor1);
             this.layoutControlChunkEditor.Controls.Add(this.gridControlChunkEditor);
             this.layoutControlChunkEditor.Controls.Add(this.chunkPropertyViewerControl);
             this.layoutControlChunkEditor.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -61,12 +67,21 @@
             this.layoutControlChunkEditor.TabIndex = 0;
             this.layoutControlChunkEditor.Text = "layoutControl1";
             // 
+            // chunkListPropertyEditor1
+            // 
+            this.chunkListPropertyEditor1.Chunk = null;
+            this.chunkListPropertyEditor1.EditObject = null;
+            this.chunkListPropertyEditor1.Location = new System.Drawing.Point(12, 687);
+            this.chunkListPropertyEditor1.Name = "chunkListPropertyEditor1";
+            this.chunkListPropertyEditor1.Size = new System.Drawing.Size(855, 27);
+            this.chunkListPropertyEditor1.TabIndex = 7;
+            // 
             // gridControlChunkEditor
             // 
             this.gridControlChunkEditor.Location = new System.Drawing.Point(12, 12);
             this.gridControlChunkEditor.MainView = this.gridViewChunkEditor;
             this.gridControlChunkEditor.Name = "gridControlChunkEditor";
-            this.gridControlChunkEditor.Size = new System.Drawing.Size(855, 330);
+            this.gridControlChunkEditor.Size = new System.Drawing.Size(855, 364);
             this.gridControlChunkEditor.TabIndex = 6;
             this.gridControlChunkEditor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewChunkEditor});
@@ -117,9 +132,9 @@
             this.chunkPropertyViewerControl.Appearance.Options.UseFont = true;
             this.chunkPropertyViewerControl.Chunk = null;
             this.chunkPropertyViewerControl.EditObject = null;
-            this.chunkPropertyViewerControl.Location = new System.Drawing.Point(12, 356);
+            this.chunkPropertyViewerControl.Location = new System.Drawing.Point(12, 390);
             this.chunkPropertyViewerControl.Name = "chunkPropertyViewerControl";
-            this.chunkPropertyViewerControl.Size = new System.Drawing.Size(855, 358);
+            this.chunkPropertyViewerControl.Size = new System.Drawing.Size(855, 283);
             this.chunkPropertyViewerControl.Source = null;
             this.chunkPropertyViewerControl.TabIndex = 5;
             // 
@@ -130,7 +145,9 @@
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciChunkProperties,
             this.splitterChunkListEditor,
-            this.layoutControlItem1});
+            this.layoutControlItem1,
+            this.layoutControlItem2,
+            this.splitterItem1});
             this.Root.Name = "Root";
             this.Root.Size = new System.Drawing.Size(879, 726);
             this.Root.TextVisible = false;
@@ -138,16 +155,16 @@
             // lciChunkProperties
             // 
             this.lciChunkProperties.Control = this.chunkPropertyViewerControl;
-            this.lciChunkProperties.Location = new System.Drawing.Point(0, 344);
+            this.lciChunkProperties.Location = new System.Drawing.Point(0, 378);
             this.lciChunkProperties.Name = "lciChunkProperties";
-            this.lciChunkProperties.Size = new System.Drawing.Size(859, 362);
+            this.lciChunkProperties.Size = new System.Drawing.Size(859, 287);
             this.lciChunkProperties.TextSize = new System.Drawing.Size(0, 0);
             this.lciChunkProperties.TextVisible = false;
             // 
             // splitterChunkListEditor
             // 
             this.splitterChunkListEditor.AllowHotTrack = true;
-            this.splitterChunkListEditor.Location = new System.Drawing.Point(0, 334);
+            this.splitterChunkListEditor.Location = new System.Drawing.Point(0, 368);
             this.splitterChunkListEditor.Name = "splitterChunkListEditor";
             this.splitterChunkListEditor.Size = new System.Drawing.Size(859, 10);
             // 
@@ -156,9 +173,25 @@
             this.layoutControlItem1.Control = this.gridControlChunkEditor;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(859, 334);
+            this.layoutControlItem1.Size = new System.Drawing.Size(859, 368);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.chunkListPropertyEditor1;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 675);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(859, 31);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.Location = new System.Drawing.Point(0, 665);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(859, 10);
             // 
             // ChunkListEditor
             // 
@@ -175,6 +208,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lciChunkProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterChunkListEditor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -192,5 +227,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnChunkIndex;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnName;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnPreview;
+        private ChunkListPropertyEditor chunkListPropertyEditor1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.SplitterItem splitterItem1;
     }
 }

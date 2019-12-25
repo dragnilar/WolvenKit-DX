@@ -22,8 +22,8 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -48,12 +48,14 @@
             this.treeListChunkProperties.Size = new System.Drawing.Size(850, 450);
             this.treeListChunkProperties.TabIndex = 0;
             this.treeListChunkProperties.CustomNodeCellEdit += new DevExpress.XtraTreeList.GetCustomNodeCellEditEventHandler(this.treeListChunkProperties_CustomNodeCellEdit);
+            this.treeListChunkProperties.BeforeExpand += new DevExpress.XtraTreeList.BeforeExpandEventHandler(this.treeListChunkProperties_BeforeExpand);
             // 
             // treeListColumnName
             // 
             this.treeListColumnName.Caption = "Name";
             this.treeListColumnName.FieldName = "Name";
             this.treeListColumnName.Name = "treeListColumnName";
+            this.treeListColumnName.OptionsColumn.AllowEdit = false;
             this.treeListColumnName.Visible = true;
             this.treeListColumnName.VisibleIndex = 0;
             this.treeListColumnName.Width = 298;

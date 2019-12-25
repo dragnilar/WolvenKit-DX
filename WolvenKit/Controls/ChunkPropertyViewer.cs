@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
+using WolvenKit.Models;
 
 namespace WolvenKit
 {
@@ -100,7 +101,10 @@ namespace WolvenKit
             var vars = v.GetEditableVariables();
             if (vars != null)
                 for (var i = 0; i < vars.Count; i++)
+                {
                     node.Children.Add(AddListViewItems(vars[i], node, i));
+                }
+
 
             return node;
         }

@@ -24,7 +24,7 @@ namespace WolvenKit.Forms
             simpleButtonClose.Click += SimpleButtonCloseOnClick;
             simpleButtonExport.Click += SimpleButtonExportOnClick;
             simpleButtonImport.Click += SimpleButtonImportOnClick;
-            
+
         }
 
         private void SimpleButtonImportOnClick(object sender, EventArgs e)

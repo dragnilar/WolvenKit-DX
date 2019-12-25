@@ -1,56 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
 using W3SavegameEditor.Core.Savegame.Values;
+using W3SavegameEditor.Core.Savegame.Variables;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
+using WolvenKit.Models;
 
 namespace WolvenKit.Controls
 {
-    public partial class ChunkListPropertyEditor : DevExpress.XtraEditors.XtraUserControl
+    public partial class ChunkListPropertyEditor : XtraUserControl
     {
+        private CR2WChunk chunk;
+
+        //TODO - These button edits show modal dialogs to edit the actual variable; W3Edit and WK used inline controls. 
+        //They would have to be recreated as custom repository items in order to be made edit-able inline. I don't feel like making those ATM.
+        private readonly RepositoryItemButtonEdit repoItemByteArrayEditButton = new RepositoryItemButtonEdit();
+        private readonly RepositoryItemComboBox repoItemComboBoxEdit = new RepositoryItemComboBox();
+        private readonly RepositoryItemDateEdit repoItemDateEdit = new RepositoryItemDateEdit();
+        private readonly RepositoryItemButtonEdit repoItemIdTagButtonEdit = new RepositoryItemButtonEdit();
+        private readonly RepositoryItemButtonEdit repoItemPointArrayEditButton = new RepositoryItemButtonEdit();
+
+        private readonly RepositoryItemSpinEdit repoItemSpinEdit = new RepositoryItemSpinEdit();
+
         //TODO - The entire way the CR2W types and their editors are handled needs to be refactored for the DX Tree List
         //There are a lot of custom controls being used for the various types and I am feeling that it isn't a very nice editing
         //experience to be having to manually edit the types in the tree anyway. I think having separate windows may be a better idea.
         //For now this control will not be accessible within WKDX.
-        RepositoryItemTextEdit repoItemTextEdit = new RepositoryItemTextEdit();
-        RepositoryItemColorPickEdit repositoryItemColorPickEdit = new RepositoryItemColorPickEdit();
-        RepositoryItemComboBox repoItemComboBoxEdit = new RepositoryItemComboBox();
-        RepositoryItemSpinEdit repoItemSpinEdit = new RepositoryItemSpinEdit();
-        RepositoryItemDateEdit repoItemDateEdit = new RepositoryItemDateEdit();
-        RepositoryItemCheckEdit repositoryItemCheckEdit = new RepositoryItemCheckEdit();
-
-        //TODO - These button edits show modal dialogs to edit the actual variable; W3Edit and WK used inline controls. 
-        //They would have to be recreated as custom repository items in order to be made edit-able inline. I don't feel like making those ATM.
-        RepositoryItemButtonEdit repoItemByteArrayEditButton = new RepositoryItemButtonEdit();
-        RepositoryItemButtonEdit repoItemPointArrayEditButton = new RepositoryItemButtonEdit();
-        RepositoryItemButtonEdit repoItemXmlButtonEdit = new RepositoryItemButtonEdit();
-        RepositoryItemButtonEdit repoItemIdTagButtonEdit = new RepositoryItemButtonEdit();
+        private readonly RepositoryItemTextEdit repoItemTextEdit = new RepositoryItemTextEdit();
+        private readonly RepositoryItemButtonEdit repoItemXmlButtonEdit = new RepositoryItemButtonEdit();
+        private readonly RepositoryItemCheckEdit repositoryItemCheckEdit = new RepositoryItemCheckEdit();
+        private readonly RepositoryItemColorPickEdit repositoryItemColorPickEdit = new RepositoryItemColorPickEdit();
 
         public ChunkListPropertyEditor()
         {
             InitializeComponent();
-            repoItemByteArrayEditButton.Click += RepoItemByteArrayEditButtonOnClick;
+            repoItemByteArrayEditButton.ButtonClick += RepoItemByteArrayEditButtonOnClick;
         }
 
-        private void RepoItemByteArrayEditButtonOnClick(object sender, EventArgs e)
-        {
-            var byteArrayDialog = new ByteArrayDialogView {StartPosition = FormStartPosition.CenterScreen};
-            byteArrayDialog.Show();
-        }
-
-        private CR2WChunk chunk;
         public CR2WChunk Chunk
         {
             get => chunk;
@@ -62,55 +57,71 @@ namespace WolvenKit.Controls
         }
 
         public IEditableVariable EditObject { get; set; }
-        public object Source { get; set; }
 
-        public void CreatePropertyLayout(IEditableVariable v)
+        private void RepoItemByteArrayEditButtonOnClick(object sender, ButtonPressedEventArgs  e)
         {
-            if (EditObject != v)
-            {
-                EditObject = v;
+            var data = treeListChunkProperties.GetFocusedRow() as VariableListNode;
+            if (data == null) return;
+            var byteArrayDialog = new ByteArrayDialogView {StartPosition = FormStartPosition.CenterScreen, Variable = data.Variable.GetValue() as CByteArray };
+            byteArrayDialog.ShowDialog();
+            byteArrayDialog.Dispose();
+        }
 
-
-                if (v == null)
-                {
-                    treeListChunkProperties.RootValue = null;
-                    return;
-                }
-
-                var root = AddListViewItems(v);
-
-                treeListChunkProperties.RootValue = root.Children;
-                treeListChunkProperties.Refresh();
-                treeListChunkProperties.ExpandAll();
-            }
+        public void CreatePropertyLayout(IEditableVariable variable)
+        {
+            if (EditObject == variable) return;
+            EditObject = variable;
+            if (variable == null)
+                return;
+            treeListChunkProperties.DataSource = BuildTreeListItems(variable);
         }
 
 
-        private VariableListNode AddListViewItems(IEditableVariable v, VariableListNode parent = null,
-            int arrayindex = 0)
+        private VariableListNode BuildTreeListItems(IEditableVariable variable, TreeListNode parent = null, VariableListNode actualParent = null)
         {
             var node = new VariableListNode
             {
-                Variable = v,
-                Children = new List<VariableListNode>(),
-                Parent = parent
+                Variable = variable,
+                Children = new List<VariableListNode>()
             };
-            var vars = v.GetEditableVariables();
-            if (vars != null)
-                for (var i = 0; i < vars.Count; i++)
-                    node.Children.Add(AddListViewItems(vars[i], node, i));
+            var treeNode = treeListChunkProperties.AppendNode(node, parent, actualParent);
+            try
+            {
+                var editableVariables = variable.GetEditableVariables();
+                if (editableVariables == null) return node;
+                foreach (var editableVariable in editableVariables)
+                    node.Children.Add(BuildTreeListItems(editableVariable, treeNode, node));
 
-            return node;
+                return node;
+            }
+
+            catch (Exception e)
+            {
+                MainController.Get().QueueLog(
+                    "Error loading nodes for the chunk list property editor.\nThe chunk list property editor may not be fully initialized." +
+                    $"\n {e}", OutputView.Logtype.Error);
+                return node;
+            }
         }
 
-        private void treeListChunkProperties_CustomNodeCellEdit(object sender, DevExpress.XtraTreeList.GetCustomNodeCellEditEventArgs e)
+        private void treeListChunkProperties_BeforeExpand(object sender, BeforeExpandEventArgs e)
+        {
+            //TODO - Do we need this?
+        }
+
+
+        private void treeView_ItemsChanged(object sender, ItemsChangedEventArgs e)
+        {
+            MainController.Get().ProjectUnsaved = true;
+        }
+
+        private void treeListChunkProperties_CustomNodeCellEdit(object sender, GetCustomNodeCellEditEventArgs e)
         {
             var row = treeListChunkProperties.GetRow(e.Node.Id);
             var variable = (row as VariableListNode)?.Variable;
             if (variable != null)
             {
                 if (e.Column == treeListColumnValue)
-                { 
                     //TODO - Implement these below...
                     //CColorShift - ColorPickEdit (uses three different subtypes like luminance, etc.)
                     //CName - Can be ComboBoxEdit or TextEdit (lame)
@@ -166,15 +177,25 @@ namespace WolvenKit.Controls
                             e.RepositoryItem = repoItemTextEdit;
                             break;
                     }
-
-                }
-                else if (e.Column  == treeListColumnName)
-                {
-                    e.RepositoryItem = repoItemTextEdit;
-                }
+                else if (e.Column == treeListColumnName) e.RepositoryItem = repoItemTextEdit;
             }
         }
 
+        // This event is generated by Data Source Configuration Wizard
+        void unboundSource1_ValueNeeded(object sender, DevExpress.Data.UnboundSourceValueNeededEventArgs e)
+        {
+
+            // Handle this event to obtain data from your data source
+            // e.Value = something /* TODO: Assign the real data here.*/
+        }
+
+        // This event is generated by Data Source Configuration Wizard
+        void unboundSource1_ValuePushed(object sender, DevExpress.Data.UnboundSourceValuePushedEventArgs e)
+        {
+
+            // Handle this event to save modified data back to your data source
+            // something = e.Value; /* TODO: Propagate the value into the storage.*/
+        }
 
 
         //TODO - Replace with Dx Context Menu
@@ -371,13 +392,5 @@ namespace WolvenKit.Controls
         //            Clipboard.SetText(node.Value);
         //    }
         //}
-
-        private void treeView_ItemsChanged(object sender, ItemsChangedEventArgs e)
-        {
-            MainController.Get().ProjectUnsaved = true;
-        }
-
-
-
     }
 }
