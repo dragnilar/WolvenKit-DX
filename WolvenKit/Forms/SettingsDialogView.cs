@@ -12,7 +12,7 @@ using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace WolvenKit
 {
-    public partial class frmSettings : Form
+    public partial class SettingsDialogView : Form
     {
         public const string wcc_sha256 = "fb20d7aa45b95446baac9b376533b06b86add732cbe40fd0620e4a4feffae47b";
         public const string wcc_sha256_patched = "275faa214c6263287deea47ddbcd7afcf6c2503a76ff57f2799bc158f5af7c5d";
@@ -20,7 +20,7 @@ namespace WolvenKit
         public string wccLiteexe = string.Empty;
         public string witcherexe = string.Empty;
 
-        public frmSettings()
+        public SettingsDialogView()
         {
             InitializeComponent();
             var config = MainController.Get().Configuration;

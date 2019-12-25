@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WolvenKit
 {
-    partial class frmAssetBrowser
+    partial class AssetBrowserView
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace WolvenKit
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAssetBrowser));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetBrowserView));
             this.btOpen = new DevExpress.XtraEditors.SimpleButton();
             this.fileListView = new System.Windows.Forms.ListView();
             this.colFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -522,7 +522,7 @@ namespace WolvenKit
             this.Controls.Add(this.btOpen);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "frmAssetBrowser";
+            this.Name = "AssetBrowserView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset browser";
             this.Load += new System.EventHandler(this.frmBundleExplorer_Load);

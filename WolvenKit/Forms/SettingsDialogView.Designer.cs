@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WolvenKit
 {
-    partial class frmSettings
+    partial class SettingsDialogView
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace WolvenKit
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialogView));
             this.txExecutablePath = new System.Windows.Forms.TextBox();
             this.lblExecutable = new System.Windows.Forms.Label();
             this.btnBrowseExe = new System.Windows.Forms.Button();
@@ -220,7 +220,7 @@ namespace WolvenKit
             this.Controls.Add(this.lblExecutable);
             this.Controls.Add(this.txExecutablePath);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmSettings";
+            this.Name = "SettingsDialogView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.ResumeLayout(false);

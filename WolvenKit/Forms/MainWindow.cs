@@ -48,7 +48,7 @@ namespace WolvenKit
         private void CheckForSettings()
         {
             if (File.Exists(MainController.Get().Configuration.ExecutablePath)) return;
-            var settings = new frmSettings {StartPosition = FormStartPosition.CenterScreen};
+            var settings = new SettingsDialogView {StartPosition = FormStartPosition.CenterScreen};
             var result = settings.ShowDialog();
             if (result != DialogResult.OK)
             {
@@ -357,7 +357,7 @@ namespace WolvenKit
 
         private void barButtonItemOptions_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var settings = new frmSettings();
+            var settings = new SettingsDialogView();
             settings.ShowDialog();
         }
 
@@ -974,9 +974,9 @@ namespace WolvenKit
         {
             if (ActiveMod == null)
                 return;
-            if (Application.OpenForms.OfType<frmAssetBrowser>().Any())
+            if (Application.OpenForms.OfType<AssetBrowserView>().Any())
             {
-                var frm = Application.OpenForms.OfType<frmAssetBrowser>().First();
+                var frm = Application.OpenForms.OfType<AssetBrowserView>().First();
                 if (!string.IsNullOrEmpty(browseToPath))
                     frm.OpenPath(browseToPath);
                 frm.WindowState = FormWindowState.Minimized;
@@ -985,7 +985,7 @@ namespace WolvenKit
                 return;
             }
 
-            var explorer = new frmAssetBrowser(loadmods
+            var explorer = new AssetBrowserView(loadmods
                 ? new List<IWitcherArchive>
                 {
                     MainController.Get().ModBundleManager,

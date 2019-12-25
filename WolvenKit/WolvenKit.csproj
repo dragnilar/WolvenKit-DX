@@ -532,11 +532,11 @@
     <Compile Include="Forms\frmAddVariable.Designer.cs">
       <DependentUpon>frmAddVariable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAssetBrowser.cs">
+    <Compile Include="Forms\AssetBrowserView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAssetBrowser.Designer.cs">
-      <DependentUpon>frmAssetBrowser.cs</DependentUpon>
+    <Compile Include="Forms\AssetBrowserView.Designer.cs">
+      <DependentUpon>AssetBrowserView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ChunkListViewer.cs">
       <SubType>UserControl</SubType>
@@ -598,11 +598,11 @@
     <Compile Include="Forms\frmRenameDialog.Designer.cs">
       <DependentUpon>frmRenameDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSettings.cs">
+    <Compile Include="Forms\SettingsDialogView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmSettings.Designer.cs">
-      <DependentUpon>frmSettings.cs</DependentUpon>
+    <Compile Include="Forms\SettingsDialogView.Designer.cs">
+      <DependentUpon>SettingsDialogView.cs</DependentUpon>
     </Compile>
     <Compile Include="MainController.cs" />
     <Compile Include="Program.cs" />
@@ -648,8 +648,8 @@
       <DependentUpon>frmAddVariable.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAssetBrowser.resx">
-      <DependentUpon>frmAssetBrowser.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AssetBrowserView.resx">
+      <DependentUpon>AssetBrowserView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChunkListViewer.resx">
@@ -707,8 +707,8 @@
     <EmbeddedResource Include="Forms\frmSaveEditor.resx">
       <DependentUpon>frmSaveEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSettings.resx">
-      <DependentUpon>frmSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SettingsDialogView.resx">
+      <DependentUpon>SettingsDialogView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStringsGui.resx">
       <DependentUpon>frmStringsGui.cs</DependentUpon>

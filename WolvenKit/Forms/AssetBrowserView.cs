@@ -10,7 +10,7 @@ using WolvenKit.Common;
 
 namespace WolvenKit
 {
-    public partial class frmAssetBrowser : XtraForm
+    public partial class AssetBrowserView : XtraForm
     {
         public List<string> Autocompletelist;
         public List<IWitcherFile> FileList = new List<IWitcherFile>();
@@ -33,7 +33,7 @@ namespace WolvenKit
 
         public event EventHandler<Tuple<List<IWitcherArchive>, List<WitcherListViewItem>, bool>> RequestFileAdd;
 
-        public frmAssetBrowser(List<IWitcherArchive> archives)
+        public AssetBrowserView(List<IWitcherArchive> archives)
         {
             InitializeComponent();
             Managers = archives;
