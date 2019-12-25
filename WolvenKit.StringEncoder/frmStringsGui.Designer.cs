@@ -468,6 +468,7 @@
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmStringsGui.IconOptions.Icon")));
+            this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("frmStringsGui.IconOptions.Image")));
             this.MinimumSize = new System.Drawing.Size(1184, 39);
             this.Name = "frmStringsGui";
             this.Text = "Automated Strings GUI";
