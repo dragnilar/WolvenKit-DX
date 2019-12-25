@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Ionic.Zlib;
-using LZ4;
 using WolvenKit.Common;
 using WolvenKit.CR2W;
 
@@ -18,39 +15,40 @@ namespace WolvenKit.Cache.CollisionCache
         public const long BIT_LENGTH_64 = 2;
         public const long CACHE_BUFFER_SIZE = 4096;
 
-        public static byte[] Magic = { (byte)'C', (byte)'C', (byte)'3', (byte)'W' };
+        public static byte[] Magic = {(byte) 'C', (byte) 'C', (byte) '3', (byte) 'W'};
         public static long Version = 1;
-        public static UInt32 Unknown1 = 0x00000000;
-        public static UInt32 Unknown2 = 0x00000000;
-        public uint InfoOffset;
-        public uint NumberOfFiles;
-        public uint NameTableOffset;
-        public uint NamesSize;
+        public static uint Unknown1;
+        public static uint Unknown2;
+        public static long DataOffset = 0x30;
+        public static uint Unk3 = 1;
         public ulong Buffersize;
         public ulong CheckSum;
-        public static long DataOffset = 0x30;
-        public static UInt32 Unk3 = 1;
 
         public List<string> FileNames = new List<string>();
-        public List<CollisionCacheItem> Files = new List<CollisionCacheItem>(); 
-
-        public string TypeName => "CollisionCache";
-        public string FileName { get; set; }
+        public List<CollisionCacheItem> Files = new List<CollisionCacheItem>();
+        public uint InfoOffset;
+        public uint NamesSize;
+        public uint NameTableOffset;
+        public uint NumberOfFiles;
 
         public CollisionCache(string filename)
         {
-            this.FileName = filename;
+            FileName = filename;
             using (var br = new BinaryReader(new FileStream(filename, FileMode.Open)))
-                this.Read(br);
+            {
+                Read(br);
+            }
         }
 
         public CollisionCache()
         {
-
         }
 
+        public string TypeName => "CollisionCache";
+        public string FileName { get; set; }
+
         /// <summary>
-        /// Returns to concated null terminated names string.
+        ///     Returns to concated null terminated names string.
         /// </summary>
         /// <param name="FileList">The list of files to concat.</param>
         /// <returns>The concatenated string.</returns>
@@ -60,14 +58,17 @@ namespace WolvenKit.Cache.CollisionCache
         }
 
         /// <summary>
-        /// Calculates the total size of the data.
+        ///     Calculates the total size of the data.
         /// </summary>
         /// <param name="FileList">The list of file to calculate the sum of.</param>
         /// <returns>The size of the files.</returns>
-        public static long TotalDataSize(List<string> FileList) => FileList.Sum(x => new FileInfo(x).Length);
+        public static long TotalDataSize(List<string> FileList)
+        {
+            return FileList.Sum(x => new FileInfo(x).Length);
+        }
 
         /// <summary>
-        /// Builds the details of the files. Note: This is just a placeholder array. For actual details call BuildInfo();
+        ///     Builds the details of the files. Note: This is just a placeholder array. For actual details call BuildInfo();
         /// </summary>
         /// <param name="FileList">The list of details to build the info for.</param>
         /// <returns>The initialized list of files.</returns>
@@ -80,7 +81,7 @@ namespace WolvenKit.Cache.CollisionCache
         }
 
         /// <summary>
-        /// Builds the fileinfo table. Offset,size etc.
+        ///     Builds the fileinfo table. Offset,size etc.
         /// </summary>
         /// <param name="FileList">The list of files to build the info for.</param>
         /// <returns></returns>
@@ -92,43 +93,43 @@ namespace WolvenKit.Cache.CollisionCache
                 long base_offset = 0x30;
                 long name_offset = 0x00;
                 foreach (var item in FileList)
-                {
                     if (Version >= 2)
                     {
-                        bw.Write((UInt64)name_offset);
+                        bw.Write((ulong) name_offset);
                         name_offset += Path.GetFileName(item).Length + 1;
-                        bw.Write((UInt64)base_offset);
+                        bw.Write((ulong) base_offset);
                         base_offset += new FileInfo(item).Length;
-                        bw.Write((UInt64)(new FileInfo(item).Length));
+                        bw.Write((ulong) new FileInfo(item).Length);
                     }
                     else
                     {
-                        bw.Write((UInt32)name_offset);
+                        bw.Write((uint) name_offset);
                         name_offset += Path.GetFileName(item).Length + 1;
-                        bw.Write((UInt32)base_offset);
+                        bw.Write((uint) base_offset);
                         base_offset += new FileInfo(item).Length;
-                        bw.Write((UInt32)(new FileInfo(item).Length));
+                        bw.Write((uint) new FileInfo(item).Length);
                     }
-                }
+
                 return ms.ToArray();
             }
         }
 
         /// <summary>
-        /// Calculates the FNV1A64 hash (with a slight change) for the soundcache.
+        ///     Calculates the FNV1A64 hash (with a slight change) for the soundcache.
         /// </summary>
         /// <returns></returns>
         public static ulong CalculateChecksum(List<string> Files2Buffer)
         {
-            byte[] bytes = (GetNames(Files2Buffer).Concat(GetInfo(Files2Buffer))).ToArray();
+            var bytes = GetNames(Files2Buffer).Concat(GetInfo(Files2Buffer)).ToArray();
             const ulong fnv64Offset = 0xcbf29ce484222325;
             const ulong fnv64Prime = 0x100000001b3;
-            ulong hash = fnv64Offset;
+            var hash = fnv64Offset;
             foreach (var b in bytes)
             {
                 hash = hash ^ b;
-                hash = (hash * fnv64Prime) % 0xFFFFFFFFFFFFFFFF;
+                hash = hash * fnv64Prime % 0xFFFFFFFFFFFFFFFF;
             }
+
             return hash;
         }
 
@@ -139,18 +140,15 @@ namespace WolvenKit.Cache.CollisionCache
             Version = br.ReadUInt32();
             Unknown1 = br.ReadUInt32();
             Unknown2 = br.ReadUInt32();
-            this.InfoOffset = br.ReadUInt32();
-            this.NumberOfFiles = br.ReadUInt32();
-            this.NameTableOffset = br.ReadUInt32();
-            this.NamesSize = br.ReadUInt32();
-            this.Buffersize = br.ReadUInt64();
-            this.CheckSum = br.ReadUInt64();
+            InfoOffset = br.ReadUInt32();
+            NumberOfFiles = br.ReadUInt32();
+            NameTableOffset = br.ReadUInt32();
+            NamesSize = br.ReadUInt32();
+            Buffersize = br.ReadUInt64();
+            CheckSum = br.ReadUInt64();
             FileNames = new List<string>();
-            br.BaseStream.Seek(this.NameTableOffset, SeekOrigin.Begin);
-            for (int i = 0; i < this.NumberOfFiles; i++)
-            {
-                this.FileNames.Add(br.ReadCR2WString());
-            }
+            br.BaseStream.Seek(NameTableOffset, SeekOrigin.Begin);
+            for (var i = 0; i < NumberOfFiles; i++) FileNames.Add(br.ReadCR2WString());
             foreach (var ci in FileNames.Select(fileName => new CollisionCacheItem
             {
                 Name = fileName,
@@ -172,7 +170,7 @@ namespace WolvenKit.Cache.CollisionCache
             }
         }
 
-        public static void Write(List<string> FileList,string outpath)
+        public static void Write(List<string> FileList, string outpath)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(outpath));
             using (var bw = new BinaryWriter(new FileStream(outpath, FileMode.Create)))
@@ -180,59 +178,63 @@ namespace WolvenKit.Cache.CollisionCache
                 var data_array = BuildInfo(FileList);
                 var buffersize = FileList.Max(x => new FileInfo(x).Length);
 
-                if ((DataOffset + TotalDataSize(FileList) + GetNames(FileList).Length + GetInfo(FileList).Length) > 0xFFFFFFFF) //Switch to 64bit
+                if (DataOffset + TotalDataSize(FileList) + GetNames(FileList).Length + GetInfo(FileList).Length >
+                    0xFFFFFFFF) //Switch to 64bit
                 {
                     Version = 2;
                     DataOffset += 0x10;
-                    for (int i = 0; i < data_array.Count; i++)
+                    for (var i = 0; i < data_array.Count; i++)
                         data_array[i].PageOFfset = -1;
                 }
 
                 if (buffersize <= CACHE_BUFFER_SIZE)
+                {
                     buffersize = CACHE_BUFFER_SIZE;
+                }
                 else
                 {
                     var fremainder = buffersize % CACHE_BUFFER_SIZE;
-                    buffersize += (CACHE_BUFFER_SIZE - fremainder);
-                }      
+                    buffersize += CACHE_BUFFER_SIZE - fremainder;
+                }
 
                 bw.Write(Magic);
-                bw.Write((UInt32)Version);
+                bw.Write((uint) Version);
                 bw.Write(Unknown1);
                 bw.Write(Unknown2);
 
                 if (Version >= 2)
                 {
-                    bw.Write((UInt64)(DataOffset + TotalDataSize(FileList) + GetNames(FileList).Length));
-                    bw.Write((UInt64)FileList.Count);
-                    bw.Write((UInt64)(DataOffset + TotalDataSize(FileList)));
+                    bw.Write((ulong) (DataOffset + TotalDataSize(FileList) + GetNames(FileList).Length));
+                    bw.Write((ulong) FileList.Count);
+                    bw.Write((ulong) (DataOffset + TotalDataSize(FileList)));
                 }
                 else
                 {
-                    bw.Write((UInt32)(DataOffset + TotalDataSize(FileList) + GetNames(FileList).Length));
-                    bw.Write((UInt32)FileList.Count);
-                    bw.Write((UInt32)(DataOffset + TotalDataSize(FileList)));
+                    bw.Write((uint) (DataOffset + TotalDataSize(FileList) + GetNames(FileList).Length));
+                    bw.Write((uint) FileList.Count);
+                    bw.Write((uint) (DataOffset + TotalDataSize(FileList)));
                 }
-                bw.Write((UInt32)GetNames(FileList).Length);
+
+                bw.Write((uint) GetNames(FileList).Length);
 
                 if (Version >= 2)
-                    bw.Write((Unk3));
+                    bw.Write(Unk3);
 
-                bw.Write((UInt64)buffersize);
-                bw.Write((CalculateChecksum(FileList)));
+                bw.Write((ulong) buffersize);
+                bw.Write(CalculateChecksum(FileList));
                 //Write the actual contents of the files.
-                for (int i = 0; i < FileList.Count; i++)
+                for (var i = 0; i < FileList.Count; i++)
                     if (data_array[i].PageOFfset != -1)
-                    {
                         using (var ms = new MemoryStream())
                         {
-                            new ZlibStream(new MemoryStream(File.ReadAllBytes(FileList[i])), CompressionMode.Compress).CopyTo(ms);
+                            new ZlibStream(new MemoryStream(File.ReadAllBytes(FileList[i])), CompressionMode.Compress)
+                                .CopyTo(ms);
                             bw.Write(ms.ToArray());
                         }
-                    }
+
                 //Write filenames and the offsets and such for the files.
                 bw.Write(GetNames(FileList));
-                bw.Write(GetInfo(FileList));      
+                bw.Write(GetInfo(FileList));
             }
         }
     }
