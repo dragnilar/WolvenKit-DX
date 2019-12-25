@@ -1,37 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using WolvenKit.CR2W.Editors;
 
 namespace WolvenKit.CR2W
 {
     public class VariableListNode
-    {            public string Name
+    {
+        public string Name
+        {
+            get
             {
-                get
-                {
-                    if (Variable.Name != null)
-                        return Variable.Name;
+                if (Variable.Name != null)
+                    return Variable.Name;
 
-                    return Parent?.Children.IndexOf(this).ToString() ?? string.Empty;
-                }
-                set
-                {
-                    if (Variable.Name != null) Variable.Name = value;
-                }
+                return Parent?.Children.IndexOf(this).ToString() ?? string.Empty;
             }
+            set
+            {
+                if (Variable.Name != null) Variable.Name = value;
+            }
+        }
 
-            public string Value => Variable.ToString();
+        public string Value => Variable.ToString();
 
-            public string Type => Variable.Type;
+        public string Type => Variable.Type;
 
-            public int ChildCount => Children.Count;
+        public int ChildCount => Children.Count;
 
-            public List<VariableListNode> Children { get; set; }
-            public VariableListNode Parent { get; set; }
-            public IEditableVariable Variable { get; set; }
-
+        public List<VariableListNode> Children { get; set; }
+        public VariableListNode Parent { get; set; }
+        public IEditableVariable Variable { get; set; }
     }
 }
