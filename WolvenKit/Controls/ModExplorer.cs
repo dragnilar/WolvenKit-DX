@@ -136,9 +136,9 @@ namespace WolvenKit
                         // ignored
                     }
             }
-            catch
+            catch(Exception ex)
             {
-                // ignored
+                MainController.Get().QueueLog($"Error loading Mod Explorer Folders: \n {ex}", OutputView.Logtype.Error);
             }
 
             InitFiles(path, parentNode);
