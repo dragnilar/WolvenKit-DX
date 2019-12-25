@@ -21,17 +21,17 @@ namespace WolvenKit
             this.guiStrings = guiStrings;
 
             InitializeComponent();
-
-            stringsManager = MainController.Get().W3StringManager;
-            comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
+            //TODO - Remove dependency from main controller class
+            //stringsManager = MainController.Get().W3StringManager;
+            //comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
         }
 
         public frmStringsGuiImporter()
         {
             InitializeComponent();
-
-            stringsManager = MainController.Get().W3StringManager;
-            comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
+            //TODO - Remove dependency from main controller class
+            //stringsManager = MainController.Get().W3StringManager;
+            //comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -124,8 +124,8 @@ namespace WolvenKit
 
         private void LoadGameStrings()
         {
-            stringsManager.Load(comboBoxLanguage.SelectedItem.ToString(),
-                Path.GetDirectoryName(MainController.Get().Configuration.ExecutablePath));
+            //stringsManager.Load(comboBoxLanguage.SelectedItem.ToString(),
+            //    Path.GetDirectoryName(MainController.Get().Configuration.ExecutablePath));
 
             foreach (var line in stringsManager.Lines)
                 strings.Add(new List<string> { line.Value[0].str_id.ToString(), "0", line.Value[0].str });

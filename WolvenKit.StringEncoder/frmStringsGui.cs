@@ -18,12 +18,13 @@ namespace WolvenKit
         VAR,
         GROUP
     }
-
+    //TODO - Delete this class once the GUI Importer and its dialogs have been converted to DevExpress and are hooked up to the StringsEncoderView
+    [Obsolete("This window has been replaced with the StringsEncoderView class. Do not use it anymore as it will be deleted in the future.", true)]
     public partial class frmStringsGui : Form
     {
         private bool abortedSwitchingBackToAllLanguages;
 
-        private readonly W3Mod activeMod = MainController.Get().Window.ActiveMod;
+        private readonly W3Mod activeMod = null;
         private int counter;
 
         private string currentModID = string.Empty;
@@ -364,14 +365,14 @@ namespace WolvenKit
             var importer = new frmStringsGuiImporter(guiStrings);
 
             importer.ShowDialog();
-            var stringsManager = MainController.Get().W3StringManager;
-            var strings = stringsManager.GetImportedStrings();
-            if (strings == null)
-                return;
+            //var stringsManager = new object();
+            //var strings = stringsManager.GetImportedStrings();
+            //if (strings == null)
+            //    return;
 
-            foreach (var str in strings) dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
+            //foreach (var str in strings) dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
 
-            stringsManager.ClearImportedStrings();
+            //stringsManager.ClearImportedStrings();
             UpdateModID();
         }
 

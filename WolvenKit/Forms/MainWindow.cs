@@ -23,6 +23,7 @@ using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Forms;
 using WolvenKit.Interfaces;
+using WolvenKit.StringEncoder;
 
 namespace WolvenKit
 {
@@ -310,15 +311,9 @@ namespace WolvenKit
 
         private void barButtonItemStringsEncoder_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (stringsGui == null)
-            {
-                stringsGui = new frmStringsGui();
-                stringsGui.ShowDialog();
-            }
-            else
-            {
-                stringsGui.ShowDialog();
-            }
+            var stringsEncoder = new StringEncoderView(MainController.Get().ActiveMod);
+            stringsEncoder.ShowDialog();
+            stringsEncoder.Dispose();
         }
 
         private void barButtonItemGameDebugger_ItemClick(object sender, ItemClickEventArgs e)
@@ -411,11 +406,6 @@ namespace WolvenKit
         private delegate void strDelegate(string t);
 
         private delegate void logDelegate(string t, OutputView.Logtype type);
-
-        #region Forms
-        public frmStringsGui stringsGui;
-
-        #endregion
 
         #region Methods
 
@@ -1512,16 +1502,20 @@ namespace WolvenKit
                 //Handle strings.
                 if (buildSettings.Strings)
                 {
-                    if (stringsGui == null)
-                        stringsGui = new frmStringsGui();
-                    if (stringsGui.AreHashesDifferent())
+                    var stringsEncoder = new StringEncoderView(MainController.Get().ActiveMod);
+                    if (stringsEncoder.AreHashesDifferent())
                     {
                         var result =
                             XtraMessageBox.Show(
                                 "There are not encoded CSV files in your mod, do you want to open Strings Encoder GUI?",
                                 string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
-                            stringsGui.ShowDialog();
+                        {
+                            stringsEncoder.ShowDialog();
+                            stringsEncoder.Dispose();
+                        }
+
+
                     }
                 }
 
