@@ -155,9 +155,9 @@ namespace WolvenKit
                     AddFileNode(s, parentNode);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignored
+                MainController.Get().QueueLog($"Error adding a file node to the mod explorer.\n{ex}", OutputView.Logtype.Error);
             }
         }
 
@@ -303,9 +303,9 @@ namespace WolvenKit
                     AddFileNode(path, parentsNode);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Ignored
+                MainController.Get().QueueLog($"Error adding parent directory for a file/folder node to the mod explorer: {ex}", OutputView.Logtype.Error);
             }
             treeListModFiles.EndUpdate();
         }
@@ -342,7 +342,7 @@ namespace WolvenKit
         private void barButtonItemAddFile_ItemClick(object sender, ItemClickEventArgs e)
         {
             //TODO - The GetSelectedNodeFilePath() method here doesn't get the right path, need to rewrite it.
-            RequestFileAdd?.Invoke(this, new RequestFileArgs());
+            RequestFileAdd?.Invoke(this, new RequestFileArgs{File = string.Empty});
             //var selectedPath = GetSelectedNodeFilePath();
             //if (!string.IsNullOrWhiteSpace(selectedPath))
             //    RequestFileAdd?.Invoke(this,
@@ -380,9 +380,9 @@ namespace WolvenKit
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(newfullpath));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // ignored
+                    MainController.Get().QueueLog($"Error marking a file as Mod or DLC: \n{ex}", OutputView.Logtype.Error);
                 }
 
                 File.Move(selectedFilePath, newfullpath);
