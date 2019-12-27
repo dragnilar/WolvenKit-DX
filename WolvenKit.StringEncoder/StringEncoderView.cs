@@ -15,15 +15,11 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab;
 using WolvenKit.Common;
+using WolvenKit.Interfaces;
 using WolvenKit.W3Strings;
 
 namespace WolvenKit.StringEncoder
 {
-    internal enum EDisplayNameType
-    {
-        VAR,
-        GROUP
-    }
 
     public partial class StringEncoderView : XtraForm
     {
@@ -50,13 +46,25 @@ namespace WolvenKit.StringEncoder
         private string _languageTabSelected = "ar";
         private bool _multipleIds;
         private bool _rowAddedAutomatically;
+        private W3StringManager _w3StringsManager;
+        private Configuration _configuration;
+
 
         private BindingList<W3EncodedString> _w3EncodedStrings;
 
-        public StringEncoderView(W3Mod mod, bool bringToFront = false)
+        /// <summary>
+        /// Instantiates the Strings Encoder View for WolvenKit DX. This is a window that can displayed to the user that allows them to make modifications to the locatlization strings for The Witcher 3.
+        /// </summary>
+        /// <param name="mod">Required, the mod that which the localization strings are going to be used with; can be loaded either for stand alone mode or with Wolvenkit DX.</param>
+        /// <param name="bringToFront">Optional, if set to true, the String Encoder will be brought to the front after being shown. This is specifically used for Standalone Mode.</param>
+        /// <param name="stringsManager">Optional, An instance of Wolvenkit's String Manager class. You only need to provide this if the strings encoder is being used in tandem with WolvenKit DX's main window.</param>
+        /// <param name="configuration">Optional, An instance of Wolvenkit's configuration class for the strings encoder. You only need to provide this if the strings encoder is being used in tandem with WolvenKit DX's main window.</param>
+        public StringEncoderView(W3Mod mod, bool bringToFront = false, W3StringManager stringsManager = null, Configuration configuration = null)
         {
             InitializeComponent();
             _activeMod = mod;
+            _w3StringsManager = stringsManager;
+            _configuration = configuration;
             _allLanguagesVal = repoItemComboBoxLanguage.Items[0];
             _seperateLanguageVal = repoItemComboBoxLanguage.Items[1];
             barEditItemLanguage.EditValue = _allLanguagesVal;
@@ -296,32 +304,35 @@ namespace WolvenKit.StringEncoder
 
         private void ImportW3Strings()
         {
-            XtraMessageBox.Show("This is not supported in the Wolvenkit DX version of the string encoder at present.",
-                "Not Supported (YET)", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //if (barEditItemModId.EditValue == string.Empty)
-            //{
-            //    AskForModID();
-            //    return;
-            //}
+            if (_w3StringsManager == null)
+            {
+                XtraMessageBox.Show("This feature cannot be used when using the stand alone version of the Strings Encoder\n You will need" +
+                                    "to use Wolvenkit DX in its entirety if you wish to import strings.",
+                    "Requires Wolvenkit DX", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
 
-            //var guiStrings = new List<string>();
+            if (barEditItemModId.EditValue == string.Empty)
+            {
+                AskForModID();
+                return;
+            }
 
-            //foreach (DataGridViewRow row in dataGridViewStrings.Rows)
-            //    if (row.Cells[3].Value != null)
-            //        guiStrings.Add(row.Cells[3].Value.ToString());
+            var guiStrings = (from w3EncodedString in _w3EncodedStrings where !string.IsNullOrWhiteSpace(w3EncodedString.Localization) 
+                select w3EncodedString.Localization).ToList();
 
-            //var importer = new frmStringsGuiImporter(guiStrings);
+            var importer = new frmStringsGuiImporter(guiStrings, _w3StringsManager, _configuration);
 
-            //importer.ShowDialog();
-            //var stringsManager = MainController.Get().W3StringManager;
-            //var strings = stringsManager.GetImportedStrings();
-            //if (strings == null)
-            //    return;
+            importer.ShowDialog();
+            var strings = _w3StringsManager.GetImportedStrings();
+            if (strings == null)
+                return;
 
-            //foreach (var str in strings) dataTableGridViewSource.Rows.Add(str[0], str[1], string.Empty, str[2]);
+            foreach (var str in strings) 
+                _w3EncodedStrings.Add(new W3EncodedString(Convert.ToInt32(str[0]), str[1], string.Empty, str[2]));
 
-            //stringsManager.ClearImportedStrings();
-            //UpdateModID();
+            _w3StringsManager.ClearImportedStrings();
+            UpdateModID();
         }
 
         private void GenerateFromXML()
@@ -343,17 +354,10 @@ namespace WolvenKit.StringEncoder
         {
             XtraMessageBox.Show("This is not implemented in the stand alone version of the string encoder.",
                 "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //var testDialog = new frmStringsGuiScriptsPrefixDialog();
-            //var prefix = string.Empty;
-            //if (testDialog.ShowDialog(this) == DialogResult.OK)
-            //    prefix = testDialog.prefix;
-            //else
-            //    prefix = "Cancelled";
-
-            //testDialog.Dispose();
-
-            //return prefix;
-            return string.Empty;
+            var testDialog = new StringPrefixDialogView();
+            var prefix = testDialog.ShowDialog(this) == DialogResult.OK ? testDialog.prefix : "Cancelled";
+            testDialog.Dispose();
+            return prefix;
         }
 
         private void ReadScripts()
