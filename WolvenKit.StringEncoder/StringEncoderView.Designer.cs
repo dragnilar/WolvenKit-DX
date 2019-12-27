@@ -63,6 +63,8 @@ namespace WolvenKit.StringEncoder
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
+            this.popupMenuStringEncoder = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barButtonItemDeleteString = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlLanguages)).BeginInit();
             this.tabControlLanguages.SuspendLayout();
             this.xtraTabPageAllLanguages.SuspendLayout();
@@ -72,6 +74,7 @@ namespace WolvenKit.StringEncoder
             ((System.ComponentModel.ISupportInitialize)(this.barManagerStringEncoder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemTextEditModIDs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuStringEncoder)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlLanguages
@@ -125,6 +128,7 @@ namespace WolvenKit.StringEncoder
             this.gridViewStringsEncoder.OptionsEditForm.ShowUpdateCancelPanel = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewStringsEncoder.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gridViewStringsEncoder.OptionsView.ShowFooter = true;
+            this.gridViewStringsEncoder.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewStringsEncoder_RowClick);
             this.gridViewStringsEncoder.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridViewStringsEncoder_InitNewRow);
             this.gridViewStringsEncoder.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewStringsEncoder_RowDeleted);
             this.gridViewStringsEncoder.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.gridViewStringsEncoder_ValidateRow);
@@ -197,8 +201,9 @@ namespace WolvenKit.StringEncoder
             this.barButtonItemSave,
             this.barButtonItemEncode,
             this.barEditItemModId,
-            this.barEditItemLanguage});
-            this.barManagerStringEncoder.MaxItemId = 12;
+            this.barEditItemLanguage,
+            this.barButtonItemDeleteString});
+            this.barManagerStringEncoder.MaxItemId = 13;
             this.barManagerStringEncoder.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repoItemTextEditModIDs,
             this.repoItemComboBoxLanguage});
@@ -394,6 +399,21 @@ namespace WolvenKit.StringEncoder
             this.bar3.OptionsBar.UseWholeRow = true;
             this.bar3.Text = "Status bar";
             // 
+            // popupMenuStringEncoder
+            // 
+            this.popupMenuStringEncoder.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemDeleteString)});
+            this.popupMenuStringEncoder.Manager = this.barManagerStringEncoder;
+            this.popupMenuStringEncoder.Name = "popupMenuStringEncoder";
+            // 
+            // barButtonItemDeleteString
+            // 
+            this.barButtonItemDeleteString.Caption = "Delete String";
+            this.barButtonItemDeleteString.Id = 12;
+            this.barButtonItemDeleteString.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemDeleteString.ImageOptions.SvgImage")));
+            this.barButtonItemDeleteString.Name = "barButtonItemDeleteString";
+            this.barButtonItemDeleteString.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemDeleteString_ItemClick);
+            // 
             // StringEncoderView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,6 +439,7 @@ namespace WolvenKit.StringEncoder
             ((System.ComponentModel.ISupportInitialize)(this.barManagerStringEncoder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemTextEditModIDs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuStringEncoder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,5 +477,7 @@ namespace WolvenKit.StringEncoder
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repoItemComboBoxLanguage;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repoItemLocalizationMemoEdit;
         private XtraTabPage xtraTabPageAllLanguages;
+        private DevExpress.XtraBars.PopupMenu popupMenuStringEncoder;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemDeleteString;
     }
 }

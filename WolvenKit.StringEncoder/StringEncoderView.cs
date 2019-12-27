@@ -1229,12 +1229,20 @@ namespace WolvenKit.StringEncoder
         {
             if (e.KeyCode == Keys.Delete)
             {
-                if (XtraMessageBox.Show("Do you want to delete this string?", "Delete Encoded String?",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-
-                var view = sender as GridView;
-                view?.DeleteRow(view.FocusedRowHandle);
+                var gridView = sender as GridView;
+                if (sender != null)
+                {
+                    DeleteFocusedRowFromGrid(gridView);
+                }
             }
+        }
+
+        private static void DeleteFocusedRowFromGrid(GridView gridView)
+        {
+            if (XtraMessageBox.Show("Do you want to delete this string?", "Delete Encoded String?",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+            gridView?.DeleteRow(gridView.FocusedRowHandle);
         }
 
         private void gridViewStringsEncoder_InitNewRow(object sender, InitNewRowEventArgs e)
@@ -1248,6 +1256,19 @@ namespace WolvenKit.StringEncoder
             else
                 id = modIDs[0] * 1000 + 2110000000;
             view.SetRowCellValue(e.RowHandle, gridColumnId, id);
+        }
+
+        private void barButtonItemDeleteString_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            DeleteFocusedRowFromGrid(gridViewStringsEncoder);
+
+        }
+
+        private void gridViewStringsEncoder_RowClick(object sender, RowClickEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            popupMenuStringEncoder.ShowPopup(e.Location);
+            e.Handled = true;
         }
     }
 
