@@ -6,6 +6,11 @@ This is a fork of Traderain's Wolven-kit that features a significant user interf
 
 I intend to create a release for this once I feel it is at a state where it is stable and different enough from Traderain's version to merit releasing it. Once it is at a release state, I will make an installer available for download in the releases section. The installer will most likely be using <a href="https://www.installpackbuilder.com/"> Paquet Builder </a> or some other installer. A zip / installer-less version will also be available.
 
+# Screenshots
+![Main Window With Witch Rave Theme And Script Editor](https://user-images.githubusercontent.com/33742520/71497048-69f7c280-2824-11ea-98ad-544089c8dcec.png)
+
+![Main Window With Redone Package Installer Window](https://user-images.githubusercontent.com/33742520/71497048-69f7c280-2824-11ea-98ad-544089c8dcec.png)
+
 
 # What's Different From The Original: 
 
