@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace WolvenKit
+namespace WolvenKit.Interfaces
 {
     public class Configuration
     {
