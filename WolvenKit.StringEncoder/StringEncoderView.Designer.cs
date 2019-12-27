@@ -307,6 +307,7 @@ namespace WolvenKit.StringEncoder
             // 
             this.barEditItemModId.Caption = "Mod ID (seperate multiple IDs with \";\")";
             this.barEditItemModId.Edit = this.repoItemTextEditModIDs;
+            this.barEditItemModId.EditWidth = 150;
             this.barEditItemModId.Id = 10;
             this.barEditItemModId.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barEditItemModId.ImageOptions.SvgImage")));
             this.barEditItemModId.Name = "barEditItemModId";
@@ -322,6 +323,7 @@ namespace WolvenKit.StringEncoder
             // 
             this.barEditItemLanguage.Caption = "Language:";
             this.barEditItemLanguage.Edit = this.repoItemComboBoxLanguage;
+            this.barEditItemLanguage.EditWidth = 150;
             this.barEditItemLanguage.Id = 11;
             this.barEditItemLanguage.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barEditItemLanguage.ImageOptions.SvgImage")));
             this.barEditItemLanguage.Name = "barEditItemLanguage";
