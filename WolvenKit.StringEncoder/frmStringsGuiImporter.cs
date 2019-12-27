@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using WolvenKit.Interfaces;
 using WolvenKit.W3Strings;
 
 namespace WolvenKit
@@ -15,24 +16,24 @@ namespace WolvenKit
         private bool matchCaseSearch;
         private readonly List<List<string>> strings = new List<List<string>>();
         private readonly W3StringManager stringsManager;
+        private readonly Configuration _configuration;
 
-        public frmStringsGuiImporter(List<string> guiStrings)
+        public frmStringsGuiImporter(List<string> guiStrings, W3StringManager w3StringManager, Configuration configuration)
         {
             this.guiStrings = guiStrings;
-
+            stringsManager = w3StringManager;
+            _configuration = configuration;
             InitializeComponent();
-            //TODO - Remove dependency from main controller class
-            //stringsManager = MainController.Get().W3StringManager;
-            //comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
         }
 
-        public frmStringsGuiImporter()
+        public frmStringsGuiImporter(W3StringManager w3StringManager, Configuration configuration)
         {
             InitializeComponent();
-            //TODO - Remove dependency from main controller class
-            //stringsManager = MainController.Get().W3StringManager;
-            //comboBoxLanguage.Text = MainController.Get().Configuration.TextLanguage;
+            stringsManager = w3StringManager;
+            _configuration = configuration;
+            comboBoxLanguage.Text = _configuration.TextLanguage;
         }
+
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
@@ -124,8 +125,8 @@ namespace WolvenKit
 
         private void LoadGameStrings()
         {
-            //stringsManager.Load(comboBoxLanguage.SelectedItem.ToString(),
-            //    Path.GetDirectoryName(MainController.Get().Configuration.ExecutablePath));
+            stringsManager.Load(comboBoxLanguage.SelectedItem.ToString(),
+                Path.GetDirectoryName(_configuration.ExecutablePath));
 
             foreach (var line in stringsManager.Lines)
                 strings.Add(new List<string> { line.Value[0].str_id.ToString(), "0", line.Value[0].str });
