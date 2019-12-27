@@ -194,11 +194,6 @@ namespace WolvenKit.StringEncoder
                     MessageBoxIcon.Asterisk);
         }
 
-        private void repoItemTextEditModIDs_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter) splitContainerMain.Focus();
-        }
-
 
         private void repoItemComboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -266,7 +261,7 @@ namespace WolvenKit.StringEncoder
                     Padding = new Padding(3),
                     Size = new Size(998, 0),
                     TabIndex = 0,
-                    Text = "All Languages",
+                    Text = "All Languages"
                 };
                 tabControlLanguages.TabPages.Add(newTabPage);
             }
@@ -278,9 +273,6 @@ namespace WolvenKit.StringEncoder
             _currentModId = barEditItemModId.EditValue.ToString();
         }
 
-        /*
-            End of events
-        */
 
         private void HashStringKeys()
         {
@@ -1175,7 +1167,7 @@ namespace WolvenKit.StringEncoder
             return false;
         }
 
-        private void tabControlLanguages_Selected(object sender, DevExpress.XtraTab.TabPageEventArgs e)
+        private void tabControlLanguages_Selected(object sender, TabPageEventArgs e)
         {
             if (e.Page == null)
                 return;
@@ -1257,7 +1249,6 @@ namespace WolvenKit.StringEncoder
                 id = modIDs[0] * 1000 + 2110000000;
             view.SetRowCellValue(e.RowHandle, gridColumnId, id);
         }
-
     }
 
     internal class LanguageStringsCollection

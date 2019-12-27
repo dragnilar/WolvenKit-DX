@@ -32,8 +32,6 @@ namespace WolvenKit.StringEncoder
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StringEncoderView));
-            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.splitContainerTabs = new System.Windows.Forms.SplitContainer();
             this.tabControlLanguages = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPageAllLanguages = new DevExpress.XtraTab.XtraTabPage();
             this.gridControlStringsEncoder = new DevExpress.XtraGrid.GridControl();
@@ -65,15 +63,9 @@ namespace WolvenKit.StringEncoder
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
-            this.splitContainerMain.Panel1.SuspendLayout();
-            this.splitContainerMain.Panel2.SuspendLayout();
-            this.splitContainerMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerTabs)).BeginInit();
-            this.splitContainerTabs.Panel1.SuspendLayout();
-            this.splitContainerTabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlLanguages)).BeginInit();
             this.tabControlLanguages.SuspendLayout();
+            this.xtraTabPageAllLanguages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemLocalizationMemoEdit)).BeginInit();
@@ -82,45 +74,13 @@ namespace WolvenKit.StringEncoder
             ((System.ComponentModel.ISupportInitialize)(this.repoItemComboBoxLanguage)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainerMain
-            // 
-            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerMain.IsSplitterFixed = true;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 52);
-            this.splitContainerMain.Name = "splitContainerMain";
-            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerMain.Panel1
-            // 
-            this.splitContainerMain.Panel1.Controls.Add(this.splitContainerTabs);
-            // 
-            // splitContainerMain.Panel2
-            // 
-            this.splitContainerMain.Panel2.Controls.Add(this.gridControlStringsEncoder);
-            this.splitContainerMain.Size = new System.Drawing.Size(1184, 485);
-            this.splitContainerMain.SplitterDistance = 27;
-            this.splitContainerMain.TabIndex = 2;
-            // 
-            // splitContainerTabs
-            // 
-            this.splitContainerTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerTabs.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerTabs.Name = "splitContainerTabs";
-            // 
-            // splitContainerTabs.Panel1
-            // 
-            this.splitContainerTabs.Panel1.Controls.Add(this.tabControlLanguages);
-            this.splitContainerTabs.Size = new System.Drawing.Size(1184, 27);
-            this.splitContainerTabs.SplitterDistance = 1006;
-            this.splitContainerTabs.TabIndex = 0;
-            // 
             // tabControlLanguages
             // 
             this.tabControlLanguages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlLanguages.Location = new System.Drawing.Point(0, 0);
+            this.tabControlLanguages.Location = new System.Drawing.Point(0, 52);
             this.tabControlLanguages.Name = "tabControlLanguages";
             this.tabControlLanguages.SelectedTabPage = this.xtraTabPageAllLanguages;
-            this.tabControlLanguages.Size = new System.Drawing.Size(1006, 27);
+            this.tabControlLanguages.Size = new System.Drawing.Size(1184, 485);
             this.tabControlLanguages.TabIndex = 0;
             this.tabControlLanguages.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPageAllLanguages});
@@ -128,8 +88,9 @@ namespace WolvenKit.StringEncoder
             // 
             // xtraTabPageAllLanguages
             // 
+            this.xtraTabPageAllLanguages.Controls.Add(this.gridControlStringsEncoder);
             this.xtraTabPageAllLanguages.Name = "xtraTabPageAllLanguages";
-            this.xtraTabPageAllLanguages.Size = new System.Drawing.Size(1004, 0);
+            this.xtraTabPageAllLanguages.Size = new System.Drawing.Size(1182, 456);
             this.xtraTabPageAllLanguages.Text = "All Languages";
             // 
             // gridControlStringsEncoder
@@ -140,7 +101,7 @@ namespace WolvenKit.StringEncoder
             this.gridControlStringsEncoder.Name = "gridControlStringsEncoder";
             this.gridControlStringsEncoder.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repoItemLocalizationMemoEdit});
-            this.gridControlStringsEncoder.Size = new System.Drawing.Size(1184, 454);
+            this.gridControlStringsEncoder.Size = new System.Drawing.Size(1182, 456);
             this.gridControlStringsEncoder.TabIndex = 0;
             this.gridControlStringsEncoder.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewStringsEncoder});
@@ -355,7 +316,6 @@ namespace WolvenKit.StringEncoder
             // 
             this.repoItemTextEditModIDs.AutoHeight = false;
             this.repoItemTextEditModIDs.Name = "repoItemTextEditModIDs";
-            this.repoItemTextEditModIDs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.repoItemTextEditModIDs_KeyDown);
             this.repoItemTextEditModIDs.Leave += new System.EventHandler(this.repoItemTextEditModIDs_Leave);
             // 
             // barEditItemLanguage
@@ -437,7 +397,7 @@ namespace WolvenKit.StringEncoder
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 537);
-            this.Controls.Add(this.splitContainerMain);
+            this.Controls.Add(this.tabControlLanguages);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -448,15 +408,9 @@ namespace WolvenKit.StringEncoder
             this.Name = "StringEncoderView";
             this.Text = "Wolvenkit DX String Encoder";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.splitContainerMain.Panel1.ResumeLayout(false);
-            this.splitContainerMain.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
-            this.splitContainerMain.ResumeLayout(false);
-            this.splitContainerTabs.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerTabs)).EndInit();
-            this.splitContainerTabs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabControlLanguages)).EndInit();
             this.tabControlLanguages.ResumeLayout(false);
+            this.xtraTabPageAllLanguages.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repoItemLocalizationMemoEdit)).EndInit();
@@ -469,8 +423,6 @@ namespace WolvenKit.StringEncoder
 		}
 
 		#endregion
-		private System.Windows.Forms.SplitContainer splitContainerMain;
-		private System.Windows.Forms.SplitContainer splitContainerTabs;
 		private DevExpress.XtraTab.XtraTabControl tabControlLanguages;
 		private DevExpress.XtraGrid.GridControl gridControlStringsEncoder;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewStringsEncoder;
