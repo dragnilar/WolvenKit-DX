@@ -1,4 +1,6 @@
-﻿namespace WolvenKit.StringEncoder
+﻿using DevExpress.XtraTab;
+
+namespace WolvenKit.StringEncoder
 {
 	partial class StringEncoderView
 	{
@@ -32,8 +34,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StringEncoderView));
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainerTabs = new System.Windows.Forms.SplitContainer();
-            this.tabControlLanguages = new System.Windows.Forms.TabControl();
-            this.tabPageAllLanguages = new System.Windows.Forms.TabPage();
+            this.tabControlLanguages = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPageAllLanguages = new DevExpress.XtraTab.XtraTabPage();
             this.gridControlStringsEncoder = new DevExpress.XtraGrid.GridControl();
             this.gridViewStringsEncoder = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumnId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -41,10 +43,6 @@
             this.gridColumnStringKey = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnLocalization = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repoItemLocalizationMemoEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
-            this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnHexKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnStringKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnLocalisation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.barManagerStringEncoder = new DevExpress.XtraBars.BarManager(this.components);
             this.barToolStrip = new DevExpress.XtraBars.Bar();
             this.fileMenuItem = new DevExpress.XtraBars.BarSubItem();
@@ -74,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTabs)).BeginInit();
             this.splitContainerTabs.Panel1.SuspendLayout();
             this.splitContainerTabs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabControlLanguages)).BeginInit();
             this.tabControlLanguages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).BeginInit();
@@ -117,24 +116,21 @@
             // 
             // tabControlLanguages
             // 
-            this.tabControlLanguages.Controls.Add(this.tabPageAllLanguages);
             this.tabControlLanguages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlLanguages.Location = new System.Drawing.Point(0, 0);
             this.tabControlLanguages.Name = "tabControlLanguages";
-            this.tabControlLanguages.SelectedIndex = 0;
+            this.tabControlLanguages.SelectedTabPage = this.xtraTabPageAllLanguages;
             this.tabControlLanguages.Size = new System.Drawing.Size(1006, 27);
             this.tabControlLanguages.TabIndex = 0;
-            this.tabControlLanguages.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlLanguages_Selected);
+            this.tabControlLanguages.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPageAllLanguages});
+            this.tabControlLanguages.Selected += new DevExpress.XtraTab.TabPageEventHandler(this.tabControlLanguages_Selected);
             // 
-            // tabPageAllLanguages
+            // xtraTabPageAllLanguages
             // 
-            this.tabPageAllLanguages.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAllLanguages.Name = "tabPageAllLanguages";
-            this.tabPageAllLanguages.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAllLanguages.Size = new System.Drawing.Size(998, 1);
-            this.tabPageAllLanguages.TabIndex = 0;
-            this.tabPageAllLanguages.Text = "All Languages";
-            this.tabPageAllLanguages.UseVisualStyleBackColor = true;
+            this.xtraTabPageAllLanguages.Name = "xtraTabPageAllLanguages";
+            this.xtraTabPageAllLanguages.Size = new System.Drawing.Size(1004, 0);
+            this.xtraTabPageAllLanguages.Text = "All Languages";
             // 
             // gridControlStringsEncoder
             // 
@@ -217,27 +213,6 @@
             // repoItemLocalizationMemoEdit
             // 
             this.repoItemLocalizationMemoEdit.Name = "repoItemLocalizationMemoEdit";
-            // 
-            // ColumnID
-            // 
-            this.ColumnID.HeaderText = "ID";
-            this.ColumnID.Name = "ColumnID";
-            // 
-            // ColumnHexKey
-            // 
-            this.ColumnHexKey.HeaderText = "Hex key";
-            this.ColumnHexKey.Name = "ColumnHexKey";
-            this.ColumnHexKey.Visible = false;
-            // 
-            // ColumnStringKey
-            // 
-            this.ColumnStringKey.HeaderText = "String Key";
-            this.ColumnStringKey.Name = "ColumnStringKey";
-            // 
-            // ColumnLocalisation
-            // 
-            this.ColumnLocalisation.HeaderText = "Localisation";
-            this.ColumnLocalisation.Name = "ColumnLocalisation";
             // 
             // barManagerStringEncoder
             // 
@@ -457,7 +432,7 @@
             this.bar3.OptionsBar.UseWholeRow = true;
             this.bar3.Text = "Status bar";
             // 
-            // frmStringsGui
+            // StringEncoderView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -467,8 +442,8 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
-            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("frmStringsGui.IconOptions.Icon")));
-            this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("frmStringsGui.IconOptions.Image")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("StringEncoderView.IconOptions.Icon")));
+            this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("StringEncoderView.IconOptions.Image")));
             this.MinimumSize = new System.Drawing.Size(1184, 39);
             this.Name = "StringEncoderView";
             this.Text = "Wolvenkit DX String Encoder";
@@ -480,6 +455,7 @@
             this.splitContainerTabs.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTabs)).EndInit();
             this.splitContainerTabs.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabControlLanguages)).EndInit();
             this.tabControlLanguages.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlStringsEncoder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewStringsEncoder)).EndInit();
@@ -495,13 +471,8 @@
 		#endregion
 		private System.Windows.Forms.SplitContainer splitContainerMain;
 		private System.Windows.Forms.SplitContainer splitContainerTabs;
-		private System.Windows.Forms.TabControl tabControlLanguages;
-		private System.Windows.Forms.TabPage tabPageAllLanguages;
+		private DevExpress.XtraTab.XtraTabControl tabControlLanguages;
 		private DevExpress.XtraGrid.GridControl gridControlStringsEncoder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnHexKey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStringKey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLocalisation;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewStringsEncoder;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnId;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnHexKey;
@@ -530,5 +501,6 @@
         private DevExpress.XtraBars.BarEditItem barEditItemLanguage;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repoItemComboBoxLanguage;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repoItemLocalizationMemoEdit;
+        private XtraTabPage xtraTabPageAllLanguages;
     }
 }

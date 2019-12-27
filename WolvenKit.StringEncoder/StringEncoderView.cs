@@ -13,6 +13,7 @@ using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraTab;
 using WolvenKit.Common;
 using WolvenKit.W3Strings;
 
@@ -229,15 +230,14 @@ namespace WolvenKit.StringEncoder
 
                     _languageStrings.Add(new LanguageStringsCollection(language.Handle, languageStrings));
 
-                    var newTabPage = new TabPage();
-                    newTabPage.Location = new Point(4, 22);
-                    newTabPage.Name = "tabPage" + language.Handle;
-                    newTabPage.Padding = new Padding(3);
-                    newTabPage.Size = new Size(998, 0);
-                    newTabPage.TabIndex = 0;
-                    newTabPage.Text = language.Handle;
-                    newTabPage.UseVisualStyleBackColor = true;
-                    tabControlLanguages.Controls.Add(newTabPage);
+                    var newTabPage = new XtraTabPage
+                    {
+                        Name = "tabPage" + language.Handle,
+                        Padding = new Padding(3),
+                        Size = new Size(998, 0),
+                        Text = language.Handle
+                    };
+                    tabControlLanguages.TabPages.Add(newTabPage);
                 }
             }
             else if (_w3EncodedStrings != null)
@@ -251,7 +251,7 @@ namespace WolvenKit.StringEncoder
                     return;
                 }
 
-                tabControlLanguages.Controls.Clear();
+                tabControlLanguages.TabPages.Clear();
 
                 _w3EncodedStrings.Clear();
                 foreach (var str in _languageStrings[7].strings)
@@ -259,7 +259,7 @@ namespace WolvenKit.StringEncoder
                         str[3]));
                 _languageStrings.Clear();
 
-                var newTabPage = new TabPage
+                var newTabPage = new XtraTabPage
                 {
                     Location = new Point(4, 22),
                     Name = "tabPageAllLanguages",
@@ -267,9 +267,8 @@ namespace WolvenKit.StringEncoder
                     Size = new Size(998, 0),
                     TabIndex = 0,
                     Text = "All Languages",
-                    UseVisualStyleBackColor = true
                 };
-                tabControlLanguages.Controls.Add(newTabPage);
+                tabControlLanguages.TabPages.Add(newTabPage);
             }
         }
 
@@ -573,7 +572,7 @@ namespace WolvenKit.StringEncoder
 
             var stringKeySplitted = stringKey.Split('.');
 
-            if (_groups.Count() == 0)
+            if (!_groups.Any())
             {
                 _groups.Add(stringKeySplitted[stringKeySplitted.Length - 1]);
                 stringKeys.Add("panel_" + stringKeySplitted[stringKeySplitted.Length - 1]);
@@ -1176,9 +1175,9 @@ namespace WolvenKit.StringEncoder
             return false;
         }
 
-        private void tabControlLanguages_Selected(object sender, TabControlEventArgs e)
+        private void tabControlLanguages_Selected(object sender, DevExpress.XtraTab.TabPageEventArgs e)
         {
-            if (e.TabPage == null)
+            if (e.Page == null)
                 return;
 
             gridControlStringsEncoder.EndUpdate();
@@ -1196,7 +1195,7 @@ namespace WolvenKit.StringEncoder
                     });
             }
 
-            foreach (var language in _languageStrings.Where(language => language.language == e.TabPage.Text))
+            foreach (var language in _languageStrings.Where(language => language.language == e.Page.Text))
             {
                 _w3EncodedStrings.Clear();
 
@@ -1206,12 +1205,13 @@ namespace WolvenKit.StringEncoder
                 break;
             }
 
-            if (e.TabPage != null)
-                _languageTabSelected = e.TabPage.Text;
+            if (e.Page != null)
+                _languageTabSelected = e.Page.Text;
 
             HashStringKeys();
             UpdateModID();
         }
+
 
         private void gridViewStringsEncoder_RowDeleted(object sender, RowDeletedEventArgs e)
         {
@@ -1257,6 +1257,7 @@ namespace WolvenKit.StringEncoder
                 id = modIDs[0] * 1000 + 2110000000;
             view.SetRowCellValue(e.RowHandle, gridColumnId, id);
         }
+
     }
 
     internal class LanguageStringsCollection
