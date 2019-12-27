@@ -61,7 +61,6 @@ namespace WolvenKit
             this.regexCheckbox = new System.Windows.Forms.CheckBox();
             this.currentfolderCheckBox = new System.Windows.Forms.CheckBox();
             this.caseCheckBox = new System.Windows.Forms.CheckBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.largeIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,7 +213,7 @@ namespace WolvenKit
             this.SearchBox.CausesValidation = false;
             this.SearchBox.Location = new System.Drawing.Point(72, 72);
             this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Size = new System.Drawing.Size(165, 20);
+            this.SearchBox.Size = new System.Drawing.Size(165, 21);
             this.SearchBox.TabIndex = 7;
             this.SearchBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.SearchBox_PreviewKeyDown);
             // 
@@ -279,7 +278,7 @@ namespace WolvenKit
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(419, 75);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Extension:";
             // 
@@ -289,7 +288,7 @@ namespace WolvenKit
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(692, 41);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 15;
             this.label3.Text = "Marked files:";
             // 
@@ -355,7 +354,7 @@ namespace WolvenKit
             this.currentfolderCheckBox.AutoSize = true;
             this.currentfolderCheckBox.Location = new System.Drawing.Point(80, 98);
             this.currentfolderCheckBox.Name = "currentfolderCheckBox";
-            this.currentfolderCheckBox.Size = new System.Drawing.Size(181, 17);
+            this.currentfolderCheckBox.Size = new System.Drawing.Size(185, 17);
             this.currentfolderCheckBox.TabIndex = 22;
             this.currentfolderCheckBox.Text = "Search only in current mod folder";
             this.currentfolderCheckBox.UseVisualStyleBackColor = true;
@@ -365,20 +364,10 @@ namespace WolvenKit
             this.caseCheckBox.AutoSize = true;
             this.caseCheckBox.Location = new System.Drawing.Point(267, 98);
             this.caseCheckBox.Name = "caseCheckBox";
-            this.caseCheckBox.Size = new System.Drawing.Size(94, 17);
+            this.caseCheckBox.Size = new System.Drawing.Size(95, 17);
             this.caseCheckBox.TabIndex = 23;
             this.caseCheckBox.Text = "Case sensitive";
             this.caseCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1411, 24);
-            this.menuStrip1.TabIndex = 24;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // helpToolStripMenuItem
             // 
@@ -454,7 +443,7 @@ namespace WolvenKit
             this.lExtension.AutoSize = true;
             this.lExtension.Location = new System.Drawing.Point(269, 75);
             this.lExtension.Name = "lExtension";
-            this.lExtension.Size = new System.Drawing.Size(34, 13);
+            this.lExtension.Size = new System.Drawing.Size(35, 13);
             this.lExtension.TabIndex = 25;
             this.lExtension.Text = "Type:";
             // 
@@ -493,7 +482,7 @@ namespace WolvenKit
             this.homeBTN.TabIndex = 28;
             this.homeBTN.Click += new System.EventHandler(this.Home_Click);
             // 
-            // frmAssetBrowser
+            // AssetBrowserView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -502,7 +491,6 @@ namespace WolvenKit
             this.Controls.Add(this.addDLCFile);
             this.Controls.Add(this.extensionCB);
             this.Controls.Add(this.lExtension);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.caseCheckBox);
             this.Controls.Add(this.currentfolderCheckBox);
             this.Controls.Add(this.regexCheckbox);
@@ -520,8 +508,7 @@ namespace WolvenKit
             this.Controls.Add(this.pathPanel);
             this.Controls.Add(this.fileListView);
             this.Controls.Add(this.btOpen);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("AssetBrowserView.IconOptions.Icon")));
             this.Name = "AssetBrowserView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset browser";
@@ -561,7 +548,6 @@ namespace WolvenKit
         private CheckBox currentfolderCheckBox;
         private CheckBox caseCheckBox;
         private ToolStripMenuItem markAllFilesOfFolderToolStripMenuItem;
-        private MenuStrip menuStrip1;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem detailsToolStripMenuItem;
         private ToolStripMenuItem largeIconToolStripMenuItem;
