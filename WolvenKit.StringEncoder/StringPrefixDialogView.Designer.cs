@@ -1,6 +1,6 @@
 ﻿namespace WolvenKit
 {
-    partial class frmStringsGuiScriptsPrefixDialog
+    partial class StringPrefixDialogView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,60 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.textBoxPrefix = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StringPrefixDialogView));
+            this.buttonOk = new DevExpress.XtraEditors.SimpleButton();
+            this.buttonCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.textBoxPrefix = new DevExpress.XtraEditors.TextEdit();
+            this.label1 = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxPrefix.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("buttonOk.ImageOptions.SvgImage")));
+            this.buttonOk.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.buttonOk.Location = new System.Drawing.Point(12, 76);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(97, 76);
+            this.buttonCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("buttonCancel.ImageOptions.SvgImage")));
+            this.buttonCancel.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.buttonCancel.Location = new System.Drawing.Point(313, 76);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // textBoxPrefix
             // 
             this.textBoxPrefix.Location = new System.Drawing.Point(12, 36);
             this.textBoxPrefix.Name = "textBoxPrefix";
-            this.textBoxPrefix.Size = new System.Drawing.Size(160, 20);
+            this.textBoxPrefix.Size = new System.Drawing.Size(376, 20);
             this.textBoxPrefix.TabIndex = 2;
             this.textBoxPrefix.TextChanged += new System.EventHandler(this.textBoxPrefix_TextChanged);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Enter string key prefix: ";
             // 
-            // frmStringsGuiScriptsPrefixDialog
+            // StringPrefixDialogView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 111);
+            this.ClientSize = new System.Drawing.Size(400, 120);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPrefix);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.MaximumSize = new System.Drawing.Size(200, 150);
-            this.MinimumSize = new System.Drawing.Size(200, 150);
-            this.Name = "frmStringsGuiScriptsPrefixDialog";
+            this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("StringPrefixDialogView.IconOptions.Image")));
+            this.MaximumSize = new System.Drawing.Size(400, 150);
+            this.MinimumSize = new System.Drawing.Size(184, 141);
+            this.Name = "StringPrefixDialogView";
             this.Text = "Enter string key prefix";
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxPrefix.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -89,9 +94,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TextBox textBoxPrefix;
-        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.SimpleButton buttonOk;
+        private DevExpress.XtraEditors.SimpleButton buttonCancel;
+        private DevExpress.XtraEditors.TextEdit textBoxPrefix;
+        private DevExpress.XtraEditors.LabelControl label1;
     }
 }
