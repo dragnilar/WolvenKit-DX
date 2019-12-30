@@ -38,7 +38,6 @@ namespace WolvenKit.Bundles
                     case 3:
                         return "Doboz";
                     case 4:
-                        return "Lz4";
                     case 5:
                         return "Lz4";
                     default:
