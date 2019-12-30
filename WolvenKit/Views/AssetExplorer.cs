@@ -48,7 +48,7 @@ namespace WolvenKit.Views
             InitializeComponent();
         }
 
-        protected string StartupPath => Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        protected string StartupPath => "Root";
         public BreadCrumbEdit BreadCrumb => editBreadCrumb;
         public WinExplorerViewStyle ViewStyle => winExplorerView.OptionsView.Style;
         
@@ -68,9 +68,12 @@ namespace WolvenKit.Views
         {
             foreach (var archive in Archives)
             {
-                WitcherFiles.AddRange(archive.FileList);
-                //RootNode.Directories[archive.RootNode.Name] = archive.RootNode;
-                //archive.RootNode.Parent = RootNode;
+                var fileList = archive.FileList;
+                foreach (var file in fileList)
+                {
+                    file.ExplorerPath = $"Root\\{archive.TypeName}\\{file.Name}";
+                }
+                WitcherFiles.AddRange(fileList);
             }
             
         }
@@ -111,41 +114,18 @@ namespace WolvenKit.Views
                 return;
             }
 
-            if (e.Node.Caption == "Computer")
-            {
-                InitBreadCrumbComputerNode(e.Node);
-                return;
-            }
-
             var dir = e.Node.Path;
-            if (!FileSystemHelper.IsDirExists(dir))
-                return;
-            var subDirs = FileSystemHelper.GetSubFolders(dir);
-            for (var i = 0; i < subDirs.Length; i++) e.Node.ChildNodes.Add(CreateNode(subDirs[i]));
+            //for (var i = 0; i < dir.Length; i++)
+            //{
+            //    e.Node.ChildNodes.Add(CreateNode(subDirs[i]));
+            //}
+
         }
 
         private void InitBreadCrumbRootNode(BreadCrumbNode node)
         {
-            node.ChildNodes.Add(new BreadCrumbNode("Desktop",
-                Environment.GetFolderPath(Environment.SpecialFolder.Desktop)));
-            node.ChildNodes.Add(new BreadCrumbNode("Documents",
-                Environment.GetFolderPath(Environment.SpecialFolder.Recent)));
-            node.ChildNodes.Add(new BreadCrumbNode("Music",
-                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)));
-            node.ChildNodes.Add(new BreadCrumbNode("Pictures",
-                Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)));
-            node.ChildNodes.Add(new BreadCrumbNode("Video",
-                Environment.GetFolderPath(Environment.SpecialFolder.MyVideos)));
-            node.ChildNodes.Add(new BreadCrumbNode("Program Files",
-                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)));
-            node.ChildNodes.Add(new BreadCrumbNode("Windows",
-                Environment.GetFolderPath(Environment.SpecialFolder.Windows)));
-        }
-
-        private void InitBreadCrumbComputerNode(BreadCrumbNode node)
-        {
-            foreach (var driveInfo in FileSystemHelper.GetFixedDrives())
-                node.ChildNodes.Add(new BreadCrumbNode(driveInfo.Name, driveInfo.RootDirectory));
+            node.ChildNodes.Add(new BreadCrumbNode("Root",
+                "Root"));
         }
 
         private void OnBreadCrumbValidatePath(object sender, BreadCrumbValidatePathEventArgs e)
@@ -177,10 +157,7 @@ namespace WolvenKit.Views
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                if (!string.IsNullOrEmpty(_currentPath))
-                    gridControl.DataSource = WitcherFiles;
-                else
-                    gridControl.DataSource = null;
+                gridControl.DataSource = !string.IsNullOrEmpty(_currentPath) ? WitcherFiles : null;
                 winExplorerView.RefreshData();
                 EnsureSearchEdit();
                 BeginInvoke(new MethodInvoker(winExplorerView.ClearSelection));
@@ -193,7 +170,7 @@ namespace WolvenKit.Views
 
         private void EnsureSearchEdit()
         {
-            EditSearch.Properties.NullValuePrompt = "Search " + FileSystemHelper.GetDirName(_currentPath);
+            EditSearch.Properties.NullValuePrompt = "Search " + _currentPath;
             EditSearch.EditValue = null;
             winExplorerView.FindFilterText = string.Empty;
         }
@@ -247,28 +224,6 @@ namespace WolvenKit.Views
             gridControl.RefreshDataSource();
         }
 
-        private void OnShowHiddenItemsCheckItemClick(object sender, ItemClickEventArgs e)
-        {
-            btnHideSelectedItems.Enabled = !((BarCheckItem) e.Item).Checked;
-        }
-
-        private void OnHelpButtonItemClick(object sender, ItemClickEventArgs e)
-        {
-            // StartApplicationHelper.ShowHelp();
-        }
-
-        private void OnOptionsItemClick(object sender, ItemClickEventArgs e)
-        {
-            IEnumerable<FileSystemEntry> entries = GetSelectedEntries();
-            if (!entries.Any())
-            {
-                FileSystemHelper.ShellExecuteFileInfo(_currentPath, ShellExecuteInfoFileType.Properties);
-                return;
-            }
-
-            foreach (var entry in entries) entry.ShowProperties();
-        }
-
         private void OnWinExplorerViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateButtons();
@@ -277,20 +232,22 @@ namespace WolvenKit.Views
         private void OnCopyPathItemClick(object sender, ItemClickEventArgs e)
         {
             var builder = new StringBuilder();
-            foreach (var entry in GetSelectedEntries()) builder.AppendLine(entry.Path);
+            foreach (var entry in GetSelectedEntries()) builder.AppendLine(entry.ExplorerPath);
             if (!string.IsNullOrEmpty(builder.ToString())) Clipboard.SetText(builder.ToString());
         }
 
         private void OnOpenItemClick(object sender, ItemClickEventArgs e)
         {
-            foreach (var entry in GetSelectedEntries(true)) entry.DoAction(this);
+            //TODO - Do nothing for now, not sure if we will be keeping "open"
+            //foreach (var entry in GetSelectedEntries(true)) entry.DoAction(this);
         }
 
         private void OnWinExplorerViewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter) return;
-            var entry = GetSelectedEntries().LastOrDefault();
-            entry?.DoAction(this);
+            //TODO - Do nothing for now, not sure if we will be keeping this.
+            //if (e.KeyCode != Keys.Enter) return;
+            //var entry = GetSelectedEntries().LastOrDefault();
+            //entry?.DoAction(this);
         }
 
         private void OnWinExplorerViewItemClick(object sender, WinExplorerViewItemClickEventArgs e)
@@ -302,7 +259,8 @@ namespace WolvenKit.Views
         {
             if (e.MouseInfo.Button != MouseButtons.Left) return;
             winExplorerView.ClearSelection();
-            ((FileSystemEntry) e.ItemInfo.Row.RowKey).DoAction(this);
+            //TODO - This should do something, I guess.
+            //((FileSystemEntry) e.ItemInfo.Row.RowKey).DoAction(this);
         }
 
         private void UpdateButtons()
@@ -342,9 +300,7 @@ namespace WolvenKit.Views
             for (var i = history.Count - 1; i >= 0; i--)
             {
                 var item = history[i];
-                var menuItem = new BarCheckItem();
-                menuItem.Tag = i;
-                menuItem.Caption = FileSystemHelper.GetDirName(item.Path);
+                var menuItem = new BarCheckItem {Tag = i, Caption = item.Path};
                 menuItem.ItemClick += OnNavigationMenuItemClick;
                 menuItem.Checked = BreadCrumb.GetNavigationHistoryCurrentItemIndex() == i;
                 yield return menuItem;
@@ -357,18 +313,10 @@ namespace WolvenKit.Views
             UpdateButtons();
         }
 
-        private List<FileSystemEntry> GetSelectedEntries()
+        private List<IWitcherFile> GetSelectedEntries(bool sort = false)
         {
-            return GetSelectedEntries(false);
-        }
-
-        private List<FileSystemEntry> GetSelectedEntries(bool sort)
-        {
-            var list = new List<FileSystemEntry>();
-            var rows = winExplorerView.GetSelectedRows();
-            for (var i = 0; i < rows.Length; i++) list.Add((FileSystemEntry) winExplorerView.GetRow(rows[i]));
-            if (sort) list.Sort(new FileSytemEntryComparer());
-            return list;
+            var list = winExplorerView.GetSelectedRows().Select(t => (IWitcherFile) winExplorerView.GetRow(t)).ToList();
+            return sort ? list.OrderBy(x=>x.Name).ToList() : list;
         }
 
         private Size GetItemSize(WinExplorerViewStyle viewStyle)

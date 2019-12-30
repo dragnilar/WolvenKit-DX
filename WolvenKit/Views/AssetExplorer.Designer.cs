@@ -28,8 +28,6 @@ namespace WolvenKit.Views
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetExplorer));
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             DevExpress.XtraBars.Ribbon.GalleryItem galleryItem1 = new DevExpress.XtraBars.Ribbon.GalleryItem();
             DevExpress.XtraBars.Ribbon.GalleryItem galleryItem2 = new DevExpress.XtraBars.Ribbon.GalleryItem();
@@ -60,26 +58,17 @@ namespace WolvenKit.Views
             this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemTextEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.RibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.ButtonItemHelp = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemNavigationPane = new DevExpress.XtraBars.BarSubItem();
             this.ButtonCheckItemNavigationPane = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonCheckItemShowLibraries = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonItemItemCheckBoxes = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonItemFileNameExtensions = new DevExpress.XtraBars.BarCheckItem();
-            this.ButtonItemHiddenItems = new DevExpress.XtraBars.BarCheckItem();
-            this.btnHideSelectedItems = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemCopy = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemPaste = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemCut = new DevExpress.XtraBars.BarButtonItem();
             this.btnCopyItem = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemMoveTo = new DevExpress.XtraBars.BarSubItem();
             this.ButtonItemDocuments = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemMusic = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemVideos = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemPictures = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemChooseLocation = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemCopyTo = new DevExpress.XtraBars.BarSubItem();
-            this.ButtonItemRename = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemNewFolder = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemNewItem = new DevExpress.XtraBars.BarSubItem();
             this.ButtonItemNewShortcut = new DevExpress.XtraBars.BarButtonItem();
@@ -89,23 +78,16 @@ namespace WolvenKit.Views
             this.ButtonItemNewRichTextDocument = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemNewTextDocument = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemCompressedFolder = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemEdit = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemSelectAll = new DevExpress.XtraBars.BarButtonItem();
             this.btnSelectNone = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemInvertSelection = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemPropertiesFolder = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemRemoveProperties = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemDelete = new DevExpress.XtraBars.BarButtonItem();
             this.PopupMenuDeleteButton = new DevExpress.XtraBars.PopupMenu(this.components);
             this.ButtonItemRecycle = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemPermanentlyDelete = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemShowRecycleConfirmation = new DevExpress.XtraBars.BarCheckItem();
-            this.ButtonItemProperties = new DevExpress.XtraBars.BarButtonItem();
-            this.PopupMenuPropertiesButton = new DevExpress.XtraBars.PopupMenu(this.components);
             this.btnOpen = new DevExpress.XtraBars.BarButtonItem();
-            this.ButtonItemOptions = new DevExpress.XtraBars.BarButtonItem();
             this.PopupMenuOptionsButton = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.ButtonItemChangeFilderOptions = new DevExpress.XtraBars.BarButtonItem();
             this.rgbiViewStyle = new DevExpress.XtraBars.RibbonGalleryBarItem();
             this.ContextItemOpen = new DevExpress.XtraBars.BarButtonItem();
             this.ContextItemCut = new DevExpress.XtraBars.BarButtonItem();
@@ -113,18 +95,14 @@ namespace WolvenKit.Views
             this.ContextItemPaste = new DevExpress.XtraBars.BarButtonItem();
             this.ContextItemDelete = new DevExpress.XtraBars.BarButtonItem();
             this.ContextItemRename = new DevExpress.XtraBars.BarButtonItem();
-            this.ContextItemProperties = new DevExpress.XtraBars.BarButtonItem();
             this.PageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.PageGroupClipboard = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.PageGroupOrganize = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.PageGroupNew = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.PageGroupOpen = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.PageGroupSelect = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.PageView = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.PageGroupViewPanes = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.PageGroupViewLayouts = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.PageGroupViewShowHide = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.PageGroupViewEmpty = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemRadioGroup1 = new DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -155,7 +133,6 @@ namespace WolvenKit.Views
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RibbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PopupMenuDeleteButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PopupMenuPropertiesButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PopupMenuOptionsButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemRadioGroup1)).BeginInit();
@@ -193,33 +170,20 @@ namespace WolvenKit.Views
             this.RibbonControl.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.RibbonControl.ExpandCollapseItem,
             this.RibbonControl.SearchEditItem,
-            this.ButtonItemHelp,
             this.ButtonItemNavigationPane,
             this.ButtonItemItemCheckBoxes,
             this.ButtonItemFileNameExtensions,
-            this.ButtonItemHiddenItems,
-            this.btnHideSelectedItems,
             this.ButtonCheckItemNavigationPane,
-            this.ButtonItemCopy,
-            this.ButtonItemPaste,
-            this.ButtonItemCut,
             this.btnCopyItem,
-            this.ButtonItemMoveTo,
-            this.ButtonItemCopyTo,
-            this.ButtonItemRename,
             this.ButtonItemNewFolder,
             this.ButtonItemNewItem,
-            this.ButtonItemEdit,
             this.ButtonItemSelectAll,
             this.btnSelectNone,
             this.ButtonItemInvertSelection,
-            this.ButtonItemPropertiesFolder,
             this.ButtonItemRemoveProperties,
-            this.ButtonItemDelete,
             this.ButtonItemRecycle,
             this.ButtonItemPermanentlyDelete,
             this.ButtonItemShowRecycleConfirmation,
-            this.ButtonItemProperties,
             this.ButtonItemDocuments,
             this.ButtonItemMusic,
             this.ButtonItemVideos,
@@ -234,24 +198,19 @@ namespace WolvenKit.Views
             this.ButtonItemNewTextDocument,
             this.ButtonItemCompressedFolder,
             this.btnOpen,
-            this.ButtonItemOptions,
-            this.ButtonItemChangeFilderOptions,
             this.rgbiViewStyle,
             this.ContextItemOpen,
             this.ContextItemCut,
             this.ContextItemCopy,
             this.ContextItemPaste,
             this.ContextItemDelete,
-            this.ContextItemRename,
-            this.ContextItemProperties});
+            this.ContextItemRename});
             this.RibbonControl.Location = new System.Drawing.Point(0, 0);
             this.RibbonControl.MaxItemId = 175;
             this.RibbonControl.Name = "RibbonControl";
-            this.RibbonControl.PageHeaderItemLinks.Add(this.ButtonItemHelp);
             this.RibbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.PageHome,
             this.PageView});
-            this.RibbonControl.QuickToolbarItemLinks.Add(this.ButtonItemPropertiesFolder);
             this.RibbonControl.QuickToolbarItemLinks.Add(this.ButtonItemNewFolder);
             this.RibbonControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
@@ -259,15 +218,6 @@ namespace WolvenKit.Views
             this.repositoryItemTextEdit2});
             this.RibbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
             this.RibbonControl.Size = new System.Drawing.Size(1216, 158);
-            // 
-            // ButtonItemHelp
-            // 
-            this.ButtonItemHelp.Caption = "Help";
-            this.ButtonItemHelp.Id = 15;
-            this.ButtonItemHelp.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
-            this.ButtonItemHelp.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemHelp.ImageOptions.SvgImage")));
-            this.ButtonItemHelp.Name = "ButtonItemHelp";
-            this.ButtonItemHelp.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnHelpButtonItemClick);
             // 
             // ButtonItemNavigationPane
             // 
@@ -312,53 +262,6 @@ namespace WolvenKit.Views
             this.ButtonItemFileNameExtensions.Name = "ButtonItemFileNameExtensions";
             this.ButtonItemFileNameExtensions.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowFileNameExtensionsCheckItemClick);
             // 
-            // ButtonItemHiddenItems
-            // 
-            this.ButtonItemHiddenItems.Caption = "Hidden items";
-            this.ButtonItemHiddenItems.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.ButtonItemHiddenItems.Id = 28;
-            this.ButtonItemHiddenItems.Name = "ButtonItemHiddenItems";
-            this.ButtonItemHiddenItems.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowHiddenItemsCheckItemClick);
-            // 
-            // btnHideSelectedItems
-            // 
-            this.btnHideSelectedItems.Caption = "Hide selected items";
-            this.btnHideSelectedItems.Id = 29;
-            this.btnHideSelectedItems.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnHideSelectedItems.ImageOptions.SvgImage")));
-            this.btnHideSelectedItems.Name = "btnHideSelectedItems";
-            this.btnHideSelectedItems.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
-            // ButtonItemCopy
-            // 
-            this.ButtonItemCopy.Caption = "Copy";
-            this.ButtonItemCopy.Id = 38;
-            this.ButtonItemCopy.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemCopy.ImageOptions.SvgImage")));
-            this.ButtonItemCopy.Name = "ButtonItemCopy";
-            this.ButtonItemCopy.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            toolTipItem1.Text = "The command is not implemented";
-            superToolTip1.Items.Add(toolTipItem1);
-            this.ButtonItemCopy.SuperTip = superToolTip1;
-            this.ButtonItemCopy.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
-            // ButtonItemPaste
-            // 
-            this.ButtonItemPaste.Caption = "Paste";
-            this.ButtonItemPaste.Id = 39;
-            this.ButtonItemPaste.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemPaste.ImageOptions.SvgImage")));
-            this.ButtonItemPaste.Name = "ButtonItemPaste";
-            this.ButtonItemPaste.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemPaste.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
-            // ButtonItemCut
-            // 
-            this.ButtonItemCut.Caption = "Cut";
-            this.ButtonItemCut.Id = 40;
-            this.ButtonItemCut.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemCut.ImageOptions.SvgImage")));
-            this.ButtonItemCut.ImageOptions.SvgImageSize = new System.Drawing.Size(8, 8);
-            this.ButtonItemCut.Name = "ButtonItemCut";
-            this.ButtonItemCut.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            this.ButtonItemCut.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
             // btnCopyItem
             // 
             this.btnCopyItem.Caption = "Copy path";
@@ -367,25 +270,9 @@ namespace WolvenKit.Views
             this.btnCopyItem.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCopyItem.ImageOptions.SvgImage")));
             this.btnCopyItem.ImageOptions.SvgImageSize = new System.Drawing.Size(8, 8);
             this.btnCopyItem.Name = "btnCopyItem";
-            this.btnCopyItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnCopyItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnCopyItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnCopyItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnCopyPathItemClick);
-            // 
-            // ButtonItemMoveTo
-            // 
-            this.ButtonItemMoveTo.Caption = "Move to";
-            this.ButtonItemMoveTo.Enabled = false;
-            this.ButtonItemMoveTo.Id = 43;
-            this.ButtonItemMoveTo.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemMoveTo.ImageOptions.SvgImage")));
-            this.ButtonItemMoveTo.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemDocuments),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemMusic),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemVideos),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemPictures),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemChooseLocation, true)});
-            this.ButtonItemMoveTo.Name = "ButtonItemMoveTo";
-            this.ButtonItemMoveTo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemMoveTo.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemDocuments
             // 
@@ -421,31 +308,6 @@ namespace WolvenKit.Views
             this.ButtonItemChooseLocation.Caption = "Choose location...";
             this.ButtonItemChooseLocation.Id = 110;
             this.ButtonItemChooseLocation.Name = "ButtonItemChooseLocation";
-            // 
-            // ButtonItemCopyTo
-            // 
-            this.ButtonItemCopyTo.Caption = "Copy to";
-            this.ButtonItemCopyTo.Enabled = false;
-            this.ButtonItemCopyTo.Id = 44;
-            this.ButtonItemCopyTo.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemCopyTo.ImageOptions.SvgImage")));
-            this.ButtonItemCopyTo.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemDocuments),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemMusic),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemVideos),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemPictures),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemChooseLocation, true)});
-            this.ButtonItemCopyTo.Name = "ButtonItemCopyTo";
-            this.ButtonItemCopyTo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemCopyTo.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
-            // ButtonItemRename
-            // 
-            this.ButtonItemRename.Caption = "Rename";
-            this.ButtonItemRename.Id = 46;
-            this.ButtonItemRename.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemRename.ImageOptions.SvgImage")));
-            this.ButtonItemRename.Name = "ButtonItemRename";
-            this.ButtonItemRename.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemRename.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemNewFolder
             // 
@@ -514,14 +376,6 @@ namespace WolvenKit.Views
             this.ButtonItemCompressedFolder.Id = 126;
             this.ButtonItemCompressedFolder.Name = "ButtonItemCompressedFolder";
             // 
-            // ButtonItemEdit
-            // 
-            this.ButtonItemEdit.Caption = "Edit";
-            this.ButtonItemEdit.Id = 52;
-            this.ButtonItemEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemEdit.ImageOptions.SvgImage")));
-            this.ButtonItemEdit.Name = "ButtonItemEdit";
-            this.ButtonItemEdit.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            // 
             // ButtonItemSelectAll
             // 
             this.ButtonItemSelectAll.Caption = "Select all";
@@ -549,30 +403,12 @@ namespace WolvenKit.Views
             this.ButtonItemInvertSelection.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.ButtonItemInvertSelection.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnInvertSelectionItemClick);
             // 
-            // ButtonItemPropertiesFolder
-            // 
-            this.ButtonItemPropertiesFolder.Caption = "Properties";
-            this.ButtonItemPropertiesFolder.Id = 97;
-            this.ButtonItemPropertiesFolder.Name = "ButtonItemPropertiesFolder";
-            this.ButtonItemPropertiesFolder.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnOptionsItemClick);
-            // 
             // ButtonItemRemoveProperties
             // 
             this.ButtonItemRemoveProperties.Caption = "Remove properties";
             this.ButtonItemRemoveProperties.Enabled = false;
             this.ButtonItemRemoveProperties.Id = 98;
             this.ButtonItemRemoveProperties.Name = "ButtonItemRemoveProperties";
-            // 
-            // ButtonItemDelete
-            // 
-            this.ButtonItemDelete.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
-            this.ButtonItemDelete.Caption = "Delete";
-            this.ButtonItemDelete.DropDownControl = this.PopupMenuDeleteButton;
-            this.ButtonItemDelete.Id = 99;
-            this.ButtonItemDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemDelete.ImageOptions.SvgImage")));
-            this.ButtonItemDelete.Name = "ButtonItemDelete";
-            this.ButtonItemDelete.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // PopupMenuDeleteButton
             // 
@@ -600,24 +436,6 @@ namespace WolvenKit.Views
             this.ButtonItemShowRecycleConfirmation.Id = 103;
             this.ButtonItemShowRecycleConfirmation.Name = "ButtonItemShowRecycleConfirmation";
             // 
-            // ButtonItemProperties
-            // 
-            this.ButtonItemProperties.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
-            this.ButtonItemProperties.Caption = "Properties";
-            this.ButtonItemProperties.DropDownControl = this.PopupMenuPropertiesButton;
-            this.ButtonItemProperties.Id = 104;
-            this.ButtonItemProperties.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemProperties.ImageOptions.SvgImage")));
-            this.ButtonItemProperties.Name = "ButtonItemProperties";
-            this.ButtonItemProperties.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemProperties.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnOptionsItemClick);
-            // 
-            // PopupMenuPropertiesButton
-            // 
-            this.PopupMenuPropertiesButton.ItemLinks.Add(this.ButtonItemPropertiesFolder);
-            this.PopupMenuPropertiesButton.ItemLinks.Add(this.ButtonItemRemoveProperties, true);
-            this.PopupMenuPropertiesButton.Name = "PopupMenuPropertiesButton";
-            this.PopupMenuPropertiesButton.Ribbon = this.RibbonControl;
-            // 
             // btnOpen
             // 
             this.btnOpen.Caption = "Open";
@@ -625,32 +443,13 @@ namespace WolvenKit.Views
             this.btnOpen.Id = 134;
             this.btnOpen.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnOpen.ImageOptions.SvgImage")));
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnOpen.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnOpen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnOpenItemClick);
-            // 
-            // ButtonItemOptions
-            // 
-            this.ButtonItemOptions.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
-            this.ButtonItemOptions.Caption = "Options";
-            this.ButtonItemOptions.DropDownControl = this.PopupMenuOptionsButton;
-            this.ButtonItemOptions.Id = 135;
-            this.ButtonItemOptions.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemOptions.ImageOptions.SvgImage")));
-            this.ButtonItemOptions.Name = "ButtonItemOptions";
-            this.ButtonItemOptions.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.ButtonItemOptions.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnOptionsItemClick);
             // 
             // PopupMenuOptionsButton
             // 
-            this.PopupMenuOptionsButton.ItemLinks.Add(this.ButtonItemChangeFilderOptions);
             this.PopupMenuOptionsButton.Name = "PopupMenuOptionsButton";
             this.PopupMenuOptionsButton.Ribbon = this.RibbonControl;
-            // 
-            // ButtonItemChangeFilderOptions
-            // 
-            this.ButtonItemChangeFilderOptions.Caption = "Change folder and search options";
-            this.ButtonItemChangeFilderOptions.Id = 136;
-            this.ButtonItemChangeFilderOptions.Name = "ButtonItemChangeFilderOptions";
-            this.ButtonItemChangeFilderOptions.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnOptionsItemClick);
             // 
             // rgbiViewStyle
             // 
@@ -765,19 +564,10 @@ namespace WolvenKit.Views
             this.ContextItemRename.Id = 163;
             this.ContextItemRename.Name = "ContextItemRename";
             // 
-            // ContextItemProperties
-            // 
-            this.ContextItemProperties.Caption = "Properties";
-            this.ContextItemProperties.Id = 164;
-            this.ContextItemProperties.Name = "ContextItemProperties";
-            this.ContextItemProperties.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnOptionsItemClick);
-            // 
             // PageHome
             // 
             this.PageHome.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.PageGroupClipboard,
-            this.PageGroupOrganize,
-            this.PageGroupNew,
             this.PageGroupOpen,
             this.PageGroupSelect});
             this.PageHome.Name = "PageHome";
@@ -786,37 +576,14 @@ namespace WolvenKit.Views
             // PageGroupClipboard
             // 
             this.PageGroupClipboard.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.PageGroupClipboard.ItemLinks.Add(this.ButtonItemCopy);
-            this.PageGroupClipboard.ItemLinks.Add(this.ButtonItemPaste);
-            this.PageGroupClipboard.ItemLinks.Add(this.ButtonItemCut);
             this.PageGroupClipboard.ItemLinks.Add(this.btnCopyItem);
             this.PageGroupClipboard.Name = "PageGroupClipboard";
             this.PageGroupClipboard.Text = "Clipboard";
             // 
-            // PageGroupOrganize
-            // 
-            this.PageGroupOrganize.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemMoveTo);
-            this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemCopyTo);
-            this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemDelete, true);
-            this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemRename);
-            this.PageGroupOrganize.Name = "PageGroupOrganize";
-            this.PageGroupOrganize.Text = "Organize";
-            // 
-            // PageGroupNew
-            // 
-            this.PageGroupNew.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.PageGroupNew.ItemLinks.Add(this.ButtonItemNewFolder);
-            this.PageGroupNew.ItemLinks.Add(this.ButtonItemNewItem);
-            this.PageGroupNew.Name = "PageGroupNew";
-            this.PageGroupNew.Text = "New";
-            // 
             // PageGroupOpen
             // 
             this.PageGroupOpen.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.PageGroupOpen.ItemLinks.Add(this.ButtonItemProperties);
             this.PageGroupOpen.ItemLinks.Add(this.btnOpen);
-            this.PageGroupOpen.ItemLinks.Add(this.ButtonItemEdit);
             this.PageGroupOpen.Name = "PageGroupOpen";
             this.PageGroupOpen.Text = "Open";
             // 
@@ -834,8 +601,7 @@ namespace WolvenKit.Views
             this.PageView.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.PageGroupViewPanes,
             this.PageGroupViewLayouts,
-            this.PageGroupViewShowHide,
-            this.PageGroupViewEmpty});
+            this.PageGroupViewShowHide});
             this.PageView.Name = "PageView";
             this.PageView.Text = "View";
             // 
@@ -858,16 +624,8 @@ namespace WolvenKit.Views
             this.PageGroupViewShowHide.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemItemCheckBoxes);
             this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemFileNameExtensions);
-            this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemHiddenItems);
-            this.PageGroupViewShowHide.ItemLinks.Add(this.btnHideSelectedItems);
             this.PageGroupViewShowHide.Name = "PageGroupViewShowHide";
             this.PageGroupViewShowHide.Text = "Show/Hide";
-            // 
-            // PageGroupViewEmpty
-            // 
-            this.PageGroupViewEmpty.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.PageGroupViewEmpty.ItemLinks.Add(this.ButtonItemOptions);
-            this.PageGroupViewEmpty.Name = "PageGroupViewEmpty";
             // 
             // repositoryItemTextEdit1
             // 
@@ -934,7 +692,7 @@ namespace WolvenKit.Views
             this.editBreadCrumb.Properties.QueryChildNodes += new DevExpress.XtraEditors.BreadCrumbQueryChildNodesEventHandler(this.OnBreadCrumbQueryChildNodes);
             this.editBreadCrumb.Properties.ValidatePath += new DevExpress.XtraEditors.BreadCrumbValidatePathEventHandler(this.OnBreadCrumbValidatePath);
             this.editBreadCrumb.Properties.NewNodeAdding += new DevExpress.XtraEditors.BreadCrumbNewNodeAddingEventHandler(this.OnBreadCrumbNewNodeAdding);
-            this.editBreadCrumb.Size = new System.Drawing.Size(819, 22);
+            this.editBreadCrumb.Size = new System.Drawing.Size(834, 22);
             this.editBreadCrumb.TabIndex = 3;
             this.editBreadCrumb.PathChanged += new DevExpress.XtraEditors.BreadCrumbPathChangedEventHandler(this.OnBreadCrumbPathChanged);
             // 
@@ -1025,10 +783,10 @@ namespace WolvenKit.Views
             // labelControl1
             // 
             this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelControl1.Location = new System.Drawing.Point(920, 5);
+            this.labelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelControl1.Location = new System.Drawing.Point(5, 5);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(15, 22);
+            this.labelControl1.Size = new System.Drawing.Size(930, 22);
             this.labelControl1.TabIndex = 9;
             // 
             // EditSearch
@@ -1194,7 +952,6 @@ namespace WolvenKit.Views
             this.itemPopupMenu.ItemLinks.Add(this.ContextItemPaste);
             this.itemPopupMenu.ItemLinks.Add(this.ContextItemDelete);
             this.itemPopupMenu.ItemLinks.Add(this.ContextItemRename);
-            this.itemPopupMenu.ItemLinks.Add(this.ContextItemProperties, true);
             this.itemPopupMenu.Name = "itemPopupMenu";
             this.itemPopupMenu.Ribbon = this.RibbonControl;
             // 
@@ -1203,20 +960,20 @@ namespace WolvenKit.Views
             this.navigationMenu.Name = "navigationMenu";
             this.navigationMenu.Ribbon = this.RibbonControl;
             // 
-            // ExplorerView
+            // AssetExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1216, 695);
             this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.navigationPanel);
             this.Controls.Add(this.RibbonControl);
-            this.Name = "ExplorerView";
-            this.Size = new System.Drawing.Size(1216, 725);
+            this.IconOptions.Image = global::WolvenKit.Properties.Resources.wkdxicon;
+            this.Name = "AssetExplorer";
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RibbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PopupMenuDeleteButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PopupMenuPropertiesButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PopupMenuOptionsButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemRadioGroup1)).EndInit();
@@ -1249,44 +1006,27 @@ namespace WolvenKit.Views
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupViewPanes;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupViewLayouts;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupViewShowHide;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupViewEmpty;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemHelp;
         private DevExpress.XtraBars.BarSubItem ButtonItemNavigationPane;
         private DevExpress.XtraBars.BarCheckItem ButtonItemItemCheckBoxes;
         private DevExpress.XtraBars.BarCheckItem ButtonItemFileNameExtensions;
-        private DevExpress.XtraBars.BarCheckItem ButtonItemHiddenItems;
-        private DevExpress.XtraBars.BarButtonItem btnHideSelectedItems;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraBars.BarCheckItem ButtonCheckItemNavigationPane;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemCopy;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemPaste;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemCut;
         private DevExpress.XtraBars.BarButtonItem btnCopyItem;
-        private DevExpress.XtraBars.BarSubItem ButtonItemMoveTo;
-        private DevExpress.XtraBars.BarSubItem ButtonItemCopyTo;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemRename;
         private DevExpress.XtraBars.BarButtonItem ButtonItemNewFolder;
         private DevExpress.XtraBars.BarSubItem ButtonItemNewItem;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemEdit;
         private DevExpress.XtraBars.BarButtonItem ButtonItemSelectAll;
         private DevExpress.XtraBars.BarButtonItem btnSelectNone;
         private DevExpress.XtraBars.BarButtonItem ButtonItemInvertSelection;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupClipboard;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupOrganize;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupNew;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupOpen;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupSelect;
         private DevExpress.XtraEditors.PanelControl navigationPanel;
         private DevExpress.XtraEditors.PanelControl contentPanel;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemPropertiesFolder;
         private DevExpress.XtraBars.BarButtonItem ButtonItemRemoveProperties;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemDelete;
         private DevExpress.XtraBars.BarButtonItem ButtonItemPermanentlyDelete;
         private DevExpress.XtraBars.PopupMenu PopupMenuDeleteButton;
         private DevExpress.XtraBars.BarButtonItem ButtonItemRecycle;
         private DevExpress.XtraBars.BarCheckItem ButtonItemShowRecycleConfirmation;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemProperties;
-        private DevExpress.XtraBars.PopupMenu PopupMenuPropertiesButton;
         private DevExpress.XtraBars.BarButtonItem ButtonItemDocuments;
         private DevExpress.XtraBars.BarButtonItem ButtonItemMusic;
         private DevExpress.XtraBars.BarButtonItem ButtonItemVideos;
@@ -1303,8 +1043,6 @@ namespace WolvenKit.Views
         private ButtonEdit EditSearch;
         private BreadCrumbEdit editBreadCrumb;
         private DevExpress.XtraBars.BarButtonItem btnOpen;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemOptions;
-        private DevExpress.XtraBars.BarButtonItem ButtonItemChangeFilderOptions;
         private DevExpress.XtraBars.PopupMenu PopupMenuOptionsButton;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
         private DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup repositoryItemRadioGroup1;
@@ -1326,7 +1064,6 @@ namespace WolvenKit.Views
         private DevExpress.XtraBars.BarButtonItem ContextItemPaste;
         private DevExpress.XtraBars.BarButtonItem ContextItemDelete;
         private DevExpress.XtraBars.BarButtonItem ContextItemRename;
-        private DevExpress.XtraBars.BarButtonItem ContextItemProperties;
         private DevExpress.XtraGrid.Columns.GridColumn columnName;
         private DevExpress.XtraGrid.Columns.GridColumn columnPath;
         private DevExpress.XtraGrid.Columns.GridColumn columnCheck;

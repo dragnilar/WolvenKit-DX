@@ -11,6 +11,9 @@ namespace WolvenKit.Wwise.SoundCache
         /// Name of the bundled item in the archive.
         /// </summary>
         public string Name { get; set; }
+
+        public string ExplorerPath { get; set; }
+
         /// <summary>
         /// Name of the cache file this file is in. (Needed for Extracting the file)
         /// </summary>

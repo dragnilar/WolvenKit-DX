@@ -22,6 +22,7 @@ namespace WolvenKit.Cache
         public string ParentFile;
 
         public string Name { get; set; }
+        public string ExplorerPath { get; set; }
         public Int32 Hash;
         public Int32 PathStringIndex;
         public long PageOFfset { get; set; }

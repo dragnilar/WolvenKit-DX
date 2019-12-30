@@ -9,12 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using DevExpress.XtraGrid.Views.WinExplorer;
 using DevExpress.XtraSplashScreen;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
@@ -37,22 +35,21 @@ namespace WolvenKit.Views
         public MainWindow()
         {
             InitializeComponent();
-            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
-            {
-                CheckForSettings();
-            }
+            CheckForSettings();
             SplashScreenManager.ShowForm(typeof(Splashy));
             Application.DoEvents();
             MainController.Get().Initialize();
             SplashScreenManager.CloseForm();
             MainController.Get().PropertyChanged += MainControllerUpdated;
             MainController.Get().InitForm(this);
+            barButtonItemTest.Visibility = Debugger.IsAttached ? BarItemVisibility.Always : BarItemVisibility.Never;
             Shown += OnShown;
         }
 
         private void CheckForSettings()
         {
             // Skip checking for settings if in design mode.
+            if (Process.GetCurrentProcess().ProcessName == "devenv") return;
             if (File.Exists(MainController.Get().Configuration.ExecutablePath)) return;
             var settings = new SettingsDialogView {StartPosition = FormStartPosition.CenterScreen};
             var result = settings.ShowDialog();
@@ -1451,12 +1448,6 @@ namespace WolvenKit.Views
             {
                 editor.SaveFile();
             }
-        }
-
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            //Does this still need to be used??
         }
 
 
