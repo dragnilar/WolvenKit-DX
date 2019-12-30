@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace VanWassenhove.Util
+namespace WolvenKit
 {
     public class SortableBindingList<T> : BindingList<T>
     {
