@@ -317,11 +317,11 @@
     <Compile Include="Controls\ScriptEditor.Designer.cs">
       <DependentUpon>ScriptEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WinExplorerView.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Views\AssetExplorer.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\WinExplorerView.Designer.cs">
-      <DependentUpon>WinExplorerView.cs</DependentUpon>
+    <Compile Include="Views\AssetExplorer.Designer.cs">
+      <DependentUpon>AssetExplorer.cs</DependentUpon>
     </Compile>
     <Compile Include="DDSUtility.cs" />
     <Compile Include="Controls\ChunkFlowDiagram.cs">
@@ -330,22 +330,22 @@
     <Compile Include="Controls\ChunkFlowDiagram.designer.cs">
       <DependentUpon>ChunkFlowDiagram.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ByteArrayDialogView.cs">
+    <Compile Include="Views\ByteArrayDialogView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ByteArrayDialogView.Designer.cs">
+    <Compile Include="Views\ByteArrayDialogView.Designer.cs">
       <DependentUpon>ByteArrayDialogView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CreatePackageInstallerView.cs">
+    <Compile Include="Views\CreatePackageInstallerView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CreatePackageInstallerView.Designer.cs">
+    <Compile Include="Views\CreatePackageInstallerView.Designer.cs">
       <DependentUpon>CreatePackageInstallerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Splashy.cs">
+    <Compile Include="Views\Splashy.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Splashy.Designer.cs">
+    <Compile Include="Views\Splashy.Designer.cs">
       <DependentUpon>Splashy.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\VariableTreeListNode.cs" />
@@ -358,10 +358,10 @@
     <Compile Include="Commonfunctions.cs" />
     <Compile Include="CopyController.cs" />
     <Compile Include="FileSavedEventArgs.cs" />
-    <Compile Include="Forms\frmDebug.cs">
+    <Compile Include="Views\frmDebug.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmDebug.Designer.cs">
+    <Compile Include="Views\frmDebug.Designer.cs">
       <DependentUpon>frmDebug.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImagePreview.cs">
@@ -370,10 +370,10 @@
     <Compile Include="Controls\ImagePreview.Designer.cs">
       <DependentUpon>ImagePreview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmInstallPackage.cs">
+    <Compile Include="Views\frmInstallPackage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmInstallPackage.Designer.cs">
+    <Compile Include="Views\frmInstallPackage.Designer.cs">
       <DependentUpon>frmInstallPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\JournalEditor.cs">
@@ -382,28 +382,28 @@
     <Compile Include="Controls\JournalEditor.Designer.cs">
       <DependentUpon>JournalEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmMenuCreator.cs">
+    <Compile Include="Views\frmMenuCreator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmMenuCreator.Designer.cs">
+    <Compile Include="Views\frmMenuCreator.Designer.cs">
       <DependentUpon>frmMenuCreator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\BuildSettingsView.cs">
+    <Compile Include="Views\BuildSettingsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BuildSettingsView.Designer.cs">
+    <Compile Include="Views\BuildSettingsView.Designer.cs">
       <DependentUpon>BuildSettingsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSaveEditor.cs">
+    <Compile Include="Views\frmSaveEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmSaveEditor.Designer.cs">
+    <Compile Include="Views\frmSaveEditor.Designer.cs">
       <DependentUpon>frmSaveEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmTextInput.cs">
+    <Compile Include="Views\frmTextInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmTextInput.Designer.cs">
+    <Compile Include="Views\frmTextInput.Designer.cs">
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TextureFileViewer.cs">
@@ -412,16 +412,16 @@
     <Compile Include="Controls\TextureFileViewer.Designer.cs">
       <DependentUpon>TextureFileViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmUsmPlayer.cs">
+    <Compile Include="Views\frmUsmPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmUsmPlayer.Designer.cs">
+    <Compile Include="Views\frmUsmPlayer.Designer.cs">
       <DependentUpon>frmUsmPlayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LicenseDocumentView.cs">
+    <Compile Include="Views\LicenseDocumentView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LicenseDocumentView.Designer.cs">
+    <Compile Include="Views\LicenseDocumentView.Designer.cs">
       <DependentUpon>LicenseDocumentView.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportExportUtility.cs" />
@@ -462,22 +462,22 @@
     <Compile Include="FlowTreeEditors\SceneSectionEditor.Designer.cs">
       <DependentUpon>SceneSectionEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddChunkDialogView.cs">
+    <Compile Include="Views\AddChunkDialogView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddChunkDialogView.Designer.cs">
+    <Compile Include="Views\AddChunkDialogView.Designer.cs">
       <DependentUpon>AddChunkDialogView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddVariable.cs">
+    <Compile Include="Views\frmAddVariable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddVariable.Designer.cs">
+    <Compile Include="Views\frmAddVariable.Designer.cs">
       <DependentUpon>frmAddVariable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AssetBrowserView.cs">
+    <Compile Include="Views\AssetBrowserView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AssetBrowserView.Designer.cs">
+    <Compile Include="Views\AssetBrowserView.Designer.cs">
       <DependentUpon>AssetBrowserView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ChunkListViewer.cs">
@@ -498,22 +498,22 @@
     <Compile Include="Controls\EmbededFilesView.Designer.cs">
       <DependentUpon>EmbededFilesView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmExtractAmbigious.cs">
+    <Compile Include="Views\frmExtractAmbigious.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmExtractAmbigious.Designer.cs">
+    <Compile Include="Views\frmExtractAmbigious.Designer.cs">
       <DependentUpon>frmExtractAmbigious.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmHexEditorView.cs">
+    <Compile Include="Views\frmHexEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmHexEditorView.Designer.cs">
+    <Compile Include="Views\frmHexEditorView.Designer.cs">
       <DependentUpon>frmHexEditorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.cs">
+    <Compile Include="Views\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainWindow.Designer.cs">
+    <Compile Include="Views\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ModExplorer.cs">
@@ -522,10 +522,10 @@
     <Compile Include="Controls\ModExplorer.Designer.cs">
       <DependentUpon>ModExplorer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmModSettings.cs">
+    <Compile Include="Views\frmModSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmModSettings.Designer.cs">
+    <Compile Include="Views\frmModSettings.Designer.cs">
       <DependentUpon>frmModSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\OutputView.cs">
@@ -534,16 +534,16 @@
     <Compile Include="Controls\OutputView.Designer.cs">
       <DependentUpon>OutputView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmRenameDialog.cs">
+    <Compile Include="Views\frmRenameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmRenameDialog.Designer.cs">
+    <Compile Include="Views\frmRenameDialog.Designer.cs">
       <DependentUpon>frmRenameDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SettingsDialogView.cs">
+    <Compile Include="Views\SettingsDialogView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SettingsDialogView.Designer.cs">
+    <Compile Include="Views\SettingsDialogView.Designer.cs">
       <DependentUpon>SettingsDialogView.cs</DependentUpon>
     </Compile>
     <Compile Include="MainController.cs" />
@@ -566,13 +566,13 @@
     <EmbeddedResource Include="Controls\ScriptEditor.resx">
       <DependentUpon>ScriptEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WinExplorerView.resx">
-      <DependentUpon>WinExplorerView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\AssetExplorer.resx">
+      <DependentUpon>AssetExplorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ByteArrayDialogView.resx">
+    <EmbeddedResource Include="Views\ByteArrayDialogView.resx">
       <DependentUpon>ByteArrayDialogView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CreatePackageInstallerView.resx">
+    <EmbeddedResource Include="Views\CreatePackageInstallerView.resx">
       <DependentUpon>CreatePackageInstallerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlowTreeEditors\ChunkEditor.resx">
@@ -585,15 +585,15 @@
     <EmbeddedResource Include="FlowTreeEditors\SceneLinkEditor.resx">
       <DependentUpon>SceneLinkEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddChunkDialogView.resx">
+    <EmbeddedResource Include="Views\AddChunkDialogView.resx">
       <DependentUpon>AddChunkDialogView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddVariable.resx">
+    <EmbeddedResource Include="Views\frmAddVariable.resx">
       <DependentUpon>frmAddVariable.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AssetBrowserView.resx">
+    <EmbeddedResource Include="Views\AssetBrowserView.resx">
       <DependentUpon>AssetBrowserView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -606,68 +606,68 @@
     <EmbeddedResource Include="Controls\ChunkFlowDiagram.resx">
       <DependentUpon>ChunkFlowDiagram.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmDebug.resx">
+    <EmbeddedResource Include="Views\frmDebug.resx">
       <DependentUpon>frmDebug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\EmbededFilesView.resx">
       <DependentUpon>EmbededFilesView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmExtractAmbigious.resx">
+    <EmbeddedResource Include="Views\frmExtractAmbigious.resx">
       <DependentUpon>frmExtractAmbigious.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmHexEditorView.resx">
+    <EmbeddedResource Include="Views\frmHexEditorView.resx">
       <DependentUpon>frmHexEditorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImagePreview.resx">
       <DependentUpon>ImagePreview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmInstallPackage.resx">
+    <EmbeddedResource Include="Views\frmInstallPackage.resx">
       <DependentUpon>frmInstallPackage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\JournalEditor.resx">
       <DependentUpon>JournalEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainWindow.resx">
+    <EmbeddedResource Include="Views\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmMenuCreator.resx">
+    <EmbeddedResource Include="Views\frmMenuCreator.resx">
       <DependentUpon>frmMenuCreator.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ModExplorer.resx">
       <DependentUpon>ModExplorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmModSettings.resx">
+    <EmbeddedResource Include="Views\frmModSettings.resx">
       <DependentUpon>frmModSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OutputView.resx">
       <DependentUpon>OutputView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\BuildSettingsView.resx">
+    <EmbeddedResource Include="Views\BuildSettingsView.resx">
       <DependentUpon>BuildSettingsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmRenameDialog.resx">
+    <EmbeddedResource Include="Views\frmRenameDialog.resx">
       <DependentUpon>frmRenameDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSaveEditor.resx">
+    <EmbeddedResource Include="Views\frmSaveEditor.resx">
       <DependentUpon>frmSaveEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsDialogView.resx">
+    <EmbeddedResource Include="Views\SettingsDialogView.resx">
       <DependentUpon>SettingsDialogView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTextInput.resx">
+    <EmbeddedResource Include="Views\frmTextInput.resx">
       <DependentUpon>frmTextInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TextureFileViewer.resx">
       <DependentUpon>TextureFileViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmUsmPlayer.resx">
+    <EmbeddedResource Include="Views\frmUsmPlayer.resx">
       <DependentUpon>frmUsmPlayer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LicenseDocumentView.resx">
+    <EmbeddedResource Include="Views\LicenseDocumentView.resx">
       <DependentUpon>LicenseDocumentView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Splashy.resx">
+    <EmbeddedResource Include="Views\Splashy.resx">
       <DependentUpon>Splashy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />

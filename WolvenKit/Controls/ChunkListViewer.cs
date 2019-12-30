@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using WolvenKit.CR2W;
+using WolvenKit.Views;
 
 namespace WolvenKit
 {

@@ -19,6 +19,7 @@ using WolvenKit.CR2W.Interfaces;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Interfaces;
 using WolvenKit.Properties;
+using WolvenKit.Views;
 using WolvenKit.W3Strings;
 
 namespace WolvenKit
