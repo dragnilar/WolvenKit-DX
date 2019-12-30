@@ -1,7 +1,8 @@
 ﻿using DevExpress.XtraEditors;
-using DevExpress.XtraNavBar;
-namespace DevExpress.XtraGrid.Demos {
-    partial class ExplorerView {
+
+namespace WolvenKit.Views 
+{
+    partial class AssetExplorer {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -26,7 +27,7 @@ namespace DevExpress.XtraGrid.Demos {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExplorerView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetExplorer));
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
@@ -62,7 +63,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemHelp = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemNavigationPane = new DevExpress.XtraBars.BarSubItem();
             this.ButtonCheckItemNavigationPane = new DevExpress.XtraBars.BarCheckItem();
-            this.ButtonCheckItemShowFavorites = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonCheckItemShowLibraries = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonItemItemCheckBoxes = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonItemFileNameExtensions = new DevExpress.XtraBars.BarCheckItem();
@@ -128,16 +128,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemRadioGroup1 = new DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.navBar = new DevExpress.XtraNavBar.NavBarControl();
-            this.groupFavorites = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navPanelItemDesktop = new DevExpress.XtraNavBar.NavBarItem();
-            this.navPanelItemDownloads = new DevExpress.XtraNavBar.NavBarItem();
-            this.navPanelItemRecent = new DevExpress.XtraNavBar.NavBarItem();
-            this.groupLibraries = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navPanelItemDocuments = new DevExpress.XtraNavBar.NavBarItem();
-            this.navPanelItemMusic = new DevExpress.XtraNavBar.NavBarItem();
-            this.navPanelItemPictures = new DevExpress.XtraNavBar.NavBarItem();
-            this.navPanelItemVideos = new DevExpress.XtraNavBar.NavBarItem();
             this.navigationPanel = new DevExpress.XtraEditors.PanelControl();
             this.editBreadCrumb = new DevExpress.XtraEditors.BreadCrumbEdit();
             this.images = new DevExpress.Utils.SvgImageCollection(this.components);
@@ -159,7 +149,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.LayoutControlMainGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.LayoutControlItemExplorerView = new DevExpress.XtraLayout.LayoutControlItem();
             this.SplitterItem1 = new DevExpress.XtraLayout.SplitterItem();
-            this.liNavPaneRight = new DevExpress.XtraLayout.LayoutControlItem();
             this.itemPopupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.navigationMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
@@ -171,7 +160,6 @@ namespace DevExpress.XtraGrid.Demos {
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemRadioGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.navBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationPanel)).BeginInit();
             this.navigationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editBreadCrumb.Properties)).BeginInit();
@@ -186,7 +174,6 @@ namespace DevExpress.XtraGrid.Demos {
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlMainGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlItemExplorerView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplitterItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.liNavPaneRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemPopupMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationMenu)).BeginInit();
             this.SuspendLayout();
@@ -238,7 +225,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemVideos,
             this.ButtonItemPictures,
             this.ButtonItemChooseLocation,
-            this.ButtonCheckItemShowFavorites,
             this.ButtonCheckItemShowLibraries,
             this.ButtonItemNewShortcut,
             this.ButtonItemNewBitmapImage,
@@ -272,7 +258,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.repositoryItemRadioGroup1,
             this.repositoryItemTextEdit2});
             this.RibbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
-            this.RibbonControl.Size = new System.Drawing.Size(1216, 141);
+            this.RibbonControl.Size = new System.Drawing.Size(1216, 158);
             // 
             // ButtonItemHelp
             // 
@@ -290,7 +276,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemNavigationPane.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemNavigationPane.ImageOptions.SvgImage")));
             this.ButtonItemNavigationPane.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.ButtonCheckItemNavigationPane),
-            new DevExpress.XtraBars.LinkPersistInfo(this.ButtonCheckItemShowFavorites, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.ButtonCheckItemShowLibraries)});
             this.ButtonItemNavigationPane.Name = "ButtonItemNavigationPane";
             this.ButtonItemNavigationPane.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
@@ -302,16 +287,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonCheckItemNavigationPane.Checked = true;
             this.ButtonCheckItemNavigationPane.Id = 37;
             this.ButtonCheckItemNavigationPane.Name = "ButtonCheckItemNavigationPane";
-            this.ButtonCheckItemNavigationPane.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowNavPaneItemClick);
-            // 
-            // ButtonCheckItemShowFavorites
-            // 
-            this.ButtonCheckItemShowFavorites.BindableChecked = true;
-            this.ButtonCheckItemShowFavorites.Caption = "Show favorites";
-            this.ButtonCheckItemShowFavorites.Checked = true;
-            this.ButtonCheckItemShowFavorites.Id = 118;
-            this.ButtonCheckItemShowFavorites.Name = "ButtonCheckItemShowFavorites";
-            this.ButtonCheckItemShowFavorites.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowFavoritesItemClick);
             // 
             // ButtonCheckItemShowLibraries
             // 
@@ -320,7 +295,6 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonCheckItemShowLibraries.Checked = true;
             this.ButtonCheckItemShowLibraries.Id = 119;
             this.ButtonCheckItemShowLibraries.Name = "ButtonCheckItemShowLibraries";
-            this.ButtonCheckItemShowLibraries.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowLibrariesItemClick);
             // 
             // ButtonItemItemCheckBoxes
             // 
@@ -364,6 +338,7 @@ namespace DevExpress.XtraGrid.Demos {
             toolTipItem1.Text = "The command is not implemented";
             superToolTip1.Items.Add(toolTipItem1);
             this.ButtonItemCopy.SuperTip = superToolTip1;
+            this.ButtonItemCopy.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemPaste
             // 
@@ -372,6 +347,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemPaste.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemPaste.ImageOptions.SvgImage")));
             this.ButtonItemPaste.Name = "ButtonItemPaste";
             this.ButtonItemPaste.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.ButtonItemPaste.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemCut
             // 
@@ -381,6 +357,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemCut.ImageOptions.SvgImageSize = new System.Drawing.Size(8, 8);
             this.ButtonItemCut.Name = "ButtonItemCut";
             this.ButtonItemCut.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.ButtonItemCut.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // btnCopyItem
             // 
@@ -391,6 +368,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.btnCopyItem.ImageOptions.SvgImageSize = new System.Drawing.Size(8, 8);
             this.btnCopyItem.Name = "btnCopyItem";
             this.btnCopyItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.btnCopyItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnCopyItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnCopyPathItemClick);
             // 
             // ButtonItemMoveTo
@@ -407,6 +385,7 @@ namespace DevExpress.XtraGrid.Demos {
             new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemChooseLocation, true)});
             this.ButtonItemMoveTo.Name = "ButtonItemMoveTo";
             this.ButtonItemMoveTo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.ButtonItemMoveTo.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemDocuments
             // 
@@ -457,6 +436,7 @@ namespace DevExpress.XtraGrid.Demos {
             new DevExpress.XtraBars.LinkPersistInfo(this.ButtonItemChooseLocation, true)});
             this.ButtonItemCopyTo.Name = "ButtonItemCopyTo";
             this.ButtonItemCopyTo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.ButtonItemCopyTo.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemRename
             // 
@@ -465,6 +445,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemRename.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemRename.ImageOptions.SvgImage")));
             this.ButtonItemRename.Name = "ButtonItemRename";
             this.ButtonItemRename.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.ButtonItemRename.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ButtonItemNewFolder
             // 
@@ -591,6 +572,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.ButtonItemDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ButtonItemDelete.ImageOptions.SvgImage")));
             this.ButtonItemDelete.Name = "ButtonItemDelete";
             this.ButtonItemDelete.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.ButtonItemDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // PopupMenuDeleteButton
             // 
@@ -803,48 +785,48 @@ namespace DevExpress.XtraGrid.Demos {
             // 
             // PageGroupClipboard
             // 
+            this.PageGroupClipboard.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupClipboard.ItemLinks.Add(this.ButtonItemCopy);
             this.PageGroupClipboard.ItemLinks.Add(this.ButtonItemPaste);
             this.PageGroupClipboard.ItemLinks.Add(this.ButtonItemCut);
             this.PageGroupClipboard.ItemLinks.Add(this.btnCopyItem);
             this.PageGroupClipboard.Name = "PageGroupClipboard";
-            this.PageGroupClipboard.ShowCaptionButton = false;
             this.PageGroupClipboard.Text = "Clipboard";
             // 
             // PageGroupOrganize
             // 
+            this.PageGroupOrganize.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemMoveTo);
             this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemCopyTo);
             this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemDelete, true);
             this.PageGroupOrganize.ItemLinks.Add(this.ButtonItemRename);
             this.PageGroupOrganize.Name = "PageGroupOrganize";
-            this.PageGroupOrganize.ShowCaptionButton = false;
             this.PageGroupOrganize.Text = "Organize";
             // 
             // PageGroupNew
             // 
+            this.PageGroupNew.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupNew.ItemLinks.Add(this.ButtonItemNewFolder);
             this.PageGroupNew.ItemLinks.Add(this.ButtonItemNewItem);
             this.PageGroupNew.Name = "PageGroupNew";
-            this.PageGroupNew.ShowCaptionButton = false;
             this.PageGroupNew.Text = "New";
             // 
             // PageGroupOpen
             // 
+            this.PageGroupOpen.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupOpen.ItemLinks.Add(this.ButtonItemProperties);
             this.PageGroupOpen.ItemLinks.Add(this.btnOpen);
             this.PageGroupOpen.ItemLinks.Add(this.ButtonItemEdit);
             this.PageGroupOpen.Name = "PageGroupOpen";
-            this.PageGroupOpen.ShowCaptionButton = false;
             this.PageGroupOpen.Text = "Open";
             // 
             // PageGroupSelect
             // 
+            this.PageGroupSelect.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupSelect.ItemLinks.Add(this.ButtonItemSelectAll);
             this.PageGroupSelect.ItemLinks.Add(this.btnSelectNone);
             this.PageGroupSelect.ItemLinks.Add(this.ButtonItemInvertSelection);
             this.PageGroupSelect.Name = "PageGroupSelect";
-            this.PageGroupSelect.ShowCaptionButton = false;
             this.PageGroupSelect.Text = "Select";
             // 
             // PageView
@@ -859,33 +841,33 @@ namespace DevExpress.XtraGrid.Demos {
             // 
             // PageGroupViewPanes
             // 
+            this.PageGroupViewPanes.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupViewPanes.ItemLinks.Add(this.ButtonItemNavigationPane);
             this.PageGroupViewPanes.Name = "PageGroupViewPanes";
-            this.PageGroupViewPanes.ShowCaptionButton = false;
             this.PageGroupViewPanes.Text = "Panes";
             // 
             // PageGroupViewLayouts
             // 
+            this.PageGroupViewLayouts.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupViewLayouts.ItemLinks.Add(this.rgbiViewStyle);
             this.PageGroupViewLayouts.Name = "PageGroupViewLayouts";
-            this.PageGroupViewLayouts.ShowCaptionButton = false;
             this.PageGroupViewLayouts.Text = "Layouts";
             // 
             // PageGroupViewShowHide
             // 
+            this.PageGroupViewShowHide.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemItemCheckBoxes);
             this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemFileNameExtensions);
             this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemHiddenItems);
             this.PageGroupViewShowHide.ItemLinks.Add(this.btnHideSelectedItems);
             this.PageGroupViewShowHide.Name = "PageGroupViewShowHide";
-            this.PageGroupViewShowHide.ShowCaptionButton = false;
             this.PageGroupViewShowHide.Text = "Show/Hide";
             // 
             // PageGroupViewEmpty
             // 
+            this.PageGroupViewEmpty.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupViewEmpty.ItemLinks.Add(this.ButtonItemOptions);
             this.PageGroupViewEmpty.Name = "PageGroupViewEmpty";
-            this.PageGroupViewEmpty.ShowCaptionButton = false;
             // 
             // repositoryItemTextEdit1
             // 
@@ -900,92 +882,6 @@ namespace DevExpress.XtraGrid.Demos {
             // 
             this.repositoryItemTextEdit2.AutoHeight = false;
             this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
-            // 
-            // navBar
-            // 
-            this.navBar.ActiveGroup = this.groupFavorites;
-            this.navBar.Appearance.GroupHeader.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.navBar.Appearance.GroupHeader.Options.UseFont = true;
-            this.navBar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.navBar.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.None;
-            this.navBar.ExplorerBarGroupOuterIndent = 10;
-            this.navBar.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
-            this.groupFavorites,
-            this.groupLibraries});
-            this.navBar.Items.AddRange(new DevExpress.XtraNavBar.NavBarItem[] {
-            this.navPanelItemDesktop,
-            this.navPanelItemDownloads,
-            this.navPanelItemRecent,
-            this.navPanelItemDocuments,
-            this.navPanelItemMusic,
-            this.navPanelItemPictures,
-            this.navPanelItemVideos});
-            this.navBar.LinkInterval = 0;
-            this.navBar.LinkSelectionMode = DevExpress.XtraNavBar.LinkSelectionModeType.OneInControl;
-            this.navBar.Location = new System.Drawing.Point(922, 2);
-            this.navBar.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.navBar.Name = "navBar";
-            this.navBar.OptionsNavPane.ExpandedWidth = 292;
-            this.navBar.Size = new System.Drawing.Size(292, 542);
-            this.navBar.TabIndex = 1;
-            this.navBar.Text = "navigationPanel";
-            this.navBar.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.OnNavPanelLinkClicked);
-            // 
-            // groupFavorites
-            // 
-            this.groupFavorites.Caption = "Favorites";
-            this.groupFavorites.Expanded = true;
-            this.groupFavorites.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemDesktop),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemDownloads),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemRecent)});
-            this.groupFavorites.Name = "groupFavorites";
-            // 
-            // navPanelItemDesktop
-            // 
-            this.navPanelItemDesktop.Caption = "Desktop";
-            this.navPanelItemDesktop.Name = "navPanelItemDesktop";
-            // 
-            // navPanelItemDownloads
-            // 
-            this.navPanelItemDownloads.Caption = "Downloads";
-            this.navPanelItemDownloads.Name = "navPanelItemDownloads";
-            // 
-            // navPanelItemRecent
-            // 
-            this.navPanelItemRecent.Caption = "Recent places";
-            this.navPanelItemRecent.Name = "navPanelItemRecent";
-            // 
-            // groupLibraries
-            // 
-            this.groupLibraries.Caption = "Libraries";
-            this.groupLibraries.Expanded = true;
-            this.groupLibraries.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemDocuments),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemMusic),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemPictures),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navPanelItemVideos)});
-            this.groupLibraries.Name = "groupLibraries";
-            // 
-            // navPanelItemDocuments
-            // 
-            this.navPanelItemDocuments.Caption = "Documents";
-            this.navPanelItemDocuments.Name = "navPanelItemDocuments";
-            // 
-            // navPanelItemMusic
-            // 
-            this.navPanelItemMusic.Caption = "Music";
-            this.navPanelItemMusic.Name = "navPanelItemMusic";
-            // 
-            // navPanelItemPictures
-            // 
-            this.navPanelItemPictures.Caption = "Pictures";
-            this.navPanelItemPictures.Name = "navPanelItemPictures";
-            // 
-            // navPanelItemVideos
-            // 
-            this.navPanelItemVideos.Caption = "Videos";
-            this.navPanelItemVideos.Name = "navPanelItemVideos";
             // 
             // navigationPanel
             // 
@@ -1166,7 +1062,6 @@ namespace DevExpress.XtraGrid.Demos {
             // LayoutControl
             // 
             this.LayoutControl.Controls.Add(this.gridControl);
-            this.LayoutControl.Controls.Add(this.navBar);
             this.LayoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LayoutControl.Location = new System.Drawing.Point(0, 0);
             this.LayoutControl.Name = "LayoutControl";
@@ -1182,7 +1077,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.gridControl.MainView = this.winExplorerView;
             this.gridControl.MenuManager = this.RibbonControl;
             this.gridControl.Name = "gridControl";
-            this.gridControl.Size = new System.Drawing.Size(911, 542);
+            this.gridControl.Size = new System.Drawing.Size(1202, 542);
             this.gridControl.TabIndex = 2;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.winExplorerView});
@@ -1267,8 +1162,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.LayoutControlMainGroup.GroupBordersVisible = false;
             this.LayoutControlMainGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.LayoutControlItemExplorerView,
-            this.SplitterItem1,
-            this.liNavPaneRight});
+            this.SplitterItem1});
             this.LayoutControlMainGroup.Name = "Root";
             this.LayoutControlMainGroup.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 10, 10, 10);
             this.LayoutControlMainGroup.Size = new System.Drawing.Size(1216, 546);
@@ -1280,7 +1174,7 @@ namespace DevExpress.XtraGrid.Demos {
             this.LayoutControlItemExplorerView.CustomizationFormText = "LayoutControlItemExplorerView";
             this.LayoutControlItemExplorerView.Location = new System.Drawing.Point(0, 0);
             this.LayoutControlItemExplorerView.Name = "LayoutControlItemExplorerView";
-            this.LayoutControlItemExplorerView.Size = new System.Drawing.Size(915, 546);
+            this.LayoutControlItemExplorerView.Size = new System.Drawing.Size(1206, 546);
             this.LayoutControlItemExplorerView.TextSize = new System.Drawing.Size(0, 0);
             this.LayoutControlItemExplorerView.TextVisible = false;
             // 
@@ -1288,19 +1182,9 @@ namespace DevExpress.XtraGrid.Demos {
             // 
             this.SplitterItem1.AllowHotTrack = true;
             this.SplitterItem1.CustomizationFormText = "SplitterItem1";
-            this.SplitterItem1.Location = new System.Drawing.Point(915, 0);
+            this.SplitterItem1.Location = new System.Drawing.Point(1206, 0);
             this.SplitterItem1.Name = "SplitterItem1";
-            this.SplitterItem1.Size = new System.Drawing.Size(5, 546);
-            // 
-            // liNavPaneRight
-            // 
-            this.liNavPaneRight.Control = this.navBar;
-            this.liNavPaneRight.CustomizationFormText = "LayoutControlItemNavigationPaneRight";
-            this.liNavPaneRight.Location = new System.Drawing.Point(920, 0);
-            this.liNavPaneRight.Name = "LayoutControlItemNavigationPaneRight";
-            this.liNavPaneRight.Size = new System.Drawing.Size(296, 546);
-            this.liNavPaneRight.TextSize = new System.Drawing.Size(0, 0);
-            this.liNavPaneRight.TextVisible = false;
+            this.SplitterItem1.Size = new System.Drawing.Size(10, 546);
             // 
             // itemPopupMenu
             // 
@@ -1337,7 +1221,6 @@ namespace DevExpress.XtraGrid.Demos {
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemRadioGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.navBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationPanel)).EndInit();
             this.navigationPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.editBreadCrumb.Properties)).EndInit();
@@ -1352,7 +1235,6 @@ namespace DevExpress.XtraGrid.Demos {
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlMainGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlItemExplorerView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplitterItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.liNavPaneRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemPopupMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationMenu)).EndInit();
             this.ResumeLayout(false);
@@ -1375,11 +1257,6 @@ namespace DevExpress.XtraGrid.Demos {
         private DevExpress.XtraBars.BarCheckItem ButtonItemHiddenItems;
         private DevExpress.XtraBars.BarButtonItem btnHideSelectedItems;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
-        private DevExpress.XtraNavBar.NavBarControl navBar;
-        private DevExpress.XtraNavBar.NavBarGroup groupFavorites;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemDesktop;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemDownloads;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemRecent;
         private DevExpress.XtraBars.BarCheckItem ButtonCheckItemNavigationPane;
         private DevExpress.XtraBars.BarButtonItem ButtonItemCopy;
         private DevExpress.XtraBars.BarButtonItem ButtonItemPaste;
@@ -1401,11 +1278,6 @@ namespace DevExpress.XtraGrid.Demos {
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupSelect;
         private DevExpress.XtraEditors.PanelControl navigationPanel;
         private DevExpress.XtraEditors.PanelControl contentPanel;
-        private DevExpress.XtraNavBar.NavBarGroup groupLibraries;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemDocuments;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemMusic;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemPictures;
-        private DevExpress.XtraNavBar.NavBarItem navPanelItemVideos;
         private DevExpress.XtraBars.BarButtonItem ButtonItemPropertiesFolder;
         private DevExpress.XtraBars.BarButtonItem ButtonItemRemoveProperties;
         private DevExpress.XtraBars.BarButtonItem ButtonItemDelete;
@@ -1420,7 +1292,6 @@ namespace DevExpress.XtraGrid.Demos {
         private DevExpress.XtraBars.BarButtonItem ButtonItemVideos;
         private DevExpress.XtraBars.BarButtonItem ButtonItemPictures;
         private DevExpress.XtraBars.BarButtonItem ButtonItemChooseLocation;
-        private DevExpress.XtraBars.BarCheckItem ButtonCheckItemShowFavorites;
         private DevExpress.XtraBars.BarCheckItem ButtonCheckItemShowLibraries;
         private DevExpress.XtraBars.BarButtonItem ButtonItemNewShortcut;
         private DevExpress.XtraBars.BarButtonItem ButtonItemNewBitmapImage;
@@ -1448,7 +1319,6 @@ namespace DevExpress.XtraGrid.Demos {
         private DevExpress.XtraLayout.LayoutControl LayoutControl;
         private DevExpress.XtraLayout.LayoutControlGroup LayoutControlMainGroup;
         private DevExpress.XtraLayout.LayoutControlItem LayoutControlItemExplorerView;
-        private DevExpress.XtraLayout.LayoutControlItem liNavPaneRight;
         private DevExpress.XtraLayout.SplitterItem SplitterItem1;
         private DevExpress.XtraBars.BarButtonItem ContextItemOpen;
         private DevExpress.XtraBars.BarButtonItem ContextItemCut;
@@ -1457,15 +1327,15 @@ namespace DevExpress.XtraGrid.Demos {
         private DevExpress.XtraBars.BarButtonItem ContextItemDelete;
         private DevExpress.XtraBars.BarButtonItem ContextItemRename;
         private DevExpress.XtraBars.BarButtonItem ContextItemProperties;
-        private Columns.GridColumn columnName;
-        private Columns.GridColumn columnPath;
-        private Columns.GridColumn columnCheck;
-        private Columns.GridColumn columnGroup;
-        private Columns.GridColumn columnImage;
-        private XtraBars.PopupMenu itemPopupMenu;
+        private DevExpress.XtraGrid.Columns.GridColumn columnName;
+        private DevExpress.XtraGrid.Columns.GridColumn columnPath;
+        private DevExpress.XtraGrid.Columns.GridColumn columnCheck;
+        private DevExpress.XtraGrid.Columns.GridColumn columnGroup;
+        private DevExpress.XtraGrid.Columns.GridColumn columnImage;
+        private DevExpress.XtraBars.PopupMenu itemPopupMenu;
         private LabelControl btnNavigationHistory;
-        private XtraBars.PopupMenu navigationMenu;
-        private Utils.SvgImageCollection images;
+        private DevExpress.XtraBars.PopupMenu navigationMenu;
+        private DevExpress.Utils.SvgImageCollection images;
         private LabelControl labelControl1;
     }
 }

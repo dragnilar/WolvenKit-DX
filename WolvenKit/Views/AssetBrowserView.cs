@@ -8,15 +8,12 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using WolvenKit.Common;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class AssetBrowserView : XtraForm
     {
-        public List<string> Autocompletelist;
         public List<IWitcherFile> FileList = new List<IWitcherFile>();
         public List<IWitcherArchive> Managers;
-
-        public List<string> Files { get; set; }
         public WitcherTreeNode ActiveNode { get; set; }
         public WitcherTreeNode RootNode { get; set; }
 
@@ -53,10 +50,6 @@ namespace WolvenKit
                     SearchBox.AutoCompleteCustomSource.Add(arch.AutocompleteSource[i]);
                 }
             }
-        }
-
-        private void frmBundleExplorer_Load(object sender, EventArgs e)
-        {
         }
 
         public void OpenNode(WitcherTreeNode node, bool reset = false)

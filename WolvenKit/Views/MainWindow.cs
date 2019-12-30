@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using DevExpress.XtraGrid.Views.WinExplorer;
 using DevExpress.XtraSplashScreen;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
@@ -25,7 +26,7 @@ using WolvenKit.Forms;
 using WolvenKit.Interfaces;
 using WolvenKit.StringEncoder;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class MainWindow : XtraForm
     {
@@ -36,7 +37,10 @@ namespace WolvenKit
         public MainWindow()
         {
             InitializeComponent();
-            CheckForSettings();
+            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
+            {
+                CheckForSettings();
+            }
             SplashScreenManager.ShowForm(typeof(Splashy));
             Application.DoEvents();
             MainController.Get().Initialize();
@@ -48,6 +52,7 @@ namespace WolvenKit
 
         private void CheckForSettings()
         {
+            // Skip checking for settings if in design mode.
             if (File.Exists(MainController.Get().Configuration.ExecutablePath)) return;
             var settings = new SettingsDialogView {StartPosition = FormStartPosition.CenterScreen};
             var result = settings.ShowDialog();
@@ -2229,5 +2234,19 @@ namespace WolvenKit
         }
 
         #endregion // Mod Pack
+
+        private void barButtonItemTest_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var explorer = new AssetExplorer(new List<IWitcherArchive>
+                {
+                    MainController.Get().BundleManager,
+                    MainController.Get().SoundManager,
+                    MainController.Get().TextureManager
+                });
+
+            explorer.StartPosition = FormStartPosition.CenterScreen;
+            explorer.Show();
+
+        }
     }
 }

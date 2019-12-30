@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.Data;
-using DevExpress.Utils;
 using DevExpress.Utils.Helpers;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.WinExplorer;
-using DevExpress.XtraLayout.Utils;
-using DevExpress.XtraNavBar;
 using WolvenKit.Common;
 
-namespace DevExpress.XtraGrid.Demos
+namespace WolvenKit.Views
 {
-    public partial class ExplorerView : XtraUserControl, IFileSystemNavigationSupports
+    public partial class AssetExplorer : XtraForm, IFileSystemNavigationSupports
     {
         private string _currentPath;
 
-        static ExplorerView()
-        {
-            FileSystemImageCache.Cache.EnableFileIconCaching = false;
-        }
+        public List<IWitcherArchive> Archives;
+        public List<IWitcherFile> WitcherFiles = new List<IWitcherFile>();
+        public WitcherTreeNode ActiveNode { get; set; }
+        public WitcherTreeNode RootNode { get; set; }
 
-        public ExplorerView(List<IWitcherArchive> witcherArchives = null)
+
+        public AssetExplorer(List<IWitcherArchive> witcherArchives = null)
         {
             InitializeComponent();
             if (witcherArchives != null)
@@ -34,32 +33,34 @@ namespace DevExpress.XtraGrid.Demos
                 Archives = witcherArchives;
                 CreateFileList();
             }
+            FileSystemImageCache.Cache.EnableFileIconCaching = false;
+            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
+            {
+                Load += OnLoad;
+            }
+
         }
 
-        private Size FolderIconSize => new Size(ScaleUtils.ScaleValue(16), ScaleUtils.ScaleValue(16));
+
+
+        public AssetExplorer()
+        {
+            InitializeComponent();
+        }
 
         protected string StartupPath => Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         public BreadCrumbEdit BreadCrumb => editBreadCrumb;
         public WinExplorerViewStyle ViewStyle => winExplorerView.OptionsView.Style;
-
-        public List<IWitcherArchive> Archives;
-        public List<IWitcherFile> WitcherFiles = new List<IWitcherFile>();
-
-
-        protected override void OnLoad(EventArgs e)
+        
+        private void OnLoad(object sender, EventArgs e)
         {
-            base.OnLoad(e);
             Initialize();
         }
 
         private void Initialize()
         {
-
-            InitializeDefaultFolderIcons();
             InitializeBreadCrumb();
-            InitializeNavBar();
             InitializeAppearance();
-            CalcPanels();
             UpdateView();
         }
 
@@ -68,40 +69,19 @@ namespace DevExpress.XtraGrid.Demos
             foreach (var archive in Archives)
             {
                 WitcherFiles.AddRange(archive.FileList);
+                //RootNode.Directories[archive.RootNode.Name] = archive.RootNode;
+                //archive.RootNode.Parent = RootNode;
             }
-        }
-
-        private void InitializeDefaultFolderIcons()
-        {
-            groupFavorites.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.Favorites), IconSizeType.Small, FolderIconSize);
-            navPanelItemDesktop.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.Desktop), IconSizeType.Small, FolderIconSize);
-            navPanelItemDownloads.ImageOptions.SmallImage =
-                FileSystemHelper.GetImage(FileSystemHelper.GetDownloadsDir(), IconSizeType.Small, FolderIconSize);
-            navPanelItemRecent.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.Recent), IconSizeType.Small, FolderIconSize);
-
-            groupLibraries.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyComputer), IconSizeType.Small, FolderIconSize);
-            navPanelItemDocuments.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), IconSizeType.Small, FolderIconSize);
-            navPanelItemPictures.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), IconSizeType.Small, FolderIconSize);
-            navPanelItemVideos.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyVideos), IconSizeType.Small, FolderIconSize);
-            navPanelItemMusic.ImageOptions.SmallImage = FileSystemHelper.GetImage(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), IconSizeType.Small, FolderIconSize);
+            
         }
 
         private void InitializeBreadCrumb()
         {
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
             _currentPath = StartupPath;
             BreadCrumb.Path = _currentPath;
             foreach (var archive in Archives)
-            {
                 BreadCrumb.Properties.History.Add(new BreadCrumbHistoryItem(archive.RootNode.FullPath));
-            }
         }
 
         private void InitializeAppearance()
@@ -198,8 +178,7 @@ namespace DevExpress.XtraGrid.Demos
             try
             {
                 if (!string.IsNullOrEmpty(_currentPath))
-                    gridControl.DataSource = FileSystemHelper.GetFileSystemEntries(_currentPath,
-                        GetItemSizeType(ViewStyle), GetItemSize(ViewStyle));
+                    gridControl.DataSource = WitcherFiles;
                 else
                     gridControl.DataSource = null;
                 winExplorerView.RefreshData();
@@ -219,43 +198,10 @@ namespace DevExpress.XtraGrid.Demos
             winExplorerView.FindFilterText = string.Empty;
         }
 
-        private void OnNavPanelLinkClicked(object sender, NavBarLinkEventArgs e)
-        {
-            BreadCrumb.Path = (string) e.Link.Item.Tag;
-        }
-
-        private void OnShowNavPaneItemClick(object sender, ItemClickEventArgs e)
-        {
-            var item = (BarCheckItem) e.Item;
-            liNavPaneRight.Visibility = item.Checked ? LayoutVisibility.Always : LayoutVisibility.Never;
-            navBar.Visible = item.Checked;
-        }
-
-        private void OnShowFavoritesItemClick(object sender, ItemClickEventArgs e)
-        {
-            groupFavorites.Visible = ((BarCheckItem) e.Item).Checked;
-        }
-
-        private void OnShowLibrariesItemClick(object sender, ItemClickEventArgs e)
-        {
-            groupLibraries.Visible = ((BarCheckItem) e.Item).Checked;
-        }
 
         private void OnShowCheckBoxesItemClick(object sender, ItemClickEventArgs e)
         {
             winExplorerView.OptionsView.ShowCheckBoxes = ((BarCheckItem) e.Item).Checked;
-        }
-
-        private void InitializeNavBar()
-        {
-            navPanelItemDesktop.Tag = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            navPanelItemRecent.Tag = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
-            navPanelItemDocuments.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            navPanelItemMusic.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-            navPanelItemPictures.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            navPanelItemVideos.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-            navPanelItemDownloads.Tag = FileSystemHelper.GetDownloadsDir();
-            if (navPanelItemDownloads.Tag == null) navPanelItemDownloads.Visible = false;
         }
 
         private void OnViewStyleGalleryItemCheckedChanged(object sender, GalleryItemEventArgs e)
@@ -314,7 +260,7 @@ namespace DevExpress.XtraGrid.Demos
         private void OnOptionsItemClick(object sender, ItemClickEventArgs e)
         {
             IEnumerable<FileSystemEntry> entries = GetSelectedEntries();
-            if (entries.Count() == 0)
+            if (!entries.Any())
             {
                 FileSystemHelper.ShellExecuteFileInfo(_currentPath, ShellExecuteInfoFileType.Properties);
                 return;
@@ -344,7 +290,7 @@ namespace DevExpress.XtraGrid.Demos
         {
             if (e.KeyCode != Keys.Enter) return;
             var entry = GetSelectedEntries().LastOrDefault();
-            if (entry != null) entry.DoAction(this);
+            entry?.DoAction(this);
         }
 
         private void OnWinExplorerViewItemClick(object sender, WinExplorerViewItemClickEventArgs e)
@@ -433,10 +379,6 @@ namespace DevExpress.XtraGrid.Demos
                 case WinExplorerViewStyle.Large: return new Size(96, 96);
                 case WinExplorerViewStyle.Content: return new Size(32, 32);
                 case WinExplorerViewStyle.Small: return new Size(16, 16);
-                case WinExplorerViewStyle.Tiles:
-                case WinExplorerViewStyle.Default:
-                case WinExplorerViewStyle.List:
-                case WinExplorerViewStyle.Medium:
                 default: return new Size(96, 96);
             }
         }
@@ -454,13 +396,6 @@ namespace DevExpress.XtraGrid.Demos
                 case WinExplorerViewStyle.Content: return IconSizeType.Large;
                 default: return IconSizeType.ExtraLarge;
             }
-        }
-
-        private void CalcPanels()
-        {
-            navigationPanel.Location = Point.Empty;
-            contentPanel.Location = new Point(0, navigationPanel.Bottom - 1);
-            contentPanel.Height = Height - navigationPanel.Height + 1;
         }
 
         #region IFileSystemNavigationSupports

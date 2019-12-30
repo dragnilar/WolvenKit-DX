@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     partial class AssetBrowserView
     {
@@ -512,7 +512,6 @@ namespace WolvenKit
             this.Name = "AssetBrowserView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset browser";
-            this.Load += new System.EventHandler(this.frmBundleExplorer_Load);
             this.filebrowserMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

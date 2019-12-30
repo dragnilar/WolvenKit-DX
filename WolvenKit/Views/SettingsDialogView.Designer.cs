@@ -2,7 +2,7 @@
 using System.Web.UI.Design.WebControls;
 using System.Windows.Forms;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     partial class SettingsDialogView
     {
@@ -56,7 +56,7 @@ namespace WolvenKit
             // 
             // txExecutablePath
             // 
-            this.txExecutablePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txExecutablePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txExecutablePath.Location = new System.Drawing.Point(35, 27);
             this.txExecutablePath.Name = "txExecutablePath";
@@ -137,7 +137,7 @@ namespace WolvenKit
             // 
             // txWCC_Lite
             // 
-            this.txWCC_Lite.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txWCC_Lite.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txWCC_Lite.Location = new System.Drawing.Point(35, 67);
             this.txWCC_Lite.Name = "txWCC_Lite";

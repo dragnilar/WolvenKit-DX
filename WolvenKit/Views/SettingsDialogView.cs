@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class SettingsDialogView : XtraForm
     {

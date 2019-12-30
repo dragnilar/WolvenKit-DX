@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 
-namespace WolvenKit.Forms
+namespace WolvenKit.Views
 {
     public partial class Splashy : SplashScreen
     {
