@@ -85,6 +85,7 @@ namespace WolvenKit.Views
             this.barStaticItemBuildDate = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemSaveOutput = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemTest = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBuild = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -106,7 +107,6 @@ namespace WolvenKit.Views
             this.modExplorerControl = new WolvenKit.ModExplorer();
             this.documentManagerMain = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedViewMain = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.barButtonItemTest = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuLaunch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuImport)).BeginInit();
@@ -595,6 +595,15 @@ namespace WolvenKit.Views
             this.barButtonItemSaveOutput.Name = "barButtonItemSaveOutput";
             this.barButtonItemSaveOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSaveOutput_ItemClick);
             // 
+            // barButtonItemTest
+            // 
+            this.barButtonItemTest.Caption = "Test New Asset Browser";
+            this.barButtonItemTest.Id = 57;
+            this.barButtonItemTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemTest.ImageOptions.SvgImage")));
+            this.barButtonItemTest.Name = "barButtonItemTest";
+            this.barButtonItemTest.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.barButtonItemTest.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTest_ItemClick);
+            // 
             // ribbonPageHome
             // 
             this.ribbonPageHome.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -791,14 +800,6 @@ namespace WolvenKit.Views
             this.documentManagerMain.View = this.tabbedViewMain;
             this.documentManagerMain.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedViewMain});
-            // 
-            // barButtonItemTest
-            // 
-            this.barButtonItemTest.Caption = "Test New Asset Browser";
-            this.barButtonItemTest.Id = 57;
-            this.barButtonItemTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemTest.ImageOptions.SvgImage")));
-            this.barButtonItemTest.Name = "barButtonItemTest";
-            this.barButtonItemTest.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTest_ItemClick);
             // 
             // MainWindow
             // 
