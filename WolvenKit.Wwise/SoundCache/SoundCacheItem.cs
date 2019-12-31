@@ -12,7 +12,6 @@ namespace WolvenKit.Wwise.SoundCache
         /// </summary>
         public string Name { get; set; }
 
-        public string ExplorerPath { get; set; }
 
         /// <summary>
         /// Name of the cache file this file is in. (Needed for Extracting the file)

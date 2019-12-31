@@ -903,9 +903,9 @@ namespace WolvenKit.Views
         private bool AddToMod(WitcherListViewItem item, bool skipping, List<IWitcherArchive> managers, bool AddAsDLC)
         {
             var skip = skipping;
-            var depotpath = item.ExplorerPath ?? item.FullPath ?? string.Empty;
+            var depotPath = item.FullPath ?? item.FullPath ?? string.Empty;
             foreach (var manager in managers.Where(manager =>
-                depotpath.StartsWith(Path.Combine("Root", manager.TypeName))))
+                depotPath.StartsWith(Path.Combine("Root", manager.TypeName))))
                 if (manager.Items.Any(x => x.Value.Any(y => y.Name == item.FullPath)))
                 {
                     var archives = manager.FileList.Where(x => x.Name == item.FullPath)

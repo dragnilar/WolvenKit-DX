@@ -11,7 +11,6 @@ namespace WolvenKit.Common
     {
         IWitcherArchiveType Bundle { get; set; }
         string Name { get; set; }
-        string ExplorerPath { get; set; }
         long Size { get; set; }
         uint ZSize { get; set; }
         long PageOFfset { get; set; }

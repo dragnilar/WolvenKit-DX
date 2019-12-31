@@ -24,7 +24,6 @@ namespace WolvenKit
         public WitcherTreeNode Node { get; set; }
         public string FullPath { get; set; }
 
-        public string ExplorerPath => Path.Combine(Node.FullPath, Path.GetFileName(FullPath));
 
         public override object Clone()
         {
