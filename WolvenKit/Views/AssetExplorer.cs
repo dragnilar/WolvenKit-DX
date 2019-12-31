@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DevExpress.Data;
 using DevExpress.Utils.Helpers;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.WinExplorer;
 using WolvenKit.Common;
+using WolvenKit.Interfaces;
+using WolvenKit.Models;
 
 namespace WolvenKit.Views
 {
-    public partial class AssetExplorer : XtraForm, IFileSystemNavigationSupports
+    public partial class AssetExplorer : XtraForm
     {
-        private string _currentPath;
-
         public List<IWitcherArchive> Archives;
-        public List<IWitcherFile> WitcherFiles = new List<IWitcherFile>();
-        public WitcherTreeNode ActiveNode { get; set; }
-        public WitcherTreeNode RootNode { get; set; }
-
+        public List<AssetBrowserItem> ExplorerDataSource = new List<AssetBrowserItem>();
+        public List<IWitcherFile> FileList = new List<IWitcherFile>();
+        public AssetBrowserItem ActiveItem { get; set; }
+        public AssetBrowserItem SelectedItem { get; set; }
+        public AssetBrowserItem RootItem { get; set; }
+        public BreadCrumbEdit BreadCrumb => editBreadCrumb;
 
         public AssetExplorer(List<IWitcherArchive> witcherArchives = null)
         {
@@ -31,27 +34,20 @@ namespace WolvenKit.Views
             if (witcherArchives != null)
             {
                 Archives = witcherArchives;
-                CreateFileList();
+                CreateRootFileList();
+                ActiveItem = ExplorerDataSource.First();
+                gridControl.DataSource = ExplorerDataSource;
             }
+
             FileSystemImageCache.Cache.EnableFileIconCaching = false;
-            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
-            {
-                Load += OnLoad;
-            }
-
+            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime) Load += OnLoad;
         }
-
-
 
         public AssetExplorer()
         {
             InitializeComponent();
         }
 
-        protected string StartupPath => "Root";
-        public BreadCrumbEdit BreadCrumb => editBreadCrumb;
-        public WinExplorerViewStyle ViewStyle => winExplorerView.OptionsView.Style;
-        
         private void OnLoad(object sender, EventArgs e)
         {
             Initialize();
@@ -61,30 +57,32 @@ namespace WolvenKit.Views
         {
             InitializeBreadCrumb();
             InitializeAppearance();
-            UpdateView();
         }
 
-        private void CreateFileList()
+        private void CreateRootFileList()
         {
+            var rootNode = new WitcherTreeNode {Name = "Root"};
             foreach (var archive in Archives)
             {
-                var fileList = archive.FileList;
-                foreach (var file in fileList)
-                {
-                    file.ExplorerPath = $"Root\\{archive.TypeName}\\{file.Name}";
-                }
-                WitcherFiles.AddRange(fileList);
+                FileList.AddRange(archive.FileList);
+                rootNode.Directories[archive.RootNode.Name] = archive.RootNode;
+                archive.RootNode.Parent = rootNode;
             }
-            
+
+            RootItem = new AssetBrowserItem
+            {
+                Directories = rootNode.Directories.Values.ToList(), Name = rootNode.Name, FullPath = rootNode.FullPath,
+                ImageIndex = GetImageIndex(Path.GetExtension(rootNode.FullPath)),
+                Files = rootNode.Files.Values.SelectMany(x => x).ToList(), IsDirectory = true
+            };
+            ExplorerDataSource.Add(RootItem);
         }
 
         private void InitializeBreadCrumb()
         {
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return;
-            _currentPath = StartupPath;
-            BreadCrumb.Path = _currentPath;
-            foreach (var archive in Archives)
-                BreadCrumb.Properties.History.Add(new BreadCrumbHistoryItem(archive.RootNode.FullPath));
+            BreadCrumb.Path = RootItem.FullPath;
+            BreadCrumb.Properties.History.Add(new BreadCrumbHistoryItem(RootItem.FullPath));
         }
 
         private void InitializeAppearance()
@@ -96,8 +94,9 @@ namespace WolvenKit.Views
 
         private void OnBreadCrumbPathChanged(object sender, BreadCrumbPathChangedEventArgs e)
         {
-            _currentPath = e.Path;
-            UpdateView();
+            BreadCrumb.Path = !string.IsNullOrWhiteSpace(ActiveItem?.FullPath)
+                ? ActiveItem.FullPath
+                : RootItem.FullPath;
             UpdateButtons();
         }
 
@@ -108,34 +107,20 @@ namespace WolvenKit.Views
 
         private void OnBreadCrumbQueryChildNodes(object sender, BreadCrumbQueryChildNodesEventArgs e)
         {
-            if (e.Node.Caption == "Root")
+            if (e.Node.Path == "Root")
             {
-                InitBreadCrumbRootNode(e.Node);
+                e.Node.ChildNodes.Add(new BreadCrumbNode{Caption = RootItem.FullPath, Value = RootItem, PopulateOnDemand = true});
                 return;
             }
+            if (ActiveItem == null) return;
+            foreach (var directory in ActiveItem.Directories)
+                e.Node.ChildNodes.Add(new BreadCrumbNode(directory.FullPath, directory.FullPath, true));
 
-            var dir = e.Node.Path;
-            //for (var i = 0; i < dir.Length; i++)
-            //{
-            //    e.Node.ChildNodes.Add(CreateNode(subDirs[i]));
-            //}
 
-        }
-
-        private void InitBreadCrumbRootNode(BreadCrumbNode node)
-        {
-            node.ChildNodes.Add(new BreadCrumbNode("Root",
-                "Root"));
         }
 
         private void OnBreadCrumbValidatePath(object sender, BreadCrumbValidatePathEventArgs e)
         {
-            if (!FileSystemHelper.IsDirExists(e.Path))
-            {
-                e.ValidationResult = BreadCrumbValidatePathResult.Cancel;
-                return;
-            }
-
             e.ValidationResult = BreadCrumbValidatePathResult.CreateNodes;
         }
 
@@ -145,19 +130,13 @@ namespace WolvenKit.Views
             BreadCrumb.SelectAll();
         }
 
-        private BreadCrumbNode CreateNode(string path)
-        {
-            var folderName = FileSystemHelper.GetDirName(path);
-            return new BreadCrumbNode(folderName, folderName, true);
-        }
-
         private void UpdateView()
         {
             var oldCursor = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                gridControl.DataSource = !string.IsNullOrEmpty(_currentPath) ? WitcherFiles : null;
+                gridControl.DataSource = GetGridDataSource();
                 winExplorerView.RefreshData();
                 EnsureSearchEdit();
                 BeginInvoke(new MethodInvoker(winExplorerView.ClearSelection));
@@ -165,12 +144,46 @@ namespace WolvenKit.Views
             finally
             {
                 Cursor.Current = oldCursor;
+                BreadCrumb.Path = ActiveItem.FullPath;
             }
+        }
+
+        private List<AssetBrowserItem> GetGridDataSource()
+        {
+            var currentDataSource = gridControl.DataSource as List<AssetBrowserItem>;
+            if (ActiveItem == null || !SelectedItem.IsDirectory) return currentDataSource;
+            var previousPath = ActiveItem.FullPath;
+            ActiveItem = SelectedItem;
+            var newDataSource = ActiveItem.Directories.Select(directory =>
+                new AssetBrowserItem
+                {
+                    IsDirectory = true, Name = directory.Name, FullPath = directory.FullPath,
+                    Directories = directory.Directories.Values.ToList(),
+                    ImageIndex = GetImageIndex(Path.GetExtension(directory.FullPath)),
+                    Files = directory.Files.Values.SelectMany(x => x).ToList()
+                }).ToList();
+            newDataSource.AddRange(ActiveItem.Files.Select(file => new AssetBrowserItem
+            {
+                FullPath = $"{previousPath}\\{file.Name}",
+                Name = file.Name,
+                IsDirectory = false,
+                Files = null,
+                Directories = null,
+                ImageIndex = GetImageIndex(Path.GetExtension(file.Name)),
+                Size = file.Size.ToString(),
+                BundleType = file.Bundle.TypeName,
+                CompressionType = file.CompressionType
+            }));
+
+            return newDataSource;
         }
 
         private void EnsureSearchEdit()
         {
-            EditSearch.Properties.NullValuePrompt = "Search " + _currentPath;
+            var nullPromptValue = !string.IsNullOrWhiteSpace(ActiveItem?.FullPath)
+                ? ActiveItem.FullPath
+                : RootItem.FullPath;
+            EditSearch.Properties.NullValuePrompt = "Search " + nullPromptValue;
             EditSearch.EditValue = null;
             winExplorerView.FindFilterText = string.Empty;
         }
@@ -201,45 +214,33 @@ namespace WolvenKit.Views
             winExplorerView.FindFilterText = EditSearch.Text;
         }
 
-        private void OnSelectAllItemClick(object sender, ItemClickEventArgs e)
-        {
-            winExplorerView.SelectAll();
-        }
 
         private void OnSelectNoneItemClick(object sender, ItemClickEventArgs e)
         {
             winExplorerView.ClearSelection();
         }
 
-        private void OnInvertSelectionItemClick(object sender, ItemClickEventArgs e)
-        {
-            for (var i = 0; i < winExplorerView.RowCount; i++) winExplorerView.InvertRowSelection(i);
-        }
 
         private void OnShowFileNameExtensionsCheckItemClick(object sender, ItemClickEventArgs e)
         {
-            var col = gridControl.DataSource as FileSystemEntryCollection;
-            if (col == null) return;
-            col.ShowExtensions = ((BarCheckItem) e.Item).Checked;
-            gridControl.RefreshDataSource();
-        }
-
-        private void OnWinExplorerViewSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UpdateButtons();
+            //TODO - Needs to be rewritten to work with witcher tree nodes; probably will need to add extension property to tree nodes...
+            //var col = gridControl.DataSource as FileSystemEntryCollection;
+            //if (col == null) return;
+            //col.ShowExtensions = ((BarCheckItem) e.Item).Checked;
+            //gridControl.RefreshDataSource();
         }
 
         private void OnCopyPathItemClick(object sender, ItemClickEventArgs e)
         {
             var builder = new StringBuilder();
-            foreach (var entry in GetSelectedEntries()) builder.AppendLine(entry.ExplorerPath);
+            foreach (var entry in GetSelectedEntries()) builder.AppendLine(entry.Name);
             if (!string.IsNullOrEmpty(builder.ToString())) Clipboard.SetText(builder.ToString());
         }
 
         private void OnOpenItemClick(object sender, ItemClickEventArgs e)
         {
-            //TODO - Do nothing for now, not sure if we will be keeping "open"
-            //foreach (var entry in GetSelectedEntries(true)) entry.DoAction(this);
+            if (SelectedItem.IsDirectory)
+                UpdateView();
         }
 
         private void OnWinExplorerViewKeyDown(object sender, KeyEventArgs e)
@@ -258,18 +259,16 @@ namespace WolvenKit.Views
         private void OnWinExplorerViewItemDoubleClick(object sender, WinExplorerViewItemDoubleClickEventArgs e)
         {
             if (e.MouseInfo.Button != MouseButtons.Left) return;
-            winExplorerView.ClearSelection();
-            //TODO - This should do something, I guess.
-            //((FileSystemEntry) e.ItemInfo.Row.RowKey).DoAction(this);
+            if (SelectedItem.IsDirectory)
+                UpdateView();
         }
 
         private void UpdateButtons()
         {
-            var selEntriesCount = GetSelectedEntries().Count();
-            btnOpen.Enabled = btnCopyItem.Enabled = selEntriesCount > 0;
             btnUpTo.Enabled = BreadCrumb.CanGoUp;
             btnBack.Enabled = BreadCrumb.CanGoBack;
             btnForward.Enabled = BreadCrumb.CanGoForward;
+            btnOpen.Enabled = SelectedItem != null && SelectedItem.IsDirectory;
         }
 
         private void OnBackButtonClick(object sender, EventArgs e)
@@ -290,11 +289,11 @@ namespace WolvenKit.Views
         private void OnNavigationMenuButtonClick(object sender, EventArgs e)
         {
             navigationMenu.ItemLinks.Clear();
-            navigationMenu.ItemLinks.AddRange(GetNavigationHistroryItems().ToArray());
+            navigationMenu.ItemLinks.AddRange(GetNavigationHistoryItems().ToArray());
             navigationMenu.ShowPopup(PointToScreen(new Point(0, navigationPanel.Bottom)));
         }
 
-        private IEnumerable<BarItem> GetNavigationHistroryItems()
+        private IEnumerable<BarItem> GetNavigationHistoryItems()
         {
             var history = BreadCrumb.GetNavigationHistory();
             for (var i = history.Count - 1; i >= 0; i--)
@@ -313,48 +312,52 @@ namespace WolvenKit.Views
             UpdateButtons();
         }
 
-        private List<IWitcherFile> GetSelectedEntries(bool sort = false)
+        private List<AssetBrowserItem> GetSelectedEntries(bool sort = false)
         {
-            var list = winExplorerView.GetSelectedRows().Select(t => (IWitcherFile) winExplorerView.GetRow(t)).ToList();
-            return sort ? list.OrderBy(x=>x.Name).ToList() : list;
+            var list = winExplorerView.GetSelectedRows().Select(t => (AssetBrowserItem) winExplorerView.GetRow(t))
+                .ToList();
+            return sort ? list.OrderBy(x => x.Name).ToList() : list;
         }
 
-        private Size GetItemSize(WinExplorerViewStyle viewStyle)
+        private void winExplorerView_FocusedRowObjectChanged(object sender, FocusedRowObjectChangedEventArgs e)
         {
-            switch (viewStyle)
+            if (e.Row == null)
+                return;
+            SelectedItem = e.Row as AssetBrowserItem;
+            if (SelectedItem != null) UpdateButtons();
+        }
+
+        private int GetImageIndex(string fileExtension)
+        {
+            switch (fileExtension.ToLower())
             {
-                case WinExplorerViewStyle.ExtraLarge: return new Size(256, 256);
-                case WinExplorerViewStyle.Large: return new Size(96, 96);
-                case WinExplorerViewStyle.Content: return new Size(32, 32);
-                case WinExplorerViewStyle.Small: return new Size(16, 16);
-                default: return new Size(96, 96);
+                case SupportedFileType.Csv:
+                    return 3;
+                case SupportedFileType.RedSwf:
+                    return 4;
+                case SupportedFileType.Env:
+                    return 5;
+                case SupportedFileType.Journal:
+                    return 6;
+                case SupportedFileType.Beh:
+                    return 7;
+                case SupportedFileType.Xml:
+                    return 8;
+                case SupportedFileType.BehTree:
+                    return 9;
+                case SupportedFileType.W2Scene:
+                    return 10;
+                case SupportedFileType.W2P:
+                    return 11;
+                case SupportedFileType.Rig:
+                    return 12;
+                case SupportedFileType.WitcherScript:
+                    return 13;
+                case SupportedFileType.Ent:
+                    return 14;
+                default:
+                    return 0;
             }
         }
-
-        private IconSizeType GetItemSizeType(WinExplorerViewStyle viewStyle)
-        {
-            switch (viewStyle)
-            {
-                case WinExplorerViewStyle.Large:
-                case WinExplorerViewStyle.ExtraLarge: return IconSizeType.ExtraLarge;
-                case WinExplorerViewStyle.List:
-                case WinExplorerViewStyle.Small: return IconSizeType.Small;
-                case WinExplorerViewStyle.Tiles:
-                case WinExplorerViewStyle.Medium:
-                case WinExplorerViewStyle.Content: return IconSizeType.Large;
-                default: return IconSizeType.ExtraLarge;
-            }
-        }
-
-        #region IFileSystemNavigationSupports
-
-        string IFileSystemNavigationSupports.CurrentPath => _currentPath;
-
-        void IFileSystemNavigationSupports.UpdatePath(string path)
-        {
-            BreadCrumb.Path = path;
-        }
-
-        #endregion
     }
 }
