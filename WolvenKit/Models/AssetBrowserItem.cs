@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,29 @@ namespace WolvenKit.Models
         public string CompressionType { get; set; }
         public string BundleType { get; set; }
         public int ImageIndex { get; set; }
+
+        public AssetBrowserItem(string name, string fullPath, List<IWitcherFile> files, List<WitcherTreeNode> directories, int imageIndex)
+        {
+            Directories = directories;
+            FullPath = fullPath;
+            Name = name;
+            Files = files;
+            IsDirectory = true;
+            ImageIndex = imageIndex;
+        }
+
+        public AssetBrowserItem(string name, string fullPath, string size, string compressionType, string bundleType,
+            int imageIndex)
+        {
+            Name = name;
+            FullPath = fullPath;
+            IsDirectory = false;
+            ImageIndex = imageIndex;
+            Size = size;
+            CompressionType = compressionType;
+            BundleType = bundleType;
+        }
+
 
     }
 }
