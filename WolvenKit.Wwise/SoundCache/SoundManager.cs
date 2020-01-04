@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WolvenKit.Common;
-using WolvenKit.Cache;
+using WolvenKit.Interfaces;
 
-namespace WolvenKit.Cache
+namespace WolvenKit.Wwise.SoundCache
 {
     public class SoundManager : IWitcherArchive
     {
@@ -84,14 +80,14 @@ namespace WolvenKit.Cache
 
             var contentdirs = new List<string>(Directory.GetDirectories(content, "content*"));
             contentdirs.Sort(new AlphanumComparator<string>());
-            foreach (var file in contentdirs.SelectMany(dir => Directory.GetFiles(dir, "*.cache", SearchOption.AllDirectories).Where(x => Cache.GetCacheTypeOfFile(x) == Cache.Cachetype.Sound)))
+            foreach (var file in contentdirs.SelectMany(dir => Directory.GetFiles(dir, "*.cache", SearchOption.AllDirectories).Where(x => Cache.Cache.GetCacheTypeOfFile(x) == Cache.Cache.Cachetype.Sound)))
             {
                 LoadBundle(file);
             }
 
             var patchdirs = new List<string>(Directory.GetDirectories(content, "patch*"));
             patchdirs.Sort(new AlphanumComparator<string>());
-            foreach (var file in patchdirs.SelectMany(dir => Directory.GetFiles(dir, "*.cache", SearchOption.AllDirectories).Where(x => Cache.GetCacheTypeOfFile(x) == Cache.Cachetype.Sound)))
+            foreach (var file in patchdirs.SelectMany(dir => Directory.GetFiles(dir, "*.cache", SearchOption.AllDirectories).Where(x => Cache.Cache.GetCacheTypeOfFile(x) == Cache.Cache.Cachetype.Sound)))
             {
                 LoadBundle(file);
             }
@@ -101,7 +97,7 @@ namespace WolvenKit.Cache
             {
                 var dlcdirs = new List<string>(Directory.GetDirectories(dlc));
                 dlcdirs.Sort(new AlphanumComparator<string>());
-                foreach (var file in dlcdirs.Where(dir => new Regex("(DLC..)|(DLC.)|(BOB)|(ep.)|(bob)|(EP.)").IsMatch(Path.GetFileName(dir ?? ""))).SelectMany(dir => Directory.GetFiles(dir ?? "", "*.cache", SearchOption.AllDirectories).OrderBy(k => k).Where(x => Cache.GetCacheTypeOfFile(x) == Cache.Cachetype.Sound)))
+                foreach (var file in dlcdirs.Where(dir => new Regex("(DLC..)|(DLC.)|(BOB)|(ep.)|(bob)|(EP.)").IsMatch(Path.GetFileName(dir ?? ""))).SelectMany(dir => Directory.GetFiles(dir ?? "", "*.cache", SearchOption.AllDirectories).OrderBy(k => k).Where(x => Cache.Cache.GetCacheTypeOfFile(x) == Cache.Cache.Cachetype.Sound)))
                 {
                     LoadBundle(file);
                 }
@@ -121,7 +117,7 @@ namespace WolvenKit.Cache
                 Directory.CreateDirectory(mods);
             var modsdirs = new List<string>(Directory.GetDirectories(mods));
             modsdirs.Sort(new AlphanumComparator<string>());
-            var modbundles = modsdirs.SelectMany(dir => Directory.GetFiles(dir, "*.cache", SearchOption.AllDirectories).Where(x => Cache.GetCacheTypeOfFile(x) == Cache.Cachetype.Sound)).ToList();
+            var modbundles = modsdirs.SelectMany(dir => Directory.GetFiles(dir, "*.cache", SearchOption.AllDirectories).Where(x => Cache.Cache.GetCacheTypeOfFile(x) == Cache.Cache.Cachetype.Sound)).ToList();
             foreach (var file in modbundles)
             {
                 LoadModBundle(file);
@@ -132,7 +128,7 @@ namespace WolvenKit.Cache
             {
                 var dlcdirs = new List<string>(Directory.GetDirectories(dlc));
                 dlcdirs.Sort(new AlphanumComparator<string>());
-                foreach (var file in dlcdirs.Where(dir => !new Regex("(DLC..)|(DLC.)|(BOB)|(bob)|(EP.)|(ep.)").IsMatch(Path.GetFileName(dir ?? ""))).SelectMany(dir => Directory.GetFiles(dir ?? "", "*.cache", SearchOption.AllDirectories).OrderBy(k => k).Where(x => Cache.GetCacheTypeOfFile(x) == Cache.Cachetype.Sound)))
+                foreach (var file in dlcdirs.Where(dir => !new Regex("(DLC..)|(DLC.)|(BOB)|(bob)|(EP.)|(ep.)").IsMatch(Path.GetFileName(dir ?? ""))).SelectMany(dir => Directory.GetFiles(dir ?? "", "*.cache", SearchOption.AllDirectories).OrderBy(k => k).Where(x => Cache.Cache.GetCacheTypeOfFile(x) == Cache.Cache.Cachetype.Sound)))
                 {
                     LoadModBundle(file);
                 }

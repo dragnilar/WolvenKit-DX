@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Vlc.DotNet.Core;
 using WolvenKit.Scaleform;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class frmUsmPlayer : Form
     {

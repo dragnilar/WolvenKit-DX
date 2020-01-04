@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using WolvenKit.Bundles;
 using WolvenKit.Cache;
-using WolvenKit.Common;
+using WolvenKit.Cache.TextureCache;
 using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Interfaces;
@@ -21,6 +21,7 @@ using WolvenKit.Interfaces;
 using WolvenKit.Properties;
 using WolvenKit.Views;
 using WolvenKit.W3Strings;
+using WolvenKit.Wwise.SoundCache;
 
 namespace WolvenKit
 {

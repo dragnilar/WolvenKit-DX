@@ -9,7 +9,7 @@ using W3SavegameEditor.Core.Savegame;
 using W3SavegameEditor.Core.Savegame.Variables;
 using W3SavegameEditor.Core.SaveModels;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class frmSaveEditor : Form
     {

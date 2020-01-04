@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
-namespace WolvenKit.Cache
+namespace WolvenKit.Cache.TextureCache
 {
     public class TextureManager : IWitcherArchive
     {

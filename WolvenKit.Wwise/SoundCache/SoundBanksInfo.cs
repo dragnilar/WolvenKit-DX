@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace WolvenKit.Wwise
+namespace WolvenKit.Wwise.SoundCache
 {
     public class SoundBanksInfoXML
     {

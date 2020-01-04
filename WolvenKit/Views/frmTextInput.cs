@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class Input : Form
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LZ4;
-using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit.Bundles
 {

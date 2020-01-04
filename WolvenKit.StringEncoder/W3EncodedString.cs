@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using WolvenKit.StringEncoder.Annotations;
+using WolvenKit.StringEncoder.Properties;
 
 namespace WolvenKit.StringEncoder
 {

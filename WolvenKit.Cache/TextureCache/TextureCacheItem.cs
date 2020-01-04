@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ionic.Zlib;
-using W3Edit.Textures;
-using WolvenKit.Common;
-using WolvenKit.CR2W.Types;
+using WolvenKit.Interfaces;
 
-namespace WolvenKit.Cache
+namespace WolvenKit.Cache.TextureCache
 {
     public class TextureCacheItem : IWitcherFile
     {

@@ -1,16 +1,11 @@
-﻿using Ionic.Zlib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using W3Edit.Textures;
-using WolvenKit.Common;
 using WolvenKit.CR2W;
-using WolvenKit.CR2W.Types;
+using WolvenKit.Interfaces;
 
-namespace WolvenKit.Cache
+namespace WolvenKit.Cache.TextureCache
 {
     public class TextureCache : IWitcherArchiveType
     {

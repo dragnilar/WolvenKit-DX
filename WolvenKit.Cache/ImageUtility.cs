@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
-using W3Edit.Textures;
 
 namespace WolvenKit.Cache
 {

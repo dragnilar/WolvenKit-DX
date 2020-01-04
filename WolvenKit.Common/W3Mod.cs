@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace WolvenKit.Common
+namespace WolvenKit.Interfaces
 {
     public class W3Mod : ICloneable
     {

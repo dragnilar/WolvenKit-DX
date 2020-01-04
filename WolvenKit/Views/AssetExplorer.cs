@@ -13,7 +13,6 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.WinExplorer;
-using WolvenKit.Common;
 using WolvenKit.Interfaces;
 using WolvenKit.Models;
 

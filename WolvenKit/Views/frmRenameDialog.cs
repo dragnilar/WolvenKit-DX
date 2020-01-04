@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class frmRenameDialog : Form
     {

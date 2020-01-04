@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.IO.MemoryMappedFiles;
-using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit.Wwise.SoundCache
 {

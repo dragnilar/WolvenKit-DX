@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using WolvenKit.Net;
+using WolvenKit.Views;
 
 namespace WolvenKit
 {

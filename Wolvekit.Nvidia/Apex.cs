@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+﻿using System.Xml.Linq;
 using Wolvekit.Nvidia.HairWorks;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 
-namespace WolvenKit
+namespace Wolvekit.Nvidia
 {
     public class Apex
     {

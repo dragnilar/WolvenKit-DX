@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ProtoBuf;
-using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit.W3Strings
 {

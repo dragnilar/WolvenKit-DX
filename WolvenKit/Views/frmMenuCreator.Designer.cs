@@ -1,4 +1,4 @@
-﻿namespace WolvenKit
+﻿namespace WolvenKit.Views
 {
     partial class frmMenuCreator
     {

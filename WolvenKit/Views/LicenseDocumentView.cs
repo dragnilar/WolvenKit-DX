@@ -1,7 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using WolvenKit.Properties;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class LicenseDocumentView : XtraForm
     {

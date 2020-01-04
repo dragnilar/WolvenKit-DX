@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using WolvenKit.CR2W.Types;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class frmAddVariable : Form
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class frmMenuCreator : Form
     {

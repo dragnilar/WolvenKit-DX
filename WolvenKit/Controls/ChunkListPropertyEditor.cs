@@ -8,12 +8,11 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Nodes;
 using W3SavegameEditor.Core.Savegame.Values;
-using W3SavegameEditor.Core.Savegame.Variables;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
-using WolvenKit.Forms;
 using WolvenKit.Models;
+using WolvenKit.Views;
 
 namespace WolvenKit.Controls
 {

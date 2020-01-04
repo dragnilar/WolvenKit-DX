@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using WolvenKit.Common;
 using WolvenKit.Interfaces;
 
 namespace WolvenKit

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace W3Edit.Textures
+namespace WolvenKit.Cache
 {
     /// <summary>
     /// DDSHeader class, creates proper DDS header with generate() function

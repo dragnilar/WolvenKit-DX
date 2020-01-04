@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit.StringEncoder
 {

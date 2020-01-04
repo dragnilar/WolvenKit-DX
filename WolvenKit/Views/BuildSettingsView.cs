@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class BuildSettingsView : XtraForm
     {

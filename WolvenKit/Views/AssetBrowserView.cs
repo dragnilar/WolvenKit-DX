@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using WolvenKit.Common;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit.Views
 {

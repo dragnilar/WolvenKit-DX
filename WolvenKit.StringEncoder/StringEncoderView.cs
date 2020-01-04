@@ -14,7 +14,6 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab;
-using WolvenKit.Common;
 using WolvenKit.Interfaces;
 using WolvenKit.W3Strings;
 

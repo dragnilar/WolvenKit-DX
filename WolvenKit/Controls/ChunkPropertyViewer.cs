@@ -10,6 +10,7 @@ using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Models;
+using WolvenKit.Views;
 
 namespace WolvenKit
 {

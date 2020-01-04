@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using WolvenKit.CR2W;
-using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Interfaces;
 using WolvenKit.CR2W.Types;
 
-namespace WolvenKit.Forms
+namespace WolvenKit.Views
 {
     public partial class ByteArrayDialogView : DevExpress.XtraEditors.XtraForm
     {

@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Ionic.Zlib;
-using WolvenKit.Common;
 using WolvenKit.CR2W;
+using WolvenKit.Interfaces;
 
 namespace WolvenKit.Cache.CollisionCache
 {

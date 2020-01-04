@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
-using WolvenKit.Common;
 using WolvenKit.CR2W;
-using WolvenKit.Wwise.SoundCache;
+using WolvenKit.Interfaces;
 
-namespace WolvenKit.Cache
+namespace WolvenKit.Wwise.SoundCache
 {
     /// <summary>
     /// The soud archives of Witcher 3. Contains .wem and .bnk sound files.

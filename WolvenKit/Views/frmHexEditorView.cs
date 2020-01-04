@@ -10,7 +10,7 @@ using WolvenKit.CR2W;
 using WolvenKit.CR2W.Editors;
 using WolvenKit.CR2W.Types;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     public partial class frmHexEditorView : Form, IVirtualListDataSource
     {

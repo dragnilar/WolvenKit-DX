@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 
-namespace WolvenKit
+namespace WolvenKit.Views
 {
     partial class frmHexEditorView
     {

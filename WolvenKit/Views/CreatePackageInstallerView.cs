@@ -13,7 +13,7 @@ using DevExpress.Utils.StructuredStorage.Internal.Reader;
 using DevExpress.Xpo.Logger;
 using DevExpress.XtraEditors;
 
-namespace WolvenKit.Forms
+namespace WolvenKit.Views
 {
     public partial class CreatePackageInstallerView : DevExpress.XtraEditors.XtraForm
     {
