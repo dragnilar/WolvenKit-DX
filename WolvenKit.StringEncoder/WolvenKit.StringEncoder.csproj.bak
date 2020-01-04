@@ -33,43 +33,59 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v19.2" />
     <Reference Include="DevExpress.Data.v19.2" />
     <Reference Include="DevExpress.Utils.v19.2" />
-    <Reference Include="DevExpress.Sparkline.v19.2.Core" />
-    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v19.2" />
-    <Reference Include="DevExpress.Printing.v19.2.Core" />
-    <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationClient" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmStringsGui.cs">
+    <Compile Include="frmStringsGuiImporter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmStringsGui.Designer.cs">
-      <DependentUpon>frmStringsGui.cs</DependentUpon>
+    <Compile Include="frmStringsGuiImporter.Designer.cs">
+      <DependentUpon>frmStringsGuiImporter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStringsGuiImporterIDDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStringsGuiImporterIDDialog.Designer.cs">
+      <DependentUpon>frmStringsGuiImporterIDDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StringEncoderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringEncoderView.Designer.cs">
+      <DependentUpon>StringEncoderView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringPrefixDialogView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringPrefixDialogView.Designer.cs">
+      <DependentUpon>StringPrefixDialogView.cs</DependentUpon>
+    </Compile>
     <Compile Include="W3EncodedString.cs" />
-    <EmbeddedResource Include="frmStringsGui.resx">
-      <DependentUpon>frmStringsGui.cs</DependentUpon>
+    <EmbeddedResource Include="frmStringsGuiImporter.resx">
+      <DependentUpon>frmStringsGuiImporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStringsGuiImporterIDDialog.resx">
+      <DependentUpon>frmStringsGuiImporterIDDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringEncoderView.resx">
+      <DependentUpon>StringEncoderView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -81,6 +97,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StringPrefixDialogView.resx">
+      <DependentUpon>StringPrefixDialogView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
