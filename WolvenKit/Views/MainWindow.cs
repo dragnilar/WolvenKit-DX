@@ -40,7 +40,6 @@ namespace WolvenKit.Views
             MainController.Get().Initialize();
             SplashScreenManager.CloseForm();
             MainController.Get().PropertyChanged += MainControllerUpdated;
-            MainController.Get().InitForm(this);
             barButtonItemTest.Visibility = Debugger.IsAttached ? BarItemVisibility.Always : BarItemVisibility.Never;
             Shown += OnShown;
         }
