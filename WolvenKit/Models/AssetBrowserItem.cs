@@ -19,6 +19,7 @@ namespace WolvenKit.Models
         public string CompressionType { get; set; }
         public string BundleType { get; set; }
         public int ImageIndex { get; set; }
+        public bool IsChecked { get; set; }
 
         public AssetBrowserItem(string name, string fullPath, List<IWitcherFile> files, List<WitcherTreeNode> directories, int imageIndex)
         {
@@ -28,6 +29,7 @@ namespace WolvenKit.Models
             Files = files;
             IsDirectory = true;
             ImageIndex = imageIndex;
+            IsChecked = false;
         }
 
         public AssetBrowserItem(string name, string fullPath, string size, string compressionType, string bundleType,
@@ -40,6 +42,7 @@ namespace WolvenKit.Models
             Size = size;
             CompressionType = compressionType;
             BundleType = bundleType;
+            IsChecked = false;
         }
 
 

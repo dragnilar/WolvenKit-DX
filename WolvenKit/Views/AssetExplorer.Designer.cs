@@ -28,32 +28,32 @@ namespace WolvenKit.Views
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetExplorer));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem8 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem9 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem10 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem11 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem12 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem13 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem14 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject17 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject18 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject19 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject20 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.BreadCrumbNode breadCrumbNode2 = new DevExpress.XtraEditors.BreadCrumbNode();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem1 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem2 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem3 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem4 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem5 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem6 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem7 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
             DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.BreadCrumbNode breadCrumbNode1 = new DevExpress.XtraEditors.BreadCrumbNode();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
             this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemTextEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.RibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -101,6 +101,9 @@ namespace WolvenKit.Views
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.contentPanel = new DevExpress.XtraEditors.PanelControl();
             this.LayoutControl = new DevExpress.XtraLayout.LayoutControl();
+            this.gridControlMarkedFiles = new DevExpress.XtraGrid.GridControl();
+            this.gridViewMarkedFiles = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumnMarkedFilePath = new DevExpress.XtraGrid.Columns.GridColumn();
             this.navigationPanel = new DevExpress.XtraEditors.PanelControl();
             this.BreadCrumbControlAssetExplorer = new DevExpress.XtraEditors.BreadCrumbEdit();
             this.btnNavigationHistory = new DevExpress.XtraEditors.LabelControl();
@@ -116,17 +119,15 @@ namespace WolvenKit.Views
             this.gridColumnSize = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnCompressionType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnBundleType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnIsChecked = new DevExpress.XtraGrid.Columns.GridColumn();
             this.LayoutControlMainGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciGridControl = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciNavigationPane = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciMarkedFiles = new DevExpress.XtraLayout.LayoutControlItem();
             this.svgImageCollectionAssetBrowser = new DevExpress.Utils.SvgImageCollection(this.components);
+            this.svgImageCollectionLargeAssetBrowser = new DevExpress.Utils.SvgImageCollection(this.components);
             this.itemPopupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.navigationMenu = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.svgImageCollectionLargeAssetBrowser = new DevExpress.Utils.SvgImageCollection(this.components);
-            this.gridControlMarkedFiles = new DevExpress.XtraGrid.GridControl();
-            this.gridViewMarkedFiles = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.lciMarkedFiles = new DevExpress.XtraLayout.LayoutControlItem();
-            this.gridColumnMarkedFilePath = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RibbonControl)).BeginInit();
@@ -137,6 +138,8 @@ namespace WolvenKit.Views
             this.contentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControl)).BeginInit();
             this.LayoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlMarkedFiles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewMarkedFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationPanel)).BeginInit();
             this.navigationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BreadCrumbControlAssetExplorer.Properties)).BeginInit();
@@ -146,13 +149,11 @@ namespace WolvenKit.Views
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlMainGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciNavigationPane)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciMarkedFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionAssetBrowser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionLargeAssetBrowser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemPopupMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationMenu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionLargeAssetBrowser)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlMarkedFiles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewMarkedFiles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciMarkedFiles)).BeginInit();
             this.SuspendLayout();
             // 
             // repositoryItemTextEdit3
@@ -405,48 +406,48 @@ namespace WolvenKit.Views
             this.rgbiViewStyle.Gallery.Appearance.ItemCaptionAppearance.Pressed.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.rgbiViewStyle.Gallery.ColumnCount = 3;
             this.rgbiViewStyle.Gallery.DrawImageBackground = false;
-            galleryItemGroup2.Caption = "ViewStyleGroup";
-            galleryItem8.Caption = "Extra large view";
-            galleryItem8.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            galleryItem8.Tag = 1;
-            galleryItem9.Caption = "Large icons";
-            galleryItem9.Checked = true;
-            galleryItem9.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
-            galleryItem9.Tag = 2;
-            galleryItem10.Caption = "Medium icons";
-            galleryItem10.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
-            galleryItem10.Tag = 3;
-            galleryItem11.Caption = "Small icons";
-            galleryItem11.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
-            galleryItem11.Tag = 4;
-            galleryItem12.Caption = "List";
-            galleryItem12.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
-            galleryItem12.Tag = 6;
-            galleryItem13.Caption = "Tiles";
-            galleryItem13.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
-            galleryItem13.Tag = 5;
-            galleryItem14.Caption = "Content";
-            galleryItem14.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
-            galleryItem14.Tag = 7;
-            galleryItemGroup2.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
-            galleryItem8,
-            galleryItem9,
-            galleryItem10,
-            galleryItem11,
-            galleryItem12,
-            galleryItem13,
-            galleryItem14});
+            galleryItemGroup1.Caption = "ViewStyleGroup";
+            galleryItem1.Caption = "Extra large view";
+            galleryItem1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            galleryItem1.Tag = 1;
+            galleryItem2.Caption = "Large icons";
+            galleryItem2.Checked = true;
+            galleryItem2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
+            galleryItem2.Tag = 2;
+            galleryItem3.Caption = "Medium icons";
+            galleryItem3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
+            galleryItem3.Tag = 3;
+            galleryItem4.Caption = "Small icons";
+            galleryItem4.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
+            galleryItem4.Tag = 4;
+            galleryItem5.Caption = "List";
+            galleryItem5.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
+            galleryItem5.Tag = 6;
+            galleryItem6.Caption = "Tiles";
+            galleryItem6.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
+            galleryItem6.Tag = 5;
+            galleryItem7.Caption = "Content";
+            galleryItem7.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
+            galleryItem7.Tag = 7;
+            galleryItemGroup1.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem1,
+            galleryItem2,
+            galleryItem3,
+            galleryItem4,
+            galleryItem5,
+            galleryItem6,
+            galleryItem7});
             this.rgbiViewStyle.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup2});
+            galleryItemGroup1});
             this.rgbiViewStyle.Gallery.ImageSize = new System.Drawing.Size(18, 18);
             this.rgbiViewStyle.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleRadio;
             this.rgbiViewStyle.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges3.Bottom = -3;
-            skinPaddingEdges3.Top = -3;
-            this.rgbiViewStyle.Gallery.ItemImagePadding = skinPaddingEdges3;
-            skinPaddingEdges4.Bottom = -1;
-            skinPaddingEdges4.Top = -1;
-            this.rgbiViewStyle.Gallery.ItemTextPadding = skinPaddingEdges4;
+            skinPaddingEdges1.Bottom = -3;
+            skinPaddingEdges1.Top = -3;
+            this.rgbiViewStyle.Gallery.ItemImagePadding = skinPaddingEdges1;
+            skinPaddingEdges2.Bottom = -1;
+            skinPaddingEdges2.Top = -1;
+            this.rgbiViewStyle.Gallery.ItemTextPadding = skinPaddingEdges2;
             this.rgbiViewStyle.Gallery.ShowItemText = true;
             this.rgbiViewStyle.Id = 141;
             this.rgbiViewStyle.Name = "rgbiViewStyle";
@@ -619,6 +620,33 @@ namespace WolvenKit.Views
             this.LayoutControl.TabIndex = 3;
             this.LayoutControl.Text = "LayoutControl";
             // 
+            // gridControlMarkedFiles
+            // 
+            this.gridControlMarkedFiles.Location = new System.Drawing.Point(812, 64);
+            this.gridControlMarkedFiles.MainView = this.gridViewMarkedFiles;
+            this.gridControlMarkedFiles.MenuManager = this.RibbonControl;
+            this.gridControlMarkedFiles.Name = "gridControlMarkedFiles";
+            this.gridControlMarkedFiles.Size = new System.Drawing.Size(386, 546);
+            this.gridControlMarkedFiles.TabIndex = 5;
+            this.gridControlMarkedFiles.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewMarkedFiles});
+            // 
+            // gridViewMarkedFiles
+            // 
+            this.gridViewMarkedFiles.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumnMarkedFilePath});
+            this.gridViewMarkedFiles.GridControl = this.gridControlMarkedFiles;
+            this.gridViewMarkedFiles.Name = "gridViewMarkedFiles";
+            this.gridViewMarkedFiles.OptionsBehavior.Editable = false;
+            // 
+            // gridColumnMarkedFilePath
+            // 
+            this.gridColumnMarkedFilePath.Caption = "Path";
+            this.gridColumnMarkedFilePath.FieldName = "FullPath";
+            this.gridColumnMarkedFilePath.Name = "gridColumnMarkedFilePath";
+            this.gridColumnMarkedFilePath.Visible = true;
+            this.gridColumnMarkedFilePath.VisibleIndex = 0;
+            // 
             // navigationPanel
             // 
             this.navigationPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -643,19 +671,19 @@ namespace WolvenKit.Views
             this.BreadCrumbControlAssetExplorer.MenuManager = this.RibbonControl;
             this.BreadCrumbControlAssetExplorer.Name = "BreadCrumbControlAssetExplorer";
             this.BreadCrumbControlAssetExplorer.Properties.AutoHeight = false;
-            editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(8, 8);
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(8, 8);
             this.BreadCrumbControlAssetExplorer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.SpinDown, "", 18, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", 15, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.SpinDown, "", 18, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", 15, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.BreadCrumbControlAssetExplorer.Properties.DropDownRows = 12;
             this.BreadCrumbControlAssetExplorer.Properties.ImageIndex = 0;
-            breadCrumbNode2.Caption = "Root";
-            breadCrumbNode2.Persistent = true;
-            breadCrumbNode2.PopulateOnDemand = true;
-            breadCrumbNode2.ShowCaption = false;
-            breadCrumbNode2.Value = "Root";
+            breadCrumbNode1.Caption = "Root";
+            breadCrumbNode1.Persistent = true;
+            breadCrumbNode1.PopulateOnDemand = true;
+            breadCrumbNode1.ShowCaption = false;
+            breadCrumbNode1.Value = "Root";
             this.BreadCrumbControlAssetExplorer.Properties.Nodes.AddRange(new DevExpress.XtraEditors.BreadCrumbNode[] {
-            breadCrumbNode2});
+            breadCrumbNode1});
             this.BreadCrumbControlAssetExplorer.Properties.RootImageIndex = 0;
             this.BreadCrumbControlAssetExplorer.Properties.SortNodesByCaption = true;
             this.BreadCrumbControlAssetExplorer.Properties.PathChanged += new DevExpress.XtraEditors.BreadCrumbPathChangedEventHandler(this.OnBreadCrumbPathChanged);
@@ -742,10 +770,9 @@ namespace WolvenKit.Views
             this.EditSearch.MenuManager = this.RibbonControl;
             this.EditSearch.Name = "EditSearch";
             this.EditSearch.Properties.AutoHeight = false;
-            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(16, 16);
+            editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(16, 16);
             this.EditSearch.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.EditSearch.Size = new System.Drawing.Size(266, 32);
             this.EditSearch.TabIndex = 4;
             this.EditSearch.EditValueChanged += new System.EventHandler(this.OnEditSearchTextChanged);
@@ -763,6 +790,10 @@ namespace WolvenKit.Views
             // 
             // winExplorerView
             // 
+            this.winExplorerView.Appearance.ItemDescriptionNormal.Options.UseTextOptions = true;
+            this.winExplorerView.Appearance.ItemDescriptionNormal.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.winExplorerView.Appearance.ItemNormal.Options.UseTextOptions = true;
+            this.winExplorerView.Appearance.ItemNormal.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.winExplorerView.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.winExplorerView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.columnName,
@@ -770,7 +801,9 @@ namespace WolvenKit.Views
             this.GridColumnFullPath,
             this.gridColumnSize,
             this.gridColumnCompressionType,
-            this.gridColumnBundleType});
+            this.gridColumnBundleType,
+            this.gridColumnIsChecked});
+            this.winExplorerView.ColumnSet.CheckBoxColumn = this.gridColumnIsChecked;
             this.winExplorerView.ColumnSet.DescriptionColumn = this.gridColumnSize;
             this.winExplorerView.ColumnSet.ExtraLargeImageIndexColumn = this.gridColumnImage;
             this.winExplorerView.ColumnSet.LargeImageIndexColumn = this.gridColumnImage;
@@ -786,6 +819,7 @@ namespace WolvenKit.Views
             this.winExplorerView.OptionsView.ImageLayoutMode = DevExpress.Utils.Drawing.ImageLayoutMode.Stretch;
             this.winExplorerView.OptionsView.ShowViewCaption = true;
             this.winExplorerView.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.List;
+            this.winExplorerView.OptionsViewStyles.Content.DescriptionMaxOffset = 1000;
             this.winExplorerView.OptionsViewStyles.List.ShowDescription = DevExpress.Utils.DefaultBoolean.True;
             this.winExplorerView.ItemClick += new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewItemClickEventHandler(this.OnWinExplorerViewItemClick);
             this.winExplorerView.ItemDoubleClick += new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewItemDoubleClickEventHandler(this.OnWinExplorerViewItemDoubleClick);
@@ -794,6 +828,9 @@ namespace WolvenKit.Views
             // 
             // columnName
             // 
+            this.columnName.AppearanceHeader.Options.UseTextOptions = true;
+            this.columnName.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
+            this.columnName.AppearanceHeader.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.columnName.Caption = "columnName";
             this.columnName.FieldName = "Name";
             this.columnName.Name = "columnName";
@@ -840,6 +877,14 @@ namespace WolvenKit.Views
             this.gridColumnBundleType.Visible = true;
             this.gridColumnBundleType.VisibleIndex = 1;
             // 
+            // gridColumnIsChecked
+            // 
+            this.gridColumnIsChecked.Caption = "Checked";
+            this.gridColumnIsChecked.FieldName = "IsChecked";
+            this.gridColumnIsChecked.Name = "gridColumnIsChecked";
+            this.gridColumnIsChecked.Visible = true;
+            this.gridColumnIsChecked.VisibleIndex = 2;
+            // 
             // LayoutControlMainGroup
             // 
             this.LayoutControlMainGroup.CustomizationFormText = "Root";
@@ -873,6 +918,16 @@ namespace WolvenKit.Views
             this.lciNavigationPane.TextSize = new System.Drawing.Size(0, 0);
             this.lciNavigationPane.TextVisible = false;
             // 
+            // lciMarkedFiles
+            // 
+            this.lciMarkedFiles.Control = this.gridControlMarkedFiles;
+            this.lciMarkedFiles.Location = new System.Drawing.Point(810, 46);
+            this.lciMarkedFiles.Name = "lciMarkedFiles";
+            this.lciMarkedFiles.Size = new System.Drawing.Size(390, 566);
+            this.lciMarkedFiles.Text = "Marked Files: ";
+            this.lciMarkedFiles.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciMarkedFiles.TextSize = new System.Drawing.Size(66, 13);
+            // 
             // svgImageCollectionAssetBrowser
             // 
             this.svgImageCollectionAssetBrowser.Add("genericFile", "image://svgimages/outlook inspired/new.svg");
@@ -890,22 +945,6 @@ namespace WolvenKit.Views
             this.svgImageCollectionAssetBrowser.Add("w2rig", "image://svgimages/spreadsheet/chartdatalabels_right.svg");
             this.svgImageCollectionAssetBrowser.Add("ws", ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("svgImageCollectionAssetBrowser.ws"))));
             this.svgImageCollectionAssetBrowser.Add("w2ent", ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("svgImageCollectionAssetBrowser.w2ent"))));
-            // 
-            // itemPopupMenu
-            // 
-            this.itemPopupMenu.ItemLinks.Add(this.ContextItemOpen);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToDLC);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToMod);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemClearMarks);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemUnmarkSelected);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemMarkSelected);
-            this.itemPopupMenu.Name = "itemPopupMenu";
-            this.itemPopupMenu.Ribbon = this.RibbonControl;
-            // 
-            // navigationMenu
-            // 
-            this.navigationMenu.Name = "navigationMenu";
-            this.navigationMenu.Ribbon = this.RibbonControl;
             // 
             // svgImageCollectionLargeAssetBrowser
             // 
@@ -926,42 +965,21 @@ namespace WolvenKit.Views
             this.svgImageCollectionLargeAssetBrowser.Add("ws", ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("svgImageCollectionLargeAssetBrowser.ws"))));
             this.svgImageCollectionLargeAssetBrowser.Add("w2ent", ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("svgImageCollectionLargeAssetBrowser.w2ent"))));
             // 
-            // gridControlMarkedFiles
+            // itemPopupMenu
             // 
-            this.gridControlMarkedFiles.Location = new System.Drawing.Point(812, 64);
-            this.gridControlMarkedFiles.MainView = this.gridViewMarkedFiles;
-            this.gridControlMarkedFiles.MenuManager = this.RibbonControl;
-            this.gridControlMarkedFiles.Name = "gridControlMarkedFiles";
-            this.gridControlMarkedFiles.Size = new System.Drawing.Size(386, 546);
-            this.gridControlMarkedFiles.TabIndex = 5;
-            this.gridControlMarkedFiles.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewMarkedFiles});
+            this.itemPopupMenu.ItemLinks.Add(this.ContextItemOpen);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToDLC);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToMod);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemClearMarks);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemUnmarkSelected);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemMarkSelected);
+            this.itemPopupMenu.Name = "itemPopupMenu";
+            this.itemPopupMenu.Ribbon = this.RibbonControl;
             // 
-            // gridViewMarkedFiles
+            // navigationMenu
             // 
-            this.gridViewMarkedFiles.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumnMarkedFilePath});
-            this.gridViewMarkedFiles.GridControl = this.gridControlMarkedFiles;
-            this.gridViewMarkedFiles.Name = "gridViewMarkedFiles";
-            this.gridViewMarkedFiles.OptionsBehavior.Editable = false;
-            // 
-            // lciMarkedFiles
-            // 
-            this.lciMarkedFiles.Control = this.gridControlMarkedFiles;
-            this.lciMarkedFiles.Location = new System.Drawing.Point(810, 46);
-            this.lciMarkedFiles.Name = "lciMarkedFiles";
-            this.lciMarkedFiles.Size = new System.Drawing.Size(390, 566);
-            this.lciMarkedFiles.Text = "Marked Files: ";
-            this.lciMarkedFiles.TextLocation = DevExpress.Utils.Locations.Top;
-            this.lciMarkedFiles.TextSize = new System.Drawing.Size(66, 13);
-            // 
-            // gridColumnMarkedFilePath
-            // 
-            this.gridColumnMarkedFilePath.Caption = "Path";
-            this.gridColumnMarkedFilePath.FieldName = "FullPath";
-            this.gridColumnMarkedFilePath.Name = "gridColumnMarkedFilePath";
-            this.gridColumnMarkedFilePath.Visible = true;
-            this.gridColumnMarkedFilePath.VisibleIndex = 0;
+            this.navigationMenu.Name = "navigationMenu";
+            this.navigationMenu.Ribbon = this.RibbonControl;
             // 
             // AssetExplorer
             // 
@@ -982,6 +1000,8 @@ namespace WolvenKit.Views
             this.contentPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControl)).EndInit();
             this.LayoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlMarkedFiles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewMarkedFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationPanel)).EndInit();
             this.navigationPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BreadCrumbControlAssetExplorer.Properties)).EndInit();
@@ -991,13 +1011,11 @@ namespace WolvenKit.Views
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlMainGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciNavigationPane)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciMarkedFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionAssetBrowser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionLargeAssetBrowser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemPopupMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationMenu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.svgImageCollectionLargeAssetBrowser)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlMarkedFiles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewMarkedFiles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciMarkedFiles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1077,6 +1095,7 @@ namespace WolvenKit.Views
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewMarkedFiles;
         private DevExpress.XtraLayout.LayoutControlItem lciMarkedFiles;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnMarkedFilePath;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnIsChecked;
     }
 }
 

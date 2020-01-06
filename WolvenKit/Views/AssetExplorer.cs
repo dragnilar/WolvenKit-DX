@@ -29,13 +29,13 @@ namespace WolvenKit.Views
         public AssetExplorer(List<IWitcherArchive> witcherArchives = null)
         {
             InitializeComponent();
-            if (Process.GetCurrentProcess().ProcessName == "devenv") return;
             SetImageCollections();
+            if (Process.GetCurrentProcess().ProcessName == "devenv") return;
             if (witcherArchives != null)
             {
                 Archives = witcherArchives;
                 CreateRootFileList();
-                CreateAvailableDirectories();
+                AvailableDirectories = GetRootItemDirectories(RootItem).ToList();
                 gridControl.DataSource = ExplorerDataSource;
             }
 
@@ -43,18 +43,18 @@ namespace WolvenKit.Views
             Load += OnLoad;
         }
 
-        private void SetImageCollections()
-        {
-            winExplorerView.ExtraLargeImages = svgImageCollectionAssetBrowser;
-            winExplorerView.LargeImages = svgImageCollectionAssetBrowser;
-            winExplorerView.Images = svgImageCollectionAssetBrowser;
-            winExplorerView.SmallImages = svgImageCollectionAssetBrowser;
-            winExplorerView.MediumImages = svgImageCollectionAssetBrowser;
-        }
-
         public AssetBrowserItem SelectedItem { get; set; }
         public AssetBrowserItem RootItem { get; set; }
         public BreadCrumbEdit BreadCrumb => BreadCrumbControlAssetExplorer;
+
+        private void SetImageCollections()
+        {
+            winExplorerView.ExtraLargeImages = svgImageCollectionLargeAssetBrowser;
+            winExplorerView.Images = svgImageCollectionAssetBrowser;
+            winExplorerView.LargeImages = svgImageCollectionLargeAssetBrowser;
+            winExplorerView.MediumImages = svgImageCollectionAssetBrowser;
+            winExplorerView.SmallImages = svgImageCollectionAssetBrowser;
+        }
 
         private void OnLoad(object sender, EventArgs e)
         {
@@ -82,21 +82,29 @@ namespace WolvenKit.Views
             ExplorerDataSource.Add(RootItem);
         }
 
-        private void CreateAvailableDirectories()
-        {
-            var nodes = new List<WitcherTreeNode>();
-            foreach (var node in RootItem.Directories)
-                nodes.AddRange(
-                    node.Directories.Values.Concat(node.Directories.SelectMany(x => x.Value.Directories.Values)));
+        //private void CreateAvailableDirectories()
+        //{
+        //    foreach (var directory in RootItem.Directories)
+        //        AvailableDirectories.Add(new AssetBrowserItem(directory.Name, directory.FullPath,
+        //            directory.Files.Values.SelectMany(x => x).ToList(), directory.Directories.Values.ToList(),
+        //            1));
+        //}
 
-            foreach (var treeNode in nodes)
-                AvailableDirectories.Add(new AssetBrowserItem(treeNode.Name, treeNode.FullPath,
-                    treeNode.Files.Values.SelectMany(x => x).ToList(), treeNode.Directories.Values.ToList(),
-                    1));
-            foreach (var directory in RootItem.Directories)
-                AvailableDirectories.Add(new AssetBrowserItem(directory.Name, directory.FullPath,
-                    directory.Files.Values.SelectMany(x => x).ToList(), directory.Directories.Values.ToList(),
-                    1));
+
+        private IEnumerable<AssetBrowserItem> GetRootItemDirectories(AssetBrowserItem rootItem)
+        {
+            var stack = new Stack<AssetBrowserItem>();
+            stack.Push(RootItem);
+            while (stack.Count > 0)
+            {
+                var current = stack.Pop();
+                yield return current;
+                foreach (var currentDirectory in current.Directories)
+                {
+                    stack.Push(new AssetBrowserItem(currentDirectory.Name, currentDirectory.FullPath, currentDirectory.Files.Values.SelectMany(x=>x).ToList(), currentDirectory.Directories.Values.ToList(),
+                        1));
+                }
+            }
         }
 
         private void InitializeBreadCrumb()
@@ -173,11 +181,9 @@ namespace WolvenKit.Views
             var activeItem = AvailableDirectories.FirstOrDefault(x => x.FullPath == _currentPath) ?? RootItem;
             var newDataSource = new List<AssetBrowserItem>();
             foreach (var directory in activeItem.Directories)
-            {
-                newDataSource.AddRange(AvailableDirectories.Where(x=>x.FullPath == directory.FullPath));
-            }
-            newDataSource.AddRange(activeItem.Files.Select(file => new AssetBrowserItem(file.Name,
-                $"{_currentPath}\\{file.Name}",
+                newDataSource.AddRange(AvailableDirectories.Where(x => x.FullPath == directory.FullPath));
+            newDataSource.AddRange(activeItem.Files.Select(file => new AssetBrowserItem(Path.GetFileName(file.Name),
+                file.Name,
                 file.Size.ToString(), file.CompressionType, file.Bundle.TypeName,
                 GetImageIndex(Path.GetExtension(file.Name)))).ToList());
             return newDataSource;
@@ -265,7 +271,14 @@ namespace WolvenKit.Views
         {
             if (e.MouseInfo.Button != MouseButtons.Left) return;
             if (SelectedItem.IsDirectory)
+            {
                 BreadCrumb.Path = SelectedItem.FullPath;
+            }
+            else if (!SelectedItem.IsDirectory)
+            {
+                var isChecked = !SelectedItem.IsChecked;
+                winExplorerView.SetFocusedRowCellValue(gridColumnIsChecked, isChecked);
+            }
         }
 
         private void UpdateButtons()
