@@ -474,7 +474,7 @@ namespace WolvenKit.Views
             // 
             // barButtonItemStringsEncoder
             // 
-            this.barButtonItemStringsEncoder.Caption = "Strings Encoder GUI";
+            this.barButtonItemStringsEncoder.Caption = "Strings Encoder";
             this.barButtonItemStringsEncoder.Id = 35;
             this.barButtonItemStringsEncoder.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemStringsEncoder.ImageOptions.SvgImage")));
             this.barButtonItemStringsEncoder.Name = "barButtonItemStringsEncoder";
