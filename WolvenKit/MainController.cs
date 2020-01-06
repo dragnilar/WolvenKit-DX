@@ -149,15 +149,6 @@ namespace WolvenKit
             return ret;
         }
 
-        /// <summary>
-        ///     Here we setup stuff we need in every form. Borders etc can be done here in the future.
-        /// </summary>
-        /// <param name="form">The form to initialize.</param>
-        public void InitForm(Form form)
-        {
-            var bmp = Resources.Logo_wkit;
-            form.Icon = Icon.FromHandle(bmp.GetHicon());
-        }
 
         /// <summary>
         ///     Queues a string for logging in the main window.
