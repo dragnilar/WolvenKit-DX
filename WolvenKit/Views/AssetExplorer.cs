@@ -35,7 +35,7 @@ namespace WolvenKit.Views
             {
                 Archives = witcherArchives;
                 CreateRootFileList();
-                AvailableDirectories = GetRootItemDirectories(RootItem).ToList();
+                AvailableDirectories = GetRootItemDirectories().ToList();
                 gridControl.DataSource = ExplorerDataSource;
             }
 
@@ -82,16 +82,15 @@ namespace WolvenKit.Views
             ExplorerDataSource.Add(RootItem);
         }
 
-        //private void CreateAvailableDirectories()
-        //{
-        //    foreach (var directory in RootItem.Directories)
-        //        AvailableDirectories.Add(new AssetBrowserItem(directory.Name, directory.FullPath,
-        //            directory.Files.Values.SelectMany(x => x).ToList(), directory.Directories.Values.ToList(),
-        //            1));
-        //}
 
-
-        private IEnumerable<AssetBrowserItem> GetRootItemDirectories(AssetBrowserItem rootItem)
+        /// <summary>
+        /// Uses a stack to flatten the tree embedded in the root to get all of the directories within the tree.
+        ///Based off of Eric Lippert's idea for using a stack to squash the tree:
+        ///https://stackoverflow.com/questions/11830174/how-to-flatten-tree-via-linq
+        /// </summary>
+        /// <returns>An IEnumerable of Asset Browser items that can be converted to a list or anything else you wish to run
+        /// LINQ queries on to find stuff within the directory structure of all the Witcher 3 packed files.</returns>
+        private IEnumerable<AssetBrowserItem> GetRootItemDirectories()
         {
             var stack = new Stack<AssetBrowserItem>();
             stack.Push(RootItem);
