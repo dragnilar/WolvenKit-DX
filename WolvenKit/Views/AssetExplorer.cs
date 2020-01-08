@@ -23,10 +23,11 @@ namespace WolvenKit.Views
         private string _currentPath;
         public List<IWitcherArchive> Archives;
         public List<AssetBrowserItem> AvailableDirectories = new List<AssetBrowserItem>();
+        public List<AssetBrowserItem> AvailableFiles = new List<AssetBrowserItem>();
         public List<AssetBrowserItem> ExplorerDataSource = new List<AssetBrowserItem>();
         public List<IWitcherFile> FileList = new List<IWitcherFile>();
 
-        public AssetExplorer(List<IWitcherArchive> witcherArchives = null)
+        public AssetExplorer(List<IWitcherArchive> witcherArchives)
         {
             InitializeComponent();
             SetImageCollections();
@@ -36,11 +37,25 @@ namespace WolvenKit.Views
                 Archives = witcherArchives;
                 CreateRootFileList();
                 AvailableDirectories = GetRootItemDirectories().ToList();
+                GetFilesFromArchives(witcherArchives);
                 gridControl.DataSource = ExplorerDataSource;
             }
 
             FileSystemImageCache.Cache.EnableFileIconCaching = false;
             Load += OnLoad;
+        }
+
+        private void GetFilesFromArchives(List<IWitcherArchive> witcherArchives)
+        {
+            foreach (var archive in witcherArchives)
+            {
+                archive.FileList.ForEach(x =>
+                {
+                    AvailableFiles.Add(new AssetBrowserItem(Path.GetFileName(x.Name),
+                        x.Name, x.Size.ToString(), x.CompressionType, x.Bundle.TypeName,
+                        GetImageIndex(Path.GetExtension(x.Name)), x));
+                });
+            }
         }
 
         public AssetBrowserItem SelectedItem { get; set; }
@@ -181,10 +196,7 @@ namespace WolvenKit.Views
             var newDataSource = new List<AssetBrowserItem>();
             foreach (var directory in activeItem.Directories)
                 newDataSource.AddRange(AvailableDirectories.Where(x => x.FullPath == directory.FullPath));
-            newDataSource.AddRange(activeItem.Files.Select(file => new AssetBrowserItem(Path.GetFileName(file.Name),
-                file.Name,
-                file.Size.ToString(), file.CompressionType, file.Bundle.TypeName,
-                GetImageIndex(Path.GetExtension(file.Name)))).ToList());
+            newDataSource.AddRange(AvailableFiles.Where(x=>x.DirectoryPath == activeItem.FullPath));
             return newDataSource;
         }
 
@@ -193,7 +205,7 @@ namespace WolvenKit.Views
             var nullPromptValue = !string.IsNullOrWhiteSpace(_currentPath)
                 ? _currentPath
                 : RootItem.FullPath;
-            EditSearch.Properties.NullValuePrompt = "Search " + nullPromptValue;
+            EditSearch.Properties.NullValuePrompt = "Search All Files...";
             EditSearch.EditValue = null;
             winExplorerView.FindFilterText = string.Empty;
         }
@@ -208,8 +220,7 @@ namespace WolvenKit.Views
         {
             var item = e.Item;
             if (!item.Checked) return;
-            var viewStyle = (WinExplorerViewStyle) Enum.Parse(typeof(WinExplorerViewStyle), item.Tag.ToString());
-            winExplorerView.OptionsView.Style = viewStyle;
+            winExplorerView.OptionsView.Style = (WinExplorerViewStyle) Enum.Parse(typeof(WinExplorerViewStyle), item.Tag.ToString());
             FileSystemImageCache.Cache.ClearCache();
             UpdateView();
         }
@@ -221,7 +232,17 @@ namespace WolvenKit.Views
 
         private void OnEditSearchTextChanged(object sender, EventArgs e)
         {
-            winExplorerView.FindFilterText = EditSearch.Text;
+            var searchString = EditSearch.EditValue?.ToString();
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                gridControl.DataSource = AvailableFiles.Where(x => x.Name.Contains(searchString)).ToList();
+                winExplorerView.RefreshData();
+                BeginInvoke(new MethodInvoker(winExplorerView.ClearSelection));
+            }
+            else
+            {
+                UpdateView();
+            }
         }
 
 
@@ -321,6 +342,7 @@ namespace WolvenKit.Views
         private void OnNavigationMenuItemClick(object sender, ItemClickEventArgs e)
         {
             BreadCrumb.SetNavigationHistoryCurrentItemIndex(Convert.ToInt32(e.Item.Tag));
+            _currentPath = e.Item.Caption;
             UpdateButtons();
         }
 
