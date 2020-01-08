@@ -13,6 +13,7 @@ namespace WolvenKit.Models
         public bool IsDirectory { get; set; }
         public List<WitcherTreeNode> Directories { get; set; }
         public List<IWitcherFile> Files { get; set; }
+        public IWitcherFile InternalFile { get; set; }
         public string FullPath { get; set; }
         public string Name { get; set; }
         public string Size { get; set; }
@@ -20,6 +21,9 @@ namespace WolvenKit.Models
         public string BundleType { get; set; }
         public int ImageIndex { get; set; }
         public bool IsChecked { get; set; }
+
+        public string DirectoryPath {get;}
+        
 
         public AssetBrowserItem(string name, string fullPath, List<IWitcherFile> files, List<WitcherTreeNode> directories, int imageIndex)
         {
@@ -33,7 +37,7 @@ namespace WolvenKit.Models
         }
 
         public AssetBrowserItem(string name, string fullPath, string size, string compressionType, string bundleType,
-            int imageIndex)
+            int imageIndex, IWitcherFile internalFile)
         {
             Name = name;
             FullPath = fullPath;
@@ -43,6 +47,8 @@ namespace WolvenKit.Models
             CompressionType = compressionType;
             BundleType = bundleType;
             IsChecked = false;
+            InternalFile = internalFile;
+            DirectoryPath = $"Root\\{bundleType}\\{Path.GetDirectoryName(fullPath)}";
         }
 
 
