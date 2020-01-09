@@ -323,11 +323,11 @@
     </Compile>
     <Compile Include="Models\AssetBrowserItem.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Views\AssetExplorer.cs">
+    <Compile Include="Views\AssetExplorerView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AssetExplorer.Designer.cs">
-      <DependentUpon>AssetExplorer.cs</DependentUpon>
+    <Compile Include="Views\AssetExplorerView.Designer.cs">
+      <DependentUpon>AssetExplorerView.cs</DependentUpon>
     </Compile>
     <Compile Include="DDSUtility.cs" />
     <Compile Include="Controls\ChunkFlowDiagram.cs">
@@ -360,7 +360,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WitcherListViewItem.cs" />
     <Compile Include="Commonfunctions.cs" />
     <Compile Include="CopyController.cs" />
     <Compile Include="FileSavedEventArgs.cs" />
@@ -480,12 +479,6 @@
     <Compile Include="Views\frmAddVariable.Designer.cs">
       <DependentUpon>frmAddVariable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\AssetBrowserView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\AssetBrowserView.Designer.cs">
-      <DependentUpon>AssetBrowserView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ChunkListViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -572,8 +565,8 @@
     <EmbeddedResource Include="Controls\ScriptEditor.resx">
       <DependentUpon>ScriptEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\AssetExplorer.resx">
-      <DependentUpon>AssetExplorer.cs</DependentUpon>
+    <EmbeddedResource Include="Views\AssetExplorerView.resx">
+      <DependentUpon>AssetExplorerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ByteArrayDialogView.resx">
       <DependentUpon>ByteArrayDialogView.cs</DependentUpon>
@@ -597,10 +590,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmAddVariable.resx">
       <DependentUpon>frmAddVariable.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AssetBrowserView.resx">
-      <DependentUpon>AssetBrowserView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChunkListViewer.resx">

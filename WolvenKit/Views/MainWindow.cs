@@ -20,6 +20,7 @@ using WolvenKit.Controls;
 using WolvenKit.CR2W;
 using WolvenKit.CR2W.Types;
 using WolvenKit.Interfaces;
+using WolvenKit.Models;
 using WolvenKit.StringEncoder;
 using WolvenKit.Wwise.SoundCache;
 
@@ -898,12 +899,11 @@ namespace WolvenKit.Views
         /// </summary>
         /// <param name="depotpath">Filename.</param>
         /// <param name="managers">The managers.</param>
-        private bool AddToMod(WitcherListViewItem item, bool skipping, List<IWitcherArchive> managers, bool AddAsDLC)
+        private bool AddToMod(AssetBrowserItem item, bool skipping, List<IWitcherArchive> managers, bool AddAsDLC)
         {
             var skip = skipping;
             var depotPath = item.FullPath ?? item.FullPath ?? string.Empty;
-            foreach (var manager in managers.Where(manager =>
-                depotPath.StartsWith(Path.Combine("Root", manager.TypeName))))
+            foreach (var manager in managers.Where(manager => manager.Items.ContainsKey(depotPath)))
                 if (manager.Items.Any(x => x.Value.Any(y => y.Name == item.FullPath)))
                 {
                     var archives = manager.FileList.Where(x => x.Name == item.FullPath)
@@ -964,9 +964,9 @@ namespace WolvenKit.Views
         {
             if (ActiveMod == null)
                 return;
-            if (Application.OpenForms.OfType<AssetBrowserView>().Any())
+            if (Application.OpenForms.OfType<AssetExplorerView>().Any())
             {
-                var frm = Application.OpenForms.OfType<AssetBrowserView>().First();
+                var frm = Application.OpenForms.OfType<AssetExplorerView>().First();
                 if (!string.IsNullOrEmpty(browseToPath))
                     frm.OpenPath(browseToPath);
                 frm.WindowState = FormWindowState.Minimized;
@@ -975,7 +975,7 @@ namespace WolvenKit.Views
                 return;
             }
 
-            var explorer = new AssetBrowserView(loadmods
+            var explorer = new AssetExplorerView(loadmods
                 ? new List<IWitcherArchive>
                 {
                     MainController.Get().ModBundleManager,
@@ -1338,7 +1338,7 @@ namespace WolvenKit.Views
         }
 
         private void Assetbrowser_FileAdd(object sender,
-            Tuple<List<IWitcherArchive>, List<WitcherListViewItem>, bool> Details)
+            Tuple<List<IWitcherArchive>, List<AssetBrowserItem>, bool> Details)
         {
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {
@@ -2226,7 +2226,7 @@ namespace WolvenKit.Views
 
         private void barButtonItemTest_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var explorer = new AssetExplorer(new List<IWitcherArchive>
+            var explorer = new AssetExplorerView(new List<IWitcherArchive>
                 {
                     MainController.Get().BundleManager,
                     MainController.Get().SoundManager,

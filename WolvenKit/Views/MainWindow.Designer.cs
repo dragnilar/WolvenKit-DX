@@ -85,7 +85,6 @@ namespace WolvenKit.Views
             this.barStaticItemBuildDate = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItemClearOutput = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemSaveOutput = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemTest = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupBuild = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -176,8 +175,7 @@ namespace WolvenKit.Views
             this.barStaticItemStatus,
             this.barStaticItemBuildDate,
             this.barButtonItemClearOutput,
-            this.barButtonItemSaveOutput,
-            this.barButtonItemTest});
+            this.barButtonItemSaveOutput});
             this.ribbonControlMain.Location = new System.Drawing.Point(0, 0);
             this.ribbonControlMain.MaxItemId = 58;
             this.ribbonControlMain.Name = "ribbonControlMain";
@@ -595,14 +593,6 @@ namespace WolvenKit.Views
             this.barButtonItemSaveOutput.Name = "barButtonItemSaveOutput";
             this.barButtonItemSaveOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSaveOutput_ItemClick);
             // 
-            // barButtonItemTest
-            // 
-            this.barButtonItemTest.Caption = "Test New Asset Browser";
-            this.barButtonItemTest.Id = 57;
-            this.barButtonItemTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemTest.ImageOptions.SvgImage")));
-            this.barButtonItemTest.Name = "barButtonItemTest";
-            this.barButtonItemTest.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTest_ItemClick);
-            // 
             // ribbonPageHome
             // 
             this.ribbonPageHome.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -624,7 +614,6 @@ namespace WolvenKit.Views
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemAddModFile);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemImport);
             this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemExport);
-            this.ribbonPageGroupFile.ItemLinks.Add(this.barButtonItemTest);
             this.ribbonPageGroupFile.Name = "ribbonPageGroupFile";
             this.ribbonPageGroupFile.Text = "File";
             // 
@@ -908,6 +897,5 @@ namespace WolvenKit.Views
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOutput;
         private DevExpress.XtraBars.BarButtonItem barButtonItemClearOutput;
         private DevExpress.XtraBars.BarButtonItem barButtonItemSaveOutput;
-        private DevExpress.XtraBars.BarButtonItem barButtonItemTest;
     }
 }
