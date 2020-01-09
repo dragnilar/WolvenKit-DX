@@ -217,12 +217,6 @@ namespace WolvenKit.Views
             winExplorerView.FindFilterText = string.Empty;
         }
 
-
-        private void OnShowCheckBoxesItemClick(object sender, ItemClickEventArgs e)
-        {
-            winExplorerView.OptionsView.ShowCheckBoxes = ((BarCheckItem) e.Item).Checked;
-        }
-
         private void OnViewStyleGalleryItemCheckedChanged(object sender, GalleryItemEventArgs e)
         {
             var item = e.Item;
@@ -265,13 +259,16 @@ namespace WolvenKit.Views
             }
         }
 
-
-        private void OnCopyPathItemClick(object sender, ItemClickEventArgs e)
+        private void barButtonItemSelectAll_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            var builder = new StringBuilder();
-            foreach (var entry in GetSelectedEntries()) builder.AppendLine(entry.Name);
-            if (!string.IsNullOrEmpty(builder.ToString())) Clipboard.SetText(builder.ToString());
+            winExplorerView.ClearSelection();
+            for (var i = 0; i <= winExplorerView.RowCount; i++)
+            {
+                winExplorerView.SetRowCellValue(i, gridColumnIsChecked, true);
+            }
         }
+
+
 
         private void OnOpenItemClick(object sender, ItemClickEventArgs e)
         {
@@ -442,5 +439,7 @@ namespace WolvenKit.Views
                 MarkedFiles.Add(item);
             }
         }
+
+
     }
 }
