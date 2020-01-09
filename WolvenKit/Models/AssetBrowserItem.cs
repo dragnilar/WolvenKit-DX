@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using WolvenKit.Annotations;
 using WolvenKit.Interfaces;
 
 namespace WolvenKit.Models
 {
-    public sealed class AssetBrowserItem
+    public sealed class AssetBrowserItem : INotifyPropertyChanged
     {
         public bool IsDirectory { get; set; }
         public List<WitcherTreeNode> Directories { get; set; }
@@ -52,5 +51,12 @@ namespace WolvenKit.Models
         }
 
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
