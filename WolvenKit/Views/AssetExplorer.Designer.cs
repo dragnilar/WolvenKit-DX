@@ -58,7 +58,6 @@ namespace WolvenKit.Views
             this.repositoryItemTextEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.RibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.ButtonItemItemCheckBoxes = new DevExpress.XtraBars.BarCheckItem();
-            this.ButtonItemFileNameExtensions = new DevExpress.XtraBars.BarCheckItem();
             this.ButtonCheckItemNavigationPane = new DevExpress.XtraBars.BarCheckItem();
             this.btnCopyItem = new DevExpress.XtraBars.BarButtonItem();
             this.ButtonItemNewFolder = new DevExpress.XtraBars.BarButtonItem();
@@ -111,7 +110,7 @@ namespace WolvenKit.Views
             this.btnBack = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.EditSearch = new DevExpress.XtraEditors.ButtonEdit();
-            this.gridControl = new DevExpress.XtraGrid.GridControl();
+            this.gridControlAssetExplorer = new DevExpress.XtraGrid.GridControl();
             this.winExplorerView = new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerView();
             this.columnName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnImage = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -144,7 +143,7 @@ namespace WolvenKit.Views
             this.navigationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BreadCrumbControlAssetExplorer.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditSearch.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlAssetExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.winExplorerView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlMainGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciGridControl)).BeginInit();
@@ -172,7 +171,6 @@ namespace WolvenKit.Views
             this.RibbonControl.ExpandCollapseItem,
             this.RibbonControl.SearchEditItem,
             this.ButtonItemItemCheckBoxes,
-            this.ButtonItemFileNameExtensions,
             this.ButtonCheckItemNavigationPane,
             this.btnCopyItem,
             this.ButtonItemNewFolder,
@@ -219,19 +217,13 @@ namespace WolvenKit.Views
             // 
             // ButtonItemItemCheckBoxes
             // 
+            this.ButtonItemItemCheckBoxes.BindableChecked = true;
             this.ButtonItemItemCheckBoxes.Caption = "Item check boxes";
             this.ButtonItemItemCheckBoxes.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.ButtonItemItemCheckBoxes.Checked = true;
             this.ButtonItemItemCheckBoxes.Id = 26;
             this.ButtonItemItemCheckBoxes.Name = "ButtonItemItemCheckBoxes";
             this.ButtonItemItemCheckBoxes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowCheckBoxesItemClick);
-            // 
-            // ButtonItemFileNameExtensions
-            // 
-            this.ButtonItemFileNameExtensions.Caption = "File name extensions";
-            this.ButtonItemFileNameExtensions.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.ButtonItemFileNameExtensions.Id = 27;
-            this.ButtonItemFileNameExtensions.Name = "ButtonItemFileNameExtensions";
-            this.ButtonItemFileNameExtensions.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.OnShowFileNameExtensionsCheckItemClick);
             // 
             // ButtonCheckItemNavigationPane
             // 
@@ -488,6 +480,7 @@ namespace WolvenKit.Views
             this.barButtonItemAddMarkedToMod.Id = 175;
             this.barButtonItemAddMarkedToMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemAddMarkedToMod.ImageOptions.SvgImage")));
             this.barButtonItemAddMarkedToMod.Name = "barButtonItemAddMarkedToMod";
+            this.barButtonItemAddMarkedToMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAddMarkedToMod_ItemClick);
             // 
             // barButtonItemAddMarkedToDLC
             // 
@@ -495,13 +488,15 @@ namespace WolvenKit.Views
             this.barButtonItemAddMarkedToDLC.Id = 176;
             this.barButtonItemAddMarkedToDLC.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemAddMarkedToDLC.ImageOptions.SvgImage")));
             this.barButtonItemAddMarkedToDLC.Name = "barButtonItemAddMarkedToDLC";
+            this.barButtonItemAddMarkedToDLC.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAddMarkedToDLC_ItemClick);
             // 
             // barButtonItemClearMarks
             // 
-            this.barButtonItemClearMarks.Caption = "Clear Marks";
+            this.barButtonItemClearMarks.Caption = "Clear All Marks";
             this.barButtonItemClearMarks.Id = 177;
             this.barButtonItemClearMarks.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemClearMarks.ImageOptions.SvgImage")));
             this.barButtonItemClearMarks.Name = "barButtonItemClearMarks";
+            this.barButtonItemClearMarks.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemClearMarks_ItemClick);
             // 
             // barButtonItemUnmarkSelected
             // 
@@ -509,6 +504,7 @@ namespace WolvenKit.Views
             this.barButtonItemUnmarkSelected.Id = 178;
             this.barButtonItemUnmarkSelected.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemUnmarkSelected.ImageOptions.SvgImage")));
             this.barButtonItemUnmarkSelected.Name = "barButtonItemUnmarkSelected";
+            this.barButtonItemUnmarkSelected.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemUnmarkSelected_ItemClick);
             // 
             // barButtonItemMarkSelected
             // 
@@ -516,6 +512,7 @@ namespace WolvenKit.Views
             this.barButtonItemMarkSelected.Id = 179;
             this.barButtonItemMarkSelected.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemMarkSelected.ImageOptions.SvgImage")));
             this.barButtonItemMarkSelected.Name = "barButtonItemMarkSelected";
+            this.barButtonItemMarkSelected.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemMarkSelected_ItemClick);
             // 
             // PageHome
             // 
@@ -552,9 +549,9 @@ namespace WolvenKit.Views
             // 
             this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemAddMarkedToMod);
             this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemAddMarkedToDLC);
-            this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemClearMarks);
-            this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemUnmarkSelected);
             this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemMarkSelected);
+            this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemUnmarkSelected);
+            this.ribbonPageGroupFiles.ItemLinks.Add(this.barButtonItemClearMarks);
             this.ribbonPageGroupFiles.Name = "ribbonPageGroupFiles";
             this.ribbonPageGroupFiles.Text = "Files";
             // 
@@ -577,7 +574,6 @@ namespace WolvenKit.Views
             // 
             this.PageGroupViewShowHide.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemItemCheckBoxes);
-            this.PageGroupViewShowHide.ItemLinks.Add(this.ButtonItemFileNameExtensions);
             this.PageGroupViewShowHide.Name = "PageGroupViewShowHide";
             this.PageGroupViewShowHide.Text = "Show/Hide";
             // 
@@ -610,7 +606,7 @@ namespace WolvenKit.Views
             // 
             this.LayoutControl.Controls.Add(this.gridControlMarkedFiles);
             this.LayoutControl.Controls.Add(this.navigationPanel);
-            this.LayoutControl.Controls.Add(this.gridControl);
+            this.LayoutControl.Controls.Add(this.gridControlAssetExplorer);
             this.LayoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LayoutControl.Location = new System.Drawing.Point(0, 0);
             this.LayoutControl.Name = "LayoutControl";
@@ -777,15 +773,15 @@ namespace WolvenKit.Views
             this.EditSearch.TabIndex = 4;
             this.EditSearch.EditValueChanged += new System.EventHandler(this.OnEditSearchTextChanged);
             // 
-            // gridControl
+            // gridControlAssetExplorer
             // 
-            this.gridControl.Location = new System.Drawing.Point(2, 48);
-            this.gridControl.MainView = this.winExplorerView;
-            this.gridControl.MenuManager = this.RibbonControl;
-            this.gridControl.Name = "gridControl";
-            this.gridControl.Size = new System.Drawing.Size(806, 562);
-            this.gridControl.TabIndex = 2;
-            this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridControlAssetExplorer.Location = new System.Drawing.Point(2, 48);
+            this.gridControlAssetExplorer.MainView = this.winExplorerView;
+            this.gridControlAssetExplorer.MenuManager = this.RibbonControl;
+            this.gridControlAssetExplorer.Name = "gridControlAssetExplorer";
+            this.gridControlAssetExplorer.Size = new System.Drawing.Size(806, 562);
+            this.gridControlAssetExplorer.TabIndex = 2;
+            this.gridControlAssetExplorer.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.winExplorerView});
             // 
             // winExplorerView
@@ -810,7 +806,7 @@ namespace WolvenKit.Views
             this.winExplorerView.ColumnSet.MediumImageIndexColumn = this.gridColumnImage;
             this.winExplorerView.ColumnSet.SmallImageIndexColumn = this.gridColumnImage;
             this.winExplorerView.ColumnSet.TextColumn = this.columnName;
-            this.winExplorerView.GridControl = this.gridControl;
+            this.winExplorerView.GridControl = this.gridControlAssetExplorer;
             this.winExplorerView.Name = "winExplorerView";
             this.winExplorerView.OptionsBehavior.Editable = false;
             this.winExplorerView.OptionsSelection.AllowMarqueeSelection = true;
@@ -901,7 +897,7 @@ namespace WolvenKit.Views
             // 
             // lciGridControl
             // 
-            this.lciGridControl.Control = this.gridControl;
+            this.lciGridControl.Control = this.gridControlAssetExplorer;
             this.lciGridControl.CustomizationFormText = "LayoutControlItemExplorerView";
             this.lciGridControl.Location = new System.Drawing.Point(0, 46);
             this.lciGridControl.Name = "lciGridControl";
@@ -1006,7 +1002,7 @@ namespace WolvenKit.Views
             this.navigationPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BreadCrumbControlAssetExplorer.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditSearch.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlAssetExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.winExplorerView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutControlMainGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciGridControl)).EndInit();
@@ -1028,7 +1024,6 @@ namespace WolvenKit.Views
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupViewLayouts;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup PageGroupViewShowHide;
         private DevExpress.XtraBars.BarCheckItem ButtonItemItemCheckBoxes;
-        private DevExpress.XtraBars.BarCheckItem ButtonItemFileNameExtensions;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraBars.BarCheckItem ButtonCheckItemNavigationPane;
         private DevExpress.XtraBars.BarButtonItem btnCopyItem;
@@ -1057,7 +1052,7 @@ namespace WolvenKit.Views
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
         private DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup repositoryItemRadioGroup1;
         private DevExpress.XtraBars.RibbonGalleryBarItem rgbiViewStyle;
-        private DevExpress.XtraGrid.GridControl gridControl;
+        private DevExpress.XtraGrid.GridControl gridControlAssetExplorer;
         private DevExpress.XtraGrid.Views.WinExplorer.WinExplorerView winExplorerView;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit4;

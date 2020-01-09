@@ -24,8 +24,8 @@ namespace WolvenKit.Views
         public List<IWitcherArchive> Archives;
         public List<AssetBrowserItem> AvailableDirectories = new List<AssetBrowserItem>();
         public List<AssetBrowserItem> AvailableFiles = new List<AssetBrowserItem>();
-        public List<AssetBrowserItem> ExplorerDataSource = new List<AssetBrowserItem>();
-        public List<IWitcherFile> FileList = new List<IWitcherFile>();
+        public BindingList<AssetBrowserItem> ExplorerDataSource = new BindingList<AssetBrowserItem>();
+        public BindingList<AssetBrowserItem> MarkedFiles = new BindingList<AssetBrowserItem>();
 
         public AssetExplorer(List<IWitcherArchive> witcherArchives)
         {
@@ -38,9 +38,10 @@ namespace WolvenKit.Views
                 CreateRootFileList();
                 AvailableDirectories = GetRootItemDirectories().ToList();
                 GetFilesFromArchives(witcherArchives);
-                gridControl.DataSource = ExplorerDataSource;
+                ExplorerDataSource = GetGridDataSource();
+                gridControlAssetExplorer.DataSource = ExplorerDataSource;
             }
-
+            gridControlMarkedFiles.DataSource = MarkedFiles;
             FileSystemImageCache.Cache.EnableFileIconCaching = false;
             Load += OnLoad;
         }
@@ -87,14 +88,12 @@ namespace WolvenKit.Views
             var rootNode = new WitcherTreeNode {Name = "Root"};
             foreach (var archive in Archives)
             {
-                FileList.AddRange(archive.FileList);
                 rootNode.Directories[archive.RootNode.Name] = archive.RootNode;
                 archive.RootNode.Parent = rootNode;
             }
 
             RootItem = new AssetBrowserItem(rootNode.Name, rootNode.FullPath,
                 rootNode.Files.Values.SelectMany(x => x).ToList(), rootNode.Directories.Values.ToList(), 1);
-            ExplorerDataSource.Add(RootItem);
         }
 
 
@@ -179,7 +178,8 @@ namespace WolvenKit.Views
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                gridControl.DataSource = !string.IsNullOrWhiteSpace(_currentPath) ? GetGridDataSource() : null;
+                ExplorerDataSource = !string.IsNullOrWhiteSpace(_currentPath) ? GetGridDataSource() : null;
+                gridControlAssetExplorer.DataSource = ExplorerDataSource;
                 winExplorerView.RefreshData();
                 EnsureSearchEdit();
                 BeginInvoke(new MethodInvoker(winExplorerView.ClearSelection));
@@ -190,14 +190,14 @@ namespace WolvenKit.Views
             }
         }
 
-        private List<AssetBrowserItem> GetGridDataSource()
+        private BindingList<AssetBrowserItem> GetGridDataSource()
         {
             var activeItem = AvailableDirectories.FirstOrDefault(x => x.FullPath == _currentPath) ?? RootItem;
-            var newDataSource = new List<AssetBrowserItem>();
+            List<AssetBrowserItem> newDataSource = new List<AssetBrowserItem>();
             foreach (var directory in activeItem.Directories)
                 newDataSource.AddRange(AvailableDirectories.Where(x => x.FullPath == directory.FullPath));
             newDataSource.AddRange(AvailableFiles.Where(x=>x.DirectoryPath == activeItem.FullPath));
-            return newDataSource;
+            return new BindingList<AssetBrowserItem>(newDataSource);
         }
 
         private void EnsureSearchEdit()
@@ -235,7 +235,10 @@ namespace WolvenKit.Views
             var searchString = EditSearch.EditValue?.ToString();
             if (!string.IsNullOrWhiteSpace(searchString))
             {
-                gridControl.DataSource = AvailableFiles.Where(x => x.Name.Contains(searchString)).ToList();
+                ExplorerDataSource =
+                    new BindingList<AssetBrowserItem>(AvailableFiles.Where(x => x.Name.Contains(searchString))
+                        .ToList());
+                gridControlAssetExplorer.DataSource = ExplorerDataSource;
                 winExplorerView.RefreshData();
                 BeginInvoke(new MethodInvoker(winExplorerView.ClearSelection));
             }
@@ -391,6 +394,42 @@ namespace WolvenKit.Views
                     return 14;
                 default:
                     return 0;
+            }
+        }
+
+        private void barButtonItemAddMarkedToMod_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void barButtonItemAddMarkedToDLC_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void barButtonItemClearMarks_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MarkedFiles.Clear();
+        }
+
+        private void barButtonItemUnmarkSelected_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (ExplorerDataSource == null) return;
+            foreach (var item in ExplorerDataSource.Where(item => item.IsChecked))
+            {
+                if (MarkedFiles.Contains(item))
+                {
+                    MarkedFiles.Remove(item);
+                }
+            }
+        }
+
+        private void barButtonItemMarkSelected_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (ExplorerDataSource == null) return;
+            foreach (var item in ExplorerDataSource.Where(item => item.IsChecked))
+            {
+                MarkedFiles.Add(item);
             }
         }
     }
