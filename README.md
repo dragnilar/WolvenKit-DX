@@ -7,9 +7,14 @@ This is a fork of Traderain's Wolven-kit that features a significant user interf
 I intend to create a release for this once I feel it is at a state where it is stable and different enough from Traderain's version to merit releasing it. Once it is at a release state, I will make an installer available for download in the releases section. The installer will most likely be using <a href="https://www.installpackbuilder.com/"> Paquet Builder </a> or some other installer. A zip / installer-less version will also be available.
 
 # Screenshots
+![Splash Screen](https://user-images.githubusercontent.com/33742520/72116963-e6f16480-3319-11ea-8d17-f343b9233099.png)
+
 ![Main Window With Witch Rave Theme And Script Editor](https://user-images.githubusercontent.com/33742520/71497014-3f0d6e80-2824-11ea-9826-0b59e068f75e.png)
 
 ![Main Window With Redone Package Installer Window](https://user-images.githubusercontent.com/33742520/71497048-69f7c280-2824-11ea-98ad-544089c8dcec.png)
+
+![New Asset Explorer](https://user-images.githubusercontent.com/33742520/72116731-2d928f00-3319-11ea-872f-53ab865dae29.png)
+
 
 
 # What's Different From The Original: 
@@ -27,8 +32,11 @@ I intend to create a release for this once I feel it is at a state where it is s
 - The Main Window uses DevExpress' dock layout manager instead of the one Traderain was using. This includes more docking capabilities, pinning and greater flexability for the user.
 - Both the Output view and Mod Explorer view are now user controls which use DevExpress' components instead of their base Windows Forms equivileants.
 - Completely reworked how the Mod Explorer interacts with the rest of WolvenKit and how it handles file system changes to the project. Wolvenkit no longer blows away and rebuilds the entire tree list whenever a change occurs. This reduces flickering / freezing and greatly improves the usability of WolvenKit.
+- Completely reworked the Asset Explorer (formerly the Asset Browser). Borrowing inspiration heavily from Windows Explorer, it features similar functionality to both its inspiration and predecessor while also making full usage of the DevExpress components. 
 - Changed a couple instances of the Folder Selection Dialog that Tradearin was using so that it is using the Vista Folder Browser dialog instead of the old XP style dialog.
 - The "Chunk Editor" (the widget that displays when you are editing files like .w2ent files) uses the DevExpress grid instead of Object List View, which means it uses the app theme and allows for better filtering and data shaping.
+- Fixed an issue where WolvenKit wouldn't save edited buffers back to their original file. This was a regression from W3Edit as W3Edit was fully capable of saving buffers.
+- 
 - Added one click mod build / quick build feature that builds a mod with all default parameters. Can be invoked using the ribbon hot keys as well.
 - The build/package window has also been redone using DevExpress and now starts centered, is less narrow and the ok button is focused (in case you quickly want to hit space to build).
 
