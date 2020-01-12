@@ -47,7 +47,7 @@ namespace WolvenKit.Models
             BundleType = bundleType;
             IsChecked = false;
             InternalFile = internalFile;
-            DirectoryPath = $"Root\\{bundleType}\\{Path.GetDirectoryName(fullPath)}";
+            DirectoryPath = bundleType == "SoundCache" ? Path.GetDirectoryName(fullPath) : $"Root\\{bundleType}\\{Path.GetDirectoryName(fullPath)}";
         }
 
 
