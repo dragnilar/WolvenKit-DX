@@ -898,7 +898,7 @@ namespace WolvenKit.Views
         /// </summary>
         /// <param name="depotpath">Filename.</param>
         /// <param name="managers">The managers.</param>
-        private bool AddToMod(AssetBrowserItem item, bool skipping, List<IWitcherArchive> managers, bool AddAsDLC)
+        private bool AddToMod(AssetExplorerItem item, bool skipping, List<IWitcherArchive> managers, bool AddAsDLC)
         {
             var skip = skipping;
             var depotPath = item.FullPath ?? item.FullPath ?? string.Empty;
@@ -1337,7 +1337,7 @@ namespace WolvenKit.Views
         }
 
         private void Assetbrowser_FileAdd(object sender,
-            Tuple<List<IWitcherArchive>, List<AssetBrowserItem>, bool> Details)
+            Tuple<List<IWitcherArchive>, List<AssetExplorerItem>, bool> Details)
         {
             if (Process.GetProcessesByName("Witcher3").Length != 0)
             {

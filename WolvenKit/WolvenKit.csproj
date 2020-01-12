@@ -321,7 +321,7 @@
     <Compile Include="Controls\ScriptEditor.Designer.cs">
       <DependentUpon>ScriptEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssetBrowserItem.cs" />
+    <Compile Include="Models\AssetExplorerItem.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Views\AssetExplorerView.cs">
       <SubType>Form</SubType>

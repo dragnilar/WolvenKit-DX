@@ -7,7 +7,7 @@ using WolvenKit.Interfaces;
 
 namespace WolvenKit.Models
 {
-    public sealed class AssetBrowserItem : INotifyPropertyChanged
+    public sealed class AssetExplorerItem : INotifyPropertyChanged
     {
         public bool IsDirectory { get; set; }
         public List<WitcherTreeNode> Directories { get; set; }
@@ -24,7 +24,7 @@ namespace WolvenKit.Models
         public string DirectoryPath {get;}
         
 
-        public AssetBrowserItem(string name, string fullPath, List<IWitcherFile> files, List<WitcherTreeNode> directories, int imageIndex)
+        public AssetExplorerItem(string name, string fullPath, List<IWitcherFile> files, List<WitcherTreeNode> directories, int imageIndex)
         {
             Directories = directories;
             FullPath = fullPath;
@@ -35,7 +35,7 @@ namespace WolvenKit.Models
             IsChecked = false;
         }
 
-        public AssetBrowserItem(string name, string fullPath, string size, string compressionType, string bundleType,
+        public AssetExplorerItem(string name, string fullPath, string size, string compressionType, string bundleType,
             int imageIndex, IWitcherFile internalFile)
         {
             Name = name;
