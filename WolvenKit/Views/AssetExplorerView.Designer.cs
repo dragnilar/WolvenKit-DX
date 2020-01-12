@@ -480,7 +480,7 @@ namespace WolvenKit.Views
             this.barButtonItemUnmarkSelected.Id = 178;
             this.barButtonItemUnmarkSelected.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemUnmarkSelected.ImageOptions.SvgImage")));
             this.barButtonItemUnmarkSelected.Name = "barButtonItemUnmarkSelected";
-            this.barButtonItemUnmarkSelected.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemUnmarkSelected_ItemClick);
+            this.barButtonItemUnmarkSelected.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemUnMarkSelected_ItemClick);
             // 
             // barButtonItemMarkSelected
             // 

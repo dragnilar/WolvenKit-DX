@@ -903,10 +903,11 @@ namespace WolvenKit.Views
             var skip = skipping;
             var depotPath = item.FullPath ?? item.FullPath ?? string.Empty;
             foreach (var manager in managers.Where(manager => manager.Items.ContainsKey(depotPath)))
-                if (manager.Items.Any(x => x.Value.Any(y => y.Name == item.FullPath)))
+                if (manager.Items.Any(x => x.Key == item.FullPath))
                 {
-                    var archives = manager.FileList.Where(x => x.Name == item.FullPath)
-                        .Select(y => new KeyValuePair<string, IWitcherFile>(y.Bundle.FileName, y));
+                    var archives = manager.Items.Where(x => x.Key == item.FullPath)
+                        .Select(y => new KeyValuePair<string, IWitcherFile>(y.Value.First().Name, y.Value.First()))
+                        .ToList();
                     var filename = Path.Combine(ActiveMod.FileDirectory,
                         AddAsDLC
                             ? Path.Combine("DLC", archives.First().Value.Bundle.TypeName, "dlc", ActiveMod.Name,
@@ -925,12 +926,13 @@ namespace WolvenKit.Views
                         var selectedBundle = archives.FirstOrDefault(x => x.Key == dlg.SelectedBundle).Value;
                         try
                         {
-                            Directory.CreateDirectory(Path.GetDirectoryName(filename));
+                            Directory.CreateDirectory(Path.GetDirectoryName(filename) ?? throw new InvalidOperationException());
                             if (File.Exists(filename)) File.Delete(filename);
                             selectedBundle.Extract(filename);
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            MainController.Get().QueueLog("Error adding file to mod:\n" + ex, OutputView.Logtype.Error);
                         }
 
                         return skip;
@@ -938,14 +940,14 @@ namespace WolvenKit.Views
 
                     try
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(filename));
+                        Directory.CreateDirectory(Path.GetDirectoryName(filename) ?? throw new InvalidOperationException());
                         if (File.Exists(filename)) File.Delete(filename);
 
                         archives.FirstOrDefault().Value.Extract(filename);
                     }
                     catch (Exception ex)
                     {
-                        AddOutput(ex.ToString(), OutputView.Logtype.Error);
+                        MainController.Get().QueueLog("Error adding file to mod:\n" + ex, OutputView.Logtype.Error);
                     }
 
                     return skip;
