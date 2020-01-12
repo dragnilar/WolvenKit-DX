@@ -90,7 +90,6 @@ namespace WolvenKit.Controls
                 if (editableVariables == null) return node;
                 foreach (var editableVariable in editableVariables)
                     node.Children.Add(BuildTreeListItems(editableVariable, treeNode, node));
-
                 return node;
             }
 

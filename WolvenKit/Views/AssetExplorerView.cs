@@ -443,5 +443,18 @@ namespace WolvenKit.Views
             if (ExplorerDataSource == null) return;
             foreach (var item in ExplorerDataSource.Where(item => item.IsChecked)) MarkedFiles.Add(item);
         }
+
+        private void gridControlAssetExplorer_MouseClick(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.XButton1:
+                    BreadCrumb.GoBack();
+                    break;
+                case MouseButtons.XButton2:
+                    BreadCrumb.GoForward();
+                    break;
+            }
+        }
     }
 }
