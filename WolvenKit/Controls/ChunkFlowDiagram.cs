@@ -179,7 +179,7 @@ namespace WolvenKit
             {
                 var controlParts = (CArray)controlPartsObj;
                 rootNodes.AddRange(from part in controlParts.OfType<CPtr>()
-                                   where part != null && part.PtrTargetType == "CStorySceneInput"
+                                   where part.PtrTargetType == "CStorySceneInput"
                                    select part.PtrTarget);
             }
         }

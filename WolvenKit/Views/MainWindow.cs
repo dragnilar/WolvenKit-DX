@@ -107,7 +107,7 @@ namespace WolvenKit.Views
                     sf.Filter = "Witcher 3 mesh file | *.w2mesh";
                     sf.Title = "Please specify a location to save the imported file";
                     sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
-                    if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
+                    if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName).GetAwaiter();
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace WolvenKit.Views
                         sf.Filter = "Witcher 3 cloth file | *.redcloth";
                         sf.Title = "Please specify a location to save the imported file";
                         sf.InitialDirectory = MainController.Get().Configuration.InitialFileDirectory;
-                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName);
+                        if (sf.ShowDialog() == DialogResult.OK) ImportFile(of.FileName, sf.FileName).GetAwaiter();
                     }
             }
         }
@@ -343,7 +343,7 @@ namespace WolvenKit.Views
                 {
                     sf.Description = "Please specify a location to save the dumped file";
                     if (sf.ShowDialog() == DialogResult.OK)
-                        _ = DumpFile(of.SelectedPath.EndsWith("\\") ? of.SelectedPath : of.SelectedPath + "\\",
+                        DumpFile(of.SelectedPath.EndsWith("\\") ? of.SelectedPath : of.SelectedPath + "\\",
                             sf.SelectedPath.EndsWith("\\") ? sf.SelectedPath : sf.SelectedPath + "\\");
                 }
             }

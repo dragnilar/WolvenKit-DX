@@ -35,7 +35,7 @@ namespace WolvenKit
 
         private void copySelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(logbox.SelectedText ?? string.Empty);
+            Clipboard.SetText(logbox.SelectedText);
         }
 
         private void copyAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -252,7 +252,7 @@ namespace WolvenKit
                        {
                            AddOutput("\nRecieved packet of " + Response.Params.Count + " params [" + bytesRead +
                                      " bytes]:\n" +
-                                     Response.Params.Aggregate(string.Empty, (c, n) => c += n.Type + ": " + n + "\n"));
+                                     Response.Params.Aggregate(string.Empty, (c, n) => c + (n.Type + ": " + n + "\n")));
                        });
                     }
                     else

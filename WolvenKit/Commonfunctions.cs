@@ -40,13 +40,6 @@ namespace WolvenKit
                 }
         }
 
-        /// <summary>
-        ///     Show a messagebox that the feature is work in progress.
-        /// </summary>
-        public static void ShowWIPMessage()
-        {
-            MessageBox.Show("Work in progress.", "Coming soon(tm)", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        }
 
         /// <summary>
         ///     Show the given path in the windows explorer.
@@ -102,7 +95,7 @@ namespace WolvenKit
                     // Copy the subdirectories.
                     if (Directory.GetFiles(subdir.FullName, "*", SearchOption.AllDirectories).Any())
                         ret.Add(new XElement("Directory", new XAttribute("Path", temppath),
-                            DirectoryCopy(subdir.FullName, temppath, copySubDirs)));
+                            DirectoryCopy(subdir.FullName, temppath, true)));
                 }
 
             return ret;
@@ -213,21 +206,6 @@ namespace WolvenKit
             Directory.Delete(target_dir);
         }
 
-        /// <summary>
-        ///     Gets relative path from absolute path.
-        /// </summary>
-        /// <param name="filespec">A files path.</param>
-        /// <param name="folder">The folder's path.</param>
-        /// <returns></returns>
-        public static string GetRelativePath(string filespec, string folder)
-        {
-            var pathUri = new Uri(filespec);
-            // Folders must end in a slash
-            if (!folder.EndsWith(Path.DirectorySeparatorChar.ToString())) folder += Path.DirectorySeparatorChar;
-            var folderUri = new Uri(folder);
-            return Uri.UnescapeDataString(folderUri.MakeRelativeUri(pathUri).ToString()
-                .Replace('/', Path.DirectorySeparatorChar));
-        }
 
         /// <summary>
         ///     Moves a directory's contents to anothet directory

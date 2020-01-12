@@ -147,7 +147,7 @@ namespace WolvenKit.Views
             <td valign=""top"">
 
 
-                {adition.Aggregate(string.Empty, (c, n) => c += "<br>" + n)}
+                {adition.Aggregate(string.Empty, (c, n) => c + ("<br>" + n))}
             </td>
         </tr>
     </table>

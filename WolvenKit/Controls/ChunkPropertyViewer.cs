@@ -197,13 +197,13 @@ namespace WolvenKit
             var node = (VariableListNode)treeView.SelectedObject;
             if (node?.Variable == null || !node.Variable.CanAddVariable(null)) return;
 
-            CVariable newvar = null;
+            CVariable newVariable;
 
             if (node.Variable is CArray)
             {
-                var nodearray = (CArray)node.Variable;
-                newvar = CR2WTypeManager.Get().GetByName(nodearray.elementtype, string.Empty, Chunk.cr2w, false);
-                if (newvar == null)
+                var nodeArray = (CArray)node.Variable;
+                newVariable = CR2WTypeManager.Get().GetByName(nodeArray.elementtype, string.Empty, Chunk.cr2w, false);
+                if (newVariable == null)
                     return;
             }
             else
@@ -211,27 +211,27 @@ namespace WolvenKit
                 var frm = new frmAddVariable();
                 if (frm.ShowDialog() != DialogResult.OK) return;
 
-                newvar = CR2WTypeManager.Get().GetByName(frm.VariableType, frm.VariableName, Chunk.cr2w, false);
-                if (newvar == null)
+                newVariable = CR2WTypeManager.Get().GetByName(frm.VariableType, frm.VariableName, Chunk.cr2w, false);
+                if (newVariable == null)
                     return;
 
-                newvar.Name = frm.VariableName;
-                newvar.Type = frm.VariableType;
+                newVariable.Name = frm.VariableName;
+                newVariable.Type = frm.VariableType;
             }
 
-            if (newvar is CHandle)
+            if (newVariable is CHandle)
             {
                 var result = MessageBox.Show("Add as chunk handle? (Yes for chunk handle, No for normal handle)",
                     "Adding handle.", MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Cancel)
                     return;
 
-                ((CHandle)newvar).ChunkHandle = result == DialogResult.Yes;
+                ((CHandle)newVariable).ChunkHandle = result == DialogResult.Yes;
             }
 
-            node.Variable.AddVariable(newvar);
+            node.Variable.AddVariable(newVariable);
 
-            var subnode = AddListViewItems(newvar, node);
+            var subnode = AddListViewItems(newVariable, node);
             node.Children.Add(subnode);
 
             treeView.RefreshObject(node);

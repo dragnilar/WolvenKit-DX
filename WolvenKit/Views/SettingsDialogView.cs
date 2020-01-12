@@ -9,7 +9,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace WolvenKit.Views
 {
@@ -38,10 +37,12 @@ namespace WolvenKit.Views
 
         private void btnBrowseExe_Click(object sender, EventArgs e)
         {
-            var dlg = new System.Windows.Forms.OpenFileDialog();
-            dlg.Title = "Select Witcher 3 Executable.";
-            dlg.FileName = txExecutablePath.Text;
-            dlg.Filter = "witcher3.exe|witcher3.exe";
+            var dlg = new XtraOpenFileDialog
+            {
+                Title = "Select Witcher 3 Executable.",
+                FileName = txExecutablePath.Text,
+                Filter = "witcher3.exe|witcher3.exe"
+            };
             if (dlg.ShowDialog(this) == DialogResult.OK) txExecutablePath.Text = dlg.FileName;
         }
 
@@ -94,7 +95,7 @@ namespace WolvenKit.Views
                 using (var bw = new BinaryWriter(fs))
                 {
                     var shawcc = SHA256.Create().ComputeHash(fs)
-                        .Aggregate(string.Empty, (c, n) => c += n.ToString("x2"));
+                        .Aggregate(string.Empty, (c, n) => n.ToString("x2"));
                     switch (shawcc)
                     {
                         case wcc_sha256:
@@ -114,9 +115,9 @@ Would you like to perform this patch?", "wcc_lite faster patch", MessageBoxButto
                                 //Recompute hash
                                 fs.Seek(0, SeekOrigin.Begin);
                                 shawcc = SHA256.Create().ComputeHash(fs)
-                                    .Aggregate(string.Empty, (c, n) => c += n.ToString("x2"));
+                                    .Aggregate(string.Empty, (c, n) => n.ToString("x2"));
                                 if (shawcc == wcc_sha256_patched)
-                                    MessageBox.Show("Succesfully patched!", "Patch completed", MessageBoxButtons.OK,
+                                    MessageBox.Show("Successfully patched!", "Patch completed", MessageBoxButtons.OK,
                                         MessageBoxIcon.Information);
                                 else
                                     MessageBox.Show("Failed to patch! Please reinstall wcc_lite and try again",
