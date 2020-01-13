@@ -266,12 +266,22 @@ namespace WolvenKit.Views
 
         private void OnSelectNoneItemClick(object sender, ItemClickEventArgs e)
         {
+            ClearAllChecks();
+        }
+
+        private void ClearAllChecks()
+        {
             winExplorerView.ClearSelection();
             for (var i = 0; i <= winExplorerView.RowCount; i++)
                 winExplorerView.SetRowCellValue(i, gridColumnIsChecked, false);
         }
 
         private void barButtonItemSelectAll_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            CheckAllItems();
+        }
+
+        private void CheckAllItems()
         {
             winExplorerView.ClearSelection();
             for (var i = 0; i <= winExplorerView.RowCount; i++)
@@ -407,10 +417,7 @@ namespace WolvenKit.Views
         {
             if (MarkedFiles.Count > 0)
             {
-                RequestFileAdd?.Invoke(this,
-                    new Tuple<List<IWitcherArchive>, List<AssetExplorerItem>, bool>(Archives, MarkedFiles.ToList(),
-                        false));
-                MarkedFiles.Clear();
+                AddMarkedItemsToModOrDLC(false);
             }
         }
 
@@ -418,11 +425,17 @@ namespace WolvenKit.Views
         {
             if (MarkedFiles.Count > 0)
             {
-                RequestFileAdd?.Invoke(this,
-                    new Tuple<List<IWitcherArchive>, List<AssetExplorerItem>, bool>(Archives, MarkedFiles.ToList(),
-                        true));
-                MarkedFiles.Clear();
+                AddMarkedItemsToModOrDLC(true);
+                
             }
+        }
+
+        private void AddMarkedItemsToModOrDLC(bool addToDLC)
+        {
+            RequestFileAdd?.Invoke(this,
+                new Tuple<List<IWitcherArchive>, List<AssetExplorerItem>, bool>(Archives, MarkedFiles.ToList(),
+                    addToDLC));
+            MarkedFiles.Clear();
         }
 
         private void barButtonItemClearMarks_ItemClick(object sender, ItemClickEventArgs e)
@@ -442,6 +455,7 @@ namespace WolvenKit.Views
         {
             if (ExplorerDataSource == null) return;
             foreach (var item in ExplorerDataSource.Where(item => item.IsChecked)) MarkedFiles.Add(item);
+            ClearAllChecks();
         }
 
         private void gridControlAssetExplorer_MouseClick(object sender, MouseEventArgs e)
@@ -455,6 +469,29 @@ namespace WolvenKit.Views
                     BreadCrumb.GoForward();
                     break;
             }
+        }
+
+        private void barButtonItemQuickAddMod_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (SelectedItem != null)
+            {
+                QuickAddFile(SelectedItem, false);
+            }
+        }
+
+        private void barButtonItemQuickAddDLC_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (SelectedItem != null)
+            {
+                QuickAddFile(SelectedItem, true);
+            }
+        }
+
+        private void QuickAddFile(AssetExplorerItem itemToAdd, bool addToDlC)
+        {
+            RequestFileAdd?.Invoke(this,
+                new Tuple<List<IWitcherArchive>, List<AssetExplorerItem>, bool>(Archives, new List<AssetExplorerItem>{itemToAdd},
+                    addToDlC));
         }
     }
 }

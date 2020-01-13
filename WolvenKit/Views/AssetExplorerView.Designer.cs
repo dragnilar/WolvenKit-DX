@@ -113,6 +113,8 @@ namespace WolvenKit.Views
             this.svgImageCollectionLargeAssetBrowser = new DevExpress.Utils.SvgImageCollection(this.components);
             this.itemPopupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.navigationMenu = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barButtonItemQuickAddMod = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemQuickAddDLC = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RibbonControl)).BeginInit();
@@ -170,9 +172,11 @@ namespace WolvenKit.Views
             this.barButtonItemClearMarks,
             this.barButtonItemUnmarkSelected,
             this.barButtonItemMarkSelected,
-            this.barButtonItemSelectAll});
+            this.barButtonItemSelectAll,
+            this.barButtonItemQuickAddMod,
+            this.barButtonItemQuickAddDLC});
             this.RibbonControl.Location = new System.Drawing.Point(0, 0);
-            this.RibbonControl.MaxItemId = 181;
+            this.RibbonControl.MaxItemId = 183;
             this.RibbonControl.Name = "RibbonControl";
             this.RibbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.PageHome});
@@ -308,6 +312,7 @@ namespace WolvenKit.Views
             this.rgbiViewStyle.Gallery.ItemTextPadding = skinPaddingEdges2;
             this.rgbiViewStyle.Gallery.ShowItemText = true;
             this.rgbiViewStyle.Id = 141;
+            this.rgbiViewStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("rgbiViewStyle.ImageOptions.SvgImage")));
             this.rgbiViewStyle.Name = "rgbiViewStyle";
             this.rgbiViewStyle.GalleryItemCheckedChanged += new DevExpress.XtraBars.Ribbon.GalleryItemEventHandler(this.OnViewStyleGalleryItemCheckedChanged);
             this.rgbiViewStyle.GalleryInitDropDownGallery += new DevExpress.XtraBars.Ribbon.InplaceGalleryEventHandler(this.OnRgbiViewStyleInitDropDown);
@@ -415,6 +420,7 @@ namespace WolvenKit.Views
             // PageGroupViewLayouts
             // 
             this.PageGroupViewLayouts.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
+            this.PageGroupViewLayouts.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("PageGroupViewLayouts.ImageOptions.SvgImage")));
             this.PageGroupViewLayouts.ItemLinks.Add(this.rgbiViewStyle);
             this.PageGroupViewLayouts.Name = "PageGroupViewLayouts";
             this.PageGroupViewLayouts.Text = "Layouts";
@@ -809,11 +815,13 @@ namespace WolvenKit.Views
             // itemPopupMenu
             // 
             this.itemPopupMenu.ItemLinks.Add(this.ContextItemOpen);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToDLC);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToMod);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemClearMarks);
-            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemUnmarkSelected);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemQuickAddMod);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemQuickAddDLC);
             this.itemPopupMenu.ItemLinks.Add(this.barButtonItemMarkSelected);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemUnmarkSelected);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemClearMarks);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToMod);
+            this.itemPopupMenu.ItemLinks.Add(this.barButtonItemAddMarkedToDLC);
             this.itemPopupMenu.Name = "itemPopupMenu";
             this.itemPopupMenu.Ribbon = this.RibbonControl;
             // 
@@ -821,6 +829,22 @@ namespace WolvenKit.Views
             // 
             this.navigationMenu.Name = "navigationMenu";
             this.navigationMenu.Ribbon = this.RibbonControl;
+            // 
+            // barButtonItemQuickAddMod
+            // 
+            this.barButtonItemQuickAddMod.Caption = "Quick Add To Mod";
+            this.barButtonItemQuickAddMod.Id = 181;
+            this.barButtonItemQuickAddMod.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemQuickAddMod.ImageOptions.SvgImage")));
+            this.barButtonItemQuickAddMod.Name = "barButtonItemQuickAddMod";
+            this.barButtonItemQuickAddMod.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemQuickAddMod_ItemClick);
+            // 
+            // barButtonItemQuickAddDLC
+            // 
+            this.barButtonItemQuickAddDLC.Caption = "Quick Add To DLC";
+            this.barButtonItemQuickAddDLC.Id = 182;
+            this.barButtonItemQuickAddDLC.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItemQuickAddDLC.ImageOptions.SvgImage")));
+            this.barButtonItemQuickAddDLC.Name = "barButtonItemQuickAddDLC";
+            this.barButtonItemQuickAddDLC.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemQuickAddDLC_ItemClick);
             // 
             // AssetExplorerView
             // 
@@ -918,6 +942,8 @@ namespace WolvenKit.Views
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnMarkedFilePath;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnIsChecked;
         private DevExpress.XtraBars.BarButtonItem barButtonItemSelectAll;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemQuickAddMod;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemQuickAddDLC;
     }
 }
 
