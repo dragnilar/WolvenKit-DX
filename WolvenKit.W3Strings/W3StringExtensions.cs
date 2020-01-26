@@ -144,7 +144,9 @@ namespace WolvenKit.W3Strings
 
                 if (bytes[i] == 128)
                 {
-                    throw new Exception("No clue what to do here, still need to think about it... :p");
+                    //TODO - This will typically happen when the most recently added string is of a particular length.
+                    //It would be nice to resolve this since it is annoying.
+                    throw new Exception("Last string was of a length that could not be encoded.\nEither remove it or use a shorter string.");
                 }
 
                 stream.Write((byte)bytes[i]);
